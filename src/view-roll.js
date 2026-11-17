@@ -74,6 +74,13 @@ function render(section, ctx) {
     sentence = `On average the 5TC settled ${usdDay(Math.abs(one.mean_usd_day))} ${above ? "above" : "below"} the FFA price ${horizonLabel(one.horizon_months)} before expiry${ci && isNum(ci.low) ? ` (90 percent interval ${signed(ci.low)} to ${signed(ci.high)})` : ""}: a rolling charterer ${above ? "earned" : "paid"} that gap and a rolling owner ${above ? "gave it up" : "earned it"}${spansZero ? ", though the interval includes zero" : ""}.`;
   }
   section.append(takeaway("Bias and roll", sentence));
+  const variants = Object.fromEntries((ctx.data.method?.robustness || []).map((v) => [v.key, (v.bias || {})[String(one?.horizon_months)] || null]));
+  const latest = variants.latest_print;
+  const first = variants.headline;
+  if (one && latest && first && isNum(latest.mean_usd_day) && isNum(first.mean_usd_day) && latest.mean_usd_day !== first.mean_usd_day) {
+    const closer = isNum(latest.rmse_usd_day) && isNum(first.rmse_usd_day) && latest.rmse_usd_day < first.rmse_usd_day;
+    section.append(h("p", { class: "lede" }, `The figure depends on which print of the curve is used. The study uses each curve's first print, the price a hedger had on the date; the same curve as the next issue re-assesses it a week later gives a mean of ${signed(latest.mean_usd_day)} USD a day${closer ? ` and sits closer to the settlement (RMSE ${num(latest.rmse_usd_day)} against ${num(first.rmse_usd_day)}), as a later price would` : ""}.`));
+  }
 
   // ---------------------------------------------------------- key chart
   const key = h("div");

@@ -32,7 +32,7 @@ def signed(x: float | None) -> str:
     return "n/a" if x is None else f"{round(x):+,}"
 
 
-def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
+def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict, method: dict | None = None) -> list[str]:
     """The answer in five sentences, every figure read from the artifacts."""
     h = ov["headline"]
     cells = {(c["voyage"], c["horizon_months"]): c for c in ov["effectiveness"]}
@@ -75,7 +75,7 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
             f"curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval "
             f"{signed(lo)} to {signed(hi)}): a rolling {'charterer earned' if above else 'owner earned'} "
             f"that gap and a rolling {'owner gave it up' if above else 'charterer paid it'}"
-            f"{', though the interval includes zero' if zero else ''}."
+            f"{', though the interval includes zero' if zero else ''}." + print_sensitivity(method, b1["mean_usd_day"])
         )
     out.append(
         f"The front month stood above the same day's spot in {pct(fa['contango'])} of {fa['n']} weekly curves, "
@@ -89,6 +89,25 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
             f"{usd(peak['tce_usd_day'])} a day in the week to {day(peak['week'])}." + td3c_cases_sentence(td3c)
         )
     return out
+
+
+def print_sensitivity(method: dict | None, headline: float) -> str:
+    """The one-month bias with each curve's later re-assessment in place of its first print, when it differs."""
+    rows = {v.get("key"): ((v.get("bias") or {}).get("1") or {}) for v in (method or {}).get("robustness", [])}
+    latest, first = rows.get("latest_print") or {}, rows.get("headline") or {}
+    value = latest.get("mean_usd_day")
+    if value is None or abs(value - headline) < 250:
+        return ""
+    closer = (
+        f", and sits closer to the settlement (RMSE {usd(latest['rmse_usd_day'])} against "
+        f"{usd(first['rmse_usd_day'])}), as a later price would"
+        if latest.get("rmse_usd_day") and first.get("rmse_usd_day") and latest["rmse_usd_day"] < first["rmse_usd_day"]
+        else ""
+    )
+    return (
+        " The figure depends on the print: the same curve as the next issue re-assesses it a week later gives a "
+        f"mean of USD {usd(value)} a day{closer}; the first print is the price a hedger had on the date."
+    )
 
 
 def td3c_cases_sentence(td3c: dict) -> str:

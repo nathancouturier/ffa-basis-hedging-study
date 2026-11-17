@@ -174,7 +174,7 @@ def style_axes(ax, grid_axis: str = "y") -> None:
 def effectiveness_chart(cells: list[dict]) -> Image:
     """One row per voyage and horizon: k = 1 with its interval (FFA colour), k* out of sample (ink diamond)."""
     rows = [c for v in ("5TC trip", "C3", "C5") for c in cells if c["voyage"] == v]
-    fig, ax = plt.subplots(figsize=(6.3, 3.0))
+    fig, ax = plt.subplots(figsize=(6.3, 2.6))
     labels = []
     for i, c in enumerate(rows):
         y = len(rows) - i
@@ -199,7 +199,7 @@ def effectiveness_chart(cells: list[dict]) -> Image:
 def contango_chart(curve: dict) -> Image:
     rows = curve["shares"]["front_vs_spot_by_year"]
     years = sorted(rows)
-    fig, ax = plt.subplots(figsize=(6.3, 1.9))
+    fig, ax = plt.subplots(figsize=(6.3, 1.55))
     vals = [100 * rows[y]["contango"] for y in years]
     ax.bar(years, vals, color=C["contango"], width=0.55)
     for y, v, n in zip(years, vals, [rows[y]["n"] for y in years], strict=True):
@@ -212,7 +212,7 @@ def contango_chart(curve: dict) -> Image:
 
 def td3c_chart(td3c: dict) -> Image:
     weeks = [w for w in td3c["weekly"] if w["week"] >= "2025-07-01"]
-    fig, ax = plt.subplots(figsize=(6.3, 2.3))
+    fig, ax = plt.subplots(figsize=(6.3, 1.95))
     xs = [dt.date.fromisoformat(w["week"]) for w in weeks]
     for w in weeks:
         if w["thin_market"]:
@@ -287,7 +287,7 @@ def build() -> list:
         )
     )
     s.append(Paragraph("<b>Findings</b>", head))
-    for i, text in enumerate(five_findings(ov, curve, roll, td3c), 1):
+    for i, text in enumerate(five_findings(ov, curve, roll, td3c, method), 1):
         s.append(Paragraph(text, bullet, bulletText=f"{i}."))
     s.append(Spacer(1, 4))
     s.append(
@@ -410,9 +410,9 @@ def build() -> list:
     high_bin = bins[-1] if bins else None
     slope = (
         f" With spot between USD {usd(low_bin['spot_from'])} and {usd(low_bin['spot_to'])} a day the first full "
-        f"quarter sat {low_bin['mean_slope_pct']:+.1f} percent of spot from the front month ({low_bin['n']} curves); "
+        f"quarter sat {100 * low_bin['mean_slope_pct']:+.0f} percent of spot from the front month ({low_bin['n']} curves); "
         f"with spot between USD {usd(high_bin['spot_from'])} and {usd(high_bin['spot_to'])}, "
-        f"{high_bin['mean_slope_pct']:+.1f} percent ({high_bin['n']} curves)."
+        f"{100 * high_bin['mean_slope_pct']:+.0f} percent ({high_bin['n']} curves)."
         if low_bin and high_bin and low_bin is not high_bin
         else ""
     )
@@ -439,7 +439,6 @@ def build() -> list:
         )
     )
 
-    s.append(Paragraph("<b>Bias and roll cost</b>", head))
     bias = [r for r in roll["bias"] if r]
     rows = [
         [
@@ -475,6 +474,7 @@ def build() -> list:
     s.append(
         KeepTogether(
             [
+                Paragraph("<b>Bias and roll cost</b>", head),
                 Paragraph(
                     "<b>Table 2.</b> Forecast error, settlement less the price on the last curve h months before "
                     "the contract month, USD a day, each contract on the basket its curve was printed on. Positive: "
@@ -671,7 +671,11 @@ def build() -> list:
             "curves to the dollar, the USD 3,503 basket gap on 3 and 29 July 2026, the Baltic's weekly TD3C prints, "
             "Breakwave's prints, the vendored engine within 1e-9 of its own published results and every complete "
             "month against Himalaya Shipping's published average. "
-            + " ".join(f"<i>{x['title']}.</i> {x['text']}" for x in method.get("limitations", [])[1:]),
+            + " ".join(
+                f"<i>{x['title']}.</i> {x['text']}"
+                for x in method.get("limitations", [])
+                if x["title"].startswith(("The forward curve", "Voyage earnings", "The literature"))
+            ),
             body,
         )
     )

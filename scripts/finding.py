@@ -24,9 +24,10 @@ def block() -> str:
     """The finding block: the data's date and the five findings of the note, numbered."""
     data = ROOT / "data"
     load = {
-        n: json.loads((data / f"{n}.json").read_text(encoding="utf-8")) for n in ("overview", "curve", "roll", "td3c")
+        n: json.loads((data / f"{n}.json").read_text(encoding="utf-8"))
+        for n in ("overview", "curve", "roll", "td3c", "method")
     }
-    findings = five_findings(load["overview"], load["curve"], load["roll"], load["td3c"])
+    findings = five_findings(load["overview"], load["curve"], load["roll"], load["td3c"], load["method"])
     lines = [f"**Data to {day(load['overview']['as_of'])}.**", ""]
     lines += [f"{i}. {text}" for i, text in enumerate(findings, 1)]
     return START + "\n" + "\n".join(lines) + "\n" + END
