@@ -56,6 +56,12 @@
     "Baltic copyright; figures cited with page, not redistributed",
     "Baltic copyright; figures cited, not redistributed"
    ],
+   "links": [
+    {
+     "label": "Guide to Market Benchmarks",
+     "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf"
+    }
+   ],
    "source": "Baltic Exchange guides and notes"
   },
   {
@@ -64,6 +70,12 @@
    "last_retrieved": "2026-11-17T17:06:16Z",
    "licence": [
     "Baltic copyright; cached, not redistributed; figures cited with links"
+   ],
+   "links": [
+    {
+     "label": "Baltic Exchange weekly roundup",
+     "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup.html"
+    }
    ],
    "source": "Baltic Exchange weekly reports"
   },
@@ -75,6 +87,20 @@
     "Copyright of the publisher (Reuters text as republished); cached, not redistributed",
     "Copyright of the publisher; cached, not redistributed"
    ],
+   "links": [
+    {
+     "label": "Cyprus Shipping News",
+     "url": "https://cyprusshippingnews.com/"
+    },
+    {
+     "label": "MarineLink",
+     "url": "https://www.marinelink.com/"
+    },
+    {
+     "label": "Maritime Professional",
+     "url": "https://www.maritimeprofessional.com/"
+    }
+   ],
    "source": "Reuters daily reports as republished"
   },
   {
@@ -83,6 +109,16 @@
    "last_retrieved": "2026-11-17T16:11:42Z",
    "licence": [
     "Copyright of the publisher; cited, not redistributed"
+   ],
+   "links": [
+    {
+     "label": "EEX contract specifications, release 047a",
+     "url": "https://www.eex.com/fileadmin/EEX/Downloads/Rules/EEX-Contract_Specifications_for_Trade_Registration/20260723_EEX_Contract_Specifications_for_Trade_Registration_047a_EN_FINAL.pdf"
+    },
+    {
+     "label": "ICE TD3C future (TDL) specification",
+     "url": "https://www.ice.com/api/productguide/spec/57250507/pdf"
+    }
    ],
    "source": "Exchanges (EEX, ICE)"
   },
@@ -93,6 +129,16 @@
    "licence": [
     "US public record (SEC EDGAR)"
    ],
+   "links": [
+    {
+     "label": "Amplify Commodity Trust filings",
+     "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001610940&type=10-&dateb=&owner=include&count=40"
+    },
+    {
+     "label": "Himalaya Shipping filings",
+     "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001959455&type=6-K&dateb=&owner=include&count=40"
+    }
+   ],
    "source": "SEC EDGAR (Amplify Commodity Trust, Himalaya Shipping)"
   },
   {
@@ -102,6 +148,12 @@
    "licence": [
     "US Government work, public domain"
    ],
+   "links": [
+    {
+     "label": "EIA, Today in Energy, 26 March 2026",
+     "url": "https://www.eia.gov/todayinEnergy/detail.php?id=67386"
+    }
+   ],
    "source": "EIA"
   },
   {
@@ -109,7 +161,13 @@
    "first_retrieved": "2026-11-17T16:19:05Z",
    "last_retrieved": "2026-11-17T16:22:20Z",
    "licence": [
-    "Copyright of the publisher; robots content signal use=reference, ai-train=no; cached, not redistributed"
+    "Copyright of the publisher; its robots.txt allows reference use; cached, not redistributed"
+   ],
+   "links": [
+    {
+     "label": "handybulk.com Baltic Dry Index archive",
+     "url": "https://www.handybulk.com/baltic-dry-index/"
+    }
    ],
    "source": "handybulk.com daily archive"
   },
@@ -120,6 +178,12 @@
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
+   "links": [
+    {
+     "label": "The Edge Malaysia",
+     "url": "https://theedgemalaysia.com/"
+    }
+   ],
    "source": "The Edge Malaysia (Baltic weekly report)"
   },
   {
@@ -129,6 +193,12 @@
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
+   "links": [
+    {
+     "label": "Hellenic Shipping News, Banchero Costa reports",
+     "url": "https://www.hellenicshippingnews.com/?s=banchero+costa"
+    }
+   ],
    "source": "Banchero Costa weekly reports (via Hellenic Shipping News)"
   },
   {
@@ -137,6 +207,16 @@
    "last_retrieved": "2026-11-17T17:58:10Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
+   ],
+   "links": [
+    {
+     "label": "Hellenic Shipping News, Breakwave reports",
+     "url": "https://www.hellenicshippingnews.com/?s=breakwave"
+    },
+    {
+     "label": "Breakwave Advisors, 7 April 2026",
+     "url": "https://www.breakwaveadvisors.com/insights/tanker4726"
+    }
    ],
    "source": "Breakwave tanker reports (via Hellenic Shipping News)"
   }

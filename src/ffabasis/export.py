@@ -83,6 +83,7 @@ def hedge_cells(table: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "effectiveness_kstar_oos": _share(oos.get("effectiveness_kstar")),
                 "effectiveness_k1_same_rows": _share(oos.get("effectiveness_k1_same_rows")),
                 "n_oos": oos.get("n"),
+                "oos_first_fixture": oos.get("first_fixture"),
                 "k_oos_last": _r(oos.get("k_last"), 3),
                 "sd_unhedged_usd_day": _usd(row["sd_unhedged_usd_day"]),
                 "sd_hedged_usd_day": _usd(row["sd_hedged_usd_day"]),
@@ -130,6 +131,10 @@ def cited_curves(results: dict[str, Any], panel: dict[str, Any]) -> list[dict[st
                 ],
                 "spot_usd_day": _usd(spot),
                 "spot_on": spot_day if spot is not None else None,
+                "spot_sources": sorted(set((panel["daily"].get(spot_day) or {}).get("sources") or []))
+                if spot is not None
+                else [],
+                "spot_kind": (panel["daily"].get(spot_day) or {}).get("kind") if spot is not None else None,
                 "reprints": [
                     {
                         "issue": r["issue"],
@@ -303,6 +308,8 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
             "route_usd_day": _usd(r["route_basis"]),
             "size_usd_day": _usd(r["size_basis"]),
             "days": _r(r["days"], 3),
+            "curve_basket_t": r["curve_basket_t"],
+            "ship_basket_t": r["ship_basket_t"],
         }
         for r in results["hedge_rows"]
     ]
@@ -378,14 +385,29 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
     )
     write_csv(
         downloads / "roll_cost_by_year.csv",
-        ["strategy", "year", "n", "roll_cost_usd_day", "roll_cost_pct", "ship_year_usd"],
         [
-            ["one-month long", r["year"], r["n"], r["roll_cost_usd_day"], r["roll_cost_pct"], r["ship_year_usd"]]
-            for r in roll["roll_1m"]
-        ]
-        + [
-            ["front-quarter long", r["year"], r["n"], r["roll_cost_usd_day"], r["roll_cost_pct"], r["ship_year_usd"]]
-            for r in roll["roll_quarter"]
+            "strategy",
+            "year",
+            "n",
+            "contracts_on_180000_t",
+            "contracts_on_182000_t",
+            "roll_cost_usd_day",
+            "roll_cost_pct",
+            "ship_year_usd",
+        ],
+        [
+            [
+                name,
+                r["year"],
+                r["n"],
+                r["baskets"]["180000"],
+                r["baskets"]["182000"],
+                r["roll_cost_usd_day"],
+                r["roll_cost_pct"],
+                r["ship_year_usd"],
+            ]
+            for name, key in (("one-month long", "roll_1m"), ("front-quarter long", "roll_quarter"))
+            for r in roll[key]
         ],
     )
     write_csv(
@@ -410,6 +432,8 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
             "timing_usd_day",
             "route_usd_day",
             "size_usd_day",
+            "curve_basket_t",
+            "ship_basket_t",
         ],
         [
             [
@@ -424,6 +448,8 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
                 h["timing_usd_day"],
                 h["route_usd_day"],
                 h["size_usd_day"],
+                h["curve_basket_t"],
+                h["ship_basket_t"],
             ]
             for h in lab["history"]
         ],

@@ -317,7 +317,7 @@ function render(section, ctx) {
               { label: "SEC mark", format: (r) => (r.sec_url ? h("a", { href: r.sec_url }, dateShort(r.sec_as_of)) : dateShort(r.sec_as_of)) },
               { label: "Days apart", num: true, format: (r) => num(r.days_apart) },
               { label: "SEC, USD a day", num: true, format: (r) => num(r.sec_usd_day_180) },
-              { label: "Curve against the mark", format: (r) => `${capitalise(r.band)}, ${r.curve_above_sec ? "above" : "below"}` },
+              { label: "Curve against the mark", format: (r) => (r.direction === "equal" ? "Equal" : `${capitalise(r.band)}, ${r.direction}`) },
               { label: "Flag", format: (r) => (r.flag ? "Flagged" : "") },
             ],
             rows: sec,

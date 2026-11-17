@@ -429,6 +429,9 @@ def roll_cost_by_year(rows: list[dict[str, Any]], h: int = 1) -> list[dict[str, 
                 "roll_cost_pct": stats.mean(pct),
                 "ship_year_usd": stats.mean(cost) * 365.0,
                 "statuses": sorted({r.get("settlement_status", "") for r in sel} - {""}),
+                "baskets": {str(b): sum(1 for r in sel if r.get("basket_t") == b) for b in (180000, 182000)},
+                "first": min(r["contract"] for r in sel),
+                "last": max(r["contract"] for r in sel),
             }
         )
     return out

@@ -18,9 +18,9 @@ times a published factor: 0.11026 for the 182,000 t basket (GMB v8.8 page 76)
 and 0.12058 (0.25 x 0.12058 = 0.030145, the C8_14 weight of GMB v7.09 page 75)
 for the 180,000 t one. basket_from_bci() reads it day by day.
 
-Terms: robots.txt allows all paths to general agents and signals
-"search=yes, ai-train=no, use=reference". The study reads figures for
-reference, trains nothing, and keeps the daily values in the gitignored cache.
+Terms: robots.txt allows all paths to general agents and signals reference
+use. The study reads figures for reference and keeps the daily values in the
+gitignored cache.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ from .http import Fetcher, FetchError
 
 BASE = "https://www.handybulk.com/baltic-dry-index/"
 SOURCE = "handybulk.com, Baltic Dry Index archive"
-LICENCE = "Copyright of the publisher; robots content signal use=reference, ai-train=no; cached, not redistributed"
+LICENCE = "Copyright of the publisher; its robots.txt allows reference use; cached, not redistributed"
 MONTH_NAMES = [
     "january",
     "february",

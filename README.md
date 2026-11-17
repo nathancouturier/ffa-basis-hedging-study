@@ -26,8 +26,8 @@ Read this part first.
 - **It is a hedging study, not a forecast or a strategy.** There is no signal, no position sizing and no profit
   and loss presented as a strategy. Forward bias and roll cost are costs and premiums a hedger faces, reported as
   such.
-- **The daily 5TC is public in full only from January 2026.** Before that, the republished daily reports that the
-  build environment can reach cover part of the days. A month's settlement is the study's own average only when
+- **The daily 5TC is public in full only from January 2026.** Before that, the republished daily reports that could be
+  reached cover part of the days. A month's settlement is the study's own average only when
   every publication day is printed in public (July 2023 and January to October 2026); otherwise it is the monthly
   average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every complete month
   to within a dollar; months before May 2023 have only partial averages and enter the robustness checks alone.
@@ -53,11 +53,12 @@ Read this part first.
   Worldscale and the dollar case studies and statistics use Breakwave's bi-weekly dollar prints, a month settled
   at the average of one or two prints. Weeks in which the Baltic wrote that its panellists had difficulty
   assessing Gulf loadings are marked.
-- **The literature could not be opened.** Publishers' and repositories' hosts are refused by the build
-  environment, so no published result (Ederington 1979; Kavussanos and Nomikos 2000; Alizadeh and Nomikos 2009) is
-  compared; Ederington's measure is reported for the reader to set beside them.
-- **Amplify's live holdings are captured only by the scheduled refresh.** Their pages draw from a host the build
-  environment refuses; the SEC quarter-end marks carry the history.
+- **The published hedging studies could not be obtained.** Their publishers' and repositories' sites could not be
+  reached when the data were gathered, so no published result (Ederington 1979; Kavussanos and Nomikos 2000;
+  Alizadeh and Nomikos 2009) is quoted; Ederington's measure is reported for the reader to set beside them.
+- **Amplify's live holdings are captured only by the scheduled refresh.** Their pages draw their tables with
+  scripts from a host that could not be reached when the data were gathered; the SEC quarter-end marks carry the
+  history.
 
 ## The finding
 

@@ -247,7 +247,7 @@ def validation(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str,
     url26 = panel["curves"].get("2026-07-27", {}).get("url")
     for period, value in w30:
         add(
-            "Banchero Costa week 30 of 2026, FFA of 27 July",
+            "Banchero Costa week 30 of 2026, FFA of 27 July (182,000 t basket)",
             period,
             value,
             curve_value("2026-07-27", period),
@@ -266,8 +266,24 @@ def validation(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str,
         0.0,
     )
     r26 = panel["routes"].get("2026-07-24", {})
-    add("Banchero Costa week 30 of 2026", "C3, 24 July", 34.68, r26.get("c3_usd_t"), "usd_t", url26, 0.0)
-    add("Banchero Costa week 30 of 2026", "C5, 24 July", 12.86, r26.get("c5_usd_t"), "usd_t", url26, 0.0)
+    add(
+        "Banchero Costa week 30 of 2026 (route rates, USD a tonne)",
+        "C3, 24 July",
+        34.68,
+        r26.get("c3_usd_t"),
+        "usd_t",
+        url26,
+        0.0,
+    )
+    add(
+        "Banchero Costa week 30 of 2026 (route rates, USD a tonne)",
+        "C5, 24 July",
+        12.86,
+        r26.get("c5_usd_t"),
+        "usd_t",
+        url26,
+        0.0,
+    )
     settle = results["settlements"]
     july = settle.get("2026-07")
     if july:
@@ -506,7 +522,8 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
         },
         {
             "title": "The forward curve is one broker's weekly assessment",
-            "text": f"Banchero Costa's Monday Capesize FFA assessments as Hellenic Shipping News republishes them, "
+            "text": f"Banchero Costa's weekly (mostly Monday) Capesize FFA assessments as Hellenic Shipping News "
+            f"republishes them, "
             f"{long_date(cov['first_ffa_week'])} to {long_date(cov['last_ffa_week'])}, with gaps where issues were "
             "not reachable. The "
             "next issue's previous-week column is a re-assessment; the study uses first prints and shows the latest "
@@ -538,11 +555,76 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
             "case studies use Breakwave's bi-weekly prints, settled at the average of one or two prints a month.",
         },
         {
-            "title": "The literature could not be opened",
-            "text": "Publishers' and repositories' hosts are refused by the build environment, so no published result "
-            "is compared; Ederington's measure is reported for the reader to set beside them.",
+            "title": "The published hedging studies could not be obtained",
+            "text": "Their publishers' and repositories' sites could not be reached when the data were gathered, so no "
+            "published result is quoted; Ederington's measure is reported for the reader to set beside them.",
         },
     ]
+
+
+#: Where a reader finds each source family: its archive, listing or filer page (every document's own address is
+#: in data/raw/manifest.json).
+SOURCE_LINKS = {
+    "Banchero Costa weekly reports (via Hellenic Shipping News)": [
+        {
+            "label": "Hellenic Shipping News, Banchero Costa reports",
+            "url": "https://www.hellenicshippingnews.com/?s=banchero+costa",
+        }
+    ],
+    "Breakwave tanker reports (via Hellenic Shipping News)": [
+        {
+            "label": "Hellenic Shipping News, Breakwave reports",
+            "url": "https://www.hellenicshippingnews.com/?s=breakwave",
+        },
+        {"label": "Breakwave Advisors, 7 April 2026", "url": "https://www.breakwaveadvisors.com/insights/tanker4726"},
+    ],
+    "Baltic Exchange weekly reports": [
+        {
+            "label": "Baltic Exchange weekly roundup",
+            "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup.html",
+        }
+    ],
+    "Baltic Exchange guides and notes": [
+        {
+            "label": "Guide to Market Benchmarks",
+            "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/"
+            "documentation/ocean-bulk-guides-policies/GMB.pdf",
+        }
+    ],
+    "handybulk.com daily archive": [
+        {"label": "handybulk.com Baltic Dry Index archive", "url": "https://www.handybulk.com/baltic-dry-index/"}
+    ],
+    "Reuters daily reports as republished": [
+        {"label": "Cyprus Shipping News", "url": "https://cyprusshippingnews.com/"},
+        {"label": "MarineLink", "url": "https://www.marinelink.com/"},
+        {"label": "Maritime Professional", "url": "https://www.maritimeprofessional.com/"},
+    ],
+    "The Edge Malaysia (Baltic weekly report)": [{"label": "The Edge Malaysia", "url": "https://theedgemalaysia.com/"}],
+    "SEC EDGAR (Amplify Commodity Trust, Himalaya Shipping)": [
+        {
+            "label": "Amplify Commodity Trust filings",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001610940&type=10-&dateb=&owner=include&count=40",
+        },
+        {
+            "label": "Himalaya Shipping filings",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001959455&type=6-K&dateb=&owner=include&count=40",
+        },
+    ],
+    "Exchanges (EEX, ICE)": [
+        {
+            "label": "EEX contract specifications, release 047a",
+            "url": "https://www.eex.com/fileadmin/EEX/Downloads/Rules/EEX-Contract_Specifications_for_Trade_Registration/"
+            "20260723_EEX_Contract_Specifications_for_Trade_Registration_047a_EN_FINAL.pdf",
+        },
+        {
+            "label": "ICE TD3C future (TDL) specification",
+            "url": "https://www.ice.com/api/productguide/spec/57250507/pdf",
+        },
+    ],
+    "EIA": [
+        {"label": "EIA, Today in Energy, 26 March 2026", "url": "https://www.eia.gov/todayinEnergy/detail.php?id=67386"}
+    ],
+}
 
 
 def manifest(root: Path, panel: dict[str, Any]) -> dict[str, Any]:
@@ -590,6 +672,7 @@ def manifest(root: Path, panel: dict[str, Any]) -> dict[str, Any]:
         out.append(
             {
                 "source": name,
+                "links": SOURCE_LINKS.get(name, []),
                 "documents": f["documents"],
                 "first_retrieved": f["first_retrieved"],
                 "last_retrieved": f["last_retrieved"],
@@ -676,6 +759,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
         p: {
             k: (round(v, 4) if k == "dispersion" else v) for k, v in f.items() if k in ("n", "dispersion", "consistent")
         }
+        | {"tolerance": td3c.FLAT_RATE_DISPERSION, "min_pairs": td3c.MIN_PAIRS}
         for p, f in t["flat"].items()
     }
     return {
@@ -783,7 +867,7 @@ def as_of(panel: dict[str, Any]) -> str:
 
 
 def sources_line(m: dict[str, Any]) -> dict[str, str]:
-    retrieved = max(s["last_retrieved"] for s in m["sources"])[:10]
+    retrieved = long_date(max(s["last_retrieved"] for s in m["sources"])[:10])
     return {
         "overview": "Banchero Costa weekly FFA assessments and spot tables (via Hellenic Shipping News); Baltic 5TC "
         "daily prints (handybulk.com, Reuters as republished); Himalaya Shipping monthly averages (SEC); "

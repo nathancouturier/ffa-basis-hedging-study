@@ -113,9 +113,11 @@ def _route(flat: str, code: str) -> dict[str, Any] | None:
         if not levels:
             continue
         span = RANGE_RE.search(head)
+        tce_value, tce_note = _tce(tce.group(1))
         return {
             "ws_points": _float(levels[-1]),
-            "tce_usd_day": _float(tce.group(1)),
+            "tce_usd_day": tce_value,
+            "tce_note": tce_note,
             "sentence": window[: tce.end()][:500],
             "assessed_day": _day_of(head, levels[-1]),
             "range_note": (
@@ -125,6 +127,18 @@ def _route(flat: str, code: str) -> dict[str, Any] | None:
             ),
         }
     return None
+
+
+def _tce(text: str) -> tuple[float | None, str | None]:
+    """A TCE as printed, with the report's own slips handled: "$35.305" (week to 31 May 2024, between 47,578 and
+    32,300) uses a dot for the thousands separator and is read as 35,305; any other figure under USD 1,000 a day
+    is not a VLCC's round-trip TCE and is dropped."""
+    if re.fullmatch(r"\d{1,3}\.\d{3}", text):
+        return float(text.replace(".", "")), f"The report prints ${text}; read as ${text.replace('.', ',')}."
+    value = _float(text)
+    if value < 1000.0:
+        return None, f"The report prints a TCE of ${text}, not a plausible round-trip TCE; left out."
+    return value, None
 
 
 #: A level the report states as a range ("hovering around the WS57.5 to WS58 level", week to 2 February 2024).
@@ -178,8 +192,8 @@ def parse(text: str, posted: dt.date) -> dict[str, Any] | None:
         "td3c_sentence": td3c["sentence"],
         "assessed_day": td3c["assessed_day"],
     }
-    if td3c.get("range_note"):
-        row["range_note"] = td3c["range_note"]
+    if td3c.get("range_note") or td3c.get("tce_note"):
+        row["range_note"] = " ".join(x for x in (td3c.get("range_note"), td3c.get("tce_note")) if x)
     td34 = _route(flat, "TD34") or _level_only(flat, "TD34")
     if td34:
         row["td34_ws_points"] = td34["ws_points"]

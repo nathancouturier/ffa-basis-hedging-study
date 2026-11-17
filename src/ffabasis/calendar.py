@@ -13,7 +13,7 @@ and the Platinum Jubilee), 19 September 2022 (the State Funeral), 8 May 2023
 (the Coronation).
 
 GOV.UK's machine-readable list (www.gov.uk/bank-holidays.json) could not be
-reached from the build environment; tests/test_calendar.py holds the rule to
+reached when the data were gathered; tests/test_calendar.py holds the rule to
 the published dates of 2018 to 2026, typed from that list's public pages, and
 the complete months of 2026 confirm it against the Baltic's own prints.
 """

@@ -18,7 +18,12 @@
    "page": 12,
    "reprints": [],
    "source": "Banchero Costa weekly market report 2022-W27, Dry bulk FFA assessments (Capesize)",
+   "spot_kind": "printed",
    "spot_on": "2022-07-08",
+   "spot_sources": [
+    "Banchero Costa weekly report",
+    "Reuters via MarineLink"
+   ],
    "spot_usd_day": 18825.0,
    "tenors": [
     {
@@ -113,7 +118,11 @@
     }
    ],
    "source": "Banchero Costa weekly market report 2026-W26, Dry bulk FFA assessments (Capesize)",
+   "spot_kind": "printed",
    "spot_on": "2026-06-29",
+   "spot_sources": [
+    "handybulk.com, Baltic Dry Index archive"
+   ],
    "spot_usd_day": 32091.0,
    "tenors": [
     {
@@ -200,7 +209,11 @@
     }
    ],
    "source": "Banchero Costa weekly market report 2026-W30, Dry bulk FFA assessments (Capesize)",
+   "spot_kind": "printed",
    "spot_on": "2026-07-27",
+   "spot_sources": [
+    "handybulk.com, Baltic Dry Index archive"
+   ],
    "spot_usd_day": 38090.0,
    "tenors": [
     {
@@ -263,7 +276,11 @@
    "page": 16,
    "reprints": [],
    "source": "Banchero Costa weekly market report 2026-W45, Dry bulk FFA assessments (Capesize)",
+   "spot_kind": "printed",
    "spot_on": "2026-11-06",
+   "spot_sources": [
+    "Banchero Costa weekly report"
+   ],
    "spot_usd_day": 39395.0,
    "tenors": [
     {
@@ -626,7 +643,7 @@
    "spot_to": 60000.0
   }
  ],
- "sources_line": "Banchero Costa weekly FFA assessments; Baltic 5TC prints; Amplify Commodity Trust filings (SEC). Retrieved to 2026-11-17.",
+ "sources_line": "Banchero Costa weekly FFA assessments; Baltic 5TC prints; Amplify Commodity Trust filings (SEC). Retrieved to 17 November 2026.",
  "td3c_strips": [
   {
    "as_of": "2023-06-30",

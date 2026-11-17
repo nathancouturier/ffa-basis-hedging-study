@@ -95,7 +95,7 @@ def qc_tables(panel: dict) -> dict:
                 "sec_usd_day_180": r["sec_usd_day_180"],
                 "days_apart": r["days_apart"],
                 "band": band,
-                "curve_above_sec": gap > 0,
+                "direction": "equal" if abs(gap) < 0.0005 else "above" if gap > 0 else "below",
                 "flag": r["flag"],
             }
         )

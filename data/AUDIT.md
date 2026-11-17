@@ -1,6 +1,6 @@
 # Data audit
 
-Every source the study reads, as probed from the build environment on 17 November 2026: the endpoint, what it
+Every source the study reads, as probed on 17 November 2026: the endpoint, what it
 covers, its units, its terms, a sample, and what the repository keeps of it. `data/raw/manifest.json` lists every
 downloaded document with its URL, retrieval time (UTC), sha256 and size; the documents themselves stay out of git
 (`data/raw/` is ignored) and `make data` fetches them again from those URLs. The fetcher reads each host's
@@ -15,12 +15,12 @@ environment variable `SEC_USER_AGENT`, never written to a file).
 | Banchero Costa weekly market report, as republished by Hellenic Shipping News | listing: `https://www.hellenicshippingnews.com/wp-json/wp/v2/media?search=bancosta`; files: `.../wp-content/uploads/YYYY/MM/Bancosta-Weekly-YYYY-WW.pdf` | Capesize FFA assessments (current month, next months, three or four quarters; two Mondays), BCI TC average, C3 and C5 (two Fridays), IFO380, VLSFO and LSMGO at Rotterdam, Fujairah and Singapore; USD a day, USD a tonne. The FFA page first appears in the issues HSN holds in week 1 of 2021 (HSN holds no 2020 issue; the 2019 issues have no FFA page) | Copyright of Banchero Costa: the extracted panel stays in the ignored cache; committed are derived statistics and the dated curves of the validation weeks and the latest week, cited with issue and page | week 27 of 2022, Capesize FFA of 11 July: Jul-22 22,764, Q2 23 17,271 (previous week 23,240) USD a day |
 | Baltic Exchange weekly reports | `https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/YYYY/tanker-report-week-N.html` and `.../dry/news/YYYY/bulk-report-week-N.html` | TD3C (and TD34 from its trial) in Worldscale points and as a round-trip TCE, weekly, 2023 to 2026; the Capesize week in words | Baltic copyright: each weekly TD3C and TD34 print is committed as an individually cited figure with its link | week to 9 October 2026: TD3C WS1,318.75, TCE USD 1,412,594 a day; TD34 WS841.07, USD 912,660 |
 | Reuters' daily dry bulk report as republished | Hellenic Shipping News and Cyprus Shipping News posts (`/wp-json/wp/v2/posts?search=...` with their text); MarineLink (`/news/sitemaparchive/YYYYMM` and each article); Maritime Professional (the 29 July 2026 anchor) | the day's capesize 5TC and its change (USD a day), the capesize index | Copyright of the publishers: daily prints stay in the cache; they enter only monthly averages | 29 July 2026: "fell $664 to $33,384" (180,000 t; the BCI of 4,067 is the 182,000 t basket's) |
-| handybulk.com Baltic Dry Index archive | `https://www.handybulk.com/baltic-dry-index/YYYY/month/` | daily capesize earnings (the 5TC) and BCI points; every publication day from January to October 2026, a few days a month before | robots.txt allows all and signals `use=reference, ai-train=no`: daily prints stay in the cache | 31 July 2026: BCI 4,296 points, earnings USD 38,960 (182,000 t, since 0.11026 x 38,960 = 4,296) |
+| handybulk.com Baltic Dry Index archive | `https://www.handybulk.com/baltic-dry-index/YYYY/month/` | daily capesize earnings (the 5TC) and BCI points; every publication day from January to October 2026, a few days a month before | robots.txt allows all paths and signals reference use: daily prints stay in the cache | 31 July 2026: BCI 4,296 points, earnings USD 38,960 (182,000 t, since 0.11026 x 38,960 = 4,296) |
 | Amplify Commodity Trust (BDRY, BWET), SEC EDGAR | `https://data.sec.gov/submissions/CIK0001610940.json`; each 10-Q and 10-K under `https://www.sec.gov/Archives/edgar/data/1610940/` | every freight future held at each quarter end: contracts and notional; price = notional / contracts (one day a lot, 1,000 t for TD3C) | Public record: every mark committed with its filing's link (`data/public/sec_marks.json`) | 30 September 2025: BDRY Capesize October 2025, 275 contracts, USD 6,837,600, so USD 24,864 a day |
 | Himalaya Shipping Ltd. 6-K exhibits, SEC EDGAR | full-text search `https://efts.sec.gov/LATEST/search-index?q=...&forms=6-K`; each exhibit under `https://www.sec.gov/Archives/edgar/data/1959455/` | the month's average of the Baltic 5TC (180,000 t), May 2023 to October 2026 | Public record: committed with links (`data/public/himalaya_5tc.json`) | filed 8 July 2026: "The Baltic 5TC 180 Capesize Index averaged US$35,414 during June 2026" |
 | Breakwave Advisors bi-weekly tanker report, via HSN | `.../wp-content/uploads/YYYY/MM/BreakwaveTankers<Month><D><YYYY>Report.pdf`; the 7 April 2026 insight at `breakwaveadvisors.com/insights/tanker4726` | TD3C in USD a tonne ("VLCC Middle East-Asia Spot Rates") and the Breakwave Tanker Futures Index, July 2023 to November 2026 | Breakwave's copyright: each print committed as a cited point with its report's link | 21 October 2025: 20.73 USD a tonne, index 1,658 |
 | The Edge Malaysia, "Baltic Exchange shipping updates" | addresses in `data/seed/edge_weekly_reports.json` (found by searching the title; no sitemap) | the Baltic's weekly report republished: a cross-check of the TD3C prints | Copyright of the publisher: cached, used to check | week to 13 November 2026: TD3C WS1,014.38, USD 1,078,714 |
-| Amplify ETFs holdings pages | `https://amplifyetfs.com/BDRY-holdings/`, `/BWET-holdings/`, rendered in a browser | the funds' current freight futures and as-of date | The funds' public disclosure: one snapshot per refresh in `data/public/amplify_holdings.json` | none yet: the pages draw their tables with scripts from www.gstatic.com, which the build environment's proxy refuses; the first snapshot comes from the scheduled refresh |
+| Amplify ETFs holdings pages | `https://amplifyetfs.com/BDRY-holdings/`, `/BWET-holdings/`, rendered in a browser | the funds' current freight futures and as-of date | The funds' public disclosure: one snapshot per refresh in `data/public/amplify_holdings.json` | none yet: the pages draw their tables with scripts from www.gstatic.com, which could not be reached when the data were gathered; the first snapshot comes from the scheduled refresh |
 | The rule books | Baltic GMB v8.8 (current address) and v7.09 (the guide's former address), the TD3C TCE note (July 2017), the Baltic Investor Indices white paper (2024), EEX release 047a, the ICE TDL specification, EIA Today in Energy (26 March 2026) | conventions, baskets, ships, settlement rules | Cited with page; not redistributed | GMB v8.8 printed page 77: "C5TC(180) ... Derived Value: C5TC(182)-3,503" |
 
 ## A host that stopped answering scripted requests
@@ -33,7 +33,7 @@ environment variable `SEC_USER_AGENT`, never written to a file).
   2021 to mid 2023 into the curve-shape statistics and moved the first hedged fixture with an exact settlement
   from October 2023 back to mid 2023 (Himalaya Shipping's published averages start in May 2023).
 
-## Hosts refused by the build environment's network policy
+## Hosts that could not be reached
 
 Each was asked once and not retried. What each would have added:
 
@@ -41,7 +41,7 @@ Each was asked once and not retried. What each would have added:
   made every settlement the study's own average.
 - gov.uk: the machine-readable bank holiday list (the calendar is built by statute instead and checked against
   the complete 2026 months).
-- www.gstatic.com (and the Amplify page's other script hosts): the Amplify holdings tables in this environment.
+- www.gstatic.com (and the Amplify page's other script hosts): the Amplify holdings tables, outside the scheduled refresh.
 - web.archive.org: archived copies of reports missing from the republishers (for example Banchero Costa's 2020
   issues, which Hellenic Shipping News does not hold).
 - bancosta.com: Banchero Costa's own archive.

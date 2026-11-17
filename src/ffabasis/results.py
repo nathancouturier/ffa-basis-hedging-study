@@ -46,6 +46,41 @@ ROBUSTNESS = (
 )
 
 
+#: Why a variant cannot differ from the headline in some cells, where it is so by construction.
+BY_CONSTRUCTION = {
+    "basket_180_2026": "a 2026 price and its settlement move by the same fixed USD 3,503, so forecast errors cannot "
+    "change",
+}
+
+
+def _robustness_notes(variants: list[dict[str, Any]]) -> None:
+    """Say, for each variant, which of its cells equal the headline's, so an identical row is never unexplained."""
+    base = next(v for v in variants if v["key"] == "headline")
+
+    def cells(v: dict[str, Any]) -> dict[tuple[str, int], tuple[Any, ...]]:
+        return {(c["voyage"], c["horizon_months"]): (c["n"], round(c["effectiveness_k1"], 6)) for c in v["hedge"]}
+
+    for v in variants:
+        if v["key"] == "headline":
+            continue
+        notes = []
+        if cells(v) == cells(base):
+            notes.append("every hedge cell equals the headline's: no hedged fixture's price or settlement changes")
+        same_bias = all(
+            (v["bias"].get(h) or {}).get("mean_usd_day") == (base["bias"].get(h) or {}).get("mean_usd_day")
+            for h in analysis.HORIZONS
+        )
+        if same_bias:
+            notes.append(BY_CONSTRUCTION.get(v["key"], "the forecast errors equal the headline's"))
+        missing = sorted(set(cells(base)) - set(cells(v)))
+        if missing:
+            notes.append(
+                "no fixture qualifies for "
+                + ", ".join(f"{voyage} at {h} month{'s' if h > 1 else ''}" for voyage, h in missing)
+            )
+        v["note"] = "; ".join(notes) or None
+
+
 def _hedge_table(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     table = []
     for voyage in hedge.VOYAGES:
@@ -118,6 +153,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
                 "bias": {h: analysis.error_summary(e, h) for h in analysis.HORIZONS},
             }
         )
+    _robustness_notes(robustness)
 
     weekly = panel["td3c_weekly"]
     bw = panel.get("breakwave", [])
