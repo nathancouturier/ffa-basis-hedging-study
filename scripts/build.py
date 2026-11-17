@@ -133,6 +133,8 @@ def audit_block(method: dict, panel: dict) -> str:
         f"| First and last FFA curve | {c['first_ffa_week']} and {c['last_ffa_week']} |",
         f"| FFA curves by year | {years} |",
         f"| Banchero Costa issues read | {c['issues_read']} ({c['ocr_issues']} with at least one table read by OCR) |",
+        f"| FFA tenors read by OCR that reproduce their printed week-on-week change (the rest are left out) | "
+        f"{(c.get('ocr_ffa_tenors') or {}).get('kept')} of {(c.get('ocr_ffa_tenors') or {}).get('read')} |",
         f"| Monthly settlements by year | {status} |",
         f"| Complete settlement months (the study's own average of every publication day) | "
         f"{c['complete_months_180']} on the 180,000 t basket ({c['complete_months']}); {c['complete_months_182']} "

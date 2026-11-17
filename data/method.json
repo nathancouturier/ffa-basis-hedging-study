@@ -125,6 +125,10 @@
   ],
   "issues_read": 150,
   "last_ffa_week": "2026-11-08",
+  "ocr_ffa_tenors": {
+   "kept": 377,
+   "read": 393
+  },
   "ocr_issues": 89,
   "published_months": "May to June 2023; August 2023 to December 2025",
   "sec_quarter_ends_bdry": 35,

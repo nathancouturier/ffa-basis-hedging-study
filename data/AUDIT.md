@@ -78,6 +78,7 @@ no level columns in the downloads except the SEC marks.
 | First and last FFA curve | 2021-01-08 and 2026-11-08 |
 | FFA curves by year | 2021: 2, 2022: 1, 2023: 14, 2024: 46, 2025: 40, 2026: 40 |
 | Banchero Costa issues read | 150 (89 with at least one table read by OCR) |
+| FFA tenors read by OCR that reproduce their printed week-on-week change (the rest are left out) | 377 of 393 |
 | Monthly settlements by year | 2020: 7 estimated; 2021: 10 estimated; 2022: 11 estimated; 2023: 1 complete, 4 estimated, 7 published; 2024: 12 published; 2025: 12 published; 2026: 10 complete |
 | Complete settlement months (the study's own average of every publication day) | 11 on the 180,000 t basket (July 2023; January to October 2026); 10 of them also on the 182,000 t basket |
 | Published settlement months (Himalaya Shipping, SEC) | May to June 2023; August 2023 to December 2025 |

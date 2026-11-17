@@ -328,10 +328,24 @@ def build(root: Path) -> dict[str, Any]:
         "sec_marks": marks,
         "published_5tc": published_5tc,
         "td3c_weekly": td3c_weekly(root, manifest),
+        "ocr_ffa_tenors": _ocr_tenor_counts(chosen),
         "breakwave": (bw := breakwave_prints(root, manifest)),
         "breakwave_repeats": breakwave_repeats(bw, root, manifest),
         "calendar_note": calendar.__doc__.strip().splitlines()[0],
     }
+
+
+def _ocr_tenor_counts(chosen: list[dict[str, Any]]) -> dict[str, int]:
+    """FFA tenors read by OCR and those that reproduce their printed week-on-week change (the rest are left out)."""
+    read = kept = 0
+    for issue in chosen:
+        ffa = issue.get("ffa") or {}
+        if ffa.get("method") != "ocr":
+            continue
+        for tenor in ffa["tenors"]:
+            read += 1
+            kept += tenor["current"] is not None and panel._wow_consistent(tenor)
+    return {"read": read, "kept": kept}
 
 
 def _plausible_bunkers(hub: dict[str, float | None]) -> bool:

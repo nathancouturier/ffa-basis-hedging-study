@@ -455,6 +455,7 @@ def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
         "ffa_weeks_by_year": dict(sorted(years.items())),
         "issues_read": len(panel["issues"]),
         "ocr_issues": sum(1 for i in panel["issues"] if i.get("ocr")),
+        "ocr_ffa_tenors": panel.get("ocr_ffa_tenors"),
         "settlements_by_year": {y: dict(c) for y, c in sorted(status_by_year.items())},
         "exact_months_180": sum(1 for r in settle.values() if r["status"] in ("complete", "published")),
         "exact_months_182": sum(
