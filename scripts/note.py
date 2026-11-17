@@ -459,7 +459,7 @@ def main() -> int:
     with pdfplumber.open(OUT) as pdf:
         pages = len(pdf.pages)
         text = "".join(p.extract_text() or "" for p in pdf.pages)
-    if re.search("[–—]", text):
+    if re.search("[\u2013\u2014]", text):
         print("the note's text holds a long dash")
         return 1
     print(f"wrote {OUT.name}: {pages} pages, no long dash")
