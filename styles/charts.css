@@ -274,6 +274,21 @@
   stroke-width: 1;
 }
 
+/* a hatch in a series colour (its s-* class sets the stroke), with the bar's outline drawn over it */
+.chart .hatch-c {
+  stroke-width: 1.5;
+}
+
+.chart .band-edge {
+  fill: none;
+  stroke-width: 1;
+}
+
+.chart .cap-break {
+  stroke: var(--bg);
+  stroke-width: 3;
+}
+
 .chart .cell-none {
   fill: var(--bg);
   stroke: var(--axis);

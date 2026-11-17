@@ -19,6 +19,7 @@ const LAB = Object.freeze({
   maxHorizon: 3,
   stripHeight: 180, // literal: px, height of the small chart of the paper's months
   kStep: 0.05,
+  wildFactor: 5, // a typed settlement above five times F0 is most likely in the wrong unit
   thousand: 1000, // literal: unit, sensitivity is quoted per USD 1,000 a day of settlement
 });
 
@@ -92,6 +93,16 @@ function render(section, ctx) {
   const defaultDays = (v) => (lab.voyage_days && isNum(lab.voyage_days[v]) ? lab.voyage_days[v] : null);
   state.days = defaultDays(state.voyage);
   const isTd3c = () => state.voyage === "TD3C";
+  /** A new voyage resets what belonged to the old one; a settlement typed in another unit goes too. */
+  function setVoyage(v) {
+    const unitBefore = isTd3c();
+    state.voyage = v;
+    if (!state.daysEdited) state.days = defaultDays(v);
+    state.prices = {};
+    state.horizon = null;
+    state.historyIdx = 0;
+    if (unitBefore !== isTd3c()) state.userS = null;
+  }
 
   // ------------------------------------------------------------- model
   const priceDate = () => (isTd3c() ? strip?.as_of : curve?.date);
@@ -174,10 +185,13 @@ function render(section, ctx) {
   const h1 = takeaway("Hedge lab", "");
   section.append(h1);
   section.append(h("p", { class: "lede" }, "Size a hedge on the latest cited curve and stress it. Change the exposure, the paper or the scenario with the three buttons; the results update as you type. Defaults carry their source and date; a figure you type is marked as yours."));
-  const labEl = h("div", { class: "lab" });
+  // three areas: the steps, the head (what the hedge locks and the scenario chart) and the rest. Phones
+  // show the head first; from 1024 px the steps sit beside the outputs while one is open.
+  const labEl = h("div", { class: "lab steps-closed" });
   const stepsEl = h("div", { class: "steps" });
-  const outEl = h("div", { class: "outputs", "aria-live": "off" });
-  labEl.append(stepsEl, outEl);
+  const headEl = h("div", { class: "outputs lab-head", "aria-live": "off" });
+  const restEl = h("div", { class: "outputs lab-rest" });
+  labEl.append(stepsEl, headEl, restEl);
   section.append(labEl);
 
   const open = new Set(openIds(ctx.params).filter((id) => STEP_IDS.includes(id)));
@@ -203,6 +217,7 @@ function render(section, ctx) {
     ctx.setParams({ open: [...STEP_IDS.filter((id) => open.has(id)), ...disclosureIds].join(",") });
   }
   function syncSteps() {
+    labEl.classList.toggle("steps-closed", open.size === 0);
     for (const id of STEP_IDS) {
       const st = steps[id];
       const isOpen = open.has(id);
@@ -229,6 +244,7 @@ function render(section, ctx) {
       onChange: (v) => {
         state.role = v;
         ctx.setParams({ role: v });
+        renderScenario();
         update();
       },
     });
@@ -238,14 +254,11 @@ function render(section, ctx) {
       value: state.voyage,
       options: VOYAGES.map((v) => ({ value: v.id, label: v.id === "5TC trip" ? v.label : `${v.label}, ${v.detail}` })),
       onChange: (v) => {
-        state.voyage = v;
-        if (!state.daysEdited) state.days = defaultDays(v);
-        state.prices = {};
-        state.horizon = null;
-        state.historyIdx = 0;
+        setVoyage(v);
         ctx.setParams({ voyage: v });
         renderExposure();
         renderPaper();
+        renderScenario();
         update();
       },
     });
@@ -474,7 +487,9 @@ function render(section, ctx) {
       tag.hidden = !isNum(state.userS);
       update();
     });
-    body.append(h("p", {}, `The scenarios move every month's settlement by the same share of F0, from ${pct(-LAB.range, 0)} to ${signedPct(LAB.range, 0)}. The physical side earns the settlement (no basis); the basis bands below add the historical residual.`));
+    body.append(h("p", {}, isTd3c()
+      ? `The scenarios move the loading month's settlement by a share of F0, from ${pct(-LAB.range, 0)} to ${signedPct(LAB.range, 0)}. The cargo earns the settlement.`
+      : `The scenarios move every month's settlement by the same share of F0, from ${pct(-LAB.range, 0)} to ${signedPct(LAB.range, 0)}. The physical side earns the settlement (no basis); the basis bands below add the historical residual.`));
     body.append(h("div", { class: "field" }, h("label", { for: sid }, `Your settlement, ${unit} (average over the hedged ${isTd3c() ? "month" : "months"})`), h("div", { class: "button-row" }, input, tag),
       h("span", { class: "hint" }, "Optional: a settlement to test, drawn as a dashed line and added to the table.")));
   }
@@ -504,12 +519,13 @@ function render(section, ctx) {
     if (isTd3c()) {
       return `${who} hedging a TD3C cargo loading in ${monthLong(state.start.slice(0, 7))} at the ${dateLong(strip.as_of)} marks${withYours(m)} locks ${usdT(m.f0)}, ${usdBig(Math.abs(m.base.locked_usd))} of gross freight for ${tonnes(state.tonnes)}.`;
     }
-    const b = bandsFor(state.voyage, horizon());
-    let s = `${who} hedging a ${v.label} voyage from ${dateLong(state.start)} locks ${usdDay(m.f0)} gross on the ${num(curve.basket_t)} t basket${withYours(m)}`;
-    // the 5th to 95th percentile of the residual: nine in ten past hedges
-    if (b) s += `; ${routeNet(b) ? `with the ${routeNet(b)}, ` : ""}9 in 10 past ${v.label} hedges placed ${horizonLabel(horizon())} ahead left ${state.role === "owner" ? "the voyage's earnings" : "the hire"} between ${aboveBelow(b.p05)} and ${aboveBelow(b.p95)} what they locked.`;
-    else s += ".";
-    return s;
+    return `${who} hedging a ${v.label} voyage from ${dateLong(state.start)} locks ${usdDay(m.f0)} gross on the ${num(curve.basket_t)} t basket${withYours(m)}.`;
+  }
+
+  /** What past hedges left: the 5th to 95th percentile of the residual, nine in ten of them. */
+  function pastHedges(b) {
+    const v = VOYAGES.find((x) => x.id === state.voyage);
+    return `${routeNet(b) ? `With the ${routeNet(b)}, 9` : "9"} in 10 past ${v.label} hedges placed ${horizonLabel(b.horizon_months)} ahead left ${state.role === "owner" ? "the voyage's earnings" : "the hire"} between ${aboveBelow(b.p05)} and ${aboveBelow(b.p95)} what they locked.`;
   }
 
   const lockedEl = h("div");
@@ -518,7 +534,8 @@ function render(section, ctx) {
   const tableEl = h("div");
   const bandsEl = h("div");
   const historyEl = h("div");
-  outEl.append(problemEl, lockedEl, scenarioEl, tableEl, bandsEl, historyEl);
+  headEl.append(problemEl, lockedEl, scenarioEl);
+  restEl.append(tableEl, bandsEl, historyEl);
 
   function update() {
     const m = model();
@@ -527,6 +544,10 @@ function render(section, ctx) {
     if (autoOpt) autoOpt.textContent = `Automatic: ${horizonLabel(autoHorizon())}`;
     if (open.has("paper")) drawPaperChart(m);
     for (const el of [problemEl, lockedEl, scenarioEl, tableEl, bandsEl, historyEl]) clear(el);
+    if (m.ok && isNum(state.userS) && state.userS > LAB.wildFactor * m.f0) {
+      const fmtU = (v) => (isTd3c() ? usdT(v) : usdDay(v));
+      problemEl.append(h("p", { class: "problem" }, `Your settlement, ${fmtU(state.userS)}, is more than ${numberWord(LAB.wildFactor)} times F0 (${fmtU(m.f0)}): check that it is in ${isTd3c() ? "USD a tonne" : "USD a day"}. It stays in the table and off the chart.`));
+    }
     if (startEarly()) {
       problemEl.append(h("p", { class: "problem" }, `The ${isTd3c() ? "loading date" : "start"}, ${dateLong(state.start)}, is before the ${isTd3c() ? "marks" : "curve"} of ${dateLong(priceDate())}: no hedge could have been placed on these prices by then. The figures below apply them anyway${isTd3c() ? "" : `, and the historical bands are those of hedges placed ${horizonLabel(horizon())} ahead`}.`));
     }
@@ -622,10 +643,16 @@ function render(section, ctx) {
     const bands = [];
     if (b) {
       const band = (lo, hi, inner) => ({ cls: roleCls, inner, points: xs.map((sv) => { const a = m.at(sv, lo).total_usd; const c = m.at(sv, hi).total_usd; return { x: sv, y0: Math.min(a, c), y1: Math.max(a, c) }; }) });
-      bands.push(band(b.p05, b.p95, false), band(b.p25, b.p75, true));
+      // the outer band's edges, drawn and named: for an owner the 95th percentile residual is the upper edge,
+      // for a charterer (whose total is a cost) the 5th
+      const outer = band(b.p05, b.p95, false);
+      outer.edges = state.role === "owner" ? { upper: "95th percentile", lower: "5th percentile" } : { upper: "5th percentile", lower: "95th percentile" };
+      bands.push(outer, band(b.p25, b.p75, true));
     }
     const vlines = [];
-    if (isNum(state.userS)) vlines.push({ x: state.userS, label: "Your settlement", cls: "ink", dash: true });
+    // a settlement far off F0 (most likely in the wrong unit) stays in the table but off the chart's axis
+    const userOnChart = isNum(state.userS) && state.userS <= LAB.wildFactor * m.f0;
+    if (userOnChart) vlines.push({ x: state.userS, label: "Your settlement", cls: "ink", dash: true });
     const slope = (m.at(m.f0 + LAB.thousand).total_usd - m.base.total_usd);
     const unitStep = isTd3c() ? "USD 1 a tonne" : `USD ${num(LAB.thousand)} a day`;
     const stepSlope = isTd3c() ? (m.at(m.f0 + 1).total_usd - m.base.total_usd) : slope;
@@ -639,7 +666,7 @@ function render(section, ctx) {
     ];
     if (b) legend.push({ label: "Total with the historical basis, 5th to 95th and 25th to 75th percentiles", cls: roleCls, kind: "band" });
     legend.push({ label: state.role === "owner" ? `Locked, ${usdBig(m.base.locked_usd)}` : `Locked hire, ${signedUsdBig(m.base.locked_usd)}`, cls: "muted", kind: "thin" });
-    if (isNum(state.userS)) legend.push({ label: "Your settlement (input)", cls: "ink", kind: "dash" });
+    if (userOnChart) legend.push({ label: "Your settlement (input)", cls: "ink", kind: "dash" });
     lineChart(scenarioEl, {
       title,
       subtitle: `USD over the ${isTd3c() ? "cargo, gross freight" : `voyage, net of ${numTrim(commission)} percent commission`}, against the settlement of the hedged ${isTd3c() ? "month" : "months"} (${isTd3c() ? "USD a tonne" : "USD a day, gross"}), from ${pct(-LAB.range, 0)} to ${signedPct(LAB.range, 0)} of F0.${state.role === "charterer" ? " Hire paid and the total are costs, so they are negative." : ""}`,
@@ -691,6 +718,7 @@ function render(section, ctx) {
       bandsEl.append(h("p", { class: "lede" }, `The study has no bands for ${state.voyage} hedged ${horizonLabel(horizon())} ahead.`));
       return;
     }
+    bandsEl.append(h("p", { class: "lede" }, pastHedges(b)));
     bandsEl.append(h("p", { class: "lede" }, `The residual is what a 1:1 hedge did not remove: the voyage's gross TCE minus the settlement it was hedged on, in USD a day (timing, route and size basis). A positive residual means the voyage paid more than the settlement: more earnings for an owner, more hire for a charterer. Applied to this ${state.role === "owner" ? "voyage" : "charter"}, each percentile moves the total by the residual times the days kept.`));
     const anyMean = all.some((r) => routeNet(r));
     if (routeNet(b)) {
@@ -921,11 +949,7 @@ function render(section, ctx) {
         changed = true;
       }
       if (params.voyage && params.voyage !== state.voyage && VOYAGES.some((v) => v.id === params.voyage)) {
-        state.voyage = params.voyage;
-        if (!state.daysEdited) state.days = defaultDays(params.voyage);
-        state.prices = {};
-        state.horizon = null;
-        state.historyIdx = 0;
+        setVoyage(params.voyage);
         changed = true;
       }
       if (/^\d{4}-\d{2}-\d{2}$/.test(params.start || "") && params.start !== state.start) {

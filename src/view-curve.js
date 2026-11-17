@@ -2,7 +2,7 @@
 // backwardation week by week, by year and calendar month (the first-quarter discount), slope against the
 // spot level, and TD3C's quarter-end strips from SEC filings.
 
-import { h, takeaway, table, note, defs, segmented, clear } from "./dom.js";
+import { h, takeaway, setTakeaway, table, note, defs, segmented, clear } from "./dom.js";
 import { lineChart, calendarChart, barChart, monthMid, monthStart, monthEnd, dayMs, empty } from "./charts.js";
 import { pct, shareOf, usdDay, num, signed, signedPct, signedPoints, dateLong, dateShort, tenorLabel, monthName, monthAbbr, monthLong, plural, listJoin, isNum, capitalise, usdT, monthShort } from "./format.js";
 import { quarter_months, months_between, add_months } from "./engine.js";
@@ -22,7 +22,9 @@ function binRule(engine) {
 }
 
 const RULES = Object.freeze({
-  minYearN: 10, // a year needs this many curves to be named in a title
+  minYearN: 10, // a year (or a spot bin) needs this many curves to be named in a title; fewer are drawn faint
+  overshoot: 1.15, // a faint bin beyond this multiple of the populated bins' range is cut at the axis
+  smallSlope: 0.1, // a mean slope under this share of spot is labelled to one decimal
   minMonthN: 5, // a calendar month needs this many curves to be named in a title
   thousand: 1000, // literal: unit, spot bins are labelled in USD thousand a day
   mostly: 0.8, // a month's front spread "mostly" in one shape from this share up
@@ -148,6 +150,7 @@ function curveChart(box, curve, opts) {
     },
   })));
   series.push({ cls: "ffa", animate: true, dots: true, points: firstLine.pts });
+  const printedMonths = new Set(months.map((t) => t.period));
   const spans = quarters.map((t) => {
     const ms = quarter_months(t.period);
     return {
@@ -155,6 +158,7 @@ function curveChart(box, curve, opts) {
       x1: monthEnd(ms[2]),
       y: t.usd_day,
       cls: "ffa",
+      dot: !ms.some((mm) => printedMonths.has(mm)),
       tip: { title: `${tenorText(t)}, first print`, rows: [{ key: "ffa", value: usdDay(t.usd_day), label: "quarter average" }, ...(isNum(spot) ? [{ key: "spot", value: vsSpot(t.usd_day, spot), label: "" }] : [])], note: `${curve.issue}, page ${curve.page}` },
     };
   });
@@ -168,7 +172,8 @@ function curveChart(box, curve, opts) {
       const tip = { title: `${label}, second print (${reprint.issue})`, rows: [{ key: "ffa", value: usdDay(v), label: "" }, ...(isNum(firstV) ? [{ key: null, value: `${signedPct((v - firstV) / firstV)}`, label: `against the first print (${num(firstV)})` }] : [{ key: null, value: "Not in the first print", label: "" }])] };
       if (period.includes("-Q")) {
         const ms = quarter_months(period);
-        spans.push({ x0: monthStart(ms[0]), x1: monthEnd(ms[2]), y: v, cls: "ffa", hollow: true, tip });
+        const reprintMonths = Object.keys(reprint.tenors).filter((pp) => !pp.includes("-Q"));
+        spans.push({ x0: monthStart(ms[0]), x1: monthEnd(ms[2]), y: v, cls: "ffa", hollow: true, tip, dot: !ms.some((mm) => reprintMonths.includes(mm)) });
       } else monthEntries.push({ period, point: { x: monthMid(period), y: v, tip } });
     }
     const secondLine = monthLine(monthEntries);
@@ -183,24 +188,16 @@ function curveChart(box, curve, opts) {
     xs.push(dayMs(curve.spot_on));
     series.push({ cls: "spot", line: false, dots: true, points: [{ x: dayMs(curve.spot_on), y: spot, tip: { title: `Spot, ${dateLong(curve.spot_on)}`, rows: [{ key: "spot", value: usdDay(spot), label: `${num(curve.basket_t)} t basket` }], note: `${spotSource(curve)}; ${basketHow(curve)}` } }] });
   }
-  const all = curve.tenors.map((t) => t.usd_day);
-  const above = isNum(spot) ? all.filter((v) => v > spot).length : null;
-  const front = months[0];
-  let title;
-  if (isNum(spot) && front) {
-    title = `${dateLong(curve.date)}: ${above} of ${all.length} tenors sat above the spot of ${usdDay(spot)}; the front month (${front.label}) ${front.usd_day >= spot ? "above" : "below"} it by ${usdDay(Math.abs(front.usd_day - spot))}`;
-  } else {
-    const hi = curve.tenors.reduce((a, b) => (b.usd_day > a.usd_day ? b : a));
-    const lo = curve.tenors.reduce((a, b) => (b.usd_day < a.usd_day ? b : a));
-    title = `${dateLong(curve.date)}: the curve ran from ${usdDay(hi.usd_day)} (${hi.label}) down to ${usdDay(lo.usd_day)} (${lo.label}); no spot is cited with it`;
-  }
+  const title = shapeTitle(curve);
   const legend = [
     { label: reprint ? "Months, first print (the study uses it)" : "Month tenors", cls: "ffa", kind: "linedot" },
     { label: "Quarter tenors, a bar across their three months", cls: "ffa", kind: "span" },
   ];
-  if (reprint) legend.push({ label: `Second print (${reprint.issue})`, cls: "ffa", kind: "hollow" });
+  if (reprint) legend.push({ label: `Second print (${reprint.issue})`, cls: "ffa", kind: "thinring" });
   if (isNum(spot)) legend.push({ label: "Baltic 5TC spot", cls: "spot", kind: "thin" });
-  const parts = curve.tenors.map((t) => `${t.label} ${num(t.usd_day)}${isNum(spot) ? ` (${signed(t.usd_day - spot)})` : ""}`);
+  // months first, then quarters, each in calendar order, as in the Data tables
+  const ordered = curve.tenors.slice().sort((a, b) => (a.period.includes("-Q") === b.period.includes("-Q") ? (a.period < b.period ? -1 : 1) : a.period.includes("-Q") ? 1 : -1));
+  const parts = ordered.map((t) => `${t.label} ${num(t.usd_day)}${isNum(spot) ? ` (${signed(t.usd_day - spot)})` : ""}`);
   const gapText = firstLine.gaps.length ? ` ${listJoin(firstLine.gaps.map((g) => monthLong(g)))} ${firstLine.gaps.length === 1 ? "is" : "are"} not printed as a month on the page; the line breaks there.` : "";
   const summary = `FFA tenors on ${dateLong(curve.date)}, USD a day${isNum(spot) ? `, with their distance from the spot of ${num(spot)} on ${dateLong(curve.spot_on)}` : ""}: ${parts.join(", ")}.${gapText}`;
   const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `, ${opts.retrieved}.${isNum(spot) && curve.spot_on ? ` Spot: ${spotSource(curve)}.` : ""} Levels shown only on cited dates, as the data policy allows.`);
@@ -219,23 +216,44 @@ function curveChart(box, curve, opts) {
   });
 }
 
+/** The cited curve's shape: the range of its months and of its quarters. */
+function shapeTitle(curve) {
+  const ms = curve.tenors.filter((t) => !t.period.includes("-Q"));
+  const qs = curve.tenors.filter((t) => t.period.includes("-Q"));
+  const range = (list) => {
+    const lo = list.reduce((a, b) => (b.usd_day < a.usd_day ? b : a));
+    const hi = list.reduce((a, b) => (b.usd_day > a.usd_day ? b : a));
+    return lo === hi ? `${num(lo.usd_day)} (${lo.label})` : `${num(lo.usd_day)} (${lo.label}) to ${num(hi.usd_day)} (${hi.label})`;
+  };
+  const parts = [];
+  if (ms.length) parts.push(`months from ${range(ms)}`);
+  if (qs.length) parts.push(`quarters from ${range(qs)}`);
+  return parts.length ? `${dateLong(curve.date)}: ${parts.join(", ")}, USD a day` : `${dateLong(curve.date)}: no tenor printed`;
+}
+
+/** The takeaway: the chosen cited curve against the spot of its day, in one finding. */
+function curveSentence(curve) {
+  const spot = curve.spot_usd_day;
+  const front = curve.tenors.find((t) => !t.period.includes("-Q"));
+  if (isNum(spot) && front) {
+    const above = curve.tenors.filter((t) => t.usd_day > spot).length;
+    return `On ${dateLong(curve.date)}, ${above} of ${curve.tenors.length} tenors priced above the spot of ${usdDay(spot)}; the front month sat ${usdDay(Math.abs(front.usd_day - spot))} ${front.usd_day >= spot ? "above" : "below"} it.`;
+  }
+  const hi = curve.tenors.reduce((a, b) => (b.usd_day > a.usd_day ? b : a));
+  const lo = curve.tenors.reduce((a, b) => (b.usd_day < a.usd_day ? b : a));
+  return `On ${dateLong(curve.date)}, the curve ran from ${usdDay(hi.usd_day)} (${hi.label}) to ${usdDay(lo.usd_day)} (${lo.label}); no spot is cited with it.`;
+}
+
 function render(section, ctx) {
   const { curve, engine } = ctx.data;
   const shares = curve.shares || {};
-  const fvs = shares.front_vs_spot?.all;
   const q1 = curve.q1_discount;
   const curves = (curve.cited_curves || []).slice().sort((a, b) => (a.date < b.date ? -1 : 1));
 
   // ---------------------------------------------------------- takeaway
-  let sentence = "The curve's shape is not in this build of the data.";
-  if (fvs) {
-    sentence = `The front month sat above the spot of its day, or the Friday before, in ${shareOf(fvs.contango, fvs.n)} of ${plural(fvs.n, "weekly curve", "weekly curves")}`;
-    if (q1 && isNum(q1.n) && q1.n > 0) {
-      const all = q1.share_below === 1;
-      sentence += `, and the next year's first quarter priced below the fourth quarter before it in ${all ? `all ${q1.n}` : `${shareOf(q1.share_below, q1.n)} of ${q1.n}`} curves that printed both, ${pct(Math.abs(q1.mean_pct))} ${q1.mean_pct < 0 ? "lower" : "higher"} on average.`;
-    } else sentence += ".";
-  }
-  section.append(takeaway("Curve", sentence));
+  // it states what the key chart below it shows, the cited curve chosen; the shares across weeks lead the panels
+  const h1 = takeaway("Curve", "The cited curves are not in this build of the data.");
+  section.append(h1);
 
   // ---------------------------------------------------------- key chart
   const key = h("div");
@@ -260,6 +278,7 @@ function render(section, ctx) {
   } else empty(key, { title: "No cited curve in this build", text: "This build carries no cited curves." });
 
   function drawCurve() {
+    setTakeaway(h1, "Curve", curveSentence(selected));
     clear(noteBox);
     const flags = selected.flags || [];
     const notes = [];
@@ -298,7 +317,7 @@ function render(section, ctx) {
           if (named.length > 1) {
             const lo = named.reduce((a, b) => (b[1].contango < a[1].contango ? b : a));
             const hi = named.reduce((a, b) => (b[1].contango > a[1].contango ? b : a));
-            title += `, from ${shareOf(lo[1].contango, lo[1].n)} in ${lo[0]} to ${shareOf(hi[1].contango, hi[1].n)} in ${hi[0]}`;
+            title += `, from ${shareOf(lo[1].contango, lo[1].n)} in ${lo[0]} to ${shareOf(hi[1].contango, hi[1].n)} in ${hi[0]}${named.length < Object.keys(byYear).length ? `, in years with at least ${RULES.minYearN} curves` : ""}`;
           }
           const cells = weeks.map((w) => {
             const st = w[m.value];
@@ -351,6 +370,7 @@ function render(section, ctx) {
             const loM = named.filter((k) => byMonth[k].contango === loV);
             title = `By calendar month, contango was most frequent in ${listJoin(hiM.map(monthName))} (${shareOf(hiV, byMonth[hiM[0]].n)}) and least in ${listJoin(loM.map(monthName))} (${shareOf(loV, byMonth[loM[0]].n)})`;
           }
+          if (q1 && isNum(q1.n) && q1.n > 0) title += `; the next year's first quarter priced below the fourth in ${q1.share_below === 1 ? `all ${q1.n}` : `${shareOf(q1.share_below, q1.n)} of ${q1.n}`} curves that printed both, by ${pct(Math.abs(q1.mean_pct))} on average`;
           const stacks = [
             { cls: "contango", label: "Contango", values: Object.fromEntries(monthKeys.map((k) => [k, byMonth[k].contango])) },
             { cls: "backwardation", label: "Backwardation", values: Object.fromEntries(monthKeys.map((k) => [k, byMonth[k].backwardation])) },
@@ -415,18 +435,33 @@ function render(section, ctx) {
           else break;
         }
         const downN = downFrom ? bins.filter((b) => b.spot_from >= downFrom.spot_from).reduce((a, b) => a + b.n, 0) : 0;
+        const small = (b) => b.n < RULES.minYearN;
+        const populated = bins.filter((b) => !small(b));
         let title = `Below a spot of ${usdDay(first.spot_to)} the curve sloped ${first.mean_slope_pct >= 0 ? "up" : "down"} by ${pct(Math.abs(first.mean_slope_pct), 0)} of spot on average`;
+        if (populated.length > 1) {
+          const hiB = populated.reduce((a, b) => (b.mean_slope_pct > a.mean_slope_pct ? b : a));
+          const loB = populated.reduce((a, b) => (b.mean_slope_pct < a.mean_slope_pct ? b : a));
+          title = `Where at least ${RULES.minYearN} curves fall in a bin, the mean slope ran from ${signedPct(hiB.mean_slope_pct, 0)} of spot (USD ${k(hiB.spot_from)} to ${k(hiB.spot_to)} thousand a day) to ${signedPct(loB.mean_slope_pct, 0)} (USD ${k(loB.spot_from)} to ${k(loB.spot_to)} thousand)`;
+        }
         if (downFrom) title += `; from ${usdDay(downFrom.spot_from)} up, all ${downN} curves sloped down`;
+        // the axis follows the populated bins; a faint bin far beyond them is cut and labelled with its value
+        const popVals = populated.map((b) => b.mean_slope_pct);
+        const capHi = popVals.length ? Math.max(0, ...popVals) * RULES.overshoot : null;
+        const capLo = popVals.length ? Math.min(0, ...popVals) * RULES.overshoot : null;
+        const yMax = isNum(capHi) && bins.some((b) => b.mean_slope_pct > capHi) ? capHi : undefined;
+        const yMin = isNum(capLo) && bins.some((b) => b.mean_slope_pct < capLo) ? capLo : undefined;
         const box = h("div");
         body.append(box);
         barChart(box, {
           title,
-          subtitle: `Mean slope: the first full quarter after the front month minus the front month, in percent of spot, for curves grouped by the spot level in bins of USD ${num(width)} a day. ${binRule(engine)} n under each bin.`,
+          subtitle: `Mean slope: the first full quarter after the front month minus the front month, in percent of spot, for curves grouped by the spot level in bins of USD ${num(width)} a day. ${binRule(engine)} n under each bin; bins of fewer than ${RULES.minYearN} curves are drawn faint, and a bar beyond the axis is cut and labelled with its value.`,
           legend: [{ label: "Mean slope up (contango)", cls: "contango", kind: "rect" }, { label: "Mean slope down (backwardation)", cls: "backwardation", kind: "rect" }],
-          cats: bins.map((b) => ({ key: String(b.spot_from), label: `${k(b.spot_from)} to ${k(b.spot_to)}`, sub: `n ${b.n}` })),
+          cats: bins.map((b) => ({ key: String(b.spot_from), label: `${k(b.spot_from)} to ${k(b.spot_to)}`, sub: `n ${b.n}`, muted: small(b) })),
+          capLabel: (bar) => { const b = bins.find((x) => String(x.spot_from) === bar.key); return `${signedPct(bar.value, 0)} (n ${b?.n ?? ""})`; },
+          valueLabels: (bar) => signedPct(bar.value, Math.abs(bar.value) < RULES.smallSlope ? 1 : 0),
           bars: bins.map((b) => ({ key: String(b.spot_from), value: b.mean_slope_pct, cls: b.mean_slope_pct >= 0 ? "contango" : "backwardation" })),
-          tips: Object.fromEntries(bins.map((b) => [String(b.spot_from), { title: `Spot ${usdDay(b.spot_from)} to ${num(b.spot_to)}`, rows: [{ key: b.mean_slope_pct >= 0 ? "contango" : "backwardation", value: signedPct(b.mean_slope_pct), label: "mean slope, percent of spot" }, { key: null, value: shareOf(b.contango_share, b.n), label: `of ${plural(b.n, "curve", "curves")} sloped up` }] }])),
-          y: { title: "Mean slope, percent of spot", format: (v) => pct(v, 0) },
+          tips: Object.fromEntries(bins.map((b) => [String(b.spot_from), { title: `Spot ${usdDay(b.spot_from)} to ${num(b.spot_to)}`, rows: [{ key: b.mean_slope_pct >= 0 ? "contango" : "backwardation", value: signedPct(b.mean_slope_pct), label: "mean slope, percent of spot" }, { key: null, value: shareOf(b.contango_share, b.n), label: `of ${plural(b.n, "curve", "curves")} sloped up` }], note: small(b) ? "Too few curves to read" : null }])),
+          y: { title: "Mean slope, percent of spot", format: (v) => pct(v, 0), max: yMax, min: yMin },
           x: { title: "Spot level, USD thousand a day" },
           summary: `Mean slope by spot level: ${bins.map((b) => `${k(b.spot_from)} to ${k(b.spot_to)} thousand ${signedPct(b.mean_slope_pct, 1)} (n ${b.n}, ${shareOf(b.contango_share, b.n, 0)} up)`).join("; ")}.`,
           source: sourceLine(curve, "Banchero Costa weekly FFA assessments; Baltic 5TC prints."),
@@ -466,6 +501,7 @@ function render(section, ctx) {
             dots: true,
             muted: i < strips.length - 1,
             endLabel: i === strips.length - 1 ? dateLong(st.as_of) : null,
+            endLabelShort: i === strips.length - 1 ? monthShort(st.as_of.slice(0, 7)) : null,
             points: st.months.map((mm) => ({ x: monthMid(mm.month), y: mm.usd_t, tip: { title: `${monthLong(mm.month)} contract, marked ${dateLong(st.as_of)}`, rows: [{ key: "ffa", value: usdT(mm.usd_t, 3), label: "" }, { key: null, value: num(mm.contracts), label: "contracts held" }] } })),
           })),
           summary: stripSummary(strips),

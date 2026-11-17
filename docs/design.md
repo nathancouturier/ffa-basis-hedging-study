@@ -57,7 +57,10 @@ Sentence case everywhere; no all-caps labels, no eyebrows above headings, no hig
   width; wide tables scroll inside their own box (`.table-wrap`, keyboard focusable), and a table wider
   than its box fades on the side that has more columns (`scrollCue` in `src/dom.js`), so a phone reader
   sees there is more before trying to scroll.
-- Views are one column on phones. From 1024px the hedge lab puts its three steps beside the outputs.
+- Views are one column on phones. The hedge lab has three areas: on phones what the hedge locks and its
+  scenario chart come first, then the three steps, then the tables; from 768px the steps lead; from
+  1024px the steps sit beside the outputs while one is open, and with every step closed they line up in a
+  row and the outputs take the full width (no empty column beside them).
 - Touch targets: every button, link in the navigation, radio and input is at least 44px tall.
 
 ## Components
@@ -68,7 +71,10 @@ Sentence case everywhere; no all-caps labels, no eyebrows above headings, no hig
   more and the current view kept in sight, so the first screen of a view reaches its chart; from 1100px
   name, links and toggle share one row. The theme is set on `<html data-theme>` before first paint from
   `localStorage["nc-theme"]`; a stored choice wins, the default is light.
-- **Takeaway**: one serif sentence (h1) per view. A visually hidden prefix names the view for screen readers.
+- **Takeaway**: one serif sentence (h1) per view, one finding of about 25 words; a second clause goes to
+  the key chart's title or subtitle. A step smaller at 390px and below, so the key chart starts on the
+  first screen or near it. A visually hidden prefix names the view for screen readers. The overview adds a
+  line of facts under it: the headline's interval, its fixtures and the data's date.
 - **Facts** (overview): three figures on a hairline-ruled row, each with a label, a value and the detail
   that makes it checkable (measure, n, dates, link). Deliberately unequal widths; no card chrome.
 - **Panel buttons**: a row of native buttons (`aria-pressed`) that swap the secondary chart under the key
@@ -84,7 +90,8 @@ Sentence case everywhere; no all-caps labels, no eyebrows above headings, no hig
   Key columns come first (the figure a reader came for, then the identifiers and counts), so a phone shows
   them without scrolling. A header longer than 12 characters gets a minimum width in proportion to
   its length, so it wraps to about three lines instead of stacking word by word over a narrow column of
-  figures.
+  figures. In text tables the first column (the item's name) keeps at least 9em; a status cell never
+  wraps; a column whose every cell is empty is left out.
 - **Notes**: a 2px rule on the left and ink-2 text; used for the not-a-strategy note and data caveats.
 - **Inputs** (lab): native inputs, 44px high. A value the visitor typed gets a dashed outline and the tag
   "Your figure"; a default carries its source and date beside the field (under it when the row is
@@ -186,7 +193,9 @@ Styles that are not colours:
   forward marks, case studies). One secondary chart shows at a time, chosen in the hash (`panel=`).
 - **Curve view default date.** The key chart opens on the latest cited curve that carries a same-day
   spot, because "tenors against the same day's spot" is the chart's point; any other cited date is one
-  click away and kept in the hash (`date=`).
+  click away and kept in the hash (`date=`). The takeaway states what that chart shows and follows the
+  date chosen; the shares across weeks lead the calendar's title, and the first-quarter discount the
+  calendar-month chart's.
 - **Long tables.** Data tables over about 16 rows show their first rows and a "Show all" button (a
   second level of disclosure inside the Data section). Numeric tables keep each cell on one line and
   scroll sideways inside their own box on phones; text tables (conventions, policy, validation) wrap.
@@ -194,7 +203,13 @@ Styles that are not colours:
   summary or above a click: the summary gives the range and the latest strip, the Data section the rows.
 - **Narrow charts.** Below 640px the calendar strip turns its years into columns, the waterfall puts each
   label above its bar, and value axes keep every gridline but label only what fits (zero always).
-  Labels are measured in a hidden SVG with the page's own CSS, tabular figures included.
+  Labels are measured in a hidden SVG with the page's own CSS, tabular figures included. An end label
+  that does not fit takes its short form ("Sep 2026") or sits inside, above the line's end.
+- **Small samples on a bar axis.** A bin with fewer than 10 curves is drawn faint and does not set the
+  title or the axis: a faint bar far beyond the populated bins is cut at the axis, marked with a break and
+  labelled with its own value and n.
+- **A point alone.** A line segment of one point (TD34's first week, between two gaps) is drawn as a dot,
+  in every line chart, so no observation disappears.
 - **Takeaways and titles are composed, never typed.** Each sentence is built from artifact values with
   simple comparisons (the largest and smallest cell, the share above or below, the sign of a mean, an
   interval that spans zero). When a value is missing the sentence says the data is not in this build.
@@ -248,11 +263,19 @@ Styles that are not colours:
 - **TD34's first date.** In Worldscale the weekly chart names the day the Baltic first assessed TD34 and
   the week it closes ("first assessed on 26 March 2026 (week to 27 March)"), the weekday read from the
   report; in TCE it names the first week with a TCE ("TCE first reported 10 July 2026").
-- **Every TD3C case is approximate.** Each settles on one or two public prints a month, so all four carry
+- **Every TD3C case is approximate.** Each settles on one to three public prints a month, so all four carry
   the label; "one print: settles at its own fixture" appears only beside a month the data marks as such.
+- **Months priced in marked weeks.** A case month whose prints fall in a marked week is tagged in its
+  line and in the case table, and the waterfall adds the case's total without those months as a hatched
+  bar, with one sentence giving it.
+- **The lab's units.** Changing the voyage or the role redraws the scenario step; a settlement typed in
+  USD a day is dropped when the voyage turns to TD3C (USD a tonne), and one above five times F0 is called
+  out as a likely unit slip and kept in the table but off the chart, so it cannot stretch the axis. The scenario chart's outer basis band has its edges drawn in the role's colour
+  and named (5th and 95th percentile), because the band's fill alone is too pale to read.
 - **TD3C statistics.** The forward errors by horizon are shown with and without the months that hold a
-  marked week, labelled approximate; hedge effectiveness is "not computed" until a horizon has 12 contract
-  months with two prints, and the cell says how many it has.
+  marked week, labelled approximate, at the head of the Data section (not in the default panel, which
+  keeps the marks chart and Breakwave's statement); hedge effectiveness is "not computed" until a horizon
+  has 12 contract months with two prints, and the cell says how many it has.
 - **Percent fields.** Artifact fields named `*_pct` and `*share*` are fractions; the site multiplies by 100.
 - **Minus sign.** Negative figures use U+2212 (a minus sign, not a dash) for alignment in tabular figures.
 - **No mono face.** Figtree's tabular figures do the job; a third face would add weight for nothing.

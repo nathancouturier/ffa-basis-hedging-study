@@ -7,7 +7,8 @@
 // bodies are hidden and inert when closed; the hash carries the panel and open sections of the view shown;
 // the theme toggle persists; a chart answers the keyboard; the colour tokens keep their contrast in both
 // themes; and the hedge lab's figures match src/engine.js run here in Node on the same inputs, including
-// the per-month paper table when the hedge ratio k changes. Starts scripts/serve.py when nothing answers. Exit code 1 on failure.
+// the per-month paper table when the hedge ratio k changes and the scenario's unit when the voyage
+// changes. Starts scripts/serve.py when nothing answers. Exit code 1 on failure.
 
 import { createRequire } from "node:module";
 import { spawn } from "node:child_process";
@@ -362,6 +363,30 @@ async function checkLab(browser, opts) {
   await settle(page, "lab");
   const missing = await page.evaluate(() => document.querySelector("#view-lab .problem")?.textContent || "");
   check(/No price for/.test(missing), "lab: a month beyond the curve does not ask for a price");
+
+  // 7. switching the voyage to TD3C re-labels the scenario's settlement in USD a tonne, drops one typed in
+  // USD a day, and a settlement far above F0 (a unit slip) is called out
+  await page.goto(`${opts.base}#/lab?voyage=C5&role=owner&start=2026-12-08&open=exposure,scenario`, { waitUntil: "networkidle" });
+  await settle(page, "lab");
+  await page.fill("#lab-step-scenario input", "60000");
+  await page.waitForTimeout(200);
+  await page.click('#lab-step-exposure label:has(input[value="TD3C"])');
+  await page.waitForTimeout(300);
+  const sc = await page.evaluate(() => ({
+    label: document.querySelector("#lab-step-scenario label")?.textContent || "",
+    value: document.querySelector("#lab-step-scenario input")?.value ?? null,
+    yours: [...document.querySelectorAll("#view-lab .outputs table tbody tr")].some((tr) => /Your figure/.test(tr.textContent)),
+    text: document.querySelector("#lab-step-scenario")?.textContent || "",
+  }));
+  check(/USD a tonne/.test(sc.label), `lab: after switching to TD3C the settlement is labelled "${sc.label}"`);
+  check(sc.value === "", `lab: a settlement typed in USD a day survives the switch to TD3C (${sc.value})`);
+  check(!sc.yours, "lab: the scenario table keeps a settlement typed in the other unit");
+  check(!/basis bands/.test(sc.text), "lab: the TD3C scenario step still mentions basis bands");
+  await page.fill("#lab-step-scenario input", "60000");
+  await page.waitForTimeout(250);
+  const warn = await page.evaluate(() => [...document.querySelectorAll("#view-lab .problem")].map((el) => el.textContent).join(" "));
+  check(/five times F0/.test(warn), "lab: a TD3C settlement far above F0 raises no warning");
+  await page.fill("#lab-step-scenario input", "");
   for (const e of errors) failures.push(e);
   await ctx.close();
   void constants;

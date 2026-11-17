@@ -37,9 +37,9 @@ function periodLabel(key) {
 
 // Why a week is marked, in the Baltic's terms (td3c.json weekly thin_reason).
 const REASONS = Object.freeze({
-  assessment: "assessment hard or theoretical",
-  transits: "transits all but stopped",
-  "assessment and transits": "assessment hard, transits all but stopped",
+  assessment: "assessment theoretical or hard",
+  transits: "transits limited or blocked",
+  "assessment and transits": "assessment theoretical or hard, transits limited or blocked",
 });
 
 const UNITS = [
@@ -63,7 +63,7 @@ function render(section, ctx) {
   let sentence = "The TD3C weekly prints are not in this build of the data.";
   if (peak) {
     sentence = before
-      ? `TD3C went from ${ws(before.ws_points)} in the last week before the Strait of Hormuz closed to ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}${thin.length ? `; in ${plural(thin.length, "marked week", "marked weeks")} of the closure the Baltic's own reports called the assessment hard or transits all but stopped` : ""}.`
+      ? `TD3C went from ${ws(before.ws_points)} before the Strait of Hormuz closed to ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}.`
       : `TD3C peaked at ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}.`;
   }
   section.append(takeaway("TD3C 2026", sentence));
@@ -133,11 +133,11 @@ function render(section, ctx) {
       { label: "TD3C, Ras Tanura to Ningbo", cls: "spot", kind: "line" },
     ];
     if (td34.length) legend.push({ label: "TD34, Mina Al Fahal to Ningbo (trial route)", cls: "route", kind: "line" });
-    if (thin.length) legend.push({ label: "Marked week: the Baltic called the assessment hard, or transits all but stopped", cls: "spot", kind: "hatch" });
+    if (thin.length) legend.push({ label: "Marked week: assessment theoretical or hard, or transits limited or blocked", cls: "spot", kind: "hatch" });
     const yearly = rows.length ? `${dateLong(rows[0].week)} to ${dateLong(rows[rows.length - 1].week)}` : "";
     lineChart(chartBox, {
       title,
-      subtitle: `${unit === "tce" ? "Round-trip time charter equivalent, USD a day" : "Worldscale points"}, weekly, as the Baltic Exchange reported them. Numbered lines are the events listed under the chart; the lines break where a week has no report.`,
+      subtitle: `${unit === "tce" ? "Round-trip time charter equivalent, USD a day" : "Worldscale points"}, weekly, as the Baltic Exchange reported them. Numbered lines are the events listed under the chart; the lines break where a week has no report or no TD3C print.${thin.length ? ` Hatched: the ${plural(thin.length, "marked week", "marked weeks")} of the closure, in which the Baltic's own reports called the assessment theoretical or hard, or reported transits through the Strait extremely limited or blocked.` : ""}`,
       legend,
       x: { type: "time" },
       y: { title: unit === "tce" ? "USD a day" : "Worldscale points", includeZero: true },
@@ -146,7 +146,7 @@ function render(section, ctx) {
       vlines,
       mode: "x",
       targets: ({ x, y }) => rows.map((w) => ({ x: x(dayMs(w.week)), y: y(v3(w)), tip: tip(w) })),
-      summary: `Weekly TD3C ${unit === "tce" ? "TCE" : "Worldscale"} from ${yearly}: low ${fmt(Math.min(...rows.map(v3).filter(isNum)))}, high ${fmt(v3(pk))} (week to ${dateLong(pk.week)}), last ${fmt(v3(rows[rows.length - 1]))} (week to ${dateLong(rows[rows.length - 1].week)}).${td34pk ? ` ${td34From}: high ${fmt(v34(td34pk))}, last ${fmt(v34(td34[td34.length - 1]))}.` : ""}${thin.length ? ` Marked weeks: ${listJoin(thin.filter((w) => w.week >= range.from).map((w) => dateLong(w.week)))}.` : ""}${gaps.length ? ` The lines break at ${plural(gaps.length, "gap", "gaps")} where a weekly report is missing, the first in this range the week to ${dateLong(gaps[0].first)}.` : ""}`,
+      summary: `Weekly TD3C ${unit === "tce" ? "TCE" : "Worldscale"} from ${yearly}: low ${fmt(Math.min(...rows.map(v3).filter(isNum)))}, high ${fmt(v3(pk))} (week to ${dateLong(pk.week)}), last ${fmt(v3(rows[rows.length - 1]))} (week to ${dateLong(rows[rows.length - 1].week)}).${td34pk ? ` ${td34From}: high ${fmt(v34(td34pk))}, last ${fmt(v34(td34[td34.length - 1]))}.` : ""}${thin.length ? ` Marked weeks: ${listJoin(thin.filter((w) => w.week >= range.from).map((w) => dateLong(w.week)))}.` : ""}${gaps.length ? ` The lines break at ${plural(gaps.length, "gap", "gaps")} where a weekly report is missing or gives no TD3C print, the first in this range the week to ${dateLong(gaps[0].first)}.` : ""}`,
       source: weeklySource,
     });
     clear(eventsBox);
@@ -235,7 +235,6 @@ function render(section, ctx) {
             rows: check.months,
           }));
         }
-        renderHorizonStats(body);
       },
     },
     {
@@ -283,7 +282,7 @@ function render(section, ctx) {
     if (!rows.length) return;
     const eff = (r) => (isNum(r.effectiveness_k1)
       ? pct(r.effectiveness_k1)
-      : `not computed: ${num(r.n_effectiveness)} of ${num(S.threshold_months)} months have ${numberWord(S.min_prints_for_residual ?? 2)} prints`);
+      : `not computed: ${num(r.n_effectiveness)} months with ${numberWord(S.min_prints_for_residual ?? 2)} prints, ${num(S.threshold_months)} needed`);
     body.append(table({
       caption: "Forward errors by horizon, USD a tonne (approximate)",
       columns: [
@@ -297,7 +296,7 @@ function render(section, ctx) {
         { label: "Hedge effectiveness at k = 1", format: eff },
       ],
       rows,
-      note: `Approximate: each settlement is the average of the month's Breakwave prints in USD a tonne, one or two a month, not of every publication day. "Without marked weeks" leaves out the contract months that hold a week the study marks. Hedge effectiveness needs ${num(S.threshold_months)} contract months with ${numberWord(S.min_prints_for_residual ?? 2)} prints or more at a horizon; ${(S.counts || []).length ? `there are ${listJoin(S.counts.map((cnt) => `${num(cnt.n_two_prints)} of ${num(cnt.n)} at ${horizonLabel(cnt.horizon_months)}`))}` : "no horizon has that many yet"}.`,
+      note: `Approximate: each settlement is the average of the month's Breakwave prints in USD a tonne, one to three a month, not of every publication day. "Without marked weeks" leaves out the contract months that hold a week the study marks. Hedge effectiveness needs ${num(S.threshold_months)} contract months with ${numberWord(S.min_prints_for_residual ?? 2)} prints or more at a horizon; ${(S.counts || []).length ? `there are ${listJoin(S.counts.map((cnt) => `${num(cnt.n_two_prints)} of ${num(cnt.n)} at ${horizonLabel(cnt.horizon_months)}`))}` : "no horizon has that many yet"}.`,
     }));
   }
 
@@ -316,15 +315,24 @@ function render(section, ctx) {
     // the quarter after the marks: a month without a dollar print is left out of the case
     const quarter = Array.from({ length: SHAPE.quarter }, (_, k) => add_months(c.as_of.slice(0, 7), k + 1));
     const missing = quarter.filter((mm) => !months.some((m) => m.month === mm));
-    // every case settles on one or two public prints a month, so every settlement is approximate
+    // every case settles on one to three public prints a month, so every settlement is approximate
     const approx = true;
+    // months whose prints fall in weeks the study marks: tagged, and the case shown without them too
+    const markedDates = (m) => m.prints_in_marked_weeks || [];
+    const marked = Array.isArray(c.months_with_marked_prints) ? c.months_with_marked_prints : months.filter((m) => markedDates(m).length).map((m) => m.month);
+    const without = marked.length && c.total_without_marked ? c.total_without_marked : null;
+    const markedText = listJoin(marked.map((mm) => monthLong(mm)));
+    const roleCls = role === "charterer" ? "charterer" : "owner";
     box.append(h("h3", { class: "section-title" }, `Hedged at the ${dateLong(c.as_of)} marks: ${monthsText}`));
     const report = (m) => (m.fixture_url ? h("a", { href: m.fixture_url }, `Breakwave report of ${dateLong(m.fixture_on)}`) : m.fixture_on ? `report of ${dateLong(m.fixture_on)}` : "no report");
     const line = (m) => h("p", { class: "small" },
-      `${monthLong(m.month)}: marked at ${usdUnit ? usdT(m.f0, 3) : num(m.f0, 2)} on ${dateLong(c.as_of)}; the cargo fixed at ${usdUnit ? usdT(m.physical) : num(m.physical, 2)} (`, report(m), `); settlement estimate ${usdUnit ? usdT(m.settlement) : num(m.settlement, 2)}${m.single_print ? " from one print: settles at its own fixture" : isNum(m.prints) ? `, the average of ${plural(m.prints, "print", "prints")}` : ""}.`);
+      `${monthLong(m.month)}: marked at ${usdUnit ? usdT(m.f0, 3) : num(m.f0, 2)} on ${dateLong(c.as_of)}; the cargo fixed at ${usdUnit ? usdT(m.physical) : num(m.physical, 2)} (`, report(m), `); settlement estimate ${usdUnit ? usdT(m.settlement) : num(m.settlement, 2)}${m.single_print ? " from one print: settles at its own fixture" : isNum(m.prints) ? `, the average of ${plural(m.prints, "print", "prints")}` : ""}${markedDates(m).length ? `; priced in marked weeks (the prints of ${listJoin(markedDates(m).map((d) => dateLong(d)))})` : ""}.`);
     box.append(h("div", { class: "prose" },
       h("p", {}, `${role === "owner" ? "An owner" : "A charterer"} with one ${tonnes(c.cargo_t)} cargo to carry in each of ${monthsText} (${tonnes(c.cargo_t * n)} in all) ${role === "owner" ? "sells" : "buys"} each month's TD3C futures at the mark and fixes each cargo in its loading month.${missing.length ? ` ${listJoin(missing.map((mm) => monthLong(mm)))} ${missing.length === 1 ? "has" : "have"} no dollar print, so the case leaves ${missing.length === 1 ? "it" : "them"} out.` : ""} It locks ${amount(tot.locked_usd)} of gross freight; the cargoes came in ${money(tot.physical_vs_locked_usd)} against that and the paper ${money(tot.paper_usd)}, so the total was ${amount(tot.total_usd)}.`),
       ...months.map(line),
+      without
+        ? h("p", {}, `Without ${markedText}, priced in marked weeks, the case locks ${amount(without.locked_usd)} and ends at ${amount(without.total_usd)}, ${money(without.total_usd - without.locked_usd)} against what it locked.`)
+        : null,
       c.mark_source || c.fixture_source || c.settlement_source
         ? h("p", { class: "small muted" }, [c.mark_source && `Marks: ${c.mark_source}.`, c.fixture_source && `Cargo: ${c.fixture_source}.`, c.settlement_source && `Settlement: ${c.settlement_source}.`].filter(Boolean).join(" "))
         : null,
@@ -333,7 +341,8 @@ function render(section, ctx) {
       { label: "Locked at the mark", value: tot.locked_usd, cls: "ink", kind: "start", outline: true },
       { label: "Cargo against the mark", value: tot.physical_vs_locked_usd, cls: "spot", kind: "delta" },
       { label: "Paper", value: tot.paper_usd, cls: "ffa", kind: "delta" },
-      { label: "Total", value: tot.total_usd, cls: role === "charterer" ? "charterer" : "owner", kind: "total" },
+      { label: "Total", value: tot.total_usd, cls: roleCls, kind: "total" },
+      ...(without ? [{ label: `Total without ${markedText}`, value: without.total_usd, cls: roleCls, kind: "total", hatch: true }] : []),
     ].filter((st) => isNum(st.value)).map((st) => ({ ...st, valueLabel: compactMoney(st.value), tip: { title: st.label, rows: [{ key: st.cls, value: money(st.value), label: "" }], note: `${capitalise(cargoes)}, marks of ${dateLong(c.as_of)}` } }));
     const chartBox = h("div", { class: "case-chart" });
     box.append(chartBox);
@@ -347,11 +356,12 @@ function render(section, ctx) {
         { label: "Locked", cls: "ink", kind: "outline" },
         { label: "Cargo", cls: "spot", kind: "rect" },
         { label: "Paper", cls: "ffa", kind: "rect" },
-        { label: `Total, ${role}`, cls: role === "charterer" ? "charterer" : "owner", kind: "rect" },
+        { label: `Total, ${role}`, cls: roleCls, kind: "rect" },
+        ...(without ? [{ label: `Without ${markedText} (priced in marked weeks)`, cls: roleCls, kind: "hatch" }] : []),
       ],
       steps,
       x: { title: usdUnit ? "USD" : unitLabel, format: (v) => compactMoney(v) },
-      summary: `Locked ${amount(tot.locked_usd)}; cargo against the mark ${money(tot.physical_vs_locked_usd)}; paper ${money(tot.paper_usd)}; total ${amount(tot.total_usd)}.`,
+      summary: `Locked ${amount(tot.locked_usd)}; cargo against the mark ${money(tot.physical_vs_locked_usd)}; paper ${money(tot.paper_usd)}; total ${amount(tot.total_usd)}.${without ? ` Without ${markedText}, priced in marked weeks: locked ${amount(without.locked_usd)}, total ${amount(without.total_usd)}.` : ""}`,
       source: h("span", {}, "Source: ", c.mark_url ? h("a", { href: c.mark_url }, `BWET filing of ${dateLong(c.as_of)}`) : "BWET filing", ...months.flatMap((m) => ["; ", report(m)]), `. ${(() => {
         const sec = retrievedOf(manifest, "SEC");
         const bw = retrievedOf(manifest, "Breakwave");
@@ -361,7 +371,7 @@ function render(section, ctx) {
     box.append(table({
       caption: `Case by month: one cargo of ${tonnes(c.cargo_t)} a month`,
       columns: [
-        { label: "Month", format: (m) => tenorLabel(m.month) },
+        { label: "Month", format: (m) => (markedDates(m).length ? h("span", {}, tenorLabel(m.month), h("br"), h("span", { class: "muted" }, "priced in marked weeks")) : tenorLabel(m.month)) },
         { label: `Mark, ${unitLabel}`, num: true, format: (m) => num(m.f0, 3) },
         { label: `Settlement: Breakwave average, ${unitLabel}`, num: true, format: (m) => num(m.settlement, 2) },
         { label: "Total, USD", num: true, format: (m) => num(m.total_usd) },
@@ -402,7 +412,7 @@ function render(section, ctx) {
           body.append(defs([
             { term: "Role", desc: "The cases take an owner's side (short paper); a charterer's figures are the same with the opposite sign." },
             { term: "Cargo", desc: cargoText(cases) },
-            { term: "Settlement", desc: `ICE's TDL settles on the average of every Baltic publication day of the month; with one or two public prints a month, the study's settlement is an estimate and labelled approximate. A month with one print settles at its own fixture. Statistics need ${td3c.statistics?.min_prints_for_residual ?? "two"} prints a month or more.` },
+            { term: "Settlement", desc: `ICE's TDL settles on the average of every Baltic publication day of the month; with one to three public prints a month, the study's settlement is an estimate and labelled approximate. A month with one print settles at its own fixture. Statistics need ${td3c.statistics?.min_prints_for_residual ?? "two"} prints a month or more.` },
             { term: "Freight", desc: "TD3C amounts are gross freight: no address commission or brokerage is taken off." },
             { term: "Contracts", desc: `ICE TDL futures, ${num(engine?.constants?.TONNES_PER_LOT_TD3C)} t a lot in USD a tonne (contract specification in Method and data).` },
           ]));
@@ -412,6 +422,7 @@ function render(section, ctx) {
         id: "data",
         label: "Data",
         render(body) {
+          renderHorizonStats(body);
           body.append(table({
             caption: "Weekly TD3C and TD34 prints",
             limit: 16,

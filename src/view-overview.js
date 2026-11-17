@@ -58,6 +58,12 @@ function render(section, ctx) {
     ? `A 5TC hedge placed ${horizonLabel(hl.horizon_months)} before the fixture removed ${pct(hl.effectiveness_k1)} of the variance of a ${hl.voyage} voyage's earnings.`
     : "The headline effectiveness is not in this build of the data.";
   section.append(takeaway("Overview", sentence));
+  // what the headline rests on, right under it: its interval, its fixtures and the data's date
+  const under = [];
+  if (hl.effectiveness_k1_ci) under.push(`90 percent interval ${pct(hl.effectiveness_k1_ci.low)} to ${pct(hl.effectiveness_k1_ci.high)}`);
+  if (isNum(hl.n)) under.push(`${num(hl.n)} weekly fixtures, ${dateLong(hl.first_fixture)} to ${dateLong(hl.last_fixture)}`);
+  if (overview.as_of) under.push(`data to ${dateLong(overview.as_of)}`);
+  if (under.length) section.append(h("p", { class: "takeaway-meta" }, `${capitalise(under.join("; "))}.`));
 
   const facts = [];
   if (hl.effectiveness_k1_ci) facts.push({ term: "90 percent interval", desc: `${pct(hl.effectiveness_k1_ci.low)} to ${pct(hl.effectiveness_k1_ci.high)} (moving block bootstrap, blocks of ${hl.effectiveness_k1_ci.block} weeks, ${num(hl.effectiveness_k1_ci.resamples)} resamples)` });

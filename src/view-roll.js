@@ -65,6 +65,12 @@ const RULES = Object.freeze({
   shipYearRound: 1000, // literal: unit, ship-year costs are rounded to the nearest USD 1,000
 });
 
+/** "One-month" for "Rolling one-month long": the table's first column tells the two strategies apart. */
+function strategyShort(name) {
+  const m = /^rolling (.+?) long$/i.exec(String(name || ""));
+  return m ? capitalise(m[1]) : String(name || "");
+}
+
 /** "Jan to Oct" when a year's monthly contracts do not span it; empty for a full year or quarters. */
 function monthsOf(r) {
   const f = String(r.first || "");
@@ -141,7 +147,8 @@ function render(section, ctx) {
     const above = one.mean_usd_day > 0;
     const ci = one.mean_ci;
     const spansZero = ci && ci.low < 0 && ci.high > 0;
-    sentence = `On each curve's first print, the 5TC settled on average ${usdDay(Math.abs(one.mean_usd_day))} ${above ? "above" : "below"} the FFA price ${horizonLabel(one.horizon_months)} before expiry${ci && isNum(ci.low) ? ` (90 percent interval ${signed(ci.low)} to ${signed(ci.high)})` : ""}: a rolling charterer ${above ? "earned" : "paid"} that gap and a rolling owner ${above ? "gave it up" : "earned it"}${spansZero ? ", though the interval includes zero" : ""}.`;
+    // one finding: who earns the gap goes to the chart's subtitle
+    sentence = `On first prints, the 5TC settled ${usdDay(Math.abs(one.mean_usd_day))} ${above ? "above" : "below"} the FFA price ${horizonLabel(one.horizon_months)} before expiry on average${ci && isNum(ci.low) ? ` (90 percent interval ${signed(ci.low)} to ${signed(ci.high)}${spansZero ? ", which includes zero" : ""})` : ""}.`;
   }
   section.append(takeaway("Bias and roll", sentence));
   const variants = Object.fromEntries((ctx.data.method?.robustness || []).map((v) => [v.key, (v.bias || {})[String(one?.horizon_months)] || null]));
@@ -176,7 +183,7 @@ function render(section, ctx) {
     const title = `Mean error ${listJoin(bias.map((b) => signed(b.mean_usd_day)))} USD a day at ${listJoin(bias.map((b) => String(b.horizon_months)))} months${ratioClause(bias)}`;
     stripChart(key, {
       title,
-      subtitle: `Settlement minus the FFA price paid that many months before expiry, on each curve's first print, USD a day. Dots: contract months (the front quarter shows only its mean); bars: the mean and its 90 percent interval. Baskets as printed: ${basketCounts(errors) || "each contract on its curve's basket"}.`,
+      subtitle: `Settlement minus the FFA price paid that many months before expiry, on each curve's first print, USD a day: above zero, a rolling charterer earned the gap and a rolling owner gave it up. Dots: contract months (the front quarter shows only its mean); bars: the mean and its 90 percent interval. Baskets as printed: ${basketCounts(errors) || "each contract on its curve's basket"}.`,
       legend: [
         { label: "Settled on the study's complete daily series", cls: "ffa", kind: "dot" },
         { label: "Settled at Himalaya Shipping's published average", cls: "ffa", kind: "hollow" },
@@ -244,10 +251,10 @@ function render(section, ctx) {
         body.append(table({
           caption: "Roll cost by year",
           columns: [
+            { label: "Strategy", format: (r) => strategyShort(r.strategy) },
             { label: "Year", format: (r) => yearLabel(r) },
             { label: "USD a day", num: true, format: (r) => signed(r.roll_cost_usd_day) },
             { label: "Who pays", format: (r) => (r.roll_cost_usd_day > 0 ? "Charterer (long)" : r.roll_cost_usd_day < 0 ? "Owner (short)" : "Neither") },
-            { label: "Strategy", format: (r) => r.strategy },
             { label: "Contracts", num: true, format: (r) => num(r.n) },
             { label: "% of settlement", num: true, format: (r) => signedPct(r.roll_cost_pct) },
             { label: "USD a ship-year", num: true, format: (r) => shipYear(r.ship_year_usd) },
@@ -306,7 +313,7 @@ function render(section, ctx) {
         render(body) {
           body.append(defs([
             { term: "Error", desc: formulas["Forecast error"] || "error = S minus F(h months before expiry); roll cost of a rolling long = F minus S." },
-            { term: "Price at a horizon", desc: "The month's price on the last weekly curve printed at least h months before its expiry; the front quarter uses the quarter's price on the curve before the quarter starts." },
+            { term: "Price at a horizon", desc: "The month's price on the last weekly curve printed in the calendar month h months before the contract month; the front quarter uses the quarter's price on the curve before the quarter starts." },
             { term: "Settlement", desc: formulas.Settlement || "The average of the Baltic's assessments on every publication day of the month." },
             { term: "Intervals", desc: `Moving block bootstrap of the mean and the RMSE, fixed seed, ${blocksText(bias, qb)}.` },
             { term: "Spot as a forecast", desc: "The naive forecast of a contract's settlement is the spot on the day the price was taken; RMSE against it tells whether the curve carried information." },

@@ -20,6 +20,12 @@
   text-wrap: balance;
 }
 
+@media (max-width: 390px) {
+  .takeaway {
+    font-size: 1.3125rem;
+  }
+}
+
 .takeaway:focus {
   outline: none;
 }
@@ -30,6 +36,14 @@
 
 .lede {
   max-width: var(--measure);
+  color: var(--ink-2);
+}
+
+/* the line of facts directly under a takeaway */
+.view > .takeaway-meta {
+  margin-top: var(--s3);
+  max-width: var(--measure);
+  font-size: var(--fs-small);
   color: var(--ink-2);
 }
 
@@ -645,15 +659,51 @@ select.input {
 
 /* -------------------------------------------------------------------- lab */
 
+/* Three areas. Phones: what the hedge locks and its scenario chart first, then the steps, then the rest.
+   768 to 1023 px: the steps first. From 1024 px: the steps beside the outputs while a step is open; with
+   every step closed the steps sit in a row and the outputs take the full width. */
 .lab {
   display: grid;
   gap: var(--s6);
   align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "steps" "rest";
+}
+
+.lab > .steps {
+  grid-area: steps;
+}
+
+.lab > .lab-head {
+  grid-area: head;
+}
+
+.lab > .lab-rest {
+  grid-area: rest;
+}
+
+@media (min-width: 768px) {
+  .lab {
+    grid-template-areas: "steps" "head" "rest";
+  }
 }
 
 @media (min-width: 1024px) {
   .lab {
     grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "steps head" "steps rest";
+  }
+
+  .lab.steps-closed {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "steps" "head" "rest";
+  }
+
+  .lab.steps-closed > .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s5);
   }
 }
 
@@ -840,4 +890,9 @@ th .btn {
 
 .is-compact .wrap-ok {
   white-space: normal;
+}
+
+/* text tables wrap, but their first column (the item's name) keeps room for a few words a line */
+.table-wrap table:not(.is-compact) tr > :first-child {
+  min-width: 9em;
 }

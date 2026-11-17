@@ -227,13 +227,15 @@ function legendSwatch(kind, cls) {
   else if (kind === "hollow") sw.append(s("circle", { cx: 9, cy: 6, r: 3.5, class: `dot hollow s-${cls}` }));
   else if (kind === "diamond") sw.append(s("path", { d: "M9 1.5 L13.5 6 L9 10.5 L4.5 6 Z", class: `dot hollow s-${cls}` }));
   else if (kind === "ring") sw.append(s("circle", { cx: 9, cy: 6, r: 3, class: `dot hollow s-${cls}` }));
+  else if (kind === "thinring") sw.append(s("line", { x1: 1, y1: 6, x2: 17, y2: 6, class: `line thin s-${cls}` }), s("circle", { cx: 9, cy: 6, r: 3.5, class: `dot hollow s-${cls}` }));
   else if (kind === "square") sw.append(s("rect", { x: 5, y: 2, width: 8, height: 8, class: `dot hollow s-${cls}` }));
   else if (kind === "span") sw.append(s("line", { x1: 1, y1: 6, x2: 17, y2: 6, class: `span s-${cls}` }), s("circle", { cx: 9, cy: 6, r: 3, class: `f-${cls}` }));
   else if (kind === "band") sw.append(s("rect", { x: 1, y: 1, width: 16, height: 10, class: `band f-${cls}` }));
   else if (kind === "outline") sw.append(s("rect", { x: 3, y: 1.5, width: 12, height: 9, rx: 1.5, class: "outline-bar" }));
   else if (kind === "hatch") {
-    sw.append(s("rect", { x: 1, y: 1, width: 16, height: 10, fill: "none", class: "hatch-line" }));
-    for (let i = 0; i < 4; i += 1) sw.append(s("line", { x1: 1 + i * 5, y1: 11, x2: 5 + i * 5, y2: 1, class: "hatch-line" }));
+    const hc = cls && cls !== "none" && cls !== "spot" ? `hatch-c s-${cls}` : "hatch-line";
+    sw.append(s("rect", { x: 1, y: 1, width: 16, height: 10, fill: "none", class: hc }));
+    for (let i = 0; i < 4; i += 1) sw.append(s("line", { x1: 1 + i * 5, y1: 11, x2: 5 + i * 5, y2: 1, class: hc }));
   } else if (kind === "empty") sw.append(s("rect", { x: 3, y: 1.5, width: 12, height: 9, class: "cell-empty" }));
   else if (kind === "cellnone") sw.append(s("rect", { x: 3.5, y: 2, width: 11, height: 8, class: "cell-none" }));
   else sw.append(s("rect", { x: 3, y: 1.5, width: 12, height: 9, rx: 2, class: `f-${cls}` }));
@@ -475,9 +477,9 @@ function hbarPath(x0, x1, y, hgt, r) {
   return `M${x0},${y}H${x1 + rr}Q${x1},${y} ${x1},${y + rr}V${y + hgt - rr}Q${x1},${y + hgt} ${x1 + rr},${y + hgt}H${x0}Z`;
 }
 
-function hatchPattern(id) {
+function hatchPattern(id, cls) {
   const pat = s("pattern", { id, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
-  pat.append(s("line", { x1: 0, y1: 0, x2: 0, y2: 6, class: "hatch-line" }));
+  pat.append(s("line", { x1: 0, y1: 0, x2: 0, y2: 6, class: cls ? `hatch-c s-${cls}` : "hatch-line" }));
   return s("defs", {}, pat);
 }
 
@@ -570,12 +572,21 @@ export function lineChart(container, opts) {
         }
       }
 
+      const bandLabels = [];
       for (const b of opts.bands || []) {
         const pts = b.points.filter((p) => Number.isFinite(p.y0) && Number.isFinite(p.y1));
         if (pts.length < 2) continue;
         const upper = pts.map((p) => `${x(p.x)},${y(p.y1)}`).join("L");
         const lower = pts.slice().reverse().map((p) => `${x(p.x)},${y(p.y0)}`).join("L");
         nodes.push(s("path", { d: `M${upper}L${lower}Z`, class: `band f-${b.cls}${b.inner ? " inner" : ""}` }));
+        // a pale band needs its edges drawn to be seen (and read) against the page
+        if (b.edges) {
+          nodes.push(s("path", { d: `M${upper}`, class: `band-edge s-${b.cls}` }));
+          nodes.push(s("path", { d: `M${pts.map((p) => `${x(p.x)},${y(p.y0)}`).join("L")}`, class: `band-edge s-${b.cls}` }));
+          const end = pts[pts.length - 1];
+          if (b.edges.upper) bandLabels.push(s("text", { x: x(end.x) - 4, y: y(end.y1) - 5, "text-anchor": "end", class: "label halo", text: b.edges.upper }));
+          if (b.edges.lower) bandLabels.push(s("text", { x: x(end.x) - 4, y: y(end.y0) + 14, "text-anchor": "end", class: "label halo", text: b.edges.lower }));
+        }
       }
 
       // every data point in pixels, so reference labels can avoid them
@@ -618,6 +629,7 @@ export function lineChart(container, opts) {
       const animated = [];
       for (const se of opts.series || []) {
         const pts = se.points.filter((p) => Number.isFinite(p.y)).slice().sort((a, b) => a.x - b.x);
+        if (se.line !== false && pts.length === 1 && !se.dots) nodes.push(s("circle", { cx: x(pts[0].x), cy: y(pts[0].y), r: LAYOUT.dotR, class: `dot f-${se.cls}` }));
         if (se.line !== false && pts.length > 1) {
           const segs = [];
           let cur = [];
@@ -630,7 +642,11 @@ export function lineChart(container, opts) {
           }
           if (cur.length) segs.push(cur);
           for (const seg of segs) {
-            if (seg.length < 2) continue;
+            if (seg.length < 2) {
+              // a point alone between gaps would draw no line at all: show it as a dot
+              if (!se.dots) nodes.push(s("circle", { cx: x(seg[0].x), cy: y(seg[0].y), r: LAYOUT.dotR, class: `dot f-${se.cls}${se.muted ? " is-muted" : ""}` }));
+              continue;
+            }
             const d = `M${seg.map((p) => `${x(p.x).toFixed(1)},${y(p.y).toFixed(1)}`).join("L")}`;
             const path = s("path", { d, class: `line s-${se.cls}${se.thin ? " thin" : ""}${se.dash ? " dash" : ""}${se.muted ? " is-muted" : ""}` });
             nodes.push(path);
@@ -649,7 +665,12 @@ export function lineChart(container, opts) {
         }
         if (se.endLabel && pts.length) {
           const last = pts[pts.length - 1];
-          nodes.push(s("text", { x: x(last.x) + LAYOUT.labelGap, y: y(last.y) + 4, class: "label-strong halo", text: se.endLabel }));
+          const lx = x(last.x) + LAYOUT.labelGap;
+          const fits = (t) => lx + textWidth(t, LAYOUT.bold) <= width;
+          // a label too long for the space on the right: its short form, or set inside, above the line's end
+          const text = fits(se.endLabel) || !se.endLabelShort ? se.endLabel : se.endLabelShort;
+          if (fits(text)) nodes.push(s("text", { x: lx, y: y(last.y) + 4, class: "label-strong halo", text }));
+          else nodes.push(s("text", { x: Math.min(width, x(last.x)), y: y(last.y) - 10, "text-anchor": "end", class: "label-strong halo", text }));
         }
       }
       for (const sp of opts.spans || []) {
@@ -657,6 +678,7 @@ export function lineChart(container, opts) {
         const cx = (x(sp.x0) + x(sp.x1)) / 2;
         nodes.push(s("circle", { cx, cy: y(sp.y), r: LAYOUT.dotR, class: sp.hollow ? `dot hollow s-${sp.cls}` : `dot f-${sp.cls}` }));
       }
+      nodes.push(...bandLabels);
       for (const lab of opts.labels || []) {
         nodes.push(s("text", { x: x(lab.x) + (lab.dx || 0), y: y(lab.y) + (lab.dy || 0), "text-anchor": lab.anchor || "start", class: `${lab.strong ? "label-strong" : "label"} halo`, text: lab.text }));
       }
@@ -930,13 +952,24 @@ export function barChart(container, opts) {
           const b = opts.bars.find((bb) => bb.key === c.key);
           if (b && Number.isFinite(b.value)) {
             const y0 = y(0);
-            const y1 = y(b.value);
-            nodes.push(s("path", { d: barPath(bx, y0, y1, bw, LAYOUT.barRadius), class: b.outline ? "outline-bar" : `bar f-${b.cls}` }));
+            // a value beyond the axis is drawn to its edge, broken, and labelled with its own figure
+            const capped = b.value > nt.hi || b.value < nt.lo;
+            const y1 = y(clamp(b.value, nt.lo, nt.hi));
+            const mute = c.muted || b.muted ? " is-muted" : "";
+            nodes.push(s("path", { d: barPath(bx, y0, y1, bw, LAYOUT.barRadius), class: b.outline ? "outline-bar" : `bar f-${b.cls}${mute}` }));
             yTop = Math.min(y0, y1);
             yBot = Math.max(y0, y1);
-            if (opts.valueLabels) {
+            if (capped) {
+              const by = b.value > 0 ? y1 + 7 : y1 - 7;
+              nodes.push(s("line", { x1: bx - 2, x2: bx + bw + 2, y1: by + 2, y2: by - 2, class: "cap-break" }));
+              const label = opts.capLabel ? opts.capLabel(b) : String(b.value);
+              const roomRight = cx + bw / 2 + 4 + textWidth(label) <= right;
+              nodes.push(s("text", { x: roomRight ? bx + bw + 4 : bx - 4, y: b.value > 0 ? y1 + 10 : y1 - 4, "text-anchor": roomRight ? "start" : "end", class: "label halo", text: label }));
+            } else if (opts.valueLabels) {
+              // a direct label where it fits its band: a bar near zero still shows its figure
               const above = b.value >= 0;
-              nodes.push(s("text", { x: cx, y: above ? y1 - 6 : y1 + 14, "text-anchor": "middle", class: "label", text: opts.valueLabels(b) }));
+              const t = opts.valueLabels(b);
+              if (textWidth(t) <= band - 4) nodes.push(s("text", { x: cx, y: above ? y1 - 6 : y1 + 14, "text-anchor": "middle", class: `label halo${c.muted ? " muted-text" : ""}`, text: t }));
             }
           }
         }
@@ -1159,7 +1192,12 @@ export function waterfallChart(container, opts) {
         const x0 = x(b.a);
         const x1 = x(b.b);
         if (b.outline) nodes.push(s("rect", { x: Math.min(x0, x1), y: by, width: Math.max(1, Math.abs(x1 - x0)), height: bh, rx: 2, class: "outline-bar" }));
-        else nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), class: `bar f-${b.cls}` }));
+        else if (b.hatch) {
+          const pid = nextId("hatch");
+          nodes.push(hatchPattern(pid, b.cls));
+          nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), fill: `url(#${pid})`, class: "bar hatched" }));
+          nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), class: `line thin s-${b.cls}` }));
+        } else nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), class: `bar f-${b.cls}` }));
         if (i > 0) {
           const prev = bars[i - 1];
           const join = b.kind === "delta" ? x(prev.b) : null;

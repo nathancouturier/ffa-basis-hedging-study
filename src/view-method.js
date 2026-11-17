@@ -63,11 +63,8 @@ function render(section, ctx) {
   // ---------------------------------------------------------- takeaway
   const parts = [];
   if (validation.length) parts.push(ok === validation.length ? `All ${num(ok)} validation anchors reproduce` : `${num(ok)} of ${num(validation.length)} validation anchors reproduce`);
-  if (isNum(cov.issues_read)) {
-    let read = `the study read ${num(cov.issues_read)} Banchero Costa issues${isNum(cov.daily_days) ? ` and built a daily 5TC series of ${num(cov.daily_days)} days` : ""}`;
-    if (rows.length) read += `, and settles ${num(totals.complete + totals.published)} months exactly and ${num(totals.estimated)} by estimate`;
-    parts.push(read);
-  }
+  // one finding: the settlements; what was read is in the chart and Coverage
+  if (rows.length) parts.push(`${num(totals.complete + totals.published)} monthly 5TC settlements are exact and ${num(totals.estimated)} estimated`);
   const sentence = parts.length ? `${capitalise(parts.join("; "))}.` : "The method artifact is not in this build of the data.";
   section.append(takeaway("Method and data", sentence));
 
@@ -218,13 +215,14 @@ function render(section, ctx) {
           limit: 20,
           columns: [
             { label: "Item", format: (v) => v.item },
-            { label: "Result", format: (v) => h("span", { class: v.ok ? "ok-yes" : "ok-no" }, v.ok ? "Reproduced" : "Not reproduced") },
+            { label: "Result", format: (v) => h("span", { class: `${v.ok ? "ok-yes" : "ok-no"} nowrap` }, v.ok ? "Reproduced" : "Not reproduced") },
             { label: "Expected", num: true, format: (v) => fmtV(v.expected) },
             { label: "Reproduced", num: true, format: (v) => fmtV(v.reproduced) },
             { label: "Unit", format: (v) => unitOf(v.unit) },
             { label: "Error", num: true, format: (v) => (isNum(v.error) ? (v.error === 0 ? "0" : Math.abs(v.error) < 1e-3 ? v.error.toExponential(1).replace(/-/g, "\u2212") : signed(v.error, 2)) : "") },
             { label: "Group", format: (v) => v.group },
-            { label: "Note", format: (v) => v.note || "" },
+            // a column of empty notes says nothing: it shows only when a note exists
+            ...(validation.some((v) => v.note) ? [{ label: "Note", format: (v) => v.note || "" }] : []),
             { label: "Source", format: (v) => (v.url ? h("a", { href: v.url }, "Link") : "") },
           ],
           rows: validation,
