@@ -1,0 +1,355 @@
+/* charts.css: chart chrome and series styles. Every mark takes its colour from a token, so a theme
+   change restyles the charts without redrawing them. */
+
+.chart {
+  min-width: 0;
+}
+
+.chart-head {
+  display: grid;
+  gap: var(--s1);
+  max-width: var(--measure);
+}
+
+.chart-title {
+  font-size: var(--fs-section);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.chart-sub {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.legend {
+  list-style: none;
+  padding: 0;
+  margin: var(--s3) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s5);
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.legend svg {
+  flex: none;
+  overflow: visible;
+}
+
+.plot {
+  position: relative;
+  margin-top: var(--s3);
+  touch-action: pan-y;
+}
+
+.plot:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.plot svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-foot {
+  margin-top: var(--s3);
+  display: grid;
+  gap: var(--s1);
+  max-width: var(--measure);
+}
+
+.chart-summary {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.chart-source {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.chart-empty {
+  padding: var(--s5) 0;
+  color: var(--ink-2);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  max-width: var(--measure);
+}
+
+/* tooltip */
+
+.tip {
+  position: absolute;
+  z-index: 5;
+  min-width: 140px;
+  max-width: 280px;
+  padding: var(--s2) var(--s3);
+  background: var(--bg-raised);
+  border: 1px solid var(--axis);
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--ink);
+  pointer-events: none;
+}
+
+.tip-title {
+  font-weight: 600;
+  margin-bottom: var(--s1);
+}
+
+.tip-row {
+  display: grid;
+  grid-template-columns: 14px auto;
+  column-gap: var(--s2);
+  align-items: baseline;
+}
+
+.tip-row + .tip-row {
+  margin-top: 2px;
+}
+
+.tip-row .k {
+  display: block;
+  width: 14px;
+  height: 2px;
+  align-self: center;
+}
+
+.tip-row .k.none {
+  background: transparent;
+}
+
+.tip-row b {
+  font-weight: 600;
+}
+
+.tip-note {
+  margin-top: var(--s1);
+  color: var(--ink-2);
+}
+
+/* svg text and furniture */
+
+.chart text {
+  font-family: var(--font-text);
+  font-size: var(--fs-tick);
+  fill: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart text.axis-title {
+  fill: var(--ink-2);
+}
+
+.chart text.label {
+  fill: var(--ink-2);
+}
+
+.chart text.label-strong {
+  fill: var(--ink);
+  font-weight: 600;
+}
+
+.chart .grid line {
+  stroke: var(--grid);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.chart .axis-line {
+  stroke: var(--axis);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.chart .zero {
+  stroke: var(--axis);
+  stroke-width: 1.5;
+}
+
+.chart .ref {
+  stroke: var(--ink-3);
+  stroke-width: 1;
+}
+
+.chart .event-line {
+  stroke: var(--ink-2);
+  stroke-width: 1;
+}
+
+.chart .cross {
+  stroke: var(--ink-3);
+  stroke-width: 1;
+}
+
+.chart .hover-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.chart .hover-cell {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.chart .hit {
+  fill: transparent;
+}
+
+/* series: lines (stroke) and fills (fill) by token */
+
+.chart .line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart .line.thin {
+  stroke-width: 1.5;
+}
+
+.chart .line.dash {
+  stroke-dasharray: 5 4;
+}
+
+.chart .span {
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.chart .dot:not(.hollow) {
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.chart .dot.hollow {
+  fill: var(--bg);
+  stroke-width: 2;
+}
+
+.chart .whisker {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.chart .bar {
+  stroke: none;
+}
+
+.chart .band {
+  stroke: none;
+  opacity: var(--band-alpha);
+}
+
+.chart .band.inner {
+  opacity: calc(var(--band-alpha) * 1.8);
+}
+
+.chart .hatch-line {
+  stroke: var(--c-hatch);
+  stroke-width: 1;
+}
+
+.chart .cell-none {
+  fill: var(--bg);
+  stroke: var(--axis);
+  stroke-width: 1;
+}
+
+.chart .cell-empty {
+  fill: none;
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+
+.chart .outline-bar {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.chart .connector {
+  stroke: var(--axis);
+  stroke-width: 1;
+}
+
+.s-spot { stroke: var(--c-spot); }
+.s-ffa { stroke: var(--c-ffa); }
+.s-contango { stroke: var(--c-contango); }
+.s-backwardation { stroke: var(--c-backwardation); }
+.s-owner { stroke: var(--c-owner); }
+.s-charterer { stroke: var(--c-charterer); }
+.s-timing { stroke: var(--c-timing); }
+.s-route { stroke: var(--c-route); }
+.s-size { stroke: var(--c-size); }
+.s-ink { stroke: var(--ink); }
+.s-muted { stroke: var(--ink-3); }
+
+.f-spot { fill: var(--c-spot); }
+.f-ffa { fill: var(--c-ffa); }
+.f-contango { fill: var(--c-contango); }
+.f-backwardation { fill: var(--c-backwardation); }
+.f-owner { fill: var(--c-owner); }
+.f-charterer { fill: var(--c-charterer); }
+.f-timing { fill: var(--c-timing); }
+.f-route { fill: var(--c-route); }
+.f-size { fill: var(--c-size); }
+.f-ink { fill: var(--ink); }
+.f-muted { fill: var(--ink-3); }
+.f-none { fill: var(--c-none); }
+
+
+/* swatches in legends and tooltips (HTML) */
+
+.k-spot { background: var(--c-spot); }
+.k-ffa { background: var(--c-ffa); }
+.k-contango { background: var(--c-contango); }
+.k-backwardation { background: var(--c-backwardation); }
+.k-owner { background: var(--c-owner); }
+.k-charterer { background: var(--c-charterer); }
+.k-timing { background: var(--c-timing); }
+.k-route { background: var(--c-route); }
+.k-size { background: var(--c-size); }
+.k-ink { background: var(--ink); }
+.k-none { background: var(--c-none); }
+
+/* the calendar strip's row labels sit outside the cells */
+
+.chart .row-label {
+  fill: var(--ink-2);
+}
+
+/* settlement status: an ordinal ramp by contrast with the page (complete strongest) */
+.f-status-complete { fill: var(--c-spot); }
+.f-status-published { fill: var(--axis); }
+.f-status-estimated,
+.chart .bar.f-status-estimated { fill: var(--bg); stroke: var(--axis); stroke-width: 1.5; }
+.k-status-complete { background: var(--c-spot); }
+.k-status-published { background: var(--axis); }
+.k-status-estimated { background: var(--bg); box-sizing: border-box; border: 1.5px solid var(--axis); }
+
+/* hidden text probe for measuring labels */
+.measure-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}

@@ -1,0 +1,79 @@
+// view-kit.js: what every view shares: the basket rule, source lines, and the wiring of panels and
+// disclosure sections to the hash.
+
+import { basket_of } from "./engine.js";
+import { h, disclosures, panelSwitch } from "./dom.js";
+import { num, dateLong, dateShort, addDays, plural, tenorLabel } from "./format.js";
+
+/** The 5TC basket rule from data/engine.json, with the basket sizes produced by engine.js. */
+export function basketRule(engine) {
+  const from = engine?.constants?.BASKET_182_FROM;
+  if (!from) return null;
+  const before = basket_of(addDays(from, -1));
+  const after = basket_of(from);
+  return { from, before, after, text: `5TC figures are on the ${num(before)} t basket before ${dateLong(from)} and on the ${num(after)} t basket from then` };
+}
+
+/** Basket statement for a window of dates [first, last]. */
+export function basketForWindow(engine, first, last) {
+  const rule = basketRule(engine);
+  if (!rule || !first || !last) return null;
+  if (last < rule.from) return `${num(rule.before)} t basket throughout`;
+  if (first >= rule.from) return `${num(rule.after)} t basket throughout`;
+  return `${num(rule.before)} t basket before ${dateLong(rule.from)}, ${num(rule.after)} t from then`;
+}
+
+/** A source line from the artifact's own sources_line when present, else a composed one. */
+export function sourceLine(artifact, fallback) {
+  const line = typeof artifact?.sources_line === "string" ? artifact.sources_line : null;
+  return `Source: ${line || fallback}`;
+}
+
+export function retrievedTo(manifest) {
+  const last = (manifest?.sources || []).map((s) => s.last_retrieved).filter(Boolean).sort().pop();
+  return last ? `Retrieved to ${last.slice(0, 10)}.` : "";
+}
+
+export function openIds(params) {
+  return (params.open || "").split(",").map((x) => x.trim()).filter(Boolean);
+}
+
+/**
+ * Wire a view's panels and disclosures to the hash.
+ * Returns { panelsEl, disclosuresEl, update(params) }.
+ */
+export function wire(ctx, viewId, { panels, sections, panelLabel, onOpenChange }) {
+  let pn = null;
+  if (panels && panels.length) {
+    pn = panelSwitch({ viewId, panels, active: ctx.params.panel, label: panelLabel, onChange: (id) => ctx.setParams({ panel: id }) });
+  }
+  const ds = disclosures({ viewId, sections, open: openIds(ctx.params), onChange: onOpenChange || ((ids) => ctx.setParams({ open: ids.join(",") })) });
+  return {
+    panelsEl: pn ? pn.el : null,
+    disclosuresEl: ds.el,
+    update(params) {
+      if (pn && params.panel) pn.set(params.panel);
+      ds.setOpen(openIds(params));
+    },
+  };
+}
+
+export function sectionHead(text) {
+  return h("h2", { class: "section-title" }, text);
+}
+
+export function csvLink(file, text) {
+  return h("a", { href: `data/downloads/${file}` }, text || file);
+}
+
+/** A short text summary of the quarter-end strips and the spot prints; the full list is in the Data table. */
+export function stripSummary(strips, bw = []) {
+  const all = strips.flatMap((st) => st.months.map((mm) => ({ ...mm, as_of: st.as_of })));
+  if (!all.length) return "";
+  const lo = all.reduce((a, b) => (b.usd_t < a.usd_t ? b : a));
+  const hi = all.reduce((a, b) => (b.usd_t > a.usd_t ? b : a));
+  const last = strips[strips.length - 1];
+  let text = `${plural(strips.length, "quarter-end strip", "quarter-end strips")} from ${dateLong(strips[0].as_of)} to ${dateLong(last.as_of)}, USD a tonne: lowest ${num(lo.usd_t, 2)} (${tenorLabel(lo.month)}, marked ${dateShort(lo.as_of)}), highest ${num(hi.usd_t, 2)} (${tenorLabel(hi.month)}, marked ${dateShort(hi.as_of)}); the latest strip ${last.months.map((mm) => `${tenorLabel(mm.month)} ${num(mm.usd_t, 2)}`).join(", ")}.`;
+  if (bw.length) text += ` Breakwave spot prints: ${bw.map((b) => `${dateShort(b.date)} ${num(b.td3c_usd_t, 2)}`).join(", ")}.`;
+  return `${text} Every mark is in the Data section.`;
+}

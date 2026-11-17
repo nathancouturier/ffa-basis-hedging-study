@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-GB" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FFA basis and hedging study</title>
+<meta name="description" content="Capesize 5TC and TD3C forward freight agreements set against the Baltic spot: how often the curve sits in contango or backwardation, what forward bias and roll cost a hedger faces, and how much of a voyage's earnings risk a 5TC hedge placed one, two or three months ahead removes. With a hedge calculator and the TD3C record through the 2026 Strait of Hormuz closure.">
+<meta name="color-scheme" content="light dark">
+<script>
+  (function () {
+    var theme = "light";
+    try {
+      var stored = window.localStorage.getItem("nc-theme");
+      if (stored === "dark" || stored === "light") theme = stored;
+    } catch (e) {}
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<link rel="preload" href="vendor/fonts/figtree/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="vendor/fonts/newsreader/newsreader-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/charts.css">
+<link rel="modulepreload" href="src/main.js">
+</head>
+<body>
+<a class="skip" href="#main" data-skip>Skip to the content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#/overview">FFA basis and hedging study</a>
+    <nav class="nav-wrap" aria-label="Views">
+      <ul class="nav">
+        <li><a href="#/overview" data-view="overview">Overview</a></li>
+        <li><a href="#/curve" data-view="curve">Curve</a></li>
+        <li><a href="#/roll" data-view="roll">Bias and roll</a></li>
+        <li><a href="#/lab" data-view="lab">Hedge lab</a></li>
+        <li><a href="#/td3c" data-view="td3c">TD3C 2026</a></li><!-- // literal: the year is part of the view's name -->
+        <li><a href="#/method" data-view="method">Method and data</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle>
+      <svg class="theme-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg>
+      <span class="theme-label">Dark theme</span>
+    </button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+    <noscript><p class="view-error">This study reads every figure from its data files with JavaScript; please enable it to see the views. The data files are in the repository's data folder.</p></noscript>
+    <section class="view" id="view-overview" data-view="overview" aria-label="Overview" hidden></section>
+    <section class="view" id="view-curve" data-view="curve" aria-label="Curve" hidden></section>
+    <section class="view" id="view-roll" data-view="roll" aria-label="Bias and roll" hidden></section>
+    <section class="view" id="view-lab" data-view="lab" aria-label="Hedge lab" hidden></section>
+    <section class="view" id="view-td3c" data-view="td3c" aria-label="TD3C and the Hormuz closure" hidden></section>
+    <section class="view" id="view-method" data-view="method" aria-label="Method and data" hidden></section>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap" data-footer>
+    <p><a class="author" href="https://nathancouturier.github.io">Nathan Couturier</a></p>
+  </div>
+</footer>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

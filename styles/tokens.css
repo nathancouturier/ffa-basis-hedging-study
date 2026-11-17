@@ -1,0 +1,123 @@
+/* tokens.css: the study's design tokens, light and dark.
+   The theme is <html data-theme="light|dark">, set before first paint from localStorage "nc-theme"
+   (default light). Every colour on the page, charts included, reads these properties, so switching the
+   theme never redraws a chart. Palette and contrast ratios: docs/design.md. */
+
+@font-face {
+  font-family: "Figtree";
+  src: url("../vendor/fonts/figtree/figtree-latin-wght-normal.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  src: url("../vendor/fonts/newsreader/newsreader-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --bg: #f7f6f2;
+  --bg-raised: #ffffff;
+  --bg-sunken: #eeece6;
+
+  /* ink */
+  --ink: #16181b;
+  --ink-2: #43474e;
+  --ink-3: #5b5f66;
+
+  /* rules */
+  --rule: #dcd9d1;
+  --grid: #e5e2da;
+  --axis: #8d8a82;
+  --focus: #1f5fd0;
+
+  /* data palette */
+  --c-spot: #3d4147;
+  --c-ffa: #2466c3;
+  --c-contango: #03856a;
+  --c-backwardation: #c14802;
+  --c-owner: #9575bc;
+  --c-charterer: #ae7c02;
+  --c-timing: #ac3273;
+  --c-route: #418032;
+  --c-size: #0897a9;
+  --c-none: #d3d0c7;
+  --c-hatch: #8d8a82;
+  --band-alpha: 0.16;
+
+  /* type */
+  --font-text: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --fs-takeaway: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+  --fs-hero: clamp(3rem, 2.2rem + 3.5vw, 4.75rem);
+  --fs-section: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-tick: 12px;
+
+  /* space */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+
+  --gutter: 16px;
+  --content: 72rem;
+  --measure: 68ch;
+  --target: 44px;
+  --radius: 3px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #131518;
+  --bg-raised: #1b1e22;
+  --bg-sunken: #0d0f11;
+
+  --ink: #ecebe7;
+  --ink-2: #c0c3c8;
+  --ink-3: #9da1a8;
+
+  --rule: #2b2f35;
+  --grid: #24282d;
+  --axis: #6b7079;
+  --focus: #86b2ff;
+
+  --c-spot: #c3c6cb;
+  --c-ffa: #5992e7;
+  --c-contango: #23aa8a;
+  --c-backwardation: #df6938;
+  --c-owner: #854ebd;
+  --c-charterer: #bc7d19;
+  --c-timing: #d5679c;
+  --c-route: #60a750;
+  --c-size: #067398;
+  --c-none: #343840;
+  --c-hatch: #7b8089;
+  --band-alpha: 0.22;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 40px;
+  }
+}
