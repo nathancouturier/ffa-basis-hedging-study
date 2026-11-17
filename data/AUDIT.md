@@ -23,6 +23,16 @@ environment variable `SEC_USER_AGENT`, never written to a file).
 | Amplify ETFs holdings pages | `https://amplifyetfs.com/BDRY-holdings/`, `/BWET-holdings/`, rendered in a browser | the funds' current freight futures and as-of date | The funds' public disclosure: one snapshot per refresh in `data/public/amplify_holdings.json` | none yet: the pages draw their tables with scripts from www.gstatic.com, which the build environment's proxy refuses; the first snapshot comes from the scheduled refresh |
 | The rule books | Baltic GMB v8.8 (current address) and v7.09 (the guide's former address), the TD3C TCE note (July 2017), the Baltic Investor Indices white paper (2024), EEX release 047a, the ICE TDL specification, EIA Today in Energy (26 March 2026) | conventions, baskets, ships, settlement rules | Cited with page; not redistributed | GMB v8.8 printed page 77: "C5TC(180) ... Derived Value: C5TC(182)-3,503" |
 
+## A host that stopped answering scripted requests
+
+- www.hellenicshippingnews.com: after about 280 requests at its 30 second crawl delay, the site began answering
+  with a Cloudflare browser challenge (HTTP 403, `cf-mitigated: challenge`) on 17 November 2026 at 18:20 UTC,
+  while the build was fetching the Banchero Costa archive from the newest issue backwards. The study does not try
+  to get past a challenge; one retry was made about two and a half hours later. The issues it could not fetch
+  (2023 weeks 1 to 36, 2022 and 2021 but for a few) would have made the weekly curve start in January 2021, put
+  2021 to mid 2023 into the curve-shape statistics and moved the first hedged fixture with an exact settlement
+  from October 2023 back to mid 2023 (Himalaya Shipping's published averages start in May 2023).
+
 ## Hosts refused by the build environment's network policy
 
 Each was asked once and not retried. What each would have added:
