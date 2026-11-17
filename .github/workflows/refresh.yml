@@ -78,6 +78,12 @@ jobs:
           git add data/*.json data/AUDIT.md data/public data/downloads data/fixtures data/raw/manifest.json README.md FFA-Basis-Hedging-Study-Research-Note.pdf
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -m "Refresh: data to $(date -u +%Y-%m-%d)"
+          # main may have moved during a long run: put the refresh on top of it, or leave it to the next run.
+          if ! git pull --rebase origin main; then
+            git rebase --abort
+            echo "main changed the same files during the run: nothing committed, the next run will"
+            exit 0
+          fi
           git push
       - name: Cache still filling
         if: steps.coverage.outputs.complete != 'true'
