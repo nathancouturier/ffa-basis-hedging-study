@@ -93,7 +93,7 @@ function render(section, ctx) {
       subtitle: "Share of the variance of the earnings surprise (gross TCE minus the FFA strip, USD a day) removed by a 5TC hedge, by voyage and by how far ahead of the fixture the hedge was placed. Percent.",
       legend: [
         { label: "Hedge ratio 1:1, with its 90 percent interval", cls: "ffa", kind: "dot" },
-        { label: "Minimum variance ratio estimated on past fixtures only (out of sample)", cls: "ink", kind: "diamond" },
+        { label: "Minimum variance ratio estimated on past fixtures only (out of sample), on the later fixtures where it exists; k = 1 on those same fixtures is in the tooltip and the summary", cls: "ink", kind: "diamond" },
       ],
       valueTitle: "k = 1",
       x: { title: "Variance removed, percent", format: (v, axis) => (axis ? pct(v, 0) : pct(v)) },
