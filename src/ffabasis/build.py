@@ -266,6 +266,10 @@ def breakwave_repeats(prints: list[dict[str, Any]], root: Path, manifest: dict[s
 # ---------------------------------------------------------------------------
 
 
+#: The days of the brief's basket-gap anchor: each has a 182,000 t print and a 180,000 t print from two sources.
+BASKET_GAP_DAYS = ("2026-07-03", "2026-07-29")
+
+
 def build(root: Path) -> dict[str, Any]:
     manifest = _manifest(root)
     raw = root / "data" / "raw"
@@ -282,6 +286,21 @@ def build(root: Path) -> dict[str, Any]:
     }
     obs += banchero_spot_observations(chosen, days_182)
     days = daily.pool(obs)
+    # The prints of the two basket-gap anchor days (brief section 4), each in its own basket, so the validation
+    # computes the gap from what the sources printed rather than from typed figures.
+    anchor_prints = {
+        day: [
+            {
+                "source": o.get("source"),
+                "basket_t": o.get("basket_t"),
+                "usd_day": o.get("c5tc_usd_day"),
+                "url": o.get("url"),
+            }
+            for o in obs
+            if o.get("date") == day and o.get("c5tc_usd_day") is not None
+        ]
+        for day in BASKET_GAP_DAYS
+    }
     first_month = "2018-01"
     last_month = (dt.date.today().replace(day=1) - dt.timedelta(days=1)).strftime("%Y-%m")
     months = daily.months(days, first_month, last_month)
@@ -323,6 +342,7 @@ def build(root: Path) -> dict[str, Any]:
             for d, r in days.items()
         },
         "months": months,
+        "anchor_prints": anchor_prints,
         "routes": dict(sorted(routes.items())),
         "bunkers": dict(sorted(bunkers.items())),
         "sec_marks": marks,

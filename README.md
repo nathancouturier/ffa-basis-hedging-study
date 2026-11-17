@@ -32,13 +32,15 @@ Read this part first.
   October 2026); otherwise it is the monthly
   average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every complete month
   to within a dollar; months before May 2023 have only partial averages and enter the robustness checks alone.
-- **The forward curve is one broker's weekly assessment, and only from September 2023.** Banchero Costa's Monday
-  Capesize FFA assessments, as Hellenic Shipping News republishes them. Partway through its archive that site began
-  answering the build's requests with a browser challenge, which the study does not get around: the curve is
-  weekly from September 2023 to November 2026, with three dated curves before it (January and July 2021, July
-  2022). The hedged fixtures therefore start in October 2023, about three years of weekly fixtures, and the
-  intervals are wide. The next issue's previous-week column is a re-assessment that differs from the first print
-  by a median of about 3 percent; the study uses first prints and shows the latest as a sensitivity.
+- **The forward curve is one broker's weekly assessment, and only from October 2022.** Banchero Costa's weekly
+  (mostly Monday) Capesize FFA assessments, as Hellenic Shipping News republishes them. While the archive was being
+  read the site twice began answering scripted requests with a browser challenge, which the study does not get
+  around; one retry hours later fetched part of the rest. The curve is weekly from 24 October 2022 to 8 November
+  2026, with three dated curves before it (8 January and 2 July 2021, 11 July 2022). The hedged fixtures with exact
+  settlements start in May 2023, the first month with a published average, so the sample is about three and a half
+  years of weekly fixtures and the intervals are wide. The next issue's previous-week column is a re-assessment that
+  differs from the first print by a median of about 3 percent; the study uses first prints and shows the latest as
+  a sensitivity.
 - **Some reports were read by OCR.** More than half of the issues read have at least one table in fonts that
   cannot be read as text. Those tables were read by OCR, and a row is kept only if it reproduces its own printed
   week-on-week change (or, for bunkers, the printed spread between grades). Pages that repeat the previous
@@ -49,12 +51,13 @@ Read this part first.
   which drives the hedge results, is not. No route (C3, C5) FFA is used: a voyage hedged with 5TC paper carries
   route basis by construction.
 - **TD3C in dollars a tonne is approximate.** The Baltic publishes TD3C weekly in Worldscale in the reports the study
-  reads. Worldscale flat rates are licensed and never stated here; the dated public pairs that would imply one do
-  not agree in 2026 (prints four days apart in a market that moved by a fifth in a week), so 2026 stays in
-  Worldscale and the dollar case studies and statistics use Breakwave's bi-weekly dollar prints, a month settled
-  at the average of one or two prints. A month with one print settles at its own fixture, so the share of variance
-  a TD3C hedge removes is not computed; the forward errors are, labelled approximate. Weeks in which the Baltic
-  wrote that its panellists had difficulty assessing Gulf loadings are marked.
+  reads. Worldscale flat rates are licensed and never stated here; the dated public pairs that would imply one (a
+  Breakwave dollar print against the Baltic's Worldscale print four days earlier) agree only in the second half of
+  2025, so the study keeps Worldscale, and the dollar case studies and statistics use Breakwave's bi-weekly dollar
+  prints, a month settled at the average of its one to three prints. A month with one print settles at its own
+  fixture, so the share of variance a TD3C hedge removes is not computed; the forward errors are, labelled
+  approximate. Weeks in which the Baltic called its Gulf assessment theoretical or hard, or reported transits
+  through the Strait all but stopped, are marked.
 - **The published hedging studies could not be obtained.** Their publishers' and repositories' sites could not be
   reached when the data were gathered, so no published result (Ederington 1979; Kavussanos and Nomikos 2000;
   Alizadeh and Nomikos 2009) is quoted; Ederington's measure is reported for the reader to set beside them.
@@ -67,11 +70,11 @@ Read this part first.
 <!-- finding:start -->
 **Data to 8 November 2026.**
 
-1. A 5TC hedge placed one month ahead removed 41.4% of the variance of a C5 voyage's earnings against the forward (90 percent interval 30.2% to 50.1%; 140 weekly fixtures, 11 August 2023 to 2 October 2026), 63.4% for a trip at the day's 5TC and 9.0% for a C3 voyage. A ratio estimated only from past fixtures removed 36.3% against 36.7% at one for one on the same 79 fixtures.
+1. A 5TC hedge placed one month ahead removed 44.1% of the variance of a C5 voyage's earnings against the forward (90 percent interval 33.5% to 52.5%; 154 weekly fixtures, 5 May 2023 to 2 October 2026), 64.9% for a trip at the day's 5TC and 15.9% for a C3 voyage. A ratio estimated only from past fixtures removed 39.6% against 39.8% at one for one on the same 93 fixtures.
 2. What the hedge leaves is route and timing basis: route basis carries 55% of the variance of the hedged C5 result and timing basis 45%. Size basis carries 0%: from 2 January 2026 the Baltic derives the 180,000 t basket from the 182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a constant, not a risk.
-3. The 5TC settled on average USD 1,365 a day above the FFA price one month before expiry (39 contracts, August 2023 to October 2026, each on the basket its curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval +29 to +3,150): a rolling charterer earned that gap and a rolling owner gave it up.
-4. The front month stood above the spot (of the curve's day, or the Friday before) in 51.7% of 151 weekly curves, and the next year's first quarter priced below the fourth quarter before it in 100% of the 84 curves that printed both, 38.5% lower on average.
-5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and realised 96%, 102%, 94% and 42% of what the marks of 30 September 2025 to 30 June 2026 locked (approximate, from Breakwave's dollar prints); the 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.21: timing basis inside the month.
+3. The 5TC settled on average USD 1,103 a day above the FFA price one month before expiry (42 contracts, May 2023 to October 2026, each on the basket its curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval -252 to +2,768): a rolling charterer earned that gap and a rolling owner gave it up, though the interval includes zero.
+4. The front month stood above the spot (of the curve's day, or the Friday before) in 52.7% of 182 weekly curves, and the next year's first quarter priced below the fourth quarter before it in 100% of the 93 curves that printed both, 39.6% lower on average.
+5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper: on the months with two of Breakwave's dollar prints (a month with one settles at its own fixture), it realised 96%, 102%, 92% and -19% of what the marks of 30 September 2025 to 30 June 2026 locked (approximate; July 2026 had no dollar print); the 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.22: timing basis inside the month.
 <!-- finding:end -->
 
 ## What it does
@@ -203,18 +206,18 @@ source, every host that could not be reached and what it would have added.
 
 Beyond the list at the top, which the site's Method view repeats with the figures of the latest build:
 
-- **The sample is short and the intervals are wide.** About three years of weekly fixtures with exact
-  settlements; the out-of-sample hedge ratio needs 52 settled fixtures before its first estimate, so it is
+- **The sample is short and the intervals are wide.** About three and a half years of weekly fixtures with exact
+  settlements (May 2023 to October 2026); the out-of-sample hedge ratio needs 52 settled fixtures before its first estimate, so it is
   measured on the later part of the sample only, and is compared with one for one on those same fixtures.
 - **Size basis is a constant in 2026.** The Baltic derives the 180,000 t basket from the 182,000 t one at a fixed
   USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a known offset, not a risk; there is no
   independent 180,000 t assessment to measure it against.
 - **Quarter proxies.** When a curve skips a month, the month takes its quarter's price, flagged; results are shown
   with and without them.
-- **Ederington's measure leans on 2026.** It needs the same tenor on two Mondays a week apart and a spot print on
-  both days; most pairs before 2026 lack the Monday spot, so the sample is small (the pair accounting is in
-  `data/method.json`).
-- **TD3C weeks the Baltic found hard to assess are marked, not removed.** Results are given with and without them.
+- **Ederington's sample is small.** It needs the same tenor on two Mondays a week apart and a spot level on both
+  days (printed, or implied by the next day's printed change); most pairs before 2026 lack a Monday level, so 2026
+  supplies close to half of the pairs (the pair accounting is in `data/method.json`).
+- **Marked TD3C weeks are kept, not removed.** Results are given with and without them.
 
 ## Layout
 

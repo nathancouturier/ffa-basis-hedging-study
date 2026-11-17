@@ -112,22 +112,38 @@ def print_sensitivity(method: dict | None, headline: float) -> str:
 
 
 def td3c_cases_sentence(td3c: dict) -> str:
-    """What the owner's quarter-end hedges realised against what they locked, and why the worst fell short."""
-    cases = [c for c in td3c.get("cases", []) if c["total"]["locked_usd"] > 0]
+    """What the owner's quarter-end hedges realised against what they locked, on the months a case can measure.
+
+    A month with one Breakwave print settles at its own fixture and so realises what it locked by construction;
+    the shares count the months with two prints only, and say which months had no print at all.
+    """
+    cases = [c for c in td3c.get("cases", []) if (c.get("total_two_prints") or {}).get("locked_usd", 0) > 0]
     if not cases:
         return ""
-    shares = [c["total"]["total_usd"] / c["total"]["locked_usd"] for c in cases]
+    shares = [c["total_two_prints"]["total_usd"] / c["total_two_prints"]["locked_usd"] for c in cases]
+    missing = sorted({m for c in cases for m in c.get("months_without_print", [])})
     text = (
-        " An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and "
-        f"realised {', '.join(pct(s, 0) for s in shares[:-1])} and {pct(shares[-1], 0)} of what the marks of "
-        f"{day(cases[0]['as_of'])} to {day(cases[-1]['as_of'])} locked (approximate, from Breakwave's dollar prints)"
+        " An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper: on the "
+        "months with two of Breakwave's dollar prints (a month with one settles at its own fixture), it realised "
+        f"{', '.join(pct(x, 0) for x in shares[:-1])} and {pct(shares[-1], 0)} of what the marks of "
+        f"{day(cases[0]['as_of'])} to {day(cases[-1]['as_of'])} locked (approximate"
+        + (f"; {' and '.join(month_name(m) for m in missing)} had no dollar print" if missing else "")
+        + ")"
     )
     worst = min(range(len(cases)), key=lambda i: shares[i])
     if shares[worst] < 0.9:
-        month = max(cases[worst]["months"], key=lambda m: m["settlement"] - m["physical"])
+        rows = [m for m in cases[worst]["months"] if not m.get("single_print")]
+        month = max(rows, key=lambda m: m["settlement"] - m["physical"])
         text += (
             f"; the {day(cases[worst]['as_of'])} hedge fell short because {month_name(month['month'])}'s cargo was "
             f"fixed at the month's first print, USD {month['physical']:,.2f} a tonne, while the paper settled near "
-            f"USD {month['settlement']:,.2f}: timing basis inside the month"
+            f"USD {money2(month['settlement'])}: timing basis inside the month"
         )
     return text + "."
+
+
+def money2(x: float) -> str:
+    """Two decimals, halves rounded up (186.215 to 186.22), as a reader rounds."""
+    from decimal import ROUND_HALF_UP, Decimal
+
+    return f"{Decimal(str(round(x, 6))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):,}"

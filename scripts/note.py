@@ -316,7 +316,8 @@ def build() -> list:
             "basket of five Capesize time charter routes; from 2 January 2026 it is assessed for a 182,000 dwt ship "
             "and the 180,000 t basket is that value less USD 3,503 a day (Guide to Market Benchmarks v8.8, page 77). "
             "A contract settles on the average of every publication day of its month. A month's settlement is the "
-            f"study's own average where every day is printed in public ({cov['complete_months']}), otherwise the "
+            f"study's own average where every day is printed in public or implied by the next day's printed change "
+            f"({cov['complete_months']}), otherwise the "
             "monthly average Himalaya Shipping files with the SEC, which matches every complete month to within a "
             "dollar. C3 and C5 earnings are voyage TCEs from voyage-tce-model's engine, vendored at a pinned commit, "
             "with the Baltic's ship of the date and that week's Singapore bunkers, grossed up by their 5 percent "
@@ -328,7 +329,8 @@ def build() -> list:
         Paragraph(
             "Every Friday a voyage is fixed: a trip at the day's 5TC (as long as that week's C5 voyage, so timing "
             "basis only), a C3 Tubarao to Qingdao and a C5 West Australia to Qingdao voyage. A hedge is placed 1, 2 or "
-            "3 months before on the latest curve, the voyage's days spread over its calendar months at the net share, "
+            "3 months before on the latest curve within 14 days that prices the voyage's months, the voyage's days spread "
+            "over its calendar months at the net share, "
             "and held to settlement. With U the gross TCE less the strip price F0 and X the settlement less F0, the "
             "hedged surprise is U less kX and effectiveness is 1 less Var(U less kX) over Var(U), at k = 1 and at a "
             "minimum variance k estimated only on fixtures settled before the hedge date (at least 52). The residual "
@@ -417,8 +419,9 @@ def build() -> list:
     low_bin = bins[0] if bins else None
     high_bin = bins[-1] if bins else None
     slope = (
-        f" With spot between USD {usd(low_bin['spot_from'])} and {usd(low_bin['spot_to'])} a day the first full "
-        f"quarter sat {100 * low_bin['mean_slope_pct']:+.0f} percent of spot from the front month ({low_bin['n']} curves); "
+        f" With spot (on the 180,000 t basket) between USD {usd(low_bin['spot_from'])} and {usd(low_bin['spot_to'])} a "
+        f"day the first full quarter after the front month sat {100 * low_bin['mean_slope_pct']:+.0f} percent of spot "
+        f"from it ({low_bin['n']} curves); "
         f"with spot between USD {usd(high_bin['spot_from'])} and {usd(high_bin['spot_to'])}, "
         f"{100 * high_bin['mean_slope_pct']:+.0f} percent ({high_bin['n']} curves)."
         if low_bin and high_bin and low_bin is not high_bin
@@ -438,7 +441,8 @@ def build() -> list:
             [
                 Paragraph(
                     "<b>Figure 2.</b> Contango against spot by year. Share of weekly curves whose front month priced "
-                    "above the same day's 5TC on the same basket, with the number of curves (few before 2024).",
+                    "above the 5TC on the same basket, of the curve's day or the latest earlier publication day within "
+                    "four days (the Friday before a Monday curve), with the number of curves.",
                     small,
                 ),
                 contango_chart(curve),
@@ -487,8 +491,9 @@ def build() -> list:
                     "<b>Table 2.</b> Forecast error, settlement less the price on the last curve h months before "
                     "the contract month, USD a day, each contract on the basket its curve was printed on. Positive: "
                     "the contract settled above the price, a gain to a long (a charterer) and a cost to a short (an "
-                    "owner). FFA / spot: the FFA's RMSE over that of the spot on the pricing date as a forecast, on "
-                    "the contracts with that spot (their number in brackets).",
+                    "owner). FFA / spot: the FFA's RMSE over that of the spot as a forecast (the spot of the pricing "
+                    "date or the latest earlier day within four days), on the contracts with that spot (their number "
+                    "in brackets).",
                     small,
                 ),
                 table_png(
@@ -564,9 +569,9 @@ def build() -> list:
     flat = td3c["flat_rate_test"]
     s.append(
         Paragraph(
-            "TD3C is read in Worldscale points from the Baltic's own weekly tanker report. The study marks a week as a "
-            "thin market when that report says its panellists had difficulty assessing the routes from the Gulf or "
-            f"that transits were extremely limited or blocked ({', '.join(day(w) for w in thin)}). A Worldscale print "
+            "TD3C is read in Worldscale points from the Baltic's own weekly tanker report. The study marks a week when "
+            "that report calls its Gulf assessment theoretical or hard for its panellists, or says transits through "
+            f"the Strait were extremely limited or blocked ({', '.join(day(w) for w in thin)}). A Worldscale print "
             "becomes dollars a tonne only through a flat rate implied by dated public pairs, and only where the pairs "
             "agree: "
             + "; ".join(
@@ -574,7 +579,8 @@ def build() -> list:
                 f"{v['n']} pairs)"
                 for k, v in flat.items()
             )
-            + ". So 2026 stays in Worldscale, and the dollar case studies use Breakwave's own dollar prints: one cargo "
+            + ". Every pair sets a dollar print against a Worldscale print four days earlier, in a market that moves "
+            "in four days; the study keeps Worldscale, and the dollar case studies use Breakwave's own dollar prints: one cargo "
             "of 270,000 t a month hedged at Amplify's quarter-end TD3C marks (SEC), fixed at the month's first print "
             "and settled at the average of the month's prints, an approximation.",
             body,
@@ -585,8 +591,8 @@ def build() -> list:
             [
                 Paragraph(
                     "<b>Figure 3.</b> TD3C through the closure of the Strait of Hormuz, with TD34, the trial route "
-                    "loading outside the Gulf. Weekly Worldscale points; shaded weeks are those the Baltic found hard "
-                    "to assess.",
+                    "loading outside the Gulf. Weekly Worldscale points; shaded weeks are the marked ones: the Baltic "
+                    "called its Gulf assessment theoretical or hard, or transits through the Strait all but stopped.",
                     small,
                 ),
                 td3c_chart(td3c),

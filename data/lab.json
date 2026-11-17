@@ -3,101 +3,101 @@
  "bands": [
   {
    "horizon_months": 1,
-   "n": 140,
-   "p05": -6202.0,
-   "p25": -3831.0,
-   "p50": -386.0,
-   "p75": 2479.0,
-   "p95": 8483.0,
-   "route_mean_removed_usd_day": 0.0,
-   "voyage": "5TC trip"
-  },
-  {
-   "horizon_months": 2,
-   "n": 138,
-   "p05": -6062.0,
+   "n": 154,
+   "p05": -6091.0,
    "p25": -3264.0,
-   "p50": -325.0,
-   "p75": 3045.0,
-   "p95": 8515.0,
+   "p50": -265.0,
+   "p75": 2397.0,
+   "p95": 8266.0,
+   "route_mean_removed_usd_day": 0.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "horizon_months": 2,
+   "n": 157,
+   "p05": -5999.0,
+   "p25": -3251.0,
+   "p50": -250.0,
+   "p75": 2552.0,
+   "p95": 8219.0,
    "route_mean_removed_usd_day": 0.0,
    "voyage": "5TC trip"
   },
   {
    "horizon_months": 3,
-   "n": 105,
-   "p05": -6030.0,
-   "p25": -2625.0,
-   "p50": -5.0,
-   "p75": 3412.0,
-   "p95": 8719.0,
+   "n": 128,
+   "p05": -5940.0,
+   "p25": -2796.0,
+   "p50": -105.0,
+   "p75": 2690.0,
+   "p95": 8359.0,
    "route_mean_removed_usd_day": 0.0,
    "voyage": "5TC trip"
   },
   {
    "horizon_months": 1,
-   "n": 118,
-   "p05": -13420.0,
-   "p25": -5720.0,
-   "p50": -504.0,
-   "p75": 4599.0,
-   "p95": 10822.0,
-   "route_mean_removed_usd_day": -2007.0,
+   "n": 132,
+   "p05": -13226.0,
+   "p25": -5464.0,
+   "p50": -234.0,
+   "p75": 4198.0,
+   "p95": 10859.0,
+   "route_mean_removed_usd_day": -2053.0,
    "voyage": "C3"
   },
   {
    "horizon_months": 2,
-   "n": 104,
-   "p05": -12691.0,
-   "p25": -3626.0,
-   "p50": 119.0,
-   "p75": 5631.0,
-   "p95": 10935.0,
-   "route_mean_removed_usd_day": -2077.0,
+   "n": 123,
+   "p05": -12974.0,
+   "p25": -3574.0,
+   "p50": 139.0,
+   "p75": 5147.0,
+   "p95": 10989.0,
+   "route_mean_removed_usd_day": -2184.0,
    "voyage": "C3"
   },
   {
    "horizon_months": 3,
-   "n": 100,
-   "p05": -13373.0,
-   "p25": -5611.0,
-   "p50": -158.0,
-   "p75": 5457.0,
-   "p95": 10972.0,
-   "route_mean_removed_usd_day": -2082.0,
+   "n": 123,
+   "p05": -13112.0,
+   "p25": -5480.0,
+   "p50": -174.0,
+   "p75": 5023.0,
+   "p95": 11112.0,
+   "route_mean_removed_usd_day": -2306.0,
    "voyage": "C3"
   },
   {
    "horizon_months": 1,
-   "n": 140,
-   "p05": -11448.0,
-   "p25": -5733.0,
-   "p50": 131.0,
-   "p75": 4697.0,
-   "p95": 11731.0,
-   "route_mean_removed_usd_day": 7636.0,
+   "n": 154,
+   "p05": -11202.0,
+   "p25": -4918.0,
+   "p50": 38.0,
+   "p75": 4462.0,
+   "p95": 11735.0,
+   "route_mean_removed_usd_day": 7499.0,
    "voyage": "C5"
   },
   {
    "horizon_months": 2,
-   "n": 138,
-   "p05": -10754.0,
-   "p25": -4908.0,
-   "p50": 208.0,
-   "p75": 4659.0,
-   "p95": 11647.0,
-   "route_mean_removed_usd_day": 7742.0,
+   "n": 157,
+   "p05": -10315.0,
+   "p25": -4800.0,
+   "p50": -474.0,
+   "p75": 4361.0,
+   "p95": 11737.0,
+   "route_mean_removed_usd_day": 7469.0,
    "voyage": "C5"
   },
   {
    "horizon_months": 3,
-   "n": 105,
-   "p05": -13392.0,
-   "p25": -4528.0,
-   "p50": 885.0,
-   "p75": 6193.0,
-   "p95": 12300.0,
-   "route_mean_removed_usd_day": 7233.0,
+   "n": 128,
+   "p05": -12016.0,
+   "p25": -5046.0,
+   "p50": -77.0,
+   "p75": 5000.0,
+   "p95": 12079.0,
+   "route_mean_removed_usd_day": 6949.0,
    "voyage": "C5"
   }
  ],
@@ -150,6 +150,2454 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4338.0,
+   "residual_usd_day": 2234.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": -2103.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1877.0,
+   "residual_usd_day": 2234.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": 4111.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-01-30",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 4402.0,
+   "residual_usd_day": 2234.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": 6636.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -7709.0,
+   "residual_usd_day": 3588.0,
+   "route_usd_day": -1299.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4887.0,
+   "unhedged_usd_day": -4121.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -1519.0,
+   "residual_usd_day": 3588.0,
+   "route_usd_day": -1299.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4887.0,
+   "unhedged_usd_day": 2069.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-01-30",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": 281.0,
+   "residual_usd_day": 3588.0,
+   "route_usd_day": -1299.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4887.0,
+   "unhedged_usd_day": 3869.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4338.0,
+   "residual_usd_day": 8315.0,
+   "route_usd_day": 6080.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": 3977.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1877.0,
+   "residual_usd_day": 8315.0,
+   "route_usd_day": 6080.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": 10192.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-05",
+   "hedged_on": "2023-01-30",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 4402.0,
+   "residual_usd_day": 8315.0,
+   "route_usd_day": 6080.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2234.0,
+   "unhedged_usd_day": 12716.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4859.0,
+   "residual_usd_day": 3945.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": -914.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -1332.0,
+   "residual_usd_day": 3945.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": 2613.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-02-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 3714.0,
+   "residual_usd_day": 3945.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": 7659.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -7642.0,
+   "residual_usd_day": 3249.0,
+   "route_usd_day": -2669.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 5918.0,
+   "unhedged_usd_day": -4393.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -4526.0,
+   "residual_usd_day": 3249.0,
+   "route_usd_day": -2669.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 5918.0,
+   "unhedged_usd_day": -1277.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-02-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -120.0,
+   "residual_usd_day": 3249.0,
+   "route_usd_day": -2669.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 5918.0,
+   "unhedged_usd_day": 3129.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4859.0,
+   "residual_usd_day": 9269.0,
+   "route_usd_day": 5324.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": 4410.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -1332.0,
+   "residual_usd_day": 9269.0,
+   "route_usd_day": 5324.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": 7937.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-12",
+   "hedged_on": "2023-02-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 3714.0,
+   "residual_usd_day": 9269.0,
+   "route_usd_day": 5324.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3945.0,
+   "unhedged_usd_day": 12983.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -5164.0,
+   "residual_usd_day": 2148.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": -3016.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4927.0,
+   "residual_usd_day": 2148.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": -2779.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-02-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1835.0,
+   "residual_usd_day": 2148.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": 3983.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7504.0,
+   "residual_usd_day": -709.0,
+   "route_usd_day": -4153.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3443.0,
+   "unhedged_usd_day": -8214.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7115.0,
+   "residual_usd_day": -709.0,
+   "route_usd_day": -4153.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3443.0,
+   "unhedged_usd_day": -7825.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-02-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -1463.0,
+   "residual_usd_day": -709.0,
+   "route_usd_day": -4153.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 3443.0,
+   "unhedged_usd_day": -2172.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -5164.0,
+   "residual_usd_day": 8557.0,
+   "route_usd_day": 6409.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": 3393.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -4927.0,
+   "residual_usd_day": 8557.0,
+   "route_usd_day": 6409.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": 3630.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-19",
+   "hedged_on": "2023-02-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1835.0,
+   "residual_usd_day": 8557.0,
+   "route_usd_day": 6409.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2148.0,
+   "unhedged_usd_day": 10392.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -6038.0,
+   "residual_usd_day": -244.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": -6282.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -6219.0,
+   "residual_usd_day": -244.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": -6463.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-02-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1486.0,
+   "residual_usd_day": -244.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": 1243.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7416.0,
+   "residual_usd_day": -2522.0,
+   "route_usd_day": -2918.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 396.0,
+   "unhedged_usd_day": -9938.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7720.0,
+   "residual_usd_day": -2522.0,
+   "route_usd_day": -2918.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 396.0,
+   "unhedged_usd_day": -10242.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-02-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -1868.0,
+   "residual_usd_day": -2522.0,
+   "route_usd_day": -2918.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 396.0,
+   "unhedged_usd_day": -4390.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 1,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -6038.0,
+   "residual_usd_day": 7578.0,
+   "route_usd_day": 7822.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": 1540.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": -6219.0,
+   "residual_usd_day": 7578.0,
+   "route_usd_day": 7822.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": 1359.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-05-26",
+   "hedged_on": "2023-02-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-05",
+    "2023-06"
+   ],
+   "paper_move_usd_day": 1486.0,
+   "residual_usd_day": 7578.0,
+   "route_usd_day": 7822.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -244.0,
+   "unhedged_usd_day": 9064.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 1,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -7985.0,
+   "residual_usd_day": -3993.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": -11978.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -7367.0,
+   "residual_usd_day": -3993.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": -11360.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 3,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -1884.0,
+   "residual_usd_day": -3993.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": -5877.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -8427.0,
+   "residual_usd_day": -5713.0,
+   "route_usd_day": -1801.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3911.0,
+   "unhedged_usd_day": -14140.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -8326.0,
+   "residual_usd_day": -5713.0,
+   "route_usd_day": -1801.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3911.0,
+   "unhedged_usd_day": -14038.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -4768.0,
+   "residual_usd_day": -5713.0,
+   "route_usd_day": -1801.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3911.0,
+   "unhedged_usd_day": -10481.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 1,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -7985.0,
+   "residual_usd_day": 3523.0,
+   "route_usd_day": 7516.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": -4462.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 2,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -7367.0,
+   "residual_usd_day": 3523.0,
+   "route_usd_day": 7516.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": -3844.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-02",
+   "hedged_on": "2023-02-27",
+   "horizon_months": 3,
+   "months": [
+    "2023-06"
+   ],
+   "paper_move_usd_day": -1884.0,
+   "residual_usd_day": 3523.0,
+   "route_usd_day": 7516.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -3993.0,
+   "unhedged_usd_day": 1639.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -6812.0,
+   "residual_usd_day": -674.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": -7486.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -9722.0,
+   "residual_usd_day": -674.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": -10396.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5896.0,
+   "residual_usd_day": -674.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": -6570.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7134.0,
+   "residual_usd_day": -2268.0,
+   "route_usd_day": -1692.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -577.0,
+   "unhedged_usd_day": -9402.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -10214.0,
+   "residual_usd_day": -2268.0,
+   "route_usd_day": -1692.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -577.0,
+   "unhedged_usd_day": -12482.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -6949.0,
+   "residual_usd_day": -2268.0,
+   "route_usd_day": -1692.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -577.0,
+   "unhedged_usd_day": -9217.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -6812.0,
+   "residual_usd_day": 10266.0,
+   "route_usd_day": 10940.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": 3454.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -9722.0,
+   "residual_usd_day": 10266.0,
+   "route_usd_day": 10940.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": 544.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-09",
+   "hedged_on": "2023-03-06",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5896.0,
+   "residual_usd_day": 10266.0,
+   "route_usd_day": 10940.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -674.0,
+   "unhedged_usd_day": 4370.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5057.0,
+   "residual_usd_day": -547.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": -5603.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -9333.0,
+   "residual_usd_day": -547.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": -9880.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8121.0,
+   "residual_usd_day": -547.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": -8668.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -5397.0,
+   "residual_usd_day": -1783.0,
+   "route_usd_day": -1349.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -434.0,
+   "unhedged_usd_day": -7180.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -9864.0,
+   "residual_usd_day": -1783.0,
+   "route_usd_day": -1349.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -434.0,
+   "unhedged_usd_day": -11647.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -8771.0,
+   "residual_usd_day": -1783.0,
+   "route_usd_day": -1349.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -434.0,
+   "unhedged_usd_day": -10554.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5057.0,
+   "residual_usd_day": 5702.0,
+   "route_usd_day": 6249.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": 646.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -9333.0,
+   "residual_usd_day": 5702.0,
+   "route_usd_day": 6249.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": -3631.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-16",
+   "hedged_on": "2023-03-13",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8121.0,
+   "residual_usd_day": 5702.0,
+   "route_usd_day": 6249.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -547.0,
+   "unhedged_usd_day": -2419.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5164.0,
+   "residual_usd_day": 4045.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": -1120.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8986.0,
+   "residual_usd_day": 4045.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": -4941.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8443.0,
+   "residual_usd_day": 4045.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": -4398.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -5423.0,
+   "residual_usd_day": 1960.0,
+   "route_usd_day": -2147.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4107.0,
+   "unhedged_usd_day": -3463.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -9434.0,
+   "residual_usd_day": 1960.0,
+   "route_usd_day": -2147.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4107.0,
+   "unhedged_usd_day": -7475.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -8753.0,
+   "residual_usd_day": 1960.0,
+   "route_usd_day": -2147.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4107.0,
+   "unhedged_usd_day": -6794.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -5164.0,
+   "residual_usd_day": 10305.0,
+   "route_usd_day": 6260.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": 5140.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8986.0,
+   "residual_usd_day": 10305.0,
+   "route_usd_day": 6260.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": 1319.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-23",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8443.0,
+   "residual_usd_day": 10305.0,
+   "route_usd_day": 6260.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 4045.0,
+   "unhedged_usd_day": 1862.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -3971.0,
+   "residual_usd_day": 940.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": -3032.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8214.0,
+   "residual_usd_day": 940.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": -7275.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8810.0,
+   "residual_usd_day": 940.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": -7870.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4275.0,
+   "residual_usd_day": -754.0,
+   "route_usd_day": -1661.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 906.0,
+   "unhedged_usd_day": -5030.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -8745.0,
+   "residual_usd_day": -754.0,
+   "route_usd_day": -1661.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 906.0,
+   "unhedged_usd_day": -9500.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -8808.0,
+   "residual_usd_day": -754.0,
+   "route_usd_day": -1661.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 906.0,
+   "unhedged_usd_day": -9562.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 1,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -3971.0,
+   "residual_usd_day": 7149.0,
+   "route_usd_day": 6210.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": 3178.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 2,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8214.0,
+   "residual_usd_day": 7149.0,
+   "route_usd_day": 6210.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": -1065.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-06-30",
+   "hedged_on": "2023-03-20",
+   "horizon_months": 3,
+   "months": [
+    "2023-06",
+    "2023-07"
+   ],
+   "paper_move_usd_day": -8810.0,
+   "residual_usd_day": 7149.0,
+   "route_usd_day": 6210.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 940.0,
+   "unhedged_usd_day": -1661.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -2645.0,
+   "residual_usd_day": -536.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": -3181.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -8527.0,
+   "residual_usd_day": -536.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": -9063.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -10281.0,
+   "residual_usd_day": -536.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": -10817.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3922.0,
+   "residual_usd_day": -1392.0,
+   "route_usd_day": -705.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -688.0,
+   "unhedged_usd_day": -5314.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -8773.0,
+   "residual_usd_day": -1392.0,
+   "route_usd_day": -705.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -688.0,
+   "unhedged_usd_day": -10165.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -10503.0,
+   "residual_usd_day": -1392.0,
+   "route_usd_day": -705.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -688.0,
+   "unhedged_usd_day": -11895.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -2645.0,
+   "residual_usd_day": 6591.0,
+   "route_usd_day": 7127.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": 3946.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -8527.0,
+   "residual_usd_day": 6591.0,
+   "route_usd_day": 7127.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": -1936.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-07",
+   "hedged_on": "2023-04-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -10281.0,
+   "residual_usd_day": 6591.0,
+   "route_usd_day": 7127.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -536.0,
+   "unhedged_usd_day": -3690.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3231.0,
+   "residual_usd_day": 622.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": -2608.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7211.0,
+   "residual_usd_day": 622.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": -6589.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -10016.0,
+   "residual_usd_day": 622.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": -9394.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4142.0,
+   "residual_usd_day": -1653.0,
+   "route_usd_day": -1975.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 323.0,
+   "unhedged_usd_day": -5795.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -7284.0,
+   "residual_usd_day": -1653.0,
+   "route_usd_day": -1975.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 323.0,
+   "unhedged_usd_day": -8936.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -10065.0,
+   "residual_usd_day": -1653.0,
+   "route_usd_day": -1975.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 323.0,
+   "unhedged_usd_day": -11717.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3231.0,
+   "residual_usd_day": 5112.0,
+   "route_usd_day": 4489.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": 1881.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -7211.0,
+   "residual_usd_day": 5112.0,
+   "route_usd_day": 4489.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": -2099.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-14",
+   "hedged_on": "2023-04-10",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -10016.0,
+   "residual_usd_day": 5112.0,
+   "route_usd_day": 4489.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 622.0,
+   "unhedged_usd_day": -4905.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3160.0,
+   "residual_usd_day": -1080.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": -4241.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -5607.0,
+   "residual_usd_day": -1080.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": -6687.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -9647.0,
+   "residual_usd_day": -1080.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": -10727.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -3217.0,
+   "residual_usd_day": -3813.0,
+   "route_usd_day": -1945.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1868.0,
+   "unhedged_usd_day": -7029.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -4916.0,
+   "residual_usd_day": -3813.0,
+   "route_usd_day": -1945.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1868.0,
+   "unhedged_usd_day": -8728.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -9151.0,
+   "residual_usd_day": -3813.0,
+   "route_usd_day": -1945.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1868.0,
+   "unhedged_usd_day": -12964.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3160.0,
+   "residual_usd_day": 4476.0,
+   "route_usd_day": 5557.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": 1316.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -5607.0,
+   "residual_usd_day": 4476.0,
+   "route_usd_day": 5557.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": -1131.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-21",
+   "hedged_on": "2023-04-17",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -9647.0,
+   "residual_usd_day": 4476.0,
+   "route_usd_day": 5557.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1080.0,
+   "unhedged_usd_day": -5171.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3968.0,
+   "residual_usd_day": 2203.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -1765.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -5735.0,
+   "residual_usd_day": 2203.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -3532.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -9098.0,
+   "residual_usd_day": 2203.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -6895.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -2283.0,
+   "residual_usd_day": -5681.0,
+   "route_usd_day": -5869.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 188.0,
+   "unhedged_usd_day": -7965.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -3836.0,
+   "residual_usd_day": -5681.0,
+   "route_usd_day": -5869.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 188.0,
+   "unhedged_usd_day": -9517.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -7237.0,
+   "residual_usd_day": -5681.0,
+   "route_usd_day": -5869.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 188.0,
+   "unhedged_usd_day": -12918.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 1,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -3968.0,
+   "residual_usd_day": 3433.0,
+   "route_usd_day": 1230.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -535.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 2,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -5735.0,
+   "residual_usd_day": 3433.0,
+   "route_usd_day": 1230.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -2302.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-07-28",
+   "hedged_on": "2023-04-24",
+   "horizon_months": 3,
+   "months": [
+    "2023-07",
+    "2023-08"
+   ],
+   "paper_move_usd_day": -9098.0,
+   "residual_usd_day": 3433.0,
+   "route_usd_day": 1230.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2203.0,
+   "unhedged_usd_day": -5665.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -1863.0,
+   "residual_usd_day": 2117.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": 254.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4795.0,
+   "residual_usd_day": 2117.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": -2678.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -9352.0,
+   "residual_usd_day": 2117.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": -7235.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 407.0,
+   "residual_usd_day": -5140.0,
+   "route_usd_day": -4051.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1089.0,
+   "unhedged_usd_day": -4732.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -1829.0,
+   "residual_usd_day": -5140.0,
+   "route_usd_day": -4051.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1089.0,
+   "unhedged_usd_day": -6969.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -6147.0,
+   "residual_usd_day": -5140.0,
+   "route_usd_day": -4051.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -1089.0,
+   "unhedged_usd_day": -11287.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 1,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -1863.0,
+   "residual_usd_day": 6727.0,
+   "route_usd_day": 4610.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": 4864.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4795.0,
+   "residual_usd_day": 6727.0,
+   "route_usd_day": 4610.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": 1932.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-04",
+   "hedged_on": "2023-05-01",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -9352.0,
+   "residual_usd_day": 6727.0,
+   "route_usd_day": 4610.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2117.0,
+   "unhedged_usd_day": -2625.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-08-11",
    "hedged_on": "2023-07-10",
    "horizon_months": 1,
@@ -164,6 +2612,44 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -50.0,
    "unhedged_usd_day": -1271.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4725.0,
+   "residual_usd_day": -50.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -50.0,
+   "unhedged_usd_day": -4774.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -7695.0,
+   "residual_usd_day": -50.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -50.0,
+   "unhedged_usd_day": -7744.0,
    "voyage": "5TC trip"
   },
   {
@@ -188,6 +2674,46 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -737.0,
+   "residual_usd_day": -9081.0,
+   "route_usd_day": -4922.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4159.0,
+   "unhedged_usd_day": -9818.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -3580.0,
+   "residual_usd_day": -9081.0,
+   "route_usd_day": -4922.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4159.0,
+   "unhedged_usd_day": -12661.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-08-11",
    "hedged_on": "2023-07-10",
@@ -208,6 +2734,44 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4725.0,
+   "residual_usd_day": 975.0,
+   "route_usd_day": 1025.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -50.0,
+   "unhedged_usd_day": -3749.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-11",
+   "hedged_on": "2023-05-08",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -7695.0,
+   "residual_usd_day": 975.0,
+   "route_usd_day": 1025.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -50.0,
+   "unhedged_usd_day": -6720.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-08-18",
    "hedged_on": "2023-07-17",
    "horizon_months": 1,
@@ -222,6 +2786,44 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -281.0,
    "unhedged_usd_day": -1042.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4713.0,
+   "residual_usd_day": -281.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -281.0,
+   "unhedged_usd_day": -4994.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -5229.0,
+   "residual_usd_day": -281.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -281.0,
+   "unhedged_usd_day": -5511.0,
    "voyage": "5TC trip"
   },
   {
@@ -246,6 +2848,46 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 463.0,
+   "residual_usd_day": -7608.0,
+   "route_usd_day": -2314.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5294.0,
+   "unhedged_usd_day": -7144.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -475.0,
+   "residual_usd_day": -7608.0,
+   "route_usd_day": -2314.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5294.0,
+   "unhedged_usd_day": -8083.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-08-18",
    "hedged_on": "2023-07-17",
@@ -266,6 +2908,44 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4713.0,
+   "residual_usd_day": 1730.0,
+   "route_usd_day": 2011.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -281.0,
+   "unhedged_usd_day": -2983.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-18",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -5229.0,
+   "residual_usd_day": 1730.0,
+   "route_usd_day": 2011.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -281.0,
+   "unhedged_usd_day": -3500.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-08-25",
    "hedged_on": "2023-07-24",
    "horizon_months": 1,
@@ -280,6 +2960,44 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -4088.0,
    "unhedged_usd_day": -4493.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3843.0,
+   "residual_usd_day": -4088.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4088.0,
+   "unhedged_usd_day": -7931.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4950.0,
+   "residual_usd_day": -4088.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4088.0,
+   "unhedged_usd_day": -9038.0,
    "voyage": "5TC trip"
   },
   {
@@ -305,6 +3023,48 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 2212.0,
+   "residual_usd_day": -13439.0,
+   "route_usd_day": -3565.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -9874.0,
+   "unhedged_usd_day": -11227.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 671.0,
+   "residual_usd_day": -13439.0,
+   "route_usd_day": -3565.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -9874.0,
+   "unhedged_usd_day": -12768.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-08-25",
    "hedged_on": "2023-07-24",
@@ -325,6 +3085,44 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 2,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3843.0,
+   "residual_usd_day": -1092.0,
+   "route_usd_day": 2996.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4088.0,
+   "unhedged_usd_day": -4935.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-08-25",
+   "hedged_on": "2023-05-15",
+   "horizon_months": 3,
+   "months": [
+    "2023-08",
+    "2023-09"
+   ],
+   "paper_move_usd_day": -4950.0,
+   "residual_usd_day": -1092.0,
+   "route_usd_day": 2996.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4088.0,
+   "unhedged_usd_day": -6043.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-09-01",
    "hedged_on": "2023-07-31",
    "horizon_months": 1,
@@ -338,6 +3136,42 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -5549.0,
    "unhedged_usd_day": -7546.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 2,
+   "months": [
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3594.0,
+   "residual_usd_day": -5549.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5549.0,
+   "unhedged_usd_day": -9143.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 3,
+   "months": [
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3636.0,
+   "residual_usd_day": -5549.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5549.0,
+   "unhedged_usd_day": -9185.0,
    "voyage": "5TC trip"
   },
   {
@@ -362,6 +3196,46 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 2,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 3206.0,
+   "residual_usd_day": -15162.0,
+   "route_usd_day": -3071.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -12091.0,
+   "unhedged_usd_day": -11956.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 2516.0,
+   "residual_usd_day": -15162.0,
+   "route_usd_day": -3071.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -12091.0,
+   "unhedged_usd_day": -12646.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-01",
    "hedged_on": "2023-07-31",
@@ -381,6 +3255,42 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 2,
+   "months": [
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3594.0,
+   "residual_usd_day": 488.0,
+   "route_usd_day": 6037.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5549.0,
+   "unhedged_usd_day": -3106.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-01",
+   "hedged_on": "2023-05-29",
+   "horizon_months": 3,
+   "months": [
+    "2023-09"
+   ],
+   "paper_move_usd_day": -3636.0,
+   "residual_usd_day": 488.0,
+   "route_usd_day": 6037.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5549.0,
+   "unhedged_usd_day": -3148.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-09-08",
    "hedged_on": "2023-08-07",
    "horizon_months": 1,
@@ -395,6 +3305,44 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -5629.0,
    "unhedged_usd_day": -5679.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 10.0,
+   "residual_usd_day": -5629.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5629.0,
+   "unhedged_usd_day": -5618.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -2240.0,
+   "residual_usd_day": -5629.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5629.0,
+   "unhedged_usd_day": -7868.0,
    "voyage": "5TC trip"
   },
   {
@@ -419,6 +3367,46 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 5378.0,
+   "residual_usd_day": -15423.0,
+   "route_usd_day": -4530.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -10893.0,
+   "unhedged_usd_day": -10045.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 3524.0,
+   "residual_usd_day": -15423.0,
+   "route_usd_day": -4530.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -10893.0,
+   "unhedged_usd_day": -11899.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-08",
    "hedged_on": "2023-08-07",
@@ -434,6 +3422,44 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -5629.0,
    "unhedged_usd_day": 756.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 2,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 10.0,
+   "residual_usd_day": 806.0,
+   "route_usd_day": 6435.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5629.0,
+   "unhedged_usd_day": 817.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-08",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": -2240.0,
+   "residual_usd_day": 806.0,
+   "route_usd_day": 6435.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5629.0,
+   "unhedged_usd_day": -1433.0,
    "voyage": "C5"
   },
   {
@@ -472,6 +3498,25 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -5848.0,
    "unhedged_usd_day": -2893.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-15",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 875.0,
+   "residual_usd_day": -5848.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5848.0,
+   "unhedged_usd_day": -4974.0,
    "voyage": "5TC trip"
   },
   {
@@ -516,6 +3561,26 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-15",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 4534.0,
+   "residual_usd_day": -15449.0,
+   "route_usd_day": -6214.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -9235.0,
+   "unhedged_usd_day": -10916.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-15",
    "hedged_on": "2023-08-07",
@@ -555,6 +3620,25 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-09-15",
+   "hedged_on": "2023-06-05",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 875.0,
+   "residual_usd_day": 377.0,
+   "route_usd_day": 6226.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5848.0,
+   "unhedged_usd_day": 1252.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-09-22",
    "hedged_on": "2023-08-21",
    "horizon_months": 1,
@@ -588,6 +3672,25 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -4669.0,
    "unhedged_usd_day": 1138.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-22",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 4669.0,
+   "residual_usd_day": -4669.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4669.0,
+   "unhedged_usd_day": 0.0,
    "voyage": "5TC trip"
   },
   {
@@ -634,6 +3737,27 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-22",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11",
+    "2023-12"
+   ],
+   "paper_move_usd_day": 6882.0,
+   "residual_usd_day": -12429.0,
+   "route_usd_day": -5496.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -6933.0,
+   "unhedged_usd_day": -5547.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-22",
    "hedged_on": "2023-08-21",
@@ -673,6 +3797,25 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-09-22",
+   "hedged_on": "2023-06-19",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 4669.0,
+   "residual_usd_day": 1739.0,
+   "route_usd_day": 6408.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4669.0,
+   "unhedged_usd_day": 6409.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-09-29",
    "hedged_on": "2023-08-28",
    "horizon_months": 1,
@@ -706,6 +3849,25 @@
    "size_usd_day": 0.0,
    "timing_usd_day": -4234.0,
    "unhedged_usd_day": 4667.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-09-29",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 7628.0,
+   "residual_usd_day": -4234.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4234.0,
+   "unhedged_usd_day": 3394.0,
    "voyage": "5TC trip"
   },
   {
@@ -752,6 +3914,27 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-09-29",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11",
+    "2023-12"
+   ],
+   "paper_move_usd_day": 9042.0,
+   "residual_usd_day": -12776.0,
+   "route_usd_day": -6898.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -5878.0,
+   "unhedged_usd_day": -3734.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-29",
    "hedged_on": "2023-08-28",
@@ -791,6 +3974,25 @@
   {
    "curve_basket_t": 180000,
    "days": 28.508,
+   "fixture": "2023-09-29",
+   "hedged_on": "2023-06-26",
+   "horizon_months": 3,
+   "months": [
+    "2023-09",
+    "2023-10"
+   ],
+   "paper_move_usd_day": 7628.0,
+   "residual_usd_day": 838.0,
+   "route_usd_day": 5072.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -4234.0,
+   "unhedged_usd_day": 8466.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
    "fixture": "2023-10-06",
    "hedged_on": "2023-09-04",
    "horizon_months": 1,
@@ -824,6 +4026,25 @@
    "size_usd_day": 0.0,
    "timing_usd_day": 2025.0,
    "unhedged_usd_day": 10879.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-10-06",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 9008.0,
+   "residual_usd_day": 2025.0,
+   "route_usd_day": 0.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2025.0,
+   "unhedged_usd_day": 11033.0,
    "voyage": "5TC trip"
   },
   {
@@ -868,6 +4089,26 @@
   },
   {
    "curve_basket_t": 180000,
+   "days": 74.202,
+   "fixture": "2023-10-06",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-10",
+    "2023-11",
+    "2023-12"
+   ],
+   "paper_move_usd_day": 12147.0,
+   "residual_usd_day": -4604.0,
+   "route_usd_day": -4231.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": -372.0,
+   "unhedged_usd_day": 7544.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-10-06",
    "hedged_on": "2023-09-04",
@@ -902,6 +4143,25 @@
    "size_usd_day": 0.0,
    "timing_usd_day": 2025.0,
    "unhedged_usd_day": 18894.0,
+   "voyage": "C5"
+  },
+  {
+   "curve_basket_t": 180000,
+   "days": 28.508,
+   "fixture": "2023-10-06",
+   "hedged_on": "2023-07-03",
+   "horizon_months": 3,
+   "months": [
+    "2023-10",
+    "2023-11"
+   ],
+   "paper_move_usd_day": 9008.0,
+   "residual_usd_day": 10039.0,
+   "route_usd_day": 8015.0,
+   "ship_basket_t": 180000,
+   "size_usd_day": 0.0,
+   "timing_usd_day": 2025.0,
+   "unhedged_usd_day": 19047.0,
    "voyage": "C5"
   },
   {

@@ -467,9 +467,21 @@
      "total_usd": 4462290.0
     }
    ],
+   "months_two_prints": [
+    "2025-10",
+    "2025-11",
+    "2025-12"
+   ],
+   "months_without_print": [],
    "role": "owner",
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
+    "locked_usd": 13430880.0,
+    "paper_usd": -6499170.0,
+    "physical_vs_locked_usd": 6001020.000000001,
+    "total_usd": 12932730.0
+   },
+   "total_two_prints": {
     "locked_usd": 13430880.0,
     "paper_usd": -6499170.0,
     "physical_vs_locked_usd": 6001020.000000001,
@@ -527,9 +539,21 @@
      "total_usd": 5865480.0
     }
    ],
+   "months_two_prints": [
+    "2026-01",
+    "2026-02",
+    "2026-03"
+   ],
+   "months_without_print": [],
    "role": "owner",
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
+    "locked_usd": 11961000.0,
+    "paper_usd": -25058700.0,
+    "physical_vs_locked_usd": 25331400.0,
+    "total_usd": 12233700.0
+   },
+   "total_two_prints": {
     "locked_usd": 11961000.0,
     "paper_usd": -25058700.0,
     "physical_vs_locked_usd": 25331400.0,
@@ -587,6 +611,11 @@
      "total_usd": 11583810.0
     }
    ],
+   "months_two_prints": [
+    "2026-04",
+    "2026-05"
+   ],
+   "months_without_print": [],
    "role": "owner",
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
@@ -594,6 +623,12 @@
     "paper_usd": -9941939.999999996,
     "physical_vs_locked_usd": 6950339.999999998,
     "total_usd": 47932560.0
+   },
+   "total_two_prints": {
+    "locked_usd": 39340350.0,
+    "paper_usd": -5428349.999999997,
+    "physical_vs_locked_usd": 2436749.9999999977,
+    "total_usd": 36348750.0
    },
    "unit": "usd_t"
   },
@@ -633,6 +668,12 @@
      "total_usd": -2117609.9999999925
     }
    ],
+   "months_two_prints": [
+    "2026-09"
+   ],
+   "months_without_print": [
+    "2026-07"
+   ],
    "role": "owner",
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
@@ -640,6 +681,12 @@
     "paper_usd": -53993789.99999999,
     "physical_vs_locked_usd": 40700340.0,
     "total_usd": 9728910.000000006
+   },
+   "total_two_prints": {
+    "locked_usd": 11175840.0,
+    "paper_usd": -39102209.99999999,
+    "physical_vs_locked_usd": 25808760.0,
+    "total_usd": -2117609.9999999925
    },
    "unit": "usd_t"
   }
@@ -1033,8 +1080,8 @@
   "2023-03": {
    "flagged_weeks": 0,
    "month_to_date": false,
-   "weeks": 3,
-   "ws_points": 89.64
+   "weeks": 5,
+   "ws_points": 86.58
   },
   "2023-04": {
    "flagged_weeks": 0,
@@ -1063,8 +1110,8 @@
   "2023-08": {
    "flagged_weeks": 0,
    "month_to_date": false,
-   "weeks": 3,
-   "ws_points": 46.64
+   "weeks": 4,
+   "ws_points": 46.53
   },
   "2023-09": {
    "flagged_weeks": 0,
@@ -2412,6 +2459,20 @@
    "assessed_day": null,
    "note": null,
    "source": "Baltic Exchange weekly tanker report",
+   "tce_usd_day": 54600.0,
+   "td34_assessed_day": null,
+   "td34_tce_usd_day": null,
+   "td34_ws_points": null,
+   "thin_market": false,
+   "thin_reason": null,
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-9.html",
+   "week": "2023-03-03",
+   "ws_points": 70.23
+  },
+  {
+   "assessed_day": null,
+   "note": null,
+   "source": "Baltic Exchange weekly tanker report",
    "tce_usd_day": 92522.0,
    "td34_assessed_day": null,
    "td34_tce_usd_day": null,
@@ -2421,6 +2482,20 @@
    "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-10.html",
    "week": "2023-03-10",
    "ws_points": 98.55
+  },
+  {
+   "assessed_day": null,
+   "note": null,
+   "source": "Baltic Exchange weekly tanker report",
+   "tce_usd_day": 89100.0,
+   "td34_assessed_day": null,
+   "td34_tce_usd_day": null,
+   "td34_ws_points": null,
+   "thin_market": false,
+   "thin_reason": null,
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-11.html",
+   "week": "2023-03-17",
+   "ws_points": 93.77
   },
   {
    "assessed_day": null,
@@ -2701,6 +2776,20 @@
    "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-32.html",
    "week": "2023-08-11",
    "ws_points": 47.29
+  },
+  {
+   "assessed_day": null,
+   "note": null,
+   "source": "Baltic Exchange weekly tanker report",
+   "tce_usd_day": 18686.0,
+   "td34_assessed_day": null,
+   "td34_tce_usd_day": null,
+   "td34_ws_points": null,
+   "thin_market": false,
+   "thin_reason": null,
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-33.html",
+   "week": "2023-08-18",
+   "ws_points": 46.21
   },
   {
    "assessed_day": null,

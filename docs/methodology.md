@@ -142,8 +142,9 @@ the year to 30 June 2026).
   dollar against every complete month.
 - Reprint tolerance: 1 percent was planned; the previous-week column turned out to be a re-assessment that
   differs by a median of 3.1 percent, so the flag threshold is 10 percent and both prints feed the sensitivity.
-- TD3C dollars: the flat-rate test fails for 2026 (dollar and Worldscale prints are four days apart in a market
-  that moved by a fifth in a week), so 2026 stays in Worldscale and the dollar cases use Breakwave's prints.
+- TD3C dollars: the flat-rate test passes only for the second half of 2025 (every pair sets a Breakwave print
+  against the Baltic's Worldscale print four days earlier, and the market moves in four days, by a fifth a week in
+  2026), so the study keeps Worldscale and the dollar cases use Breakwave's prints.
 - Repeated pages: not foreseen; found when the 2025 issues read by OCR gave identical curves on different dates.
   The rule above was written before the results were recomputed.
 - Late 2023 and early 2024 issues print the spot table's dates on the line after the table's name; the parser

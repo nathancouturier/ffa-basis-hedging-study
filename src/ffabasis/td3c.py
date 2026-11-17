@@ -313,6 +313,13 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
                 fixture_url=info["fixture_url"],
                 single_print=info["prints"] < MIN_PRINTS_FOR_RESIDUAL,
             )
+        # A month with one print settles at its own fixture, so it realises what it locked by construction: the
+        # totals over the months with two prints are what the case can measure.
+        measured = [r for r in result["months"] if not r["single_print"]]
+        keys = ("locked_usd", "physical_vs_locked_usd", "paper_usd", "total_usd")
+        result["total_two_prints"] = {k: sum(r[k] for r in measured) for k in keys} if measured else None
+        result["months_two_prints"] = [r["month"] for r in measured]
+        result["months_without_print"] = [m["month"] for m in quarter_months if m["month"] not in months]
         result["mark_url"] = strip["months"][0]["url"]
         out.append(result)
     return out

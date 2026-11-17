@@ -9,12 +9,12 @@
   "td3c_weekly": "2026-11-13"
  },
  "built_on": "2026-11-17",
- "documents": 1558,
+ "documents": 1581,
  "downloads": [
   {
    "description": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
    "file": "forecast_errors.csv",
-   "rows": 114
+   "rows": 126
   },
   {
    "description": "Effectiveness by voyage and horizon: k = 1 with its interval, k* out of sample, CVaR, residual shares",
@@ -24,7 +24,7 @@
   {
    "description": "Every fixture's surprise, paper move and basis components, USD a day (no price levels)",
    "file": "hedge_outcomes.csv",
-   "rows": 1088
+   "rows": 1256
   },
   {
    "description": "Monthly 5TC settlement averages with their status and both baskets in 2026",
@@ -44,7 +44,7 @@
   {
    "description": "The Baltic's weekly TD3C and TD34 prints, each with its report's link",
    "file": "td3c_weekly_prints.csv",
-   "rows": 188
+   "rows": 191
   }
  ],
  "sources": [
@@ -187,9 +187,9 @@
    "source": "The Edge Malaysia (Baltic weekly report)"
   },
   {
-   "documents": 177,
+   "documents": 200,
    "first_retrieved": "2026-11-17T16:11:56Z",
-   "last_retrieved": "2026-11-17T21:02:32Z",
+   "last_retrieved": "2026-11-17T21:15:24Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],

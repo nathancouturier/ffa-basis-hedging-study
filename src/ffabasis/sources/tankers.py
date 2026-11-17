@@ -81,14 +81,17 @@ def week_ending(posted: dt.date) -> dt.date:
     return posted - dt.timedelta(days=(posted.weekday() - 4) % 7)
 
 
-LEVEL_RE = re.compile(r"(?:\bto|\bat|\bof)\s+WS\s?" + NUM, re.I)
-ANY_WS_RE = re.compile(r"WS\s?" + NUM, re.I)
+#: Worldscale is written "WS70.23" and, in a few 2023 reports, "W70.23".
+WS_MARK = r"(?:WS\s?|W(?=\d))"
+LEVEL_RE = re.compile(r"(?:\bto|\bat|\bof)\s+(?:the\s+)?" + WS_MARK + NUM, re.I)
+ANY_WS_RE = re.compile(r"\b" + WS_MARK + NUM, re.I)
 TCE_RE = re.compile(r"TCE[^$]{0,60}?\$\s?" + NUM, re.I)
 NEXT_ROUTE_RE = re.compile(r"\b(TD3C|TD15|TD22|TD34|TD6|TD20|TD25|TD27|In the Atlantic|Suezmax|Aframax)\b")
 
 
-#: Before the Baltic named its routes in the report (2023 and 2024), TD3C reads "270,000 mt Middle East Gulf to China".
-ALIASES = {"TD3C": r"270,000\s?mt Middle East Gulf (?:to|/)\s?China"}
+#: Before the Baltic named its routes in the report (2023 and 2024), TD3C reads "270,000 mt Middle East Gulf to China"
+#: or, once (18 August 2023), "MEG to China".
+ALIASES = {"TD3C": r"(?:270,000\s?mt Middle East Gulf|\bMEG) (?:to|/)\s?China"}
 
 
 def _route(flat: str, code: str) -> dict[str, Any] | None:

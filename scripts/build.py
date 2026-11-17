@@ -122,7 +122,14 @@ def audit_block(method: dict, panel: dict) -> str:
     gaps = sorted(
         abs(f["gap"]) for cv in panel["curves"].values() for f in cv.get("flags", []) if f["rule"] == "reprint"
     )
-    reprint_pairs = sum(len(r["tenors"]) for cv in panel["curves"].values() for r in cv.get("reprints", []))
+    # Pairs actually compared: a reprinted tenor whose curve has a first print of the same tenor.
+    reprint_pairs = sum(
+        1
+        for cv in panel["curves"].values()
+        for r in cv.get("reprints", [])
+        for period, value in r["tenors"].items()
+        if value is not None and period in cv.get("tenors", {})
+    )
     sec = panel["sec_check"]
     lines = [
         "<!-- coverage:start -->",

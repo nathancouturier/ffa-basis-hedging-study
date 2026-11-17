@@ -253,11 +253,19 @@ def curve_shape(panel: dict[str, Any], curves: list[dict[str, Any]]) -> list[dic
             row["front_spread"] = curve["tenors"][after] - curve["tenors"][front]
             row["front_spread_shape"] = engine.shape(curve["tenors"][front], curve["tenors"][after])
         # Slope: the first quarter that starts after the front month, against the front month, in percent of spot.
+        # Slope: the first full quarter after the front month (the quarter of the first January, April, July or
+        # October after it), against the front month, in percent of spot; a curve that does not price that
+        # quarter has no slope (it never skips to a later one).
         if front and spot:
-            later = [q for q in quarters if engine.quarter_months(q)[0] > front]
-            if later:
-                row["slope_pct"] = (qprice[later[0]] - curve["tenors"][front]) / spot
-                row["slope_quarter"] = later[0]
+            nxt = next(
+                m for m in (engine.add_months(front, k) for k in (1, 2, 3)) if m[5:7] in ("01", "04", "07", "10")
+            )
+            target = engine.quarter_of(nxt)
+            if target in qprice:
+                row["slope_pct"] = (qprice[target] - curve["tenors"][front]) / spot
+                row["slope_quarter"] = target
+            # Spot bins on one basket: a 182,000 t spot is the 180,000 t one plus the fixed differential.
+            row["spot_level_180"] = spot - (engine.C5TC_180_DIFFERENTIAL_USD_DAY if basket == 182000 else 0.0)
         # The first-quarter discount: Q1 of next year against Q4 of this one, when the curve prices both
         # (printed, or as the average of the quarter's three printed months).
         for q in quarters:
@@ -305,11 +313,12 @@ def spread_shares(rows: list[dict[str, Any]], kind: str, by: str | None = None) 
 
 
 def slope_by_spot(rows: list[dict[str, Any]], width: float = 5000.0) -> list[dict[str, Any]]:
-    """Mean slope (first full quarter against front month, percent of spot) by bins of the spot level."""
+    """Mean slope (first full quarter against front month, percent of spot) by bins of the spot level, the spot
+    taken on the 180,000 t basket for every curve so that 2026 curves fall in the same bins as earlier ones."""
     bins: dict[int, list[float]] = defaultdict(list)
     for row in rows:
-        if "slope_pct" in row and "spot_level" in row:
-            bins[int(row["spot_level"] // width)].append(row["slope_pct"])
+        if "slope_pct" in row and "spot_level_180" in row:
+            bins[int(row["spot_level_180"] // width)].append(row["slope_pct"])
     return [
         {
             "spot_from": b * width,

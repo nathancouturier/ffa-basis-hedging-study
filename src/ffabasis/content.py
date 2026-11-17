@@ -288,53 +288,76 @@ def validation(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str,
     july = settle.get("2026-07")
     if july:
         s182 = july["value_180"] + engine.C5TC_180_DIFFERENTIAL_USD_DAY
+        july_price = (panel["curves"].get("2026-07-27", {}).get("tenors", {}).get("2026-07") or {}).get("usd_day")
+        nearer = None
+        if july_price is not None:
+            nearer = 182000 if abs(july_price - s182) < abs(july_price - july["value_180"]) else 180000
         rows.append(
             {
                 "group": "Banchero Costa week 30 of 2026, basket of the curve",
-                "item": "July contract on 27 July against July's settlement on each basket",
-                "expected": None,
-                "reproduced": None,
-                "unit": "usd_day",
-                "error": None,
-                "ok": True,
+                "item": "July contract on 27 July against July's settlement on each basket: the nearer basket",
+                "expected": 182000,
+                "reproduced": nearer,
+                "unit": "basket_t",
+                "error": None if nearer is None else nearer - 182000,
+                "ok": nearer == 182000,
                 "url": url26,
-                "note": "July 2026 settled at %s on 182,000 t and %s on 180,000 t; the curve's 38,360 is %s from "
-                "the first and %s from the second: the curve is the 182,000 t basket"
+                "note": "July 2026 settled at %s on 182,000 t and %s on 180,000 t; the curve's %s is %s from "
+                "the first and %s from the second"
                 % (
                     format(round(s182), ","),
                     format(round(july["value_180"]), ","),
-                    format(round(38360 - s182), ","),
-                    format(round(38360 - july["value_180"]), ","),
+                    "n/a" if july_price is None else format(round(july_price), ","),
+                    "n/a" if july_price is None else format(round(july_price - s182), ","),
+                    "n/a" if july_price is None else format(round(july_price - july["value_180"]), ","),
                 ),
             }
         )
 
-    for day, value_182, value_180, url in (
+    # The basket gap from what the sources printed on each day: the 182,000 t print (handybulk) less a 180,000 t
+    # print of another source (Banchero Costa's table on 3 July, Reuters on 29 July).
+    for day, expected_182, expected_180, url in (
         ("2026-07-03", 37181, 33678, "https://www.handybulk.com/baltic-dry-index/2026/july/"),
         ("2026-07-29", 36887, 33384, URLS["maritimeprofessional_baltic_2026_07_29"]),
     ):
-        d = panel["daily"].get(day)
+        prints = (panel.get("anchor_prints") or {}).get(day, [])
+        p182 = next((x for x in prints if x["basket_t"] == 182000), None)
+        p180 = next((x for x in prints if x["basket_t"] == 180000 and x["source"] != (p182 or {}).get("source")), None)
         add(
             "2026 basket gap",
             f"{day}: 182,000 t print less 180,000 t print",
             3503.0,
-            None if d is None else value_182 - value_180,
+            None if p182 is None or p180 is None else float(p182["usd_day"] - p180["usd_day"]),
             "usd_day",
             url,
             0.0,
-            note="handybulk prints %s (182,000 t), %s prints %s (180,000 t)"
-            % (format(value_182, ","), "Banchero Costa" if day == "2026-07-03" else "Reuters", format(value_180, ",")),
+            note=(
+                "no pair of prints on the day"
+                if p182 is None or p180 is None
+                else "%s prints %s (182,000 t), %s prints %s (180,000 t)"
+                % (p182["source"], format(p182["usd_day"], ","), p180["source"], format(p180["usd_day"], ","))
+            ),
         )
-        if d is not None:
+        for basket, expected, found in ((182000, expected_182, p182), (180000, expected_180, p180)):
             add(
                 "2026 basket gap",
-                f"{day}: the study's daily series on 180,000 t",
-                value_180,
-                d["value_180"],
+                f"{day}: the {format(basket, ',')} t print as the brief quotes it",
+                float(expected),
+                None if found is None else float(found["usd_day"]),
                 "usd_day",
                 url,
                 0.0,
             )
+        d = panel["daily"].get(day)
+        add(
+            "2026 basket gap",
+            f"{day}: the study's daily series on 180,000 t",
+            float(expected_180),
+            None if d is None else d["value_180"],
+            "usd_day",
+            url,
+            0.0,
+        )
 
     weekly = panel["td3c_weekly"]
     for week, ws, tce in (
@@ -554,8 +577,9 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
         {
             "title": "TD3C in dollars a tonne is approximate",
             "text": "The Baltic's weekly reports give TD3C in Worldscale. Flat rates are licensed and never stated; "
-            "dated public pairs do not imply a consistent one in 2026, so 2026 stays in Worldscale and the dollar "
-            "case studies use Breakwave's bi-weekly prints, settled at the average of one or two prints a month. A "
+            "dated public pairs (a Breakwave dollar print and the Baltic's Worldscale print four days earlier) imply a "
+            "consistent one only in the second half of 2025, so the study keeps Worldscale and the dollar case "
+            "studies use Breakwave's bi-weekly prints, a month settled at the average of its one to three prints. A "
             "month with one print settles at its own fixture, so the share of variance a TD3C hedge removes is not "
             "computed (too few months have two prints); the forward errors are, labelled approximate.",
         },
