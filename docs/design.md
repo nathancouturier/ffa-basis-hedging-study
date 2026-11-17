@@ -54,16 +54,20 @@ Sentence case everywhere; no all-caps labels, no eyebrows above headings, no hig
 - Spacing scale (px): 4, 8, 12, 16, 24, 32, 48, 64, 96 (`--s1` to `--s9`).
 - Content width: 72rem maximum; prose at 68ch.
 - Side gutter: 16px from 320px, 24px from 600px, 40px from 1024px. No horizontal page scroll at any
-  width; wide tables scroll inside their own box (`.table-wrap`, keyboard focusable).
+  width; wide tables scroll inside their own box (`.table-wrap`, keyboard focusable), and a table wider
+  than its box fades on the side that has more columns (`scrollCue` in `src/dom.js`), so a phone reader
+  sees there is more before trying to scroll.
 - Views are one column on phones. From 1024px the hedge lab puts its three steps beside the outputs.
 - Touch targets: every button, link in the navigation, radio and input is at least 44px tall.
 
 ## Components
 
-- **Header**: the study's name (links to the overview), the six view links (a two-column grid on phones,
-  one row from 900px) with an underline under the current view, and the theme toggle. The theme is set on
-  `<html data-theme>` before first paint from `localStorage["nc-theme"]`; a stored choice wins, the
-  default is light.
+- **Header**: the study's name (links to the overview, never wrapped), the six view links with an
+  underline under the current view, and the theme toggle. The links are always one row: below 1100px it
+  sits under the name and, on phones, scrolls sideways inside its own box with a fade on the side that has
+  more and the current view kept in sight, so the first screen of a view reaches its chart; from 1100px
+  name, links and toggle share one row. The theme is set on `<html data-theme>` before first paint from
+  `localStorage["nc-theme"]`; a stored choice wins, the default is light.
 - **Takeaway**: one serif sentence (h1) per view. A visually hidden prefix names the view for screen readers.
 - **Facts** (overview): three figures on a hairline-ruled row, each with a label, a value and the detail
   that makes it checkable (measure, n, dates, link). Deliberately unequal widths; no card chrome.
@@ -71,13 +75,21 @@ Sentence case everywhere; no all-caps labels, no eyebrows above headings, no hig
   chart; the choice is kept in the hash as `panel=`.
 - **Disclosure buttons**: native `<button aria-expanded aria-controls>`; the collapsed body is `hidden`
   and `inert`; open sections are kept in the hash as `open=`.
+- **The hash is the view's state.** Whenever a view is shown, its panel and open sections are written
+  into the hash (each view reports them through `state()`), and a bare link to a view shown before (the
+  navigation) brings back the panel, sections and options it was left with.
 - **Segmented controls**: native radio inputs in a fieldset, for chart options (curve date, measure, unit,
   range).
 - **Tables**: hairline rows, right-aligned tabular figures, units in the header, links in the last column.
+  Key columns come first (the figure a reader came for, then the identifiers and counts), so a phone shows
+  them without scrolling. A header longer than 12 characters gets a minimum width in proportion to
+  its length, so it wraps to about three lines instead of stacking word by word over a narrow column of
+  figures.
 - **Notes**: a 2px rule on the left and ink-2 text; used for the not-a-strategy note and data caveats.
 - **Inputs** (lab): native inputs, 44px high. A value the visitor typed gets a dashed outline and the tag
-  "Your figure"; a default carries its source and date beside the field; a missing price is an empty
-  required field.
+  "Your figure"; a default carries its source and date beside the field (under it when the row is
+  narrow); a missing price is an empty required field. Once a price is typed, the takeaway, the F0 label
+  and the source lines say "(with 1 price of yours)".
 - **Step-through** (TD3C cases): Previous and Next buttons, a position line ("Case 2 of 5") and one case
   at a time.
 
@@ -95,8 +107,22 @@ never redraws; each chart redraws only when its width changes (ResizeObserver). 
 - a table twin in the view's "Data" section.
 
 Marks follow the dataviz rules: 2px lines, markers of radius 4 with a 2px surface ring, bars at most 24px
-thick, hairline solid gridlines, no dual axes (two units means two charts or a unit switch). Assumed
-inputs are drawn dashed and hollow and labelled "Your figure" or "input"; sourced values are solid.
+thick, hairline solid gridlines, no dual axes (two units means two charts or a unit switch). Further rules
+from the design reviews:
+
+- a line breaks where the data has no observation (a calendar month the curve did not print, a week with
+  no TD3C report) instead of joining across it, and the summary says so; quarter tenors are translucent
+  spans apart from the month line;
+- a category with too few observations to read (a year under 10 weekly curves, a roll-cost year under 6
+  contracts) is drawn faint and its label says how many;
+- a label that crosses a gridline or the zero line carries a halo in the page colour; on a forest plot
+  under 480px each row's label sits above its interval, and a bar chart whose row labels would take more
+  than 40 percent of its width puts them above the bars;
+- an axis uses one unit for all its ticks (0, 0.5M, 1.0M) and a time axis puts the year on its first tick;
+- chart source lines name the documents, never the site's own files or functions; code names appear only
+  inside Method sections.
+
+Assumed inputs are drawn dashed and hollow and labelled "Your figure" or "input"; sourced values are solid.
 Levels from licensed sources appear only as the artifacts carry them (cited dated curves with issue and
 page, monthly aggregates, derived statistics), and those charts say "levels shown only on cited dates".
 
@@ -164,6 +190,8 @@ Styles that are not colours:
 - **Long tables.** Data tables over about 16 rows show their first rows and a "Show all" button (a
   second level of disclosure inside the Data section). Numeric tables keep each cell on one line and
   scroll sideways inside their own box on phones; text tables (conventions, policy, validation) wrap.
+  Lists that would run to dozens of items (every Breakwave print, every BWET mark) are never in a chart
+  summary or above a click: the summary gives the range and the latest strip, the Data section the rows.
 - **Narrow charts.** Below 640px the calendar strip turns its years into columns, the waterfall puts each
   label above its bar, and value axes keep every gridline but label only what fits (zero always).
   Labels are measured in a hidden SVG with the page's own CSS, tabular figures included.
@@ -172,9 +200,10 @@ Styles that are not colours:
   interval that spans zero). When a value is missing the sentence says the data is not in this build.
 - **Shares of n.** The artifacts round shares to four decimals; where n is given the site prints
   count / n (47 of 91 is 51.6%, while 0.5165 would print 51.7%).
-- **Lab state in the hash.** Role, voyage and start date are kept in the hash (`role=`, `voyage=`,
-  `start=`), with the open steps, so a sized hedge can be shared as a link. Typed prices, days, k and
-  settlements are not stored anywhere.
+- **Lab state in the hash.** Role, voyage and start date are read from the hash (`role=`, `voyage=`,
+  `start=`) and written to it when the visitor changes them, with the open steps, so a sized hedge can be
+  shared as a link. Defaults are not written, so a bare link follows the latest curve. Typed prices, days,
+  k and settlements are not stored anywhere.
 - **Downloads and the research note** are listed only when a HEAD request finds the file in the build,
   so a file the pipeline has not written never shows as a dead link (a missing file still logs the 404
   in the browser console, which is the honest signal for a broken build).
@@ -183,16 +212,47 @@ Styles that are not colours:
 - **Focus on navigation.** Changing view moves focus to the view's takeaway (for screen readers); the
   heading shows no focus ring because it is not interactive and not in the tab order.
 - **Quarter tenors** are drawn as spans over their months, months as points on the curve line, so a
-  quarter never pretends to be a month.
+  quarter never pretends to be a month. In the cited curves' tables the months come first, then the
+  quarters, each in calendar order, as the broker's page lists them.
 - **Basket of pooled statistics.** The hedge sample runs from 2024 to 2026 across both baskets. Where the
   artifact gives no basket field, the site states the rule from `engine.json` (180,000 t before
   `BASKET_182_FROM`, 182,000 t from then), with the basket numbers produced by `engine.js`.
 - **Hedge lab horizon.** The horizon that picks the basis bands and the closest historical setups defaults
-  to the whole months between the curve's date and the voyage start, clamped to 1 to 3, and the visitor
-  can override it. Scenario settlements move every month by the same percentage of F0; the physical side
-  earns the settlement (no basis), and the bands add the historical residual.
-- **Charterer's view.** The lab's historical outcomes are stored from the owner's side; for a charterer
-  the site reverses their signs and says so.
+  to the whole months between the curve's date and the voyage start, rounded down as the study counts its
+  horizons and clamped to 1 to 3; the visitor can override it (Capesize only: TD3C has no bands). A start
+  before the curve's date gets a warning. Scenario settlements move every month by the same percentage of
+  F0; the physical side earns the settlement (no basis), and the bands add the historical residual.
+- **One sign for both roles.** Residuals, bands and the closest setups carry one sign: positive means the
+  voyage paid more than the price hedged, which is more earnings for an owner and more hire for a
+  charterer. Totals in USD are what the role receives, so a charterer's hire and total are negative.
+  Ranges are phrased for the role: worst to best case for an owner's total, best to worst case for a
+  charterer's hire net of the paper.
+- **Route basis net of its average.** The voyage TCEs leave out port charges and the loading time at the
+  port's scale, so the level of the route basis is overstated while its spread is not. The lab's bands
+  take the route basis net of its average (`route_mean_removed_usd_day`), the closest setups and their
+  waterfall are shown on the same footing, and one phrase names it everywhere: "route basis net of its
+  average (+N USD a day)". The overview's tail risk (CVaR) is measured the same way and says so.
+- **Two tails.** Variance is the same for both sides of a hedge, the tail is not: an owner's worst
+  outcomes are the lowest earnings, a charterer's the highest hire. The overview's Data table gives the
+  change in 5% CVaR for both ("owner / charterer"), and the hedge lab quotes the one of the role chosen.
+- **Gross and net.** F0 and settlements are gross USD a day; locked amounts and totals are net of the
+  route's commission and say so; TD3C amounts are gross freight, with no commission taken off.
+- **Out of sample against k = 1.** The overview's out-of-sample ratio is measured on later fixtures than
+  the whole-sample k = 1, so each diamond has k = 1 on the same fixtures beside it (a small hollow dot), and
+  the window and its n are in the tooltip: the gap between the two is the ratio's cost or gain, not a
+  change of sample.
+- **Two TD3C monthly averages.** The monthly table averages the Baltic's weekly Worldscale prints and
+  stays in Worldscale (a dollar figure beside it would state the licensed flat rate); the cases and forward
+  errors settle on the average of Breakwave's prints in USD a tonne. Each column header names its method,
+  and a month with one print says it settles at its own fixture.
+- **TD34's first date.** In Worldscale the weekly chart names the day the Baltic first assessed TD34 and
+  the week it closes ("first assessed on 26 March 2026 (week to 27 March)"), the weekday read from the
+  report; in TCE it names the first week with a TCE ("TCE first reported 10 July 2026").
+- **Every TD3C case is approximate.** Each settles on one or two public prints a month, so all four carry
+  the label; "one print: settles at its own fixture" appears only beside a month the data marks as such.
+- **TD3C statistics.** The forward errors by horizon are shown with and without the months that hold a
+  marked week, labelled approximate; hedge effectiveness is "not computed" until a horizon has 12 contract
+  months with two prints, and the cell says how many it has.
 - **Percent fields.** Artifact fields named `*_pct` and `*share*` are fractions; the site multiplies by 100.
 - **Minus sign.** Negative figures use U+2212 (a minus sign, not a dash) for alignment in tabular figures.
 - **No mono face.** Figtree's tabular figures do the job; a third face would add weight for nothing.
@@ -210,7 +270,27 @@ Requested while the site was built, now delivered by the pipeline and used by th
 5. `roll.json`: `ci_note` on a bias row whose sample is too short for two bootstrap blocks.
 6. `td3c.json`: each case's `mark_source`, `fixture_source` and `settlement_source`, quoted under the case;
    `statement_check`, Breakwave's 7 April 2026 statement against the third quarter's settlement, under the quote;
-   `statistics.counts` and `threshold_months` (the TD3C statistics appear only from 12 contract months a horizon).
+   `statistics.by_horizon`, `without_thin_weeks`, `counts`, `threshold_months` and `min_prints_for_residual`
+   (the approximate statistics table); `monthly[].month_to_date`, `dollar_months[].ended`,
+   `cases[].months[].single_print`, `weekly[].thin_reason` and `td34_assessed_day`; `as_of` for the weekly
+   source line.
+7. `overview.json`: `oos_first_fixture` and `effectiveness_k1_same_rows` (k = 1 on the out-of-sample
+   fixtures), `cvar_route_mean_removed_usd_day`, and the charterer's tail (`cvar_reduction_k1_charterer`,
+   `cvar_charterer_unhedged_usd_day`, `cvar_charterer_hedged_usd_day`) beside the owner's.
+8. `curve.json`: `cited_curves[].spot_sources`, `spot_on` and `spot_kind` (the spot dot's source), and the
+   re-prints of every cited curve.
+9. `roll.json`: `roll_1m[]` and `roll_quarter[]` `baskets`, `first` and `last` (the basket mix and the
+   months of a partial year); `bias[].block`, `block_unit` and the front quarter's (the bootstrap's blocks,
+   read from `mean_ci.block` until those fields arrive).
+10. `method.json`: `robustness[].note` under the robustness tables; `ederington.pairs_considered`,
+    `pairs_dropped` and `pairs_in_2026`; `qc.sec_check[].band` and `direction`, `qc.sec_summary`; the
+    `stale_month_labels` quality flag (`months_read_one_month_on`, `quarters_checked` or
+    `months_left_out`) and the `previous_column_copied` flag; `coverage.daily_printed_days` and
+    `daily_implied_days` beside `daily_days`.
+11. `manifest.json`: `sources[].links`, in the Method view's Sources table.
+12. `lab.json`: `bands[].route_mean_removed_usd_day`, `history[].curve_basket_t` and `ship_basket_t`.
 
 Still open: the lab has no TD3C basis bands or historical setups (no settled TD3C series in USD a tonne long
-enough); the lab says so.
+enough); the lab says so. The Ederington paragraph can say how many of its pairs use an implied spot level
+once `method.json` carries the count (the page reads `ederington.pairs_implied_spot`); until then it names
+the rule only.

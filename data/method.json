@@ -64,13 +64,15 @@
   "complete_months": "July 2023; January to October 2026",
   "complete_months_180": 11,
   "complete_months_182": 10,
-  "daily_days": 1040,
+  "daily_days": 1039,
+  "daily_implied_days": 258,
+  "daily_printed_days": 781,
   "exact_months_180": 42,
   "exact_months_182": 10,
   "ffa_weeks_by_year": {
    "2021": 2,
    "2022": 1,
-   "2023": 14,
+   "2023": 23,
    "2024": 46,
    "2025": 40,
    "2026": 40
@@ -79,57 +81,57 @@
   "hedge_observations": [
    {
     "horizon_months": 1,
-    "n": 130,
+    "n": 140,
     "voyage": "5TC trip"
    },
    {
     "horizon_months": 2,
-    "n": 128,
+    "n": 138,
     "voyage": "5TC trip"
    },
    {
     "horizon_months": 3,
-    "n": 94,
+    "n": 105,
     "voyage": "5TC trip"
    },
    {
     "horizon_months": 1,
-    "n": 108,
+    "n": 118,
     "voyage": "C3"
    },
    {
     "horizon_months": 2,
-    "n": 91,
+    "n": 104,
     "voyage": "C3"
    },
    {
     "horizon_months": 3,
-    "n": 88,
+    "n": 100,
     "voyage": "C3"
    },
    {
     "horizon_months": 1,
-    "n": 130,
+    "n": 140,
     "voyage": "C5"
    },
    {
     "horizon_months": 2,
-    "n": 128,
+    "n": 138,
     "voyage": "C5"
    },
    {
     "horizon_months": 3,
-    "n": 94,
+    "n": 105,
     "voyage": "C5"
    }
   ],
-  "issues_read": 150,
+  "issues_read": 159,
   "last_ffa_week": "2026-11-08",
   "ocr_ffa_tenors": {
    "kept": 377,
    "read": 393
   },
-  "ocr_issues": 89,
+  "ocr_issues": 94,
   "published_months": "May to June 2023; August 2023 to December 2025",
   "sec_quarter_ends_bdry": 35,
   "sec_quarter_ends_bwet": 14,
@@ -166,19 +168,20 @@
   "td3c_weekly_last": "2026-11-13"
  },
  "ederington": {
-  "first": "2023-10-09",
-  "hedge_ratio": 1.198043,
+  "first": "2023-07-17",
+  "hedge_ratio": 1.2015,
   "last": "2026-10-12",
-  "n": 44.0,
-  "pairs_considered": 142,
+  "n": 48.0,
+  "pairs_considered": 151,
   "pairs_dropped": {
    "basket_changed": 0,
    "no_next_month_tenor": 6,
-   "no_same_day_spot": 70,
-   "not_7_days_apart": 22
+   "no_same_day_spot": 74,
+   "not_7_days_apart": 23
   },
+  "pairs_implied_spot": 13,
   "pairs_in_2026": 26,
-  "r_squared": 0.420713
+  "r_squared": 0.426634
  },
  "formulas": [
   {
@@ -221,10 +224,10 @@
  "hedge_by_year": {
   "5TC trip": [
    {
-    "effectiveness_k1": 0.609037,
-    "n": 10,
-    "sd_hedged_usd_day": 7362.711479,
-    "sd_unhedged_usd_day": 11775.247683,
+    "effectiveness_k1": 0.756425,
+    "n": 19,
+    "sd_hedged_usd_day": 5554.271796,
+    "sd_unhedged_usd_day": 11254.103684,
     "year": 2023
    },
    {
@@ -235,26 +238,26 @@
     "year": 2024
    },
    {
-    "effectiveness_k1": 0.486102,
+    "effectiveness_k1": 0.487693,
     "n": 40,
     "sd_hedged_usd_day": 4138.683766,
-    "sd_unhedged_usd_day": 5773.295326,
+    "sd_unhedged_usd_day": 5782.25228,
     "year": 2025
    },
    {
-    "effectiveness_k1": 0.167934,
-    "n": 32,
-    "sd_hedged_usd_day": 5685.599083,
-    "sd_unhedged_usd_day": 6233.003605,
+    "effectiveness_k1": 0.182525,
+    "n": 33,
+    "sd_hedged_usd_day": 5604.115814,
+    "sd_unhedged_usd_day": 6198.2599,
     "year": 2026
    }
   ],
   "C3": [
    {
-    "effectiveness_k1": 0.171508,
-    "n": 10,
-    "sd_hedged_usd_day": 11277.592128,
-    "sd_unhedged_usd_day": 12390.02441,
+    "effectiveness_k1": 0.412377,
+    "n": 19,
+    "sd_hedged_usd_day": 8309.147662,
+    "sd_unhedged_usd_day": 10839.446001,
     "year": 2023
    },
    {
@@ -265,10 +268,10 @@
     "year": 2024
    },
    {
-    "effectiveness_k1": 0.033632,
-    "n": 32,
-    "sd_hedged_usd_day": 5809.512198,
-    "sd_unhedged_usd_day": 5909.741082,
+    "effectiveness_k1": 0.054873,
+    "n": 33,
+    "sd_hedged_usd_day": 5725.136581,
+    "sd_unhedged_usd_day": 5888.990178,
     "year": 2025
    },
    {
@@ -281,10 +284,10 @@
   ],
   "C5": [
    {
-    "effectiveness_k1": 0.411759,
-    "n": 10,
-    "sd_hedged_usd_day": 11247.407571,
-    "sd_unhedged_usd_day": 14664.755185,
+    "effectiveness_k1": 0.619643,
+    "n": 19,
+    "sd_hedged_usd_day": 7861.179676,
+    "sd_unhedged_usd_day": 12746.526317,
     "year": 2023
    },
    {
@@ -295,17 +298,17 @@
     "year": 2024
    },
    {
-    "effectiveness_k1": 0.375548,
+    "effectiveness_k1": 0.379209,
     "n": 40,
     "sd_hedged_usd_day": 6793.15683,
-    "sd_unhedged_usd_day": 8596.509001,
+    "sd_unhedged_usd_day": 8621.817249,
     "year": 2025
    },
    {
-    "effectiveness_k1": 0.324326,
-    "n": 32,
-    "sd_hedged_usd_day": 8589.715797,
-    "sd_unhedged_usd_day": 10449.854945,
+    "effectiveness_k1": 0.32783,
+    "n": 33,
+    "sd_hedged_usd_day": 8456.714239,
+    "sd_unhedged_usd_day": 10314.831479,
     "year": 2026
    }
   ]
@@ -316,7 +319,7 @@
    "title": "A hedging study, not a forecast or a strategy"
   },
   {
-   "text": "A month's settlement is the study's own average only when every London publication day is in a public print (July 2023; January to October 2026); otherwise it is the average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every complete month to within a dollar. Earlier months have only partial averages and enter the robustness checks alone.",
+   "text": "A month's settlement is the study's own average only when every London publication day is in a public print or implied by the next day's printed change (July 2023; January to October 2026); otherwise it is the average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every complete month to within a dollar. Earlier months have only partial averages and enter the robustness checks alone.",
    "title": "The daily 5TC is public in full only from January 2026"
   },
   {
@@ -324,7 +327,7 @@
    "title": "The forward curve is one broker's weekly assessment"
   },
   {
-   "text": "89 of 150 issues had at least one table set in fonts that do not extract as text. A row read by OCR is kept only if it reproduces its own printed week-on-week change (bunkers: the printed spread between grades).",
+   "text": "94 of 159 issues had at least one table set in fonts that do not extract as text. A row read by OCR is kept only if it reproduces its own printed week-on-week change (bunkers: the printed spread between grades).",
    "title": "Some tables were read by OCR"
   },
   {
@@ -332,7 +335,7 @@
    "title": "Voyage earnings are estimates, not fixtures"
   },
   {
-   "text": "Hedged fixtures with exact settlements start on 20 October 2023; the out-of-sample hedge ratio needs 52 settled fixtures first, so it covers the later part of the sample only. Intervals are wide and a percentile interval can sit off its estimate in small samples.",
+   "text": "Hedged fixtures with exact settlements start on 11 August 2023; the out-of-sample hedge ratio needs 52 settled fixtures first, so it covers the later part of the sample only. Intervals are wide and a percentile interval can sit off its estimate in small samples.",
    "title": "The hedge sample is short"
   },
   {
@@ -389,6 +392,27 @@
     "move_pct": -25.684165232358,
     "period": "2023-Q2",
     "rule": "one_week_move"
+   },
+   {
+    "curve": "2023-07-24",
+    "gap": 0.12225188442211055,
+    "issue": "2023-W30",
+    "period": "2023-08",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2023-08-28",
+    "gap": -0.1448626966985498,
+    "issue": "2023-W35",
+    "period": "2023-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2023-09-11",
+    "gap": 0.11464927012013959,
+    "issue": "2023-W37",
+    "period": "2023-10",
+    "rule": "reprint"
    },
    {
     "curve": "2023-10-02",
@@ -747,11 +771,9 @@
     "rule": "reprint"
    },
    {
-    "curve": "2024-07-01",
-    "median_other_pct": 13.686146301593794,
-    "move_pct": -38.6783174459071,
-    "period": "2025-Q1",
-    "rule": "one_week_move"
+    "curve": "2024-06-24",
+    "issue": "2024-W26",
+    "rule": "previous_column_copied"
    },
    {
     "curve": "2024-08-26",
@@ -811,14 +833,7 @@
    },
    {
     "curve": "2024-11-25",
-    "gap": -0.18289155483901565,
-    "issue": "2024-W48",
-    "period": "2024-11",
-    "rule": "reprint"
-   },
-   {
-    "curve": "2024-11-25",
-    "gap": 0.23339042639502394,
+    "gap": -0.11556837645361939,
     "issue": "2024-W48",
     "period": "2025-02",
     "rule": "reprint"
@@ -832,23 +847,18 @@
    },
    {
     "curve": "2024-12-02",
-    "gap": 0.1707081356527851,
+    "issue": "2024-W48",
+    "months_read_one_month_on": 5,
+    "quarters_checked": [
+     "2025-Q1"
+    ],
+    "rule": "stale_month_labels"
+   },
+   {
+    "curve": "2024-12-02",
+    "gap": -0.16268694231494285,
     "issue": "2024-W49",
     "period": "2024-12",
-    "rule": "reprint"
-   },
-   {
-    "curve": "2024-12-02",
-    "gap": 0.2461736059081665,
-    "issue": "2024-W49",
-    "period": "2025-01",
-    "rule": "reprint"
-   },
-   {
-    "curve": "2024-12-02",
-    "gap": -0.262789485441954,
-    "issue": "2024-W49",
-    "period": "2025-02",
     "rule": "reprint"
    },
    {
@@ -1587,167 +1597,173 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
+     "first": "2023-08",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1364.957954,
+      "high": 3149.700001,
+      "low": 28.929324,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.011732,
+     "mean_usd_day": 1364.957954,
+     "median_usd_day": 1225.0,
+     "n": 39,
+     "n_naive": 38,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 6147.931184,
+      "high": 7146.123263,
+      "low": 5067.434915,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 6225.128684,
+     "rmse_naive_usd_day": 6619.044815,
+     "rmse_ratio_ffa_to_naive": 0.940487,
+     "rmse_usd_day": 6147.931184,
+     "share_positive": 0.641026
+    },
+    "2": {
+     "block": 3,
+     "block_unit": "months",
+     "first": "2023-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 2298.535795,
+      "high": 4879.557403,
+      "low": 121.415575,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.028418,
+     "mean_usd_day": 2298.535795,
+     "median_usd_day": 1673.261905,
+     "n": 38,
+     "n_naive": 37,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 8128.248307,
+      "high": 9628.732582,
+      "low": 6259.291467,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 8103.175773,
+     "rmse_naive_usd_day": 9278.415534,
+     "rmse_ratio_ffa_to_naive": 0.873336,
+     "rmse_usd_day": 8128.248307,
+     "share_positive": 0.552632
+    },
+    "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2023-10",
      "last": "2026-10",
      "mean_ci": {
-      "block": 2,
-      "estimate": 1901.838863,
-      "high": 3645.086778,
-      "low": 424.899345,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.04834,
-     "mean_usd_day": 1901.838863,
-     "median_usd_day": 1245.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 2,
-      "estimate": 6009.787329,
-      "high": 6912.427164,
-      "low": 4853.858299,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 6093.905842,
-     "rmse_naive_usd_day": 6426.806221,
-     "rmse_ratio_ffa_to_naive": 0.948201,
-     "rmse_usd_day": 6009.787329,
-     "share_positive": 0.657143
-    },
-    "2": {
-     "first": "2023-11",
-     "last": "2026-10",
-     "mean_ci": {
-      "block": 3,
-      "estimate": 2469.753149,
-      "high": 4709.936645,
-      "low": 127.588066,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.044225,
-     "mean_usd_day": 2469.753149,
-     "median_usd_day": 2307.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 3,
-      "estimate": 8186.249924,
-      "high": 9371.071724,
-      "low": 5971.026479,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 8160.860726,
-     "rmse_naive_usd_day": 8839.209218,
-     "rmse_ratio_ffa_to_naive": 0.923257,
-     "rmse_usd_day": 8186.249924,
-     "share_positive": 0.571429
-    },
-    "3": {
-     "first": "2023-12",
-     "last": "2026-10",
-     "mean_ci": {
       "block": 4,
-      "estimate": 3638.069418,
-      "high": 5957.099171,
-      "low": -158.162927,
+      "estimate": 3738.928654,
+      "high": 6445.744557,
+      "low": 180.84221,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.069434,
-     "mean_usd_day": 3638.069418,
-     "median_usd_day": 2685.454545,
-     "n": 34,
-     "n_naive": 33,
+     "mean_pct": 0.078201,
+     "mean_usd_day": 3738.928654,
+     "median_usd_day": 2921.0,
+     "n": 37,
+     "n_naive": 36,
      "rmse_ci": {
       "block": 4,
-      "estimate": 8481.702673,
-      "high": 9548.123745,
-      "low": 6014.65479,
+      "estimate": 8381.037596,
+      "high": 9888.636305,
+      "low": 6238.714205,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8592.904439,
-     "rmse_naive_usd_day": 8995.560971,
-     "rmse_ratio_ffa_to_naive": 0.955238,
-     "rmse_usd_day": 8481.702673,
-     "share_positive": 0.676471
+     "rmse_ffa_paired_usd_day": 8481.458481,
+     "rmse_naive_usd_day": 9233.408488,
+     "rmse_ratio_ffa_to_naive": 0.918562,
+     "rmse_usd_day": 8381.037596,
+     "share_positive": 0.675676
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.633859,
+     "effectiveness_k1": 0.634047,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 4802.04736,
-     "sd_unhedged_usd_day": 7936.015273,
+     "n": 140,
+     "sd_hedged_usd_day": 4727.203356,
+     "sd_unhedged_usd_day": 7814.327628,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.711466,
+     "effectiveness_k1": 0.683816,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 4741.523507,
-     "sd_unhedged_usd_day": 8827.128939,
+     "n": 138,
+     "sd_hedged_usd_day": 4781.308783,
+     "sd_unhedged_usd_day": 8503.087255,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.73539,
+     "effectiveness_k1": 0.736851,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 4474.126553,
-     "sd_unhedged_usd_day": 8697.715566,
+     "n": 105,
+     "sd_hedged_usd_day": 4719.474296,
+     "sd_unhedged_usd_day": 9200.108045,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.164692,
+     "effectiveness_k1": 0.090113,
      "horizon_months": 1,
-     "n": 108,
-     "sd_hedged_usd_day": 7061.123803,
-     "sd_unhedged_usd_day": 7725.925292,
+     "n": 118,
+     "sd_hedged_usd_day": 7348.723629,
+     "sd_unhedged_usd_day": 7704.032101,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.546569,
+     "effectiveness_k1": 0.301884,
      "horizon_months": 2,
-     "n": 91,
-     "sd_hedged_usd_day": 6080.541672,
-     "sd_unhedged_usd_day": 9029.975319,
+     "n": 104,
+     "sd_hedged_usd_day": 7202.243256,
+     "sd_unhedged_usd_day": 8619.937537,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.364552,
+     "effectiveness_k1": 0.255037,
      "horizon_months": 3,
-     "n": 88,
-     "sd_hedged_usd_day": 6664.936945,
-     "sd_unhedged_usd_day": 8360.9571,
+     "n": 100,
+     "sd_hedged_usd_day": 7489.497506,
+     "sd_unhedged_usd_day": 8677.313237,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.415759,
+     "effectiveness_k1": 0.413891,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 7673.096634,
-     "sd_unhedged_usd_day": 10038.637433,
+     "n": 140,
+     "sd_hedged_usd_day": 7572.710099,
+     "sd_unhedged_usd_day": 9891.500784,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.543971,
+     "effectiveness_k1": 0.49121,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 7278.828421,
-     "sd_unhedged_usd_day": 10778.669625,
+     "n": 138,
+     "sd_hedged_usd_day": 7424.516518,
+     "sd_unhedged_usd_day": 10408.753007,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.555814,
+     "effectiveness_k1": 0.523513,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 7514.81539,
-     "sd_unhedged_usd_day": 11275.504317,
+     "n": 105,
+     "sd_hedged_usd_day": 7907.799883,
+     "sd_unhedged_usd_day": 11455.927351,
      "voyage": "C5"
     }
    ],
@@ -1757,167 +1773,173 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
+     "first": "2023-08",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1302.675903,
+      "high": 3272.233807,
+      "low": -190.226975,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.083404,
+     "mean_usd_day": 1302.675903,
+     "median_usd_day": 760.0,
+     "n": 39,
+     "n_naive": 38,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 6607.392839,
+      "high": 9919.424364,
+      "low": 3659.25832,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 6690.817234,
+     "rmse_naive_usd_day": 6619.044815,
+     "rmse_ratio_ffa_to_naive": 1.010843,
+     "rmse_usd_day": 6607.392839,
+     "share_positive": 0.538462
+    },
+    "2": {
+     "block": 3,
+     "block_unit": "months",
+     "first": "2023-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1401.930532,
+      "high": 3946.050967,
+      "low": -672.0978,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": -0.00454,
+     "mean_usd_day": 1401.930532,
+     "median_usd_day": 439.522727,
+     "n": 38,
+     "n_naive": 37,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 8217.485873,
+      "high": 9615.594532,
+      "low": 6190.529571,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 8195.092081,
+     "rmse_naive_usd_day": 9278.415534,
+     "rmse_ratio_ffa_to_naive": 0.883243,
+     "rmse_usd_day": 8217.485873,
+     "share_positive": 0.5
+    },
+    "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2023-10",
      "last": "2026-10",
      "mean_ci": {
-      "block": 2,
-      "estimate": 327.153149,
-      "high": 1415.141501,
-      "low": -801.498766,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.002689,
-     "mean_usd_day": 327.153149,
-     "median_usd_day": 132.52381,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 2,
-      "estimate": 4094.564839,
-      "high": 4657.833019,
-      "low": 3356.940887,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 4149.027235,
-     "rmse_naive_usd_day": 6426.806221,
-     "rmse_ratio_ffa_to_naive": 0.645582,
-     "rmse_usd_day": 4094.564839,
-     "share_positive": 0.514286
-    },
-    "2": {
-     "first": "2023-11",
-     "last": "2026-10",
-     "mean_ci": {
-      "block": 3,
-      "estimate": 1423.153149,
-      "high": 3593.031781,
-      "low": -710.317513,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.004617,
-     "mean_usd_day": 1423.153149,
-     "median_usd_day": 1000.045455,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 3,
-      "estimate": 8256.22117,
-      "high": 9243.410577,
-      "low": 5978.278992,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 8233.103073,
-     "rmse_naive_usd_day": 8839.209218,
-     "rmse_ratio_ffa_to_naive": 0.93143,
-     "rmse_usd_day": 8256.22117,
-     "share_positive": 0.514286
-    },
-    "3": {
-     "first": "2023-12",
-     "last": "2026-10",
-     "mean_ci": {
       "block": 4,
-      "estimate": 3013.040006,
-      "high": 5421.618286,
-      "low": -754.326064,
+      "estimate": 3229.117844,
+      "high": 5981.372419,
+      "low": -274.53807,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.039942,
-     "mean_usd_day": 3013.040006,
-     "median_usd_day": 3158.761905,
-     "n": 34,
-     "n_naive": 33,
+     "mean_pct": 0.061611,
+     "mean_usd_day": 3229.117844,
+     "median_usd_day": 3046.52381,
+     "n": 37,
+     "n_naive": 36,
      "rmse_ci": {
       "block": 4,
-      "estimate": 8425.277983,
-      "high": 9433.705055,
-      "low": 6157.587912,
+      "estimate": 8312.732434,
+      "high": 9800.584328,
+      "low": 6294.504605,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8535.521503,
-     "rmse_naive_usd_day": 8995.560971,
-     "rmse_ratio_ffa_to_naive": 0.948859,
-     "rmse_usd_day": 8425.277983,
-     "share_positive": 0.617647
+     "rmse_ffa_paired_usd_day": 8412.086132,
+     "rmse_naive_usd_day": 9233.408488,
+     "rmse_ratio_ffa_to_naive": 0.911049,
+     "rmse_usd_day": 8312.732434,
+     "share_positive": 0.621622
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.634902,
+     "effectiveness_k1": 0.636023,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 4802.04736,
-     "sd_unhedged_usd_day": 7947.343637,
+     "n": 140,
+     "sd_hedged_usd_day": 4727.203356,
+     "sd_unhedged_usd_day": 7835.509484,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.724687,
+     "effectiveness_k1": 0.697643,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 4741.523507,
-     "sd_unhedged_usd_day": 9036.597511,
+     "n": 138,
+     "sd_hedged_usd_day": 4781.308783,
+     "sd_unhedged_usd_day": 8695.350469,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.742695,
+     "effectiveness_k1": 0.743719,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 4474.126553,
-     "sd_unhedged_usd_day": 8820.316117,
+     "n": 105,
+     "sd_hedged_usd_day": 4719.474296,
+     "sd_unhedged_usd_day": 9322.560199,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.1835,
+     "effectiveness_k1": 0.110728,
      "horizon_months": 1,
-     "n": 108,
-     "sd_hedged_usd_day": 7061.123803,
-     "sd_unhedged_usd_day": 7814.400794,
+     "n": 118,
+     "sd_hedged_usd_day": 7348.723629,
+     "sd_unhedged_usd_day": 7792.82028,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.564199,
+     "effectiveness_k1": 0.327156,
      "horizon_months": 2,
-     "n": 91,
-     "sd_hedged_usd_day": 6080.541672,
-     "sd_unhedged_usd_day": 9210.819634,
+     "n": 104,
+     "sd_hedged_usd_day": 7202.243256,
+     "sd_unhedged_usd_day": 8780.326073,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.374338,
+     "effectiveness_k1": 0.264172,
      "horizon_months": 3,
-     "n": 88,
-     "sd_hedged_usd_day": 6664.936945,
-     "sd_unhedged_usd_day": 8426.091318,
+     "n": 100,
+     "sd_hedged_usd_day": 7489.497506,
+     "sd_unhedged_usd_day": 8731.009674,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.408681,
+     "effectiveness_k1": 0.407668,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 7673.096634,
-     "sd_unhedged_usd_day": 9978.372051,
+     "n": 140,
+     "sd_hedged_usd_day": 7572.710099,
+     "sd_unhedged_usd_day": 9839.403074,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.559546,
+     "effectiveness_k1": 0.505932,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 7278.828421,
-     "sd_unhedged_usd_day": 10967.590794,
+     "n": 138,
+     "sd_hedged_usd_day": 7424.516518,
+     "sd_unhedged_usd_day": 10562.692147,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.553482,
+     "effectiveness_k1": 0.520494,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 7514.81539,
-     "sd_unhedged_usd_day": 11246.018477,
+     "n": 105,
+     "sd_hedged_usd_day": 7907.799883,
+     "sd_unhedged_usd_day": 11419.798968,
      "voyage": "C5"
     }
    ],
@@ -1928,167 +1950,173 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
      "first": "2021-02",
      "last": "2026-10",
      "mean_ci": {
       "block": 2,
-      "estimate": 1464.057348,
-      "high": 3263.853045,
-      "low": 21.090445,
+      "estimate": 1007.218553,
+      "high": 2773.522933,
+      "low": -515.472473,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.024787,
-     "mean_usd_day": 1464.057348,
-     "median_usd_day": 1235.0,
-     "n": 38,
-     "n_naive": 37,
+     "mean_pct": -0.051815,
+     "mean_usd_day": 1007.218553,
+     "median_usd_day": 1185.5,
+     "n": 42,
+     "n_naive": 41,
      "rmse_ci": {
       "block": 2,
-      "estimate": 6889.908609,
-      "high": 8475.382171,
-      "low": 5399.782346,
+      "estimate": 6924.530531,
+      "high": 8299.198115,
+      "low": 5580.256804,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 6979.489874,
-     "rmse_naive_usd_day": 6941.123079,
-     "rmse_ratio_ffa_to_naive": 1.005527,
-     "rmse_usd_day": 6889.908609,
-     "share_positive": 0.631579
+     "rmse_ffa_paired_usd_day": 7005.855642,
+     "rmse_naive_usd_day": 7059.237467,
+     "rmse_ratio_ffa_to_naive": 0.992438,
+     "rmse_usd_day": 6924.530531,
+     "share_positive": 0.619048
     },
     "2": {
+     "block": 3,
+     "block_unit": "months",
      "first": "2022-09",
      "last": "2026-10",
      "mean_ci": {
       "block": 3,
-      "estimate": 1895.095323,
-      "high": 4701.964735,
-      "low": 207.042419,
+      "estimate": 1772.472606,
+      "high": 4729.916263,
+      "low": 36.411781,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.000482,
-     "mean_usd_day": 1895.095323,
-     "median_usd_day": 1673.261905,
-     "n": 36,
-     "n_naive": 35,
+     "mean_pct": -0.012445,
+     "mean_usd_day": 1772.472606,
+     "median_usd_day": 1039.52381,
+     "n": 39,
+     "n_naive": 38,
      "rmse_ci": {
       "block": 3,
-      "estimate": 8623.944372,
-      "high": 10025.012652,
-      "low": 6147.536089,
+      "estimate": 8537.238042,
+      "high": 9721.256351,
+      "low": 6347.381935,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8612.749596,
-     "rmse_naive_usd_day": 8796.285963,
-     "rmse_ratio_ffa_to_naive": 0.979135,
-     "rmse_usd_day": 8623.944372,
-     "share_positive": 0.555556
+     "rmse_ffa_paired_usd_day": 8524.526307,
+     "rmse_naive_usd_day": 9229.430013,
+     "rmse_ratio_ffa_to_naive": 0.923624,
+     "rmse_usd_day": 8537.238042,
+     "share_positive": 0.538462
     },
     "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2022-10",
      "last": "2026-10",
      "mean_ci": {
       "block": 4,
-      "estimate": 3216.647027,
-      "high": 6086.838717,
-      "low": -36.717142,
+      "estimate": 3348.122261,
+      "high": 6449.167169,
+      "low": 331.446034,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.049523,
-     "mean_usd_day": 3216.647027,
-     "median_usd_day": 2449.909091,
-     "n": 35,
-     "n_naive": 34,
+     "mean_pct": 0.059631,
+     "mean_usd_day": 3348.122261,
+     "median_usd_day": 2685.454545,
+     "n": 38,
+     "n_naive": 37,
      "rmse_ci": {
       "block": 4,
-      "estimate": 8568.056493,
-      "high": 9937.213352,
-      "low": 6186.73135,
+      "estimate": 8464.191553,
+      "high": 10126.513867,
+      "low": 6427.272673,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8677.429165,
-     "rmse_naive_usd_day": 8864.351417,
-     "rmse_ratio_ffa_to_naive": 0.978913,
-     "rmse_usd_day": 8568.056493,
-     "share_positive": 0.657143
+     "rmse_ffa_paired_usd_day": 8563.175657,
+     "rmse_naive_usd_day": 9109.62482,
+     "rmse_ratio_ffa_to_naive": 0.940014,
+     "rmse_usd_day": 8464.191553,
+     "share_positive": 0.657895
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.633859,
+     "effectiveness_k1": 0.634047,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 4802.04736,
-     "sd_unhedged_usd_day": 7936.015273,
+     "n": 140,
+     "sd_hedged_usd_day": 4727.203356,
+     "sd_unhedged_usd_day": 7814.327628,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.711466,
+     "effectiveness_k1": 0.683816,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 4741.523507,
-     "sd_unhedged_usd_day": 8827.128939,
+     "n": 138,
+     "sd_hedged_usd_day": 4781.308783,
+     "sd_unhedged_usd_day": 8503.087255,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.73539,
+     "effectiveness_k1": 0.736851,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 4474.126553,
-     "sd_unhedged_usd_day": 8697.715566,
+     "n": 105,
+     "sd_hedged_usd_day": 4719.474296,
+     "sd_unhedged_usd_day": 9200.108045,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.164692,
+     "effectiveness_k1": 0.090113,
      "horizon_months": 1,
-     "n": 108,
-     "sd_hedged_usd_day": 7061.123803,
-     "sd_unhedged_usd_day": 7725.925292,
+     "n": 118,
+     "sd_hedged_usd_day": 7348.723629,
+     "sd_unhedged_usd_day": 7704.032101,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.546569,
+     "effectiveness_k1": 0.301884,
      "horizon_months": 2,
-     "n": 91,
-     "sd_hedged_usd_day": 6080.541672,
-     "sd_unhedged_usd_day": 9029.975319,
+     "n": 104,
+     "sd_hedged_usd_day": 7202.243256,
+     "sd_unhedged_usd_day": 8619.937537,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.364552,
+     "effectiveness_k1": 0.255037,
      "horizon_months": 3,
-     "n": 88,
-     "sd_hedged_usd_day": 6664.936945,
-     "sd_unhedged_usd_day": 8360.9571,
+     "n": 100,
+     "sd_hedged_usd_day": 7489.497506,
+     "sd_unhedged_usd_day": 8677.313237,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.415759,
+     "effectiveness_k1": 0.413891,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 7673.096634,
-     "sd_unhedged_usd_day": 10038.637433,
+     "n": 140,
+     "sd_hedged_usd_day": 7572.710099,
+     "sd_unhedged_usd_day": 9891.500784,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.543971,
+     "effectiveness_k1": 0.49121,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 7278.828421,
-     "sd_unhedged_usd_day": 10778.669625,
+     "n": 138,
+     "sd_hedged_usd_day": 7424.516518,
+     "sd_unhedged_usd_day": 10408.753007,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.555814,
+     "effectiveness_k1": 0.523513,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 7514.81539,
-     "sd_unhedged_usd_day": 11275.504317,
+     "n": 105,
+     "sd_hedged_usd_day": 7907.799883,
+     "sd_unhedged_usd_day": 11455.927351,
      "voyage": "C5"
     }
    ],
@@ -2099,6 +2127,8 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
      "first": "2026-01",
      "last": "2026-10",
      "mean_ci": {
@@ -2129,6 +2159,8 @@
      "share_positive": 0.7
     },
     "2": {
+     "block": 3,
+     "block_unit": "months",
      "first": "2026-01",
      "last": "2026-10",
      "mean_ci": {
@@ -2159,6 +2191,8 @@
      "share_positive": 0.7
     },
     "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2026-01",
      "last": "2026-10",
      "mean_ci": {
@@ -2191,11 +2225,11 @@
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.167934,
+     "effectiveness_k1": 0.182525,
      "horizon_months": 1,
-     "n": 32,
-     "sd_hedged_usd_day": 5685.599083,
-     "sd_unhedged_usd_day": 6233.003605,
+     "n": 33,
+     "sd_hedged_usd_day": 5604.115814,
+     "sd_unhedged_usd_day": 6198.2599,
      "voyage": "5TC trip"
     },
     {
@@ -2207,11 +2241,11 @@
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.32553,
+     "effectiveness_k1": 0.328786,
      "horizon_months": 3,
-     "n": 16,
-     "sd_hedged_usd_day": 5198.088368,
-     "sd_unhedged_usd_day": 6329.39498,
+     "n": 17,
+     "sd_hedged_usd_day": 5038.640136,
+     "sd_unhedged_usd_day": 6150.109353,
      "voyage": "5TC trip"
     },
     {
@@ -2231,19 +2265,19 @@
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": -0.157153,
+     "effectiveness_k1": -0.211073,
      "horizon_months": 3,
-     "n": 11,
-     "sd_hedged_usd_day": 8917.222775,
-     "sd_unhedged_usd_day": 8289.610889,
+     "n": 12,
+     "sd_hedged_usd_day": 8851.738822,
+     "sd_unhedged_usd_day": 8043.471262,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.324326,
+     "effectiveness_k1": 0.32783,
      "horizon_months": 1,
-     "n": 32,
-     "sd_hedged_usd_day": 8589.715797,
-     "sd_unhedged_usd_day": 10449.854945,
+     "n": 33,
+     "sd_hedged_usd_day": 8456.714239,
+     "sd_unhedged_usd_day": 10314.831479,
      "voyage": "C5"
     },
     {
@@ -2255,11 +2289,11 @@
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.332752,
+     "effectiveness_k1": 0.334013,
      "horizon_months": 3,
-     "n": 16,
-     "sd_hedged_usd_day": 9310.078741,
-     "sd_unhedged_usd_day": 11397.500147,
+     "n": 17,
+     "sd_hedged_usd_day": 9034.918836,
+     "sd_unhedged_usd_day": 11071.116277,
      "voyage": "C5"
     }
    ],
@@ -2270,135 +2304,141 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
+     "first": "2023-08",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1364.957954,
+      "high": 3149.700001,
+      "low": 28.929324,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.011732,
+     "mean_usd_day": 1364.957954,
+     "median_usd_day": 1225.0,
+     "n": 39,
+     "n_naive": 38,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 6147.931184,
+      "high": 7146.123263,
+      "low": 5067.434915,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 6225.128684,
+     "rmse_naive_usd_day": 6619.044815,
+     "rmse_ratio_ffa_to_naive": 0.940487,
+     "rmse_usd_day": 6147.931184,
+     "share_positive": 0.641026
+    },
+    "2": {
+     "block": 3,
+     "block_unit": "months",
+     "first": "2023-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 2298.535795,
+      "high": 4879.557403,
+      "low": 121.415575,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.028418,
+     "mean_usd_day": 2298.535795,
+     "median_usd_day": 1673.261905,
+     "n": 38,
+     "n_naive": 37,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 8128.248307,
+      "high": 9628.732582,
+      "low": 6259.291467,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 8103.175773,
+     "rmse_naive_usd_day": 9278.415534,
+     "rmse_ratio_ffa_to_naive": 0.873336,
+     "rmse_usd_day": 8128.248307,
+     "share_positive": 0.552632
+    },
+    "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2023-10",
      "last": "2026-10",
      "mean_ci": {
-      "block": 2,
-      "estimate": 1901.838863,
-      "high": 3645.086778,
-      "low": 424.899345,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.04834,
-     "mean_usd_day": 1901.838863,
-     "median_usd_day": 1245.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 2,
-      "estimate": 6009.787329,
-      "high": 6912.427164,
-      "low": 4853.858299,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 6093.905842,
-     "rmse_naive_usd_day": 6426.806221,
-     "rmse_ratio_ffa_to_naive": 0.948201,
-     "rmse_usd_day": 6009.787329,
-     "share_positive": 0.657143
-    },
-    "2": {
-     "first": "2023-11",
-     "last": "2026-10",
-     "mean_ci": {
-      "block": 3,
-      "estimate": 2469.753149,
-      "high": 4709.936645,
-      "low": 127.588066,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.044225,
-     "mean_usd_day": 2469.753149,
-     "median_usd_day": 2307.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 3,
-      "estimate": 8186.249924,
-      "high": 9371.071724,
-      "low": 5971.026479,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 8160.860726,
-     "rmse_naive_usd_day": 8839.209218,
-     "rmse_ratio_ffa_to_naive": 0.923257,
-     "rmse_usd_day": 8186.249924,
-     "share_positive": 0.571429
-    },
-    "3": {
-     "first": "2023-12",
-     "last": "2026-10",
-     "mean_ci": {
       "block": 4,
-      "estimate": 3638.069418,
-      "high": 5957.099171,
-      "low": -158.162927,
+      "estimate": 3738.928654,
+      "high": 6445.744557,
+      "low": 180.84221,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.069434,
-     "mean_usd_day": 3638.069418,
-     "median_usd_day": 2685.454545,
-     "n": 34,
-     "n_naive": 33,
+     "mean_pct": 0.078201,
+     "mean_usd_day": 3738.928654,
+     "median_usd_day": 2921.0,
+     "n": 37,
+     "n_naive": 36,
      "rmse_ci": {
       "block": 4,
-      "estimate": 8481.702673,
-      "high": 9548.123745,
-      "low": 6014.65479,
+      "estimate": 8381.037596,
+      "high": 9888.636305,
+      "low": 6238.714205,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8592.904439,
-     "rmse_naive_usd_day": 8995.560971,
-     "rmse_ratio_ffa_to_naive": 0.955238,
-     "rmse_usd_day": 8481.702673,
-     "share_positive": 0.676471
+     "rmse_ffa_paired_usd_day": 8481.458481,
+     "rmse_naive_usd_day": 9233.408488,
+     "rmse_ratio_ffa_to_naive": 0.918562,
+     "rmse_usd_day": 8381.037596,
+     "share_positive": 0.675676
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.633859,
+     "effectiveness_k1": 0.634047,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 4802.04736,
-     "sd_unhedged_usd_day": 7936.015273,
+     "n": 140,
+     "sd_hedged_usd_day": 4727.203356,
+     "sd_unhedged_usd_day": 7814.327628,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.704013,
+     "effectiveness_k1": 0.684848,
      "horizon_months": 2,
-     "n": 115,
-     "sd_hedged_usd_day": 4705.603236,
-     "sd_unhedged_usd_day": 8649.25979,
+     "n": 127,
+     "sd_hedged_usd_day": 4673.004127,
+     "sd_unhedged_usd_day": 8324.080616,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.150562,
+     "effectiveness_k1": 0.093049,
      "horizon_months": 1,
-     "n": 64,
-     "sd_hedged_usd_day": 7390.620342,
-     "sd_unhedged_usd_day": 8018.905805,
+     "n": 72,
+     "sd_hedged_usd_day": 7582.394726,
+     "sd_unhedged_usd_day": 7961.858154,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.415759,
+     "effectiveness_k1": 0.413891,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 7673.096634,
-     "sd_unhedged_usd_day": 10038.637433,
+     "n": 140,
+     "sd_hedged_usd_day": 7572.710099,
+     "sd_unhedged_usd_day": 9891.500784,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.539225,
+     "effectiveness_k1": 0.500686,
      "horizon_months": 2,
-     "n": 115,
-     "sd_hedged_usd_day": 7189.033576,
-     "sd_unhedged_usd_day": 10590.733331,
+     "n": 127,
+     "sd_hedged_usd_day": 7228.891317,
+     "sd_unhedged_usd_day": 10230.213059,
      "voyage": "C5"
     }
    ],
@@ -2409,167 +2449,173 @@
   {
    "bias": {
     "1": {
+     "block": 2,
+     "block_unit": "months",
+     "first": "2023-08",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1364.957954,
+      "high": 3149.700001,
+      "low": 28.929324,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.011732,
+     "mean_usd_day": 1364.957954,
+     "median_usd_day": 1225.0,
+     "n": 39,
+     "n_naive": 38,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 6147.931184,
+      "high": 7146.123263,
+      "low": 5067.434915,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 6225.128684,
+     "rmse_naive_usd_day": 6619.044815,
+     "rmse_ratio_ffa_to_naive": 0.940487,
+     "rmse_usd_day": 6147.931184,
+     "share_positive": 0.641026
+    },
+    "2": {
+     "block": 3,
+     "block_unit": "months",
+     "first": "2023-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 2298.535795,
+      "high": 4879.557403,
+      "low": 121.415575,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.028418,
+     "mean_usd_day": 2298.535795,
+     "median_usd_day": 1673.261905,
+     "n": 38,
+     "n_naive": 37,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 8128.248307,
+      "high": 9628.732582,
+      "low": 6259.291467,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_ffa_paired_usd_day": 8103.175773,
+     "rmse_naive_usd_day": 9278.415534,
+     "rmse_ratio_ffa_to_naive": 0.873336,
+     "rmse_usd_day": 8128.248307,
+     "share_positive": 0.552632
+    },
+    "3": {
+     "block": 4,
+     "block_unit": "months",
      "first": "2023-10",
      "last": "2026-10",
      "mean_ci": {
-      "block": 2,
-      "estimate": 1901.838863,
-      "high": 3645.086778,
-      "low": 424.899345,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.04834,
-     "mean_usd_day": 1901.838863,
-     "median_usd_day": 1245.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 2,
-      "estimate": 6009.787329,
-      "high": 6912.427164,
-      "low": 4853.858299,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 6093.905842,
-     "rmse_naive_usd_day": 6426.806221,
-     "rmse_ratio_ffa_to_naive": 0.948201,
-     "rmse_usd_day": 6009.787329,
-     "share_positive": 0.657143
-    },
-    "2": {
-     "first": "2023-11",
-     "last": "2026-10",
-     "mean_ci": {
-      "block": 3,
-      "estimate": 2469.753149,
-      "high": 4709.936645,
-      "low": 127.588066,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "mean_pct": 0.044225,
-     "mean_usd_day": 2469.753149,
-     "median_usd_day": 2307.0,
-     "n": 35,
-     "n_naive": 34,
-     "rmse_ci": {
-      "block": 3,
-      "estimate": 8186.249924,
-      "high": 9371.071724,
-      "low": 5971.026479,
-      "resamples": 2000,
-      "seed": 20261117
-     },
-     "rmse_ffa_paired_usd_day": 8160.860726,
-     "rmse_naive_usd_day": 8839.209218,
-     "rmse_ratio_ffa_to_naive": 0.923257,
-     "rmse_usd_day": 8186.249924,
-     "share_positive": 0.571429
-    },
-    "3": {
-     "first": "2023-12",
-     "last": "2026-10",
-     "mean_ci": {
       "block": 4,
-      "estimate": 3638.069418,
-      "high": 5957.099171,
-      "low": -158.162927,
+      "estimate": 3738.928654,
+      "high": 6445.744557,
+      "low": 180.84221,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.069434,
-     "mean_usd_day": 3638.069418,
-     "median_usd_day": 2685.454545,
-     "n": 34,
-     "n_naive": 33,
+     "mean_pct": 0.078201,
+     "mean_usd_day": 3738.928654,
+     "median_usd_day": 2921.0,
+     "n": 37,
+     "n_naive": 36,
      "rmse_ci": {
       "block": 4,
-      "estimate": 8481.702673,
-      "high": 9548.123745,
-      "low": 6014.65479,
+      "estimate": 8381.037596,
+      "high": 9888.636305,
+      "low": 6238.714205,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 8592.904439,
-     "rmse_naive_usd_day": 8995.560971,
-     "rmse_ratio_ffa_to_naive": 0.955238,
-     "rmse_usd_day": 8481.702673,
-     "share_positive": 0.676471
+     "rmse_ffa_paired_usd_day": 8481.458481,
+     "rmse_naive_usd_day": 9233.408488,
+     "rmse_ratio_ffa_to_naive": 0.918562,
+     "rmse_usd_day": 8381.037596,
+     "share_positive": 0.675676
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.635605,
+     "effectiveness_k1": 0.631526,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 5007.105624,
-     "sd_unhedged_usd_day": 8294.695132,
+     "n": 140,
+     "sd_hedged_usd_day": 4959.205879,
+     "sd_unhedged_usd_day": 8169.748343,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.721615,
+     "effectiveness_k1": 0.690117,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 4872.033618,
-     "sd_unhedged_usd_day": 9233.938598,
+     "n": 138,
+     "sd_hedged_usd_day": 4950.185294,
+     "sd_unhedged_usd_day": 8892.474544,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.716925,
+     "effectiveness_k1": 0.718047,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 4882.765172,
-     "sd_unhedged_usd_day": 9177.31014,
+     "n": 105,
+     "sd_hedged_usd_day": 5084.621626,
+     "sd_unhedged_usd_day": 9575.696255,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.238172,
+     "effectiveness_k1": 0.158123,
      "horizon_months": 1,
-     "n": 108,
-     "sd_hedged_usd_day": 7048.793944,
-     "sd_unhedged_usd_day": 8075.817244,
+     "n": 118,
+     "sd_hedged_usd_day": 7388.750815,
+     "sd_unhedged_usd_day": 8052.797002,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.550172,
+     "effectiveness_k1": 0.315697,
      "horizon_months": 2,
-     "n": 91,
-     "sd_hedged_usd_day": 6286.885551,
-     "sd_unhedged_usd_day": 9373.731795,
+     "n": 104,
+     "sd_hedged_usd_day": 7401.698662,
+     "sd_unhedged_usd_day": 8947.610724,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.396938,
+     "effectiveness_k1": 0.281714,
      "horizon_months": 3,
-     "n": 88,
-     "sd_hedged_usd_day": 6714.566386,
-     "sd_unhedged_usd_day": 8646.435641,
+     "n": 100,
+     "sd_hedged_usd_day": 7550.003861,
+     "sd_unhedged_usd_day": 8908.375262,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.422278,
+     "effectiveness_k1": 0.41653,
      "horizon_months": 1,
-     "n": 130,
-     "sd_hedged_usd_day": 7907.816435,
-     "sd_unhedged_usd_day": 10403.920961,
+     "n": 140,
+     "sd_hedged_usd_day": 7844.488138,
+     "sd_unhedged_usd_day": 10269.646732,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.55484,
+     "effectiveness_k1": 0.499598,
      "horizon_months": 2,
-     "n": 128,
-     "sd_hedged_usd_day": 7456.116717,
-     "sd_unhedged_usd_day": 11175.186912,
+     "n": 138,
+     "sd_hedged_usd_day": 7644.792769,
+     "sd_unhedged_usd_day": 10807.022716,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.554843,
+     "effectiveness_k1": 0.520059,
      "horizon_months": 3,
-     "n": 94,
-     "sd_hedged_usd_day": 7778.509546,
-     "sd_unhedged_usd_day": 11658.427682,
+     "n": 105,
+     "sd_hedged_usd_day": 8161.448253,
+     "sd_unhedged_usd_day": 11780.757249,
      "voyage": "C5"
     }
    ],

@@ -198,6 +198,10 @@ h2.section-title {
   color: var(--ink);
 }
 
+blockquote.note {
+  margin: 0;
+}
+
 .roles {
   display: grid;
   gap: var(--s5);
@@ -397,7 +401,23 @@ h2.section-title {
 }
 
 .table-wrap:focus-visible {
-  outline-offset: 0;
+  outline-offset: -2px;
+}
+
+/* A table wider than its box fades on the side that has more columns (set by dom.js scrollCue). */
+.table-wrap.more-right {
+  mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+}
+
+.table-wrap.more-left {
+  mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent);
+}
+
+.table-wrap.more-left.more-right {
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
 }
 
 table {
@@ -462,6 +482,14 @@ tr.is-selected td {
   font-size: var(--fs-small);
   color: var(--ink-3);
   max-width: var(--measure);
+}
+
+ul.table-note {
+  padding-left: var(--s5);
+}
+
+ul.table-note li + li {
+  margin-top: var(--s1);
 }
 
 .tag {
@@ -666,6 +694,18 @@ select.input {
   min-width: 6.5rem;
   max-width: 9rem;
   text-align: right;
+}
+
+/* The price and its source: side by side when there is room, the source under the input when not. */
+.price-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1) var(--s2);
+}
+
+.price-field .tag {
+  white-space: normal;
 }
 
 .outputs > * + * {

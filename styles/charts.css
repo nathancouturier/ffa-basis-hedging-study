@@ -226,9 +226,19 @@
   stroke-dasharray: 5 4;
 }
 
+/* a quarter tenor is a translucent bar across its months, never mistaken for the month line */
 .chart .span {
-  stroke-width: 3;
-  stroke-linecap: round;
+  stroke-width: 7;
+  stroke-linecap: butt;
+  stroke-opacity: 0.35;
+}
+
+.chart .span.hollow-span {
+  stroke-opacity: 0.16;
+}
+
+.chart .is-muted {
+  opacity: 0.45;
 }
 
 .chart .dot:not(.hollow) {
@@ -352,4 +362,21 @@
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
+}
+
+/* labels that sit over gridlines keep a halo in the page colour */
+.chart text.halo {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+/* categories with too few observations to read: drawn, but quieter */
+.chart .bar.is-muted {
+  opacity: 0.4;
+}
+
+.chart text.muted-text {
+  fill: var(--ink-3);
 }

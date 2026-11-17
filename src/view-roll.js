@@ -3,7 +3,7 @@
 
 import { h, takeaway, table, note, defs } from "./dom.js";
 import { stripChart, hbarChart, empty } from "./charts.js";
-import { pct, shareOf, num, signed, signedPct, usdDay, dateLong, dateShort, monthLong, monthShort, plural, listJoin, isNum, capitalise, horizonLabel, signedUsdBig } from "./format.js";
+import { pct, shareOf, num, signed, signedPct, usdDay, dateLong, dateShort, monthLong, monthShort, plural, listJoin, isNum, capitalise, horizonLabel } from "./format.js";
 import { wire, sourceLine, downloadLine, basketRule } from "./view-kit.js";
 
 function horizonName(hm) {
@@ -59,6 +59,76 @@ function signNote(rows) {
   return `the sign is the same in all ${plural(rows.length, "strategy-year", "strategy-years")} so far, on samples this small`;
 }
 
+const RULES = Object.freeze({
+  minContracts: 6, // a year's roll cost on fewer contracts is drawn faint
+  nearOne: 0.9, // an RMSE ratio above this is "slightly" below spot's
+  shipYearRound: 1000, // literal: unit, ship-year costs are rounded to the nearest USD 1,000
+});
+
+/** "Jan to Oct" when a year's monthly contracts do not span it; empty for a full year or quarters. */
+function monthsOf(r) {
+  const f = String(r.first || "");
+  const l = String(r.last || "");
+  if (f.length === 7 && l.length === 7 && (f.slice(5) !== "01" || l.slice(5) !== "12")) {
+    const a = monthShort(f).split(" ")[0];
+    const b = monthShort(l).split(" ")[0];
+    return a === b ? a : `${a} to ${b}`;
+  }
+  return "";
+}
+
+/** "2026 (Jan to Oct)"; a full year or a quarter row keeps the plain year. */
+function yearLabel(r) {
+  return monthsOf(r) ? `${r.year} (${monthsOf(r)})` : String(r.year);
+}
+
+/** "9 on 182,000 t, 1 on 180,000 t" from a row's basket counts. */
+function basketMix(r) {
+  const entries = Object.entries(r.baskets || {}).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+  if (!entries.length) return "basket not stated";
+  if (entries.length === 1) return `all on ${num(Number(entries[0][0]))} t`;
+  return entries.map(([b, n]) => `${n} on ${num(Number(b))} t`).join(", ");
+}
+
+function shipYear(v) {
+  return isNum(v) ? signed(Math.round(v / RULES.shipYearRound) * RULES.shipYearRound) : "";
+}
+
+/** The FFA's RMSE against spot's, in words that do not overstate a ratio near 1. */
+function ratioClause(bias) {
+  const rs = bias.filter((b) => isNum(b.rmse_ratio_ffa_to_naive));
+  if (!rs.length) return "";
+  const vals = rs.map((b) => b.rmse_ratio_ffa_to_naive);
+  const lo = Math.min(...vals);
+  const hi = Math.max(...vals);
+  const range = lo === hi ? num(lo, 2) : `${num(lo, 2)} to ${num(hi, 2)}`;
+  const within = rs.every((b) => b.rmse_ci && isNum(b.rmse_ci.low) && isNum(b.rmse_naive_usd_day) && b.rmse_naive_usd_day >= b.rmse_ci.low && b.rmse_naive_usd_day <= b.rmse_ci.high);
+  if (hi < 1) return `; the FFA's RMSE was ${within || lo >= RULES.nearOne ? "slightly " : ""}below spot's at every horizon (${range} of it)${within ? ", within the intervals" : ""}`;
+  return `; the FFA's RMSE was ${range} of spot's as a forecast`;
+}
+
+/** The bootstrap's blocks from the data: "blocks of 2, 3 and 4 contract months; 2 quarters for the front quarter". */
+function blocksText(bias, qb) {
+  const blockOf = (b) => (isNum(b?.block) ? b.block : b?.mean_ci?.block);
+  const unitOf = (b, dflt) => (b?.block_unit === "quarters" ? "quarters" : b?.block_unit === "months" ? "contract months" : dflt);
+  const months = bias.filter((b) => isNum(blockOf(b)));
+  const parts = [];
+  if (months.length) parts.push(`blocks of ${listJoin(months.map((b) => String(blockOf(b))))} ${unitOf(months[0], "contract months")} at ${listJoin(months.map((b) => String(b.horizon_months)))} months ahead`);
+  if (qb && isNum(blockOf(qb))) parts.push(`${plural(blockOf(qb), unitOf(qb, "quarters") === "quarters" ? "quarter" : "contract month", unitOf(qb, "quarters"))} for the front quarter`);
+  return parts.length ? parts.join("; ") : "blocks that grow with the horizon";
+}
+
+/** How much history the errors rest on, from the data. */
+function sampleNote(errors, bias, qb) {
+  if (!errors.length) return "Read the intervals before the means.";
+  const contracts = errors.map((e) => e.contract).sort();
+  const priced = errors.map((e) => e.priced_on).sort();
+  const ns = bias.map((b) => b.n);
+  const lo = Math.min(...ns);
+  const hi = Math.max(...ns);
+  return `Curves from ${dateLong(priced[0])} price contracts from ${monthLong(contracts[0])} to ${monthLong(contracts[contracts.length - 1])}: ${lo === hi ? num(lo) : `${num(lo)} to ${num(hi)}`} contract months per horizon${qb ? ` and ${plural(qb.n, "quarter", "quarters")}` : ""}. Read the intervals before the means.`;
+}
+
 function render(section, ctx) {
   const { roll, engine } = ctx.data;
   const bias = (roll.bias || []).slice().sort((a, b) => a.horizon_months - b.horizon_months);
@@ -71,15 +141,16 @@ function render(section, ctx) {
     const above = one.mean_usd_day > 0;
     const ci = one.mean_ci;
     const spansZero = ci && ci.low < 0 && ci.high > 0;
-    sentence = `On average the 5TC settled ${usdDay(Math.abs(one.mean_usd_day))} ${above ? "above" : "below"} the FFA price ${horizonLabel(one.horizon_months)} before expiry${ci && isNum(ci.low) ? ` (90 percent interval ${signed(ci.low)} to ${signed(ci.high)})` : ""}: a rolling charterer ${above ? "earned" : "paid"} that gap and a rolling owner ${above ? "gave it up" : "earned it"}${spansZero ? ", though the interval includes zero" : ""}.`;
+    sentence = `On each curve's first print, the 5TC settled on average ${usdDay(Math.abs(one.mean_usd_day))} ${above ? "above" : "below"} the FFA price ${horizonLabel(one.horizon_months)} before expiry${ci && isNum(ci.low) ? ` (90 percent interval ${signed(ci.low)} to ${signed(ci.high)})` : ""}: a rolling charterer ${above ? "earned" : "paid"} that gap and a rolling owner ${above ? "gave it up" : "earned it"}${spansZero ? ", though the interval includes zero" : ""}.`;
   }
   section.append(takeaway("Bias and roll", sentence));
   const variants = Object.fromEntries((ctx.data.method?.robustness || []).map((v) => [v.key, (v.bias || {})[String(one?.horizon_months)] || null]));
   const latest = variants.latest_print;
   const first = variants.headline;
+  let printNote = null;
   if (one && latest && first && isNum(latest.mean_usd_day) && isNum(first.mean_usd_day) && latest.mean_usd_day !== first.mean_usd_day) {
     const closer = isNum(latest.rmse_usd_day) && isNum(first.rmse_usd_day) && latest.rmse_usd_day < first.rmse_usd_day;
-    section.append(h("p", { class: "lede" }, `The figure depends on which print of the curve is used. The study uses each curve's first print, the price a hedger had on the date; the same curve as the next issue re-assesses it a week later gives a mean of ${signed(latest.mean_usd_day)} USD a day${closer ? ` and sits closer to the settlement (RMSE ${num(latest.rmse_usd_day)} against ${num(first.rmse_usd_day)}), as a later price would` : ""}.`));
+    printNote = h("p", { class: "chart-summary" }, `Which print: each weekly report gives the curve of its own date (the first print) and, in a previous-week column, the curve of the week before as re-assessed a week later (the second print). The study uses the first print because it is the price a hedger could deal on that date. On the second print the mean error ${horizonLabel(one.horizon_months)} ahead is ${signed(latest.mean_usd_day)} USD a day${closer ? `, and its RMSE (${num(latest.rmse_usd_day)} against ${num(first.rmse_usd_day)}) is lower, as a price taken a week later would be` : ""}.`);
   }
 
   // ---------------------------------------------------------- key chart
@@ -102,12 +173,10 @@ function render(section, ctx) {
     if (qb && isNum(qb.mean_usd_day)) {
       cats.push({ key: "q", label: "Front quarter", short: "Quarter", sub: `n = ${qb.n}`, subShort: String(qb.n), points: [], mean: qb.mean_usd_day, lo: qb.mean_ci?.low, hi: qb.mean_ci?.high, tip: biasTip(qb) });
     }
-    const ratios = bias.filter((b) => isNum(b.rmse_ratio_ffa_to_naive));
-    const allBetter = ratios.length && ratios.every((b) => b.rmse_ratio_ffa_to_naive < 1);
-    const title = `Mean error ${listJoin(bias.map((b) => signed(b.mean_usd_day)))} USD a day at ${listJoin(bias.map((b) => String(b.horizon_months)))} months${ratios.length ? `; the FFA's RMSE was ${listJoin(ratios.map((b) => num(b.rmse_ratio_ffa_to_naive, 2)))} of spot's as a forecast${allBetter ? ", better at every horizon" : ""}` : ""}`;
+    const title = `Mean error ${listJoin(bias.map((b) => signed(b.mean_usd_day)))} USD a day at ${listJoin(bias.map((b) => String(b.horizon_months)))} months${ratioClause(bias)}`;
     stripChart(key, {
       title,
-      subtitle: `Error = settlement minus the FFA price paid that many months before expiry, USD a day, one dot per contract month; the black bar is the mean with its 90 percent interval (moving block bootstrap). Positive: the contract settled above its price. Each contract on the basket its curve was printed on: ${basketCounts(errors) || "as printed"}.`,
+      subtitle: `Settlement minus the FFA price paid that many months before expiry, on each curve's first print, USD a day. Dots: contract months (the front quarter shows only its mean); bars: the mean and its 90 percent interval. Baskets as printed: ${basketCounts(errors) || "each contract on its curve's basket"}.`,
       legend: [
         { label: "Settled on the study's complete daily series", cls: "ffa", kind: "dot" },
         { label: "Settled at Himalaya Shipping's published average", cls: "ffa", kind: "hollow" },
@@ -115,10 +184,11 @@ function render(section, ctx) {
       ],
       cats,
       y: { title: "Settlement minus price, USD a day", format: (v) => signed(v) },
-      summary: `${bias.map((b) => `${horizonName(b.horizon_months)}: mean ${signed(b.mean_usd_day)} USD a day (90 percent interval ${ciText(b.mean_ci)}), median ${signed(b.median_usd_day)}, ${shareOf(b.share_positive, b.n)} positive of ${b.n}, RMSE ${num(b.rmse_usd_day)}${naiveText(b) ? `; ${naiveText(b)}` : ""}`).join("; ")}.${qb ? ` Front quarter: mean ${signed(qb.mean_usd_day)} (${ciText(qb.mean_ci, qb.ci_note)}), ${plural(qb.n, "quarter", "quarters")}, ${monthShort(qb.first)} to ${monthShort(qb.last)}.` : ""} Contracts ${monthShort(one.first)} to ${monthShort(one.last)}.`,
+      summary: `${bias.map((b, i) => `${i ? horizonName(b.horizon_months) : capitalise(horizonName(b.horizon_months))}: mean ${signed(b.mean_usd_day)} USD a day (90 percent interval ${ciText(b.mean_ci)}), median ${signed(b.median_usd_day)}, ${shareOf(b.share_positive, b.n)} positive of ${b.n}, RMSE ${num(b.rmse_usd_day)}${naiveText(b) ? `; ${naiveText(b)}` : ""}`).join("; ")}.${qb ? ` Front quarter: mean ${signed(qb.mean_usd_day)} (${ciText(qb.mean_ci, qb.ci_note)}), ${plural(qb.n, "quarter", "quarters")}, ${monthShort(qb.first)} to ${monthShort(qb.last)}.` : ""} Contracts ${monthShort(one.first)} to ${monthShort(one.last)}.`,
       source: sourceLine(roll, "Banchero Costa weekly FFA assessments; monthly 5TC settlements."),
+      footer: printNote,
     });
-  } else empty(key, { title: "Forecast errors", text: "roll.json carries no bias rows in this build." });
+  } else empty(key, { title: "Forecast errors", text: "This build carries no forecast errors." });
 
   // -------------------------------------------------------------- panels
   const panels = [
@@ -128,25 +198,25 @@ function render(section, ctx) {
       render(body) {
         const groups = [];
         const row = (r) => ({
-          label: String(r.year),
+          label: `${r.year} (${[monthsOf(r), plural(r.n, "contract", "contracts")].filter(Boolean).join(", ")})`,
           value: r.roll_cost_usd_day,
           cls: r.roll_cost_usd_day > 0 ? "charterer" : "owner",
           valueLabel: signed(r.roll_cost_usd_day),
+          muted: r.n < RULES.minContracts,
           tip: {
-            title: `${r.year}, ${plural(r.n, "contract", "contracts")}`,
+            title: `${yearLabel(r)}, ${plural(r.n, "contract", "contracts")}`,
             rows: [
               { key: r.roll_cost_usd_day > 0 ? "charterer" : "owner", value: `${signed(r.roll_cost_usd_day)} USD a day`, label: r.roll_cost_usd_day > 0 ? "paid by the long (charterer), earned by the short (owner)" : "paid by the short (owner), earned by the long (charterer)" },
               { key: null, value: signedPct(r.roll_cost_pct), label: "of the settlement" },
-              { key: null, value: signedUsdBig(r.ship_year_usd), label: "a ship-year" },
-              { key: null, value: num(r.n), label: r.n === 1 ? "contract" : "contracts" },
+              { key: null, value: shipYear(r.ship_year_usd), label: "a ship-year" },
             ],
-            note: r.statuses?.length ? `Settlements: ${listJoin(r.statuses)}` : "Quarter settlements from monthly averages",
+            note: [basketMix(r), r.statuses?.length ? `settlements ${listJoin(r.statuses)}` : "quarter averages of monthly settlements", r.n < RULES.minContracts ? "too few contracts to read" : null].filter(Boolean).join("; "),
           },
         });
         if ((roll.roll_1m || []).length) groups.push({ label: "Rolling one-month long", rows: roll.roll_1m.map(row) });
         if ((roll.roll_quarter || []).length) groups.push({ label: "Rolling front-quarter long", rows: roll.roll_quarter.map(row) });
         if (!groups.length) {
-          empty(body, { title: "Roll cost by year", text: "roll.json carries no roll cost rows in this build." });
+          empty(body, { title: "Roll cost by year", text: "This build carries no roll cost rows." });
           return;
         }
         const m1 = roll.roll_1m || [];
@@ -159,7 +229,7 @@ function render(section, ctx) {
         body.append(box);
         hbarChart(box, {
           title: parts.length ? `A charterer rolling one-month longs ${parts.join(" and ")}` : "Roll cost by year",
-          subtitle: `Roll cost = price paid minus settlement, averaged over the year's contracts, USD a day, each contract on the basket its curve was printed on (${basketCounts(errors.filter((e) => e.horizon_months === 1)) || "as printed"} at one month). The percent of settlement, the cost per ship-year and the number of contracts are in the table below.`,
+          subtitle: `Roll cost = price paid minus settlement, averaged over the year's contracts, USD a day, each contract on the basket its curve was printed on (the mix is in each bar's details). Years with fewer than ${RULES.minContracts} contracts are drawn faint. The percent of settlement and the cost per ship-year are in the table below.`,
           legend: [
             { label: "The long (charterer) pays, the short (owner) earns", cls: "charterer", kind: "rect" },
             { label: "The short (owner) pays, the long (charterer) earns", cls: "owner", kind: "rect" },
@@ -167,24 +237,25 @@ function render(section, ctx) {
           sides: { neg: "Owner pays", pos: "Charterer pays" },
           groups,
           x: { title: "Roll cost of a rolling long, USD a day", format: (v) => signed(v) },
-          summary: [...(roll.roll_1m || []).map((r) => ["Rolling one-month long", r]), ...(roll.roll_quarter || []).map((r) => ["Rolling front-quarter long", r])].map(([g, r]) => `${g}, ${r.year}: ${signed(r.roll_cost_usd_day)} USD a day (${signedPct(r.roll_cost_pct)} of settlement, ${plural(r.n, "contract", "contracts")})`).join("; ") + ". A positive cost is paid by the rolling long and earned by the short.",
+          summary: [...(roll.roll_1m || []).map((r) => ["rolling one-month long", r]), ...(roll.roll_quarter || []).map((r) => ["rolling front-quarter long", r])].map(([g, r], i) => `${i ? g : capitalise(g)}, ${yearLabel(r)}: ${signed(r.roll_cost_usd_day)} USD a day (${signedPct(r.roll_cost_pct)} of settlement, ${plural(r.n, "contract", "contracts")}; ${basketMix(r)})`).join("; ") + ". A positive cost is paid by the rolling long and earned by the short.",
           source: sourceLine(roll, "Banchero Costa weekly FFA assessments; monthly 5TC settlements."),
         });
         const costRows = [...(roll.roll_1m || []).map((r) => ({ ...r, strategy: "Rolling one-month long" })), ...(roll.roll_quarter || []).map((r) => ({ ...r, strategy: "Rolling front-quarter long" }))];
         body.append(table({
           caption: "Roll cost by year",
           columns: [
-            { label: "Strategy", format: (r) => r.strategy },
-            { label: "Year", format: (r) => String(r.year) },
-            { label: "Contracts", num: true, format: (r) => num(r.n) },
+            { label: "Year", format: (r) => yearLabel(r) },
             { label: "USD a day", num: true, format: (r) => signed(r.roll_cost_usd_day) },
-            { label: "% of settlement", num: true, format: (r) => signedPct(r.roll_cost_pct) },
-            { label: "USD a ship-year", num: true, format: (r) => signed(r.ship_year_usd) },
             { label: "Who pays", format: (r) => (r.roll_cost_usd_day > 0 ? "Charterer (long)" : r.roll_cost_usd_day < 0 ? "Owner (short)" : "Neither") },
-            { label: "Settlements", format: (r) => (r.statuses?.length ? listJoin(r.statuses) : "") },
+            { label: "Strategy", format: (r) => r.strategy },
+            { label: "Contracts", num: true, format: (r) => num(r.n) },
+            { label: "% of settlement", num: true, format: (r) => signedPct(r.roll_cost_pct) },
+            { label: "USD a ship-year", num: true, format: (r) => shipYear(r.ship_year_usd) },
+            { label: "Basket", format: (r) => basketMix(r) },
+            { label: "Settlements", format: (r) => (r.statuses?.length ? listJoin(r.statuses) : "averages of the months") },
           ],
           rows: costRows,
-          note: "A ship-year is the daily cost over a year of days.",
+          note: "A ship-year is the daily cost over a year of days, rounded to the nearest USD 1,000.",
         }));
         body.append(h("div", { class: "prose" },
           h("h3", {}, "Who pays the roll"),
@@ -201,11 +272,12 @@ function render(section, ctx) {
           caption: "Forecast errors by horizon (settlement minus price, USD a day)",
           columns: [
             { label: "Horizon", format: (b) => horizonName(b.horizon_months) },
+            { label: "Mean", num: true, format: (b) => signed(b.mean_usd_day) },
+            { label: "90% interval", num: true, format: (b) => ciText(b.mean_ci, b.ci_note) },
+            { label: "FFA / spot RMSE", num: true, format: (b) => (isNum(b.rmse_ratio_ffa_to_naive) ? num(b.rmse_ratio_ffa_to_naive, 3) : "") },
             { label: "Contracts", num: true, format: (b) => num(b.n) },
             { label: "From", format: (b) => monthShort(b.first) },
             { label: "To", format: (b) => monthShort(b.last) },
-            { label: "Mean", num: true, format: (b) => signed(b.mean_usd_day) },
-            { label: "90% interval", num: true, format: (b) => ciText(b.mean_ci, b.ci_note) },
             { label: "Mean, % of settlement", num: true, format: (b) => signedPct(b.mean_pct) },
             { label: "Median", num: true, format: (b) => signed(b.median_usd_day) },
             { label: "RMSE", num: true, format: (b) => num(b.rmse_usd_day) },
@@ -213,7 +285,6 @@ function render(section, ctx) {
             { label: "Contracts with spot", num: true, format: (b) => (isNum(b.n_naive) ? num(b.n_naive) : "") },
             { label: "FFA's RMSE on them", num: true, format: (b) => (isNum(b.rmse_ffa_paired_usd_day) ? num(b.rmse_ffa_paired_usd_day) : "") },
             { label: "Spot's RMSE", num: true, format: (b) => (isNum(b.rmse_naive_usd_day) ? num(b.rmse_naive_usd_day) : "") },
-            { label: "FFA / spot", num: true, format: (b) => (isNum(b.rmse_ratio_ffa_to_naive) ? num(b.rmse_ratio_ffa_to_naive, 3) : "") },
             { label: "Positive", num: true, format: (b) => shareOf(b.share_positive, b.n) },
           ],
           rows,
@@ -237,7 +308,7 @@ function render(section, ctx) {
             { term: "Error", desc: formulas["Forecast error"] || "error = S minus F(h months before expiry); roll cost of a rolling long = F minus S." },
             { term: "Price at a horizon", desc: "The month's price on the last weekly curve printed at least h months before its expiry; the front quarter uses the quarter's price on the curve before the quarter starts." },
             { term: "Settlement", desc: formulas.Settlement || "The average of the Baltic's assessments on every publication day of the month." },
-            { term: "Intervals", desc: `Moving block bootstrap of the mean and the RMSE, ${bias[0]?.mean_ci ? `blocks of ${listJoin(bias.map((b) => `${b.mean_ci.block} at ${horizonName(b.horizon_months)}`))}` : "with blocks that grow with the horizon"}, fixed seed.` },
+            { term: "Intervals", desc: `Moving block bootstrap of the mean and the RMSE, fixed seed, ${blocksText(bias, qb)}.` },
             { term: "Spot as a forecast", desc: "The naive forecast of a contract's settlement is the spot on the day the price was taken; RMSE against it tells whether the curve carried information." },
             { term: "Roll cost by year", desc: "The average of (price paid minus settlement) over the year's contracts, in USD a day and as a percent of settlement; a ship-year multiplies the daily cost by a year of days." },
           ]));
@@ -251,7 +322,7 @@ function render(section, ctx) {
             { term: "Exact months", desc: "Errors use contracts whose month settled exactly: complete in the study's own daily series, or published by Himalaya Shipping in its monthly commercial updates (SEC 6-K exhibits). Estimated months enter only the robustness table (Method and data)." },
             { term: "Basket", desc: `Each contract on the basket its curve was printed on${basketCounts(errors) ? `: ${basketCounts(errors)}` : ""}; the per-contract table states it.${rule ? ` The ${num(rule.after)} t basket exists from ${dateLong(rule.from)}.` : ""}` },
             { term: "First print", desc: "Each week's curve as first printed; the latest print is a robustness case." },
-            { term: "Small samples", desc: "Two years of weekly curves give a few dozen contract months per horizon and a handful of quarters; read the intervals before the means." },
+            { term: "Small samples", desc: sampleNote(errors, bias, qb) },
           ]));
         },
       },
@@ -282,7 +353,7 @@ function render(section, ctx) {
               { label: "Status", format: (r) => r.status },
               { label: rule ? `USD a day, ${num(rule.before)} t` : "USD a day, first basket", num: true, format: (r) => (isNum(r.usd_day_180) ? num(r.usd_day_180) : "") },
               { label: rule ? `USD a day, ${num(rule.after)} t` : "USD a day, second basket", num: true, format: (r) => (isNum(r.usd_day_182) ? num(r.usd_day_182) : "") },
-              { label: "Days observed", num: true, format: (r) => pct(r.coverage, 0) },
+              { label: "Days in the study's own series", num: true, format: (r) => pct(r.coverage, 0) },
               { label: "Published", format: (r) => (r.published_url ? h("a", { href: r.published_url }, "6-K exhibit") : "") },
             ],
             rows: settlements,
@@ -296,7 +367,7 @@ function render(section, ctx) {
   section.append(note(h("strong", {}, "Costs a hedger faces, not a strategy. "), "Forward bias and roll cost tell a desk what rolling a hedge has cost, by year and horizon. They are reported whatever their sign and are not a signal to trade."));
   if (w.panelsEl) section.append(w.panelsEl);
   section.append(w.disclosuresEl);
-  return { update: w.update };
+  return { update: w.update, state: w.state };
 }
 
 export default {

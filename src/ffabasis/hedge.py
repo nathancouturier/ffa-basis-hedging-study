@@ -100,6 +100,10 @@ def strip(curve: dict[str, Any], weights: list[dict[str, Any]], allow_proxy: boo
     return engine.strip_price(weights, prices), proxies
 
 
+#: A hedge is placed on a curve at most this many days old on the hedge date.
+CURVE_MAX_AGE_DAYS = 14
+
+
 def observations(
     panel: dict[str, Any],
     curves: list[dict[str, Any]],
@@ -144,13 +148,19 @@ def observations(
             s_ship = engine.strip_price(weights, {m: analysis.settlement_in(settle, m, sb) for m in months})
             for h in analysis.HORIZONS:
                 hedge_day = analysis.months_back(day, h)
-                curve = analysis.latest_curve(curves, hedge_day)
-                if curve is None or (dt.date.fromisoformat(hedge_day) - dt.date.fromisoformat(curve["date"])).days > 14:
+                # The latest curve printed by the hedge date, at most 14 days old, that prices every month of the
+                # voyage (a month as printed, else its quarter as a flagged proxy); a page whose rows were not
+                # all read gives way to the week before it.
+                window = analysis.curves_back(curves, hedge_day, CURVE_MAX_AGE_DAYS)
+                curve, f0, proxies = None, None, []
+                for candidate in window:
+                    f0, proxies = strip(candidate, weights, allow_proxy)
+                    if f0 is not None:
+                        curve = candidate
+                        break
+                if curve is None:
                     continue
                 cb = basket_override or curve["basket_t"]
-                f0, proxies = strip(curve, weights, allow_proxy)
-                if f0 is None:
-                    continue
                 if basket_override and basket_override != curve["basket_t"]:
                     shift = engine.C5TC_180_DIFFERENTIAL_USD_DAY * (1 if basket_override == 182000 else -1)
                     f0 += shift
@@ -179,6 +189,7 @@ def observations(
                         "timing_basis": spot - s_ship,
                         "size_basis": s_ship - s_curve,
                         "proxies": proxies,
+                        "not_latest_curve": curve is not window[0],
                         "settlement_statuses": sorted({settle[m]["status"] for m in months}),
                         "bunkers_stale": bool(leg.get("bunkers_stale")),
                         "vessel": leg.get("vessel"),
@@ -221,9 +232,13 @@ def summarise(rows: list[dict[str, Any]], horizon: int) -> dict[str, Any] | None
         "effectiveness_k1_ci": stats.block_bootstrap((u, x), lambda a, b: stats.effectiveness(a, a - b), block),
         "k_in_sample": stats.min_variance_ratio(u, x),
         # CVaR with the route basis's mean taken out of both: its level is overstated by the costs the voyage
-        # TCEs leave out, and a constant shift would move a tail measure (variances are unaffected).
+        # TCEs leave out, and a constant shift would move a tail measure (variances are unaffected). An owner's
+        # bad tail is low earnings (the lowest 5 percent of the surprise), a charterer's is high hire (the
+        # highest 5 percent): CVaR is not symmetric, so each role has its own.
         "cvar_unhedged_usd_day": stats.cvar([a - route_mean for a in u]),
         "cvar_hedged_usd_day": stats.cvar([a - route_mean for a in h1]),
+        "cvar_charterer_unhedged_usd_day": stats.cvar([route_mean - a for a in u]),
+        "cvar_charterer_hedged_usd_day": stats.cvar([route_mean - a for a in h1]),
         "cvar_route_mean_removed_usd_day": route_mean,
         "block_weeks": block,
         "curve_baskets": {str(b): sum(1 for r in sel if r["curve_basket_t"] == b) for b in (180000, 182000)},
@@ -231,6 +246,11 @@ def summarise(rows: list[dict[str, Any]], horizon: int) -> dict[str, Any] | None
     }
     out["cvar_reduction_k1"] = (
         1.0 - out["cvar_hedged_usd_day"] / out["cvar_unhedged_usd_day"] if out["cvar_unhedged_usd_day"] > 0 else None
+    )
+    out["cvar_reduction_k1_charterer"] = (
+        1.0 - out["cvar_charterer_hedged_usd_day"] / out["cvar_charterer_unhedged_usd_day"]
+        if out["cvar_charterer_unhedged_usd_day"] > 0
+        else None
     )
     ks = out_of_sample_ratios(sel)
     oos = [(r, k) for r, k in zip(sel, ks, strict=True) if k is not None]
@@ -291,7 +311,8 @@ def ederington(panel: dict[str, Any], curves: list[dict[str, Any]]) -> dict[str,
         if None in (sa, sb):
             dropped["no_same_day_spot"] += 1
             continue
-        pairs.append((sb - sa, fb - fa, b["date"]))
+        implied = any((panel["daily"].get(d) or {}).get("kind") == "implied" for d in (a["date"], b["date"]))
+        pairs.append((sb - sa, fb - fa, b["date"], implied))
     if len(pairs) < 10:
         return None
     result = stats.ederington([p[0] for p in pairs], [p[1] for p in pairs])
@@ -301,5 +322,6 @@ def ederington(panel: dict[str, Any], curves: list[dict[str, Any]]) -> dict[str,
         pairs_considered=len(candidates),
         pairs_dropped=dropped,
         pairs_in_2026=sum(1 for p in pairs if p[2] >= engine.BASKET_182_FROM),
+        pairs_implied_spot=sum(1 for p in pairs if p[3]),
     )
     return result

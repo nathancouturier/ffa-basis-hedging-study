@@ -117,18 +117,24 @@ export function signedUsdBig(v) {
   return v > 0 ? `+${body}` : body;
 }
 
-/** Compact signed money for axes: +1.2M, +350k, minus 40. */
-export function compactMoney(v) {
+/**
+ * Compact signed money. On an axis (maxAbs given) one unit serves every tick: 0, +0.5M, +1.0M; a
+ * figure alone picks its own: +1.2M, +350k.
+ */
+export function compactMoney(v, maxAbs) {
   if (!isNum(v)) return "";
-  if (Math.abs(v) >= UNITS.million) return `${signed(v / UNITS.million, 1)}M`;
-  if (Math.abs(v) >= UNITS.thousand) return `${signed(v / UNITS.thousand, 0)}k`;
+  if (v === 0) return "0";
+  const scale = isNum(maxAbs) ? maxAbs : Math.abs(v);
+  if (scale >= UNITS.million) return `${signed(v / UNITS.million, 1)}M`;
+  if (scale >= UNITS.thousand) return `${signed(v / UNITS.thousand, 0)}k`;
   return signed(v, 0);
 }
 
-/** Compact tick label: 40,000 / 1.2M. */
+/** Compact tick label: 40,000 / 0.5M (one decimal for every tick of a million-scale axis). */
 export function tick(v, maxAbs) {
   if (!isNum(v)) return "";
-  if (maxAbs >= UNITS.million) return `${num(v / UNITS.million, Math.abs(v) % UNITS.million === 0 ? 0 : 1)}M`;
+  if (v === 0) return "0";
+  if (maxAbs >= UNITS.million) return `${num(v / UNITS.million, 1)}M`;
   return num(v, Number.isInteger(v) ? 0 : decimals(v));
 }
 
@@ -178,10 +184,9 @@ export function dateLong(iso) {
 }
 
 /** 8 Nov 2026 */
+/** Every visible date is written in full: dateShort is kept as a name and gives the long form. */
 export function dateShort(iso) {
-  if (!iso) return "n/a";
-  const [y, m, d] = iso.split("-").map(Number);
-  return `${d} ${MONTHS_SHORT[m - 1]} ${y}`;
+  return dateLong(iso);
 }
 
 /** 2026-12 -> December 2026; 2027-Q1 -> first quarter 2027 (Q1 27 short). */

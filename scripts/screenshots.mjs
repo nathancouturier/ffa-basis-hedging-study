@@ -1,4 +1,4 @@
-// screenshots.mjs: every view at 1440, 768, 390 and 320 px wide in both themes, each view with its
+// screenshots.mjs: every view at 1440, 1024, 768, 390 and 320 px wide in both themes, each view with its
 // sections open, and each secondary panel, written to the folder given by --out.
 //
 //   node scripts/screenshots.mjs --out <folder> [--base http://127.0.0.1:8150/ffa-basis-hedging-study/]
@@ -18,7 +18,7 @@ const { chromium } = require("playwright");
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const VIEWS = ["overview", "curve", "roll", "lab", "td3c", "method"];
-const WIDTHS = [1440, 768, 390, 320];
+const WIDTHS = [1440, 1024, 768, 390, 320];
 const THEMES = ["light", "dark"];
 const HEIGHT = 900;
 

@@ -4,9 +4,10 @@
 //
 // Checks: every view renders its takeaway and charts without console errors; no horizontal page scroll
 // at 320 px wide, with every section open; hash routing (views, open sections, panels); disclosure
-// bodies are hidden and inert when closed; the theme toggle persists; a chart answers the keyboard; the
-// colour tokens keep their contrast in both themes; and the hedge lab's figures match src/engine.js run
-// here in Node on the same inputs. Starts scripts/serve.py when nothing answers. Exit code 1 on failure.
+// bodies are hidden and inert when closed; the hash carries the panel and open sections of the view shown;
+// the theme toggle persists; a chart answers the keyboard; the colour tokens keep their contrast in both
+// themes; and the hedge lab's figures match src/engine.js run here in Node on the same inputs, including
+// the per-month paper table when the hedge ratio k changes. Starts scripts/serve.py when nothing answers. Exit code 1 on failure.
 
 import { createRequire } from "node:module";
 import { spawn } from "node:child_process";
@@ -162,7 +163,7 @@ async function checkRouting(browser, opts) {
   const errors = watch(page, "routing");
   await page.goto(opts.base, { waitUntil: "networkidle" });
   await settle(page, "overview");
-  check((await page.evaluate(() => location.hash)) === "#/overview", "an empty hash does not open the overview");
+  check(/^#\/overview(\?|$)/.test(await page.evaluate(() => location.hash)), "an empty hash does not open the overview");
   await page.goto(`${opts.base}#/curve?open=method,data&panel=slope`, { waitUntil: "networkidle" });
   await settle(page, "curve");
   const state = await page.evaluate(() => {
@@ -190,11 +191,27 @@ async function checkRouting(browser, opts) {
   await page.click('.nav a[data-view="roll"]');
   await settle(page, "roll");
   const roll = await page.evaluate(() => [location.hash, document.activeElement?.tagName, document.title]);
-  check(roll[0] === "#/roll", "navigation link does not route to #/roll");
+  check(/^#\/roll(\?|$)/.test(roll[0]), `navigation link does not route to #/roll (${roll[0]})`);
+  check(/panel=/.test(roll[0]), `roll: the hash does not carry the panel shown (${roll[0]})`);
   check(roll[1] === "H1", "navigating does not move focus to the view's takeaway");
   await page.goBack();
   await settle(page, "curve");
   check(await page.evaluate(() => !document.getElementById("view-curve").hidden), "back does not return to the curve view");
+
+  // URL state: a view shown again through its link writes its panel and open sections back into the hash
+  await page.click('#view-curve .panels button[data-panel="slope"]');
+  const closed = await page.$eval('#view-curve .disclosures button[aria-expanded="false"]', (b) => b.dataset.section);
+  await page.click(`#view-curve .disclosures button[data-section="${closed}"]`);
+  await page.click('.nav a[data-view="method"]');
+  await settle(page, "method");
+  await page.click('.nav a[data-view="curve"]');
+  await settle(page, "curve");
+  hash = await page.evaluate(() => location.hash);
+  const shown = await page.evaluate(() => document.querySelector('#view-curve .panels button[aria-pressed="true"]')?.dataset.panel);
+  check(shown === "slope" && /panel=slope/.test(hash), `curve: back through the nav, the panel shown (${shown}) is not in the hash (${hash})`);
+  check(new RegExp(`open=[^&]*${closed}`).test(hash), `curve: back through the nav, the open ${closed} section is not in the hash (${hash})`);
+  const reopened = await page.evaluate((id) => document.querySelector(`#view-curve .disclosures button[data-section="${id}"]`)?.getAttribute("aria-expanded"), closed);
+  check(reopened === "true", `curve: back through the nav, the ${closed} section the visitor opened is closed`);
 
   // theme toggle persists
   await page.click("[data-theme-toggle]");
@@ -282,10 +299,13 @@ async function checkLab(browser, opts) {
   check(Math.abs(figure(figs[0]) - f0) <= TOLERANCE, `lab: C3 F0 ${figs[0]} against the engine's ${f0.toFixed(2)}`);
   const down = engine.outcome("charterer", f0 * 0.5, f0, f0 * 0.5, days, lab.commission_pct, 1);
   const row = await page.evaluate(() => {
-    const tr = [...document.querySelectorAll("#view-lab .outputs table tbody tr")][0];
-    return tr ? [...tr.cells].map((c) => c.textContent) : [];
+    const t = document.querySelector("#view-lab .outputs table");
+    const heads = t ? [...t.querySelectorAll("thead th")].map((th) => th.textContent) : [];
+    const tr = t?.querySelector("tbody tr");
+    const cells = tr ? [...tr.cells].map((c) => c.textContent) : [];
+    return cells[heads.findIndex((x) => /^Paper/.test(x))] ?? "";
   });
-  check(row.length > 4 && Math.abs(figure(row[3]) - down.paper_usd) <= TOLERANCE, `lab: charterer paper at the first scenario ${row[3]} against the engine's ${down.paper_usd.toFixed(0)}`);
+  check(row !== "" && Math.abs(figure(row) - down.paper_usd) <= TOLERANCE, `lab: charterer paper at the first scenario ${row} against the engine's ${down.paper_usd.toFixed(0)}`);
 
   // 3. typing a settlement adds a row marked as the visitor's own figure
   await page.click('#view-lab button[aria-controls="lab-step-scenario"]');
@@ -296,7 +316,37 @@ async function checkLab(browser, opts) {
   const hash = await page.evaluate(() => location.hash);
   check(/open=[^&]*scenario/.test(hash), `lab: opening a step does not reach the hash (${hash})`);
 
-  // 4. TD3C on the SEC strip
+  // 4. the hedge ratio k resizes the paper column of the per-month table, not the voyage's days
+  await page.goto(`${opts.base}#/lab?voyage=C5&role=owner&start=2026-12-08&open=paper`, { waitUntil: "networkidle" });
+  await settle(page, "lab");
+  const k = 0.8;
+  await page.fill('#view-lab input[id^="lab-k"]', String(k));
+  await page.waitForTimeout(250);
+  days = lab.voyage_days.C5;
+  weights = engine.month_days("2026-12-08", days);
+  const lots = engine.hedge_lots(weights, lab.commission_pct, k);
+  const kt = await page.evaluate(() => {
+    const rows = [...document.querySelectorAll("#lab-step-paper .price-table tbody tr")];
+    return {
+      voyage: rows.map((tr) => tr.querySelector('[data-col="size"]')?.textContent || ""),
+      paper: rows.map((tr) => tr.querySelector('[data-col="paper"]')?.textContent || ""),
+      summary: document.querySelector('#view-lab button[aria-controls="lab-step-paper"]')?.closest(".step")?.querySelector(".step-summary")?.textContent || "",
+      locked: [...document.querySelectorAll("#view-lab .locked .figure")].map((el) => el.textContent)[2] || "",
+    };
+  });
+  check(kt.voyage.length === weights.length && weights.every((w, i) => Math.abs(figure(kt.voyage[i]) - w.days) <= 0.0005),
+    `lab: at k = ${k} the voyage days column reads ${kt.voyage.join(" | ")}, the engine's ${weights.map((w) => w.days.toFixed(3)).join(" | ")}`);
+  check(kt.paper.length === lots.length && lots.every((l, i) => Math.abs(figure(kt.paper[i]) - l.days) <= 0.005),
+    `lab: at k = ${k} the FFA days column reads ${kt.paper.join(" | ")}, the engine's ${lots.map((l) => l.days.toFixed(2)).join(" | ")}`);
+  const total = lots.reduce((a, l) => a + l.days, 0);
+  const summaryDays = figure(kt.summary.replace(/^\D+/, ""));
+  check(Math.abs(summaryDays - total) <= 0.005 && Math.abs(kt.paper.reduce((a, x) => a + figure(x), 0) - summaryDays) <= 0.005 * lots.length + 0.005,
+    `lab: at k = ${k} the per-month FFA days (${kt.paper.join(" + ")}) do not add up to the summary's ${kt.summary}`);
+  check(Math.abs(figure(kt.locked.replace(/^\D+/, "")) - total) <= 0.005, `lab: at k = ${k} the paper figure ${kt.locked} is not the engine's ${total.toFixed(2)} days`);
+  await page.fill('#view-lab input[id^="lab-k"]', "1");
+  await page.waitForTimeout(150);
+
+  // 5. TD3C on the SEC strip
   await page.goto(`${opts.base}#/lab?voyage=TD3C&role=owner&start=2026-12-08`, { waitUntil: "networkidle" });
   await settle(page, "lab");
   const mark = lab.td3c_strip?.months?.find((m) => m.month === "2026-12");
@@ -307,7 +357,7 @@ async function checkLab(browser, opts) {
     check(Math.abs(figure(figs[2]) - t.lots) <= 0.5, `lab: TD3C lots ${figs[2]} against the engine's ${t.lots}`);
   }
 
-  // 5. a month without a price leaves an empty required field and says so
+  // 6. a month without a price leaves an empty required field and says so
   await page.goto(`${opts.base}#/lab?voyage=C3&role=owner&start=2027-11-20`, { waitUntil: "networkidle" });
   await settle(page, "lab");
   const missing = await page.evaluate(() => document.querySelector("#view-lab .problem")?.textContent || "");

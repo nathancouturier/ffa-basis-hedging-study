@@ -416,3 +416,93 @@ def test_naive_forecast_is_compared_on_the_rows_that_have_a_spot():
     assert s["rmse_ratio_ffa_to_naive"] == pytest.approx(
         s["rmse_ffa_paired_usd_day"] / (sum(n * n for n in (2000.0, -900.0, 400.0)) / 3) ** 0.5
     )
+
+
+def test_forecast_error_falls_back_to_the_last_curve_that_prints_the_contract():
+    from ffabasis import analysis
+
+    curves = [
+        {"date": "2024-11-18", "tenors": {"2024-12": 25621.0}, "basket_t": 180000, "flags": []},
+        {"date": "2024-11-25", "tenors": {"2024-11": 21089.0}, "basket_t": 180000, "flags": []},
+    ]
+    settle = {"2024-12": {"status": "published", "value_180": 11573.0}}
+    rows = analysis.forecast_errors({"daily": {}}, curves, settle)
+    assert len(rows) == 1
+    assert rows[0]["priced_on"] == "2024-11-18" and rows[0]["not_last_curve"] is True
+    assert rows[0]["error_usd_day"] == 11573.0 - 25621.0
+
+
+def test_quarter_is_the_average_of_its_three_printed_months():
+    from ffabasis import analysis
+
+    curve = {"date": "2025-09-29", "tenors": {"2025-10": 24000.0, "2025-11": 25000.0, "2025-12": 27596.0}}
+    assert analysis.quarter_price(curve, "2025-Q4") == (pytest.approx(25532.0), True)
+    assert analysis.quarter_price(curve, "2026-Q1") == (None, False)
+    assert analysis.quarter_price({"tenors": {"2025-Q4": 25000.0}}, "2025-Q4") == (25000.0, False)
+    settle = {
+        m: {"status": "complete", "value_180": v} for m, v in (("2025-10", 1.0), ("2025-11", 2.0), ("2025-12", 3.0))
+    }
+    rows = analysis.quarter_errors([dict(curve, basket_t=180000, flags=[])], settle)
+    assert rows[0]["contract"] == "2025-Q4" and rows[0]["from_months"] is True
+    assert rows[0]["price_usd_day"] == pytest.approx(25532.0)
+
+
+def test_front_quarter_bootstrap_block_counts_quarters():
+    from ffabasis import analysis
+
+    # Horizon to the quarter's last month (13 weeks) plus four weeks: two quarter rows; months keep 2, 3 and 4.
+    assert analysis.block_quarters() == 2
+    assert [analysis.block_months(h) for h in (1, 2, 3)] == [2, 3, 4]
+
+
+def test_page_with_stale_month_labels_is_read_one_month_on():
+    from ffabasis import panel
+
+    def t(kind, value):
+        return {"kind": kind, "label": "", "usd_day": value, "wow_printed": None, "premium_printed": None}
+
+    # Week 48 of 2024, dated 2 December: "Nov-24" to "Apr-25" over the December to May prices; Q1 25 is the average
+    # of the rows labelled Dec-24, Jan-25 and Feb-25.
+    tenors = {
+        "2024-11": t("month", 15914.0),
+        "2024-12": t("month", 11382.0),
+        "2025-01": t("month", 9343.0),
+        "2025-02": t("month", 13429.0),
+        "2025-04": t("month", 16779.0),
+        "2024-Q4": t("quarter", 19239.0),
+        "2025-Q1": t("quarter", 11385.0),
+    }
+    out, relabel, flag = panel.stale_month_labels("2024-12-02", tenors)
+    assert out["2024-12"]["usd_day"] == 15914.0 and out["2025-03"]["usd_day"] == 13429.0
+    assert out["2025-05"]["usd_day"] == 16779.0 and "2024-11" not in out
+    assert relabel["2024-11"] == "2024-12" and flag["quarters_checked"] == ["2025-Q1"]
+    # A page whose own month is printed is left as it is.
+    same, relabel, flag = panel.stale_month_labels("2024-11-25", {"2024-11": t("month", 21089.0)})
+    assert flag is None and relabel == {} and same["2024-11"]["usd_day"] == 21089.0
+
+
+def test_charterer_cvar_is_the_upper_tail():
+    from ffabasis import hedge
+
+    rows = []
+    for i in range(20):
+        u = float(i * 100 - 500)
+        rows.append(
+            {
+                "fixture": f"2025-{1 + i // 4:02d}-{1 + i % 4 * 7:02d}",
+                "horizon_months": 1,
+                "unhedged": u,
+                "paper_move": u * 0.5,
+                "route_basis": 0.0,
+                "timing_basis": u * 0.5,
+                "size_basis": 0.0,
+                "curve_basket_t": 180000,
+                "last_month": "2025-01",
+                "hedged_on": "2024-12-01",
+            }
+        )
+    s = hedge.summarise(rows, 1)
+    assert s["cvar_unhedged_usd_day"] == pytest.approx(500.0)  # the lowest 5 percent: -500
+    assert s["cvar_charterer_unhedged_usd_day"] == pytest.approx(1400.0)  # the highest 5 percent: 1,400 of hire
+    assert s["cvar_reduction_k1"] == pytest.approx(0.5)
+    assert s["cvar_reduction_k1_charterer"] == pytest.approx(0.5)

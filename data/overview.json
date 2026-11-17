@@ -4,458 +4,485 @@
  "effectiveness": [
   {
    "curve_baskets": {
-    "180000": 101,
-    "182000": 29
+    "180000": 110,
+    "182000": 30
    },
+   "cvar_charterer_hedged_usd_day": 10814.0,
+   "cvar_charterer_unhedged_usd_day": 20731.0,
    "cvar_hedged_usd_day": 7723.0,
    "cvar_reduction_k1": 0.367601,
+   "cvar_reduction_k1_charterer": 0.47835,
    "cvar_route_mean_removed_usd_day": 0.0,
    "cvar_unhedged_usd_day": 12213.0,
-   "effectiveness_k1": 0.633859,
+   "effectiveness_k1": 0.634047,
    "effectiveness_k1_ci": {
     "block": 8,
-    "high": 0.73929,
-    "low": 0.535854,
+    "high": 0.730426,
+    "low": 0.53645,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": 0.357931,
-   "effectiveness_kstar_oos": 0.373916,
-   "first_fixture": "2023-10-20",
+   "effectiveness_k1_same_rows": 0.405128,
+   "effectiveness_kstar_oos": 0.415122,
+   "first_fixture": "2023-08-11",
    "horizon_months": 1,
-   "k_in_sample": 0.896,
-   "k_oos_last": 0.951,
+   "k_in_sample": 0.9,
+   "k_oos_last": 0.952,
    "k_window_min_fixtures": 52,
    "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 118.0,
-   "mean_unhedged_usd_day": 2321.0,
-   "n": 130,
-   "n_oos": 72,
-   "oos_first_fixture": "2025-01-03",
+   "mean_hedged_usd_day": -127.0,
+   "mean_unhedged_usd_day": 2102.0,
+   "n": 140,
+   "n_oos": 79,
+   "oos_first_fixture": "2024-11-08",
    "residual_mean_usd_day": {
     "route": 0.0,
-    "size": 81.0,
-    "timing": 38.0
-   },
-   "residual_sd_usd_day": {
-    "route": 0.0,
-    "size": 528.0,
-    "timing": 4799.0
-   },
-   "residual_variance_share": {
-    "route": 0.0,
-    "size": 0.00667,
-    "timing": 0.99333
-   },
-   "sd_hedged_usd_day": 4802.0,
-   "sd_unhedged_usd_day": 7936.0,
-   "voyage": "5TC trip"
-  },
-  {
-   "curve_baskets": {
-    "180000": 101,
-    "182000": 27
-   },
-   "cvar_hedged_usd_day": 7298.0,
-   "cvar_reduction_k1": 0.358047,
-   "cvar_route_mean_removed_usd_day": 0.0,
-   "cvar_unhedged_usd_day": 11368.0,
-   "effectiveness_k1": 0.711466,
-   "effectiveness_k1_ci": {
-    "block": 13,
-    "high": 0.777961,
-    "low": 0.57995,
-    "resamples": 2000,
-    "seed": 20261117
-   },
-   "effectiveness_k1_same_rows": 0.442572,
-   "effectiveness_kstar_oos": 0.441584,
-   "first_fixture": "2023-11-24",
-   "horizon_months": 2,
-   "k_in_sample": 0.991,
-   "k_oos_last": 1.013,
-   "k_window_min_fixtures": 52,
-   "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 402.0,
-   "mean_unhedged_usd_day": 3457.0,
-   "n": 128,
-   "n_oos": 65,
-   "oos_first_fixture": "2025-03-07",
-   "residual_mean_usd_day": {
-    "route": 0.0,
-    "size": 219.0,
-    "timing": 183.0
-   },
-   "residual_sd_usd_day": {
-    "route": 0.0,
-    "size": 851.0,
-    "timing": 4661.0
-   },
-   "residual_variance_share": {
-    "route": 0.0,
-    "size": 0.032901,
-    "timing": 0.967099
-   },
-   "sd_hedged_usd_day": 4742.0,
-   "sd_unhedged_usd_day": 8827.0,
-   "voyage": "5TC trip"
-  },
-  {
-   "curve_baskets": {
-    "180000": 83,
-    "182000": 11
-   },
-   "cvar_hedged_usd_day": 6919.0,
-   "cvar_reduction_k1": 0.420557,
-   "cvar_route_mean_removed_usd_day": 0.0,
-   "cvar_unhedged_usd_day": 11942.0,
-   "effectiveness_k1": 0.73539,
-   "effectiveness_k1_ci": {
-    "block": 17,
-    "high": 0.797718,
-    "low": 0.496482,
-    "resamples": 2000,
-    "seed": 20261117
-   },
-   "effectiveness_k1_same_rows": 0.432124,
-   "effectiveness_kstar_oos": 0.427055,
-   "first_fixture": "2023-12-29",
-   "horizon_months": 3,
-   "k_in_sample": 0.977,
-   "k_oos_last": 0.938,
-   "k_window_min_fixtures": 52,
-   "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 764.0,
-   "mean_unhedged_usd_day": 2886.0,
-   "n": 94,
-   "n_oos": 26,
-   "oos_first_fixture": "2025-06-06",
-   "residual_mean_usd_day": {
-    "route": 0.0,
-    "size": 186.0,
-    "timing": 577.0
-   },
-   "residual_sd_usd_day": {
-    "route": 0.0,
-    "size": 790.0,
-    "timing": 4546.0
-   },
-   "residual_variance_share": {
-    "route": 0.0,
-    "size": -0.000498,
-    "timing": 1.000498
-   },
-   "sd_hedged_usd_day": 4474.0,
-   "sd_unhedged_usd_day": 8698.0,
-   "voyage": "5TC trip"
-  },
-  {
-   "curve_baskets": {
-    "180000": 93,
-    "182000": 15
-   },
-   "cvar_hedged_usd_day": 17386.0,
-   "cvar_reduction_k1": -0.398024,
-   "cvar_route_mean_removed_usd_day": -1774.0,
-   "cvar_unhedged_usd_day": 12436.0,
-   "effectiveness_k1": 0.164692,
-   "effectiveness_k1_ci": {
-    "block": 8,
-    "high": 0.460557,
-    "low": 0.032666,
-    "resamples": 2000,
-    "seed": 20261117
-   },
-   "effectiveness_k1_same_rows": -0.031232,
-   "effectiveness_kstar_oos": 0.081667,
-   "first_fixture": "2023-10-20",
-   "horizon_months": 1,
-   "k_in_sample": 0.6,
-   "k_oos_last": 0.571,
-   "k_window_min_fixtures": 52,
-   "last_fixture": "2026-08-14",
-   "mean_hedged_usd_day": -1878.0,
-   "mean_unhedged_usd_day": 571.0,
-   "n": 108,
-   "n_oos": 42,
-   "oos_first_fixture": "2025-03-07",
-   "residual_mean_usd_day": {
-    "route": -1774.0,
-    "size": 97.0,
+    "size": 75.0,
     "timing": -202.0
    },
    "residual_sd_usd_day": {
-    "route": 3943.0,
-    "size": 578.0,
-    "timing": 6188.0
+    "route": 0.0,
+    "size": 509.0,
+    "timing": 4720.0
    },
    "residual_variance_share": {
-    "route": 0.273073,
-    "size": 0.010304,
-    "timing": 0.716623
+    "route": 0.0,
+    "size": 0.007217,
+    "timing": 0.992783
    },
-   "sd_hedged_usd_day": 7061.0,
-   "sd_unhedged_usd_day": 7726.0,
-   "voyage": "C3"
+   "sd_hedged_usd_day": 4727.0,
+   "sd_unhedged_usd_day": 7814.0,
+   "voyage": "5TC trip"
   },
   {
    "curve_baskets": {
-    "180000": 84,
-    "182000": 7
+    "180000": 111,
+    "182000": 27
    },
-   "cvar_hedged_usd_day": 10303.0,
-   "cvar_reduction_k1": 0.122195,
-   "cvar_route_mean_removed_usd_day": -1453.0,
-   "cvar_unhedged_usd_day": 11737.0,
-   "effectiveness_k1": 0.546569,
+   "cvar_charterer_hedged_usd_day": 10814.0,
+   "cvar_charterer_unhedged_usd_day": 22838.0,
+   "cvar_hedged_usd_day": 7650.0,
+   "cvar_reduction_k1": 0.327046,
+   "cvar_reduction_k1_charterer": 0.526476,
+   "cvar_route_mean_removed_usd_day": 0.0,
+   "cvar_unhedged_usd_day": 11368.0,
+   "effectiveness_k1": 0.683816,
    "effectiveness_k1_ci": {
     "block": 13,
-    "high": 0.623199,
-    "low": 0.176949,
+    "high": 0.767767,
+    "low": 0.604367,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": 0.600813,
-   "effectiveness_kstar_oos": 0.525146,
-   "first_fixture": "2023-11-24",
+   "effectiveness_k1_same_rows": 0.479027,
+   "effectiveness_kstar_oos": 0.472314,
+   "first_fixture": "2023-09-15",
    "horizon_months": 2,
-   "k_in_sample": 0.896,
-   "k_oos_last": 0.852,
+   "k_in_sample": 0.955,
+   "k_oos_last": 0.969,
    "k_window_min_fixtures": 52,
-   "last_fixture": "2026-08-14",
-   "mean_hedged_usd_day": -355.0,
-   "mean_unhedged_usd_day": 1633.0,
-   "n": 91,
-   "n_oos": 23,
-   "oos_first_fixture": "2025-05-09",
+   "last_fixture": "2026-10-02",
+   "mean_hedged_usd_day": 81.0,
+   "mean_unhedged_usd_day": 3511.0,
+   "n": 138,
+   "n_oos": 74,
+   "oos_first_fixture": "2025-01-10",
    "residual_mean_usd_day": {
-    "route": -1453.0,
-    "size": 154.0,
-    "timing": 944.0
+    "route": 0.0,
+    "size": 203.0,
+    "timing": -122.0
    },
    "residual_sd_usd_day": {
-    "route": 3321.0,
-    "size": 722.0,
-    "timing": 6065.0
+    "route": 0.0,
+    "size": 822.0,
+    "timing": 4694.0
    },
    "residual_variance_share": {
-    "route": 0.162917,
-    "size": 0.009489,
-    "timing": 0.827594
+    "route": 0.0,
+    "size": 0.032867,
+    "timing": 0.967133
    },
-   "sd_hedged_usd_day": 6081.0,
-   "sd_unhedged_usd_day": 9030.0,
-   "voyage": "C3"
+   "sd_hedged_usd_day": 4781.0,
+   "sd_unhedged_usd_day": 8503.0,
+   "voyage": "5TC trip"
   },
   {
    "curve_baskets": {
-    "180000": 82,
-    "182000": 6
+    "180000": 94,
+    "182000": 11
    },
-   "cvar_hedged_usd_day": 13317.0,
-   "cvar_reduction_k1": -0.172644,
-   "cvar_route_mean_removed_usd_day": -1394.0,
-   "cvar_unhedged_usd_day": 11357.0,
-   "effectiveness_k1": 0.364552,
+   "cvar_charterer_hedged_usd_day": 10904.0,
+   "cvar_charterer_unhedged_usd_day": 23995.0,
+   "cvar_hedged_usd_day": 7286.0,
+   "cvar_reduction_k1": 0.365317,
+   "cvar_reduction_k1_charterer": 0.545553,
+   "cvar_route_mean_removed_usd_day": 0.0,
+   "cvar_unhedged_usd_day": 11480.0,
+   "effectiveness_k1": 0.736851,
    "effectiveness_k1_ci": {
     "block": 17,
-    "high": 0.487771,
-    "low": 0.035973,
+    "high": 0.803482,
+    "low": 0.578307,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": -0.279152,
-   "effectiveness_kstar_oos": -0.172639,
-   "first_fixture": "2023-12-29",
+   "effectiveness_k1_same_rows": 0.494245,
+   "effectiveness_kstar_oos": 0.488111,
+   "first_fixture": "2023-10-13",
    "horizon_months": 3,
-   "k_in_sample": 0.719,
-   "k_oos_last": 0.773,
+   "k_in_sample": 0.977,
+   "k_oos_last": 0.952,
    "k_window_min_fixtures": 52,
-   "last_fixture": "2026-07-10",
-   "mean_hedged_usd_day": -1466.0,
-   "mean_unhedged_usd_day": 764.0,
-   "n": 88,
-   "n_oos": 17,
-   "oos_first_fixture": "2025-09-05",
+   "last_fixture": "2026-10-02",
+   "mean_hedged_usd_day": 568.0,
+   "mean_unhedged_usd_day": 3736.0,
+   "n": 105,
+   "n_oos": 38,
+   "oos_first_fixture": "2025-03-07",
    "residual_mean_usd_day": {
-    "route": -1394.0,
-    "size": 199.0,
-    "timing": -272.0
+    "route": 0.0,
+    "size": 200.0,
+    "timing": 368.0
    },
    "residual_sd_usd_day": {
-    "route": 3131.0,
-    "size": 816.0,
-    "timing": 5961.0
+    "route": 0.0,
+    "size": 817.0,
+    "timing": 4775.0
    },
    "residual_variance_share": {
-    "route": 0.240838,
-    "size": -0.035859,
-    "timing": 0.795021
+    "route": 0.0,
+    "size": 0.003055,
+    "timing": 0.996945
    },
-   "sd_hedged_usd_day": 6665.0,
-   "sd_unhedged_usd_day": 8361.0,
+   "sd_hedged_usd_day": 4719.0,
+   "sd_unhedged_usd_day": 9200.0,
+   "voyage": "5TC trip"
+  },
+  {
+   "curve_baskets": {
+    "180000": 103,
+    "182000": 15
+   },
+   "cvar_charterer_hedged_usd_day": 12754.0,
+   "cvar_charterer_unhedged_usd_day": 19231.0,
+   "cvar_hedged_usd_day": 17208.0,
+   "cvar_reduction_k1": -0.410143,
+   "cvar_reduction_k1_charterer": 0.336807,
+   "cvar_route_mean_removed_usd_day": -2007.0,
+   "cvar_unhedged_usd_day": 12203.0,
+   "effectiveness_k1": 0.090113,
+   "effectiveness_k1_ci": {
+    "block": 8,
+    "high": 0.362682,
+    "low": -0.274719,
+    "resamples": 2000,
+    "seed": 20261117
+   },
+   "effectiveness_k1_same_rows": 0.091842,
+   "effectiveness_kstar_oos": 0.128915,
+   "first_fixture": "2023-08-11",
+   "horizon_months": 1,
+   "k_in_sample": 0.556,
+   "k_oos_last": 0.517,
+   "k_window_min_fixtures": 52,
+   "last_fixture": "2026-08-14",
+   "mean_hedged_usd_day": -2692.0,
+   "mean_unhedged_usd_day": 102.0,
+   "n": 118,
+   "n_oos": 51,
+   "oos_first_fixture": "2025-01-03",
+   "residual_mean_usd_day": {
+    "route": -2007.0,
+    "size": 89.0,
+    "timing": -774.0
+   },
+   "residual_sd_usd_day": {
+    "route": 3881.0,
+    "size": 554.0,
+    "timing": 6261.0
+   },
+   "residual_variance_share": {
+    "route": 0.276576,
+    "size": 0.010052,
+    "timing": 0.713372
+   },
+   "sd_hedged_usd_day": 7349.0,
+   "sd_unhedged_usd_day": 7704.0,
    "voyage": "C3"
   },
   {
    "curve_baskets": {
-    "180000": 101,
-    "182000": 29
+    "180000": 97,
+    "182000": 7
    },
-   "cvar_hedged_usd_day": 14579.0,
-   "cvar_reduction_k1": -0.013386,
-   "cvar_route_mean_removed_usd_day": 7867.0,
-   "cvar_unhedged_usd_day": 14387.0,
-   "effectiveness_k1": 0.415759,
+   "cvar_charterer_hedged_usd_day": 12823.0,
+   "cvar_charterer_unhedged_usd_day": 22604.0,
+   "cvar_hedged_usd_day": 15832.0,
+   "cvar_reduction_k1": -0.495497,
+   "cvar_reduction_k1_charterer": 0.432695,
+   "cvar_route_mean_removed_usd_day": -2077.0,
+   "cvar_unhedged_usd_day": 10586.0,
+   "effectiveness_k1": 0.301884,
    "effectiveness_k1_ci": {
-    "block": 8,
-    "high": 0.523948,
-    "low": 0.341126,
+    "block": 13,
+    "high": 0.58083,
+    "low": 0.096852,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": 0.362399,
-   "effectiveness_kstar_oos": 0.352996,
-   "first_fixture": "2023-10-20",
+   "effectiveness_k1_same_rows": 0.498824,
+   "effectiveness_kstar_oos": 0.365678,
+   "first_fixture": "2023-09-15",
+   "horizon_months": 2,
+   "k_in_sample": 0.693,
+   "k_oos_last": 0.642,
+   "k_window_min_fixtures": 52,
+   "last_fixture": "2026-08-14",
+   "mean_hedged_usd_day": -1772.0,
+   "mean_unhedged_usd_day": 1170.0,
+   "n": 104,
+   "n_oos": 32,
+   "oos_first_fixture": "2025-03-07",
+   "residual_mean_usd_day": {
+    "route": -2077.0,
+    "size": 135.0,
+    "timing": 169.0
+   },
+   "residual_sd_usd_day": {
+    "route": 3833.0,
+    "size": 677.0,
+    "timing": 6161.0
+   },
+   "residual_variance_share": {
+    "route": 0.280551,
+    "size": 0.009628,
+    "timing": 0.709822
+   },
+   "sd_hedged_usd_day": 7202.0,
+   "sd_unhedged_usd_day": 8620.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_baskets": {
+    "180000": 94,
+    "182000": 6
+   },
+   "cvar_charterer_hedged_usd_day": 13204.0,
+   "cvar_charterer_unhedged_usd_day": 23587.0,
+   "cvar_hedged_usd_day": 17186.0,
+   "cvar_reduction_k1": -0.610874,
+   "cvar_reduction_k1_charterer": 0.440189,
+   "cvar_route_mean_removed_usd_day": -2082.0,
+   "cvar_unhedged_usd_day": 10669.0,
+   "effectiveness_k1": 0.255037,
+   "effectiveness_k1_ci": {
+    "block": 17,
+    "high": 0.501977,
+    "low": 0.085708,
+    "resamples": 2000,
+    "seed": 20261117
+   },
+   "effectiveness_k1_same_rows": 0.084062,
+   "effectiveness_kstar_oos": 0.128428,
+   "first_fixture": "2023-10-13",
+   "horizon_months": 3,
+   "k_in_sample": 0.649,
+   "k_oos_last": 0.664,
+   "k_window_min_fixtures": 52,
+   "last_fixture": "2026-07-10",
+   "mean_hedged_usd_day": -2221.0,
+   "mean_unhedged_usd_day": 1257.0,
+   "n": 100,
+   "n_oos": 27,
+   "oos_first_fixture": "2025-05-09",
+   "residual_mean_usd_day": {
+    "route": -2082.0,
+    "size": 210.0,
+    "timing": -349.0
+   },
+   "residual_sd_usd_day": {
+    "route": 4027.0,
+    "size": 836.0,
+    "timing": 6503.0
+   },
+   "residual_variance_share": {
+    "route": 0.288921,
+    "size": -0.019076,
+    "timing": 0.730155
+   },
+   "sd_hedged_usd_day": 7489.0,
+   "sd_unhedged_usd_day": 8677.0,
+   "voyage": "C3"
+  },
+  {
+   "curve_baskets": {
+    "180000": 110,
+    "182000": 30
+   },
+   "cvar_charterer_hedged_usd_day": 17139.0,
+   "cvar_charterer_unhedged_usd_day": 26411.0,
+   "cvar_hedged_usd_day": 14348.0,
+   "cvar_reduction_k1": -0.013605,
+   "cvar_reduction_k1_charterer": 0.351086,
+   "cvar_route_mean_removed_usd_day": 7636.0,
+   "cvar_unhedged_usd_day": 14155.0,
+   "effectiveness_k1": 0.413891,
+   "effectiveness_k1_ci": {
+    "block": 8,
+    "high": 0.50059,
+    "low": 0.302276,
+    "resamples": 2000,
+    "seed": 20261117
+   },
+   "effectiveness_k1_same_rows": 0.367372,
+   "effectiveness_kstar_oos": 0.36321,
+   "first_fixture": "2023-08-11",
    "horizon_months": 1,
-   "k_in_sample": 0.915,
+   "k_in_sample": 0.918,
    "k_oos_last": 0.92,
    "k_window_min_fixtures": 52,
    "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 7986.0,
-   "mean_unhedged_usd_day": 10188.0,
-   "n": 130,
-   "n_oos": 72,
-   "oos_first_fixture": "2025-01-03",
+   "mean_hedged_usd_day": 7509.0,
+   "mean_unhedged_usd_day": 9738.0,
+   "n": 140,
+   "n_oos": 79,
+   "oos_first_fixture": "2024-11-08",
    "residual_mean_usd_day": {
-    "route": 7867.0,
-    "size": 81.0,
-    "timing": 38.0
+    "route": 7636.0,
+    "size": 75.0,
+    "timing": -202.0
    },
    "residual_sd_usd_day": {
-    "route": 5352.0,
-    "size": 528.0,
-    "timing": 4799.0
+    "route": 5266.0,
+    "size": 509.0,
+    "timing": 4720.0
    },
    "residual_variance_share": {
-    "route": 0.547385,
-    "size": -0.001043,
-    "timing": 0.453657
+    "route": 0.546915,
+    "size": -0.000365,
+    "timing": 0.45345
    },
-   "sd_hedged_usd_day": 7673.0,
-   "sd_unhedged_usd_day": 10039.0,
+   "sd_hedged_usd_day": 7573.0,
+   "sd_unhedged_usd_day": 9892.0,
    "voyage": "C5"
   },
   {
    "curve_baskets": {
-    "180000": 101,
+    "180000": 111,
     "182000": 27
    },
-   "cvar_hedged_usd_day": 12863.0,
-   "cvar_reduction_k1": 0.140603,
-   "cvar_route_mean_removed_usd_day": 8044.0,
-   "cvar_unhedged_usd_day": 14968.0,
-   "effectiveness_k1": 0.543971,
+   "cvar_charterer_hedged_usd_day": 17033.0,
+   "cvar_charterer_unhedged_usd_day": 28976.0,
+   "cvar_hedged_usd_day": 13836.0,
+   "cvar_reduction_k1": 0.056561,
+   "cvar_reduction_k1_charterer": 0.412179,
+   "cvar_route_mean_removed_usd_day": 7742.0,
+   "cvar_unhedged_usd_day": 14665.0,
+   "effectiveness_k1": 0.49121,
    "effectiveness_k1_ci": {
     "block": 13,
-    "high": 0.613023,
-    "low": 0.430214,
+    "high": 0.588773,
+    "low": 0.397081,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": 0.419218,
-   "effectiveness_kstar_oos": 0.41374,
-   "first_fixture": "2023-11-24",
+   "effectiveness_k1_same_rows": 0.473749,
+   "effectiveness_kstar_oos": 0.439875,
+   "first_fixture": "2023-09-15",
    "horizon_months": 2,
-   "k_in_sample": 1.059,
-   "k_oos_last": 1.038,
+   "k_in_sample": 0.989,
+   "k_oos_last": 0.955,
    "k_window_min_fixtures": 52,
    "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 8446.0,
-   "mean_unhedged_usd_day": 11501.0,
-   "n": 128,
-   "n_oos": 65,
-   "oos_first_fixture": "2025-03-07",
+   "mean_hedged_usd_day": 7823.0,
+   "mean_unhedged_usd_day": 11252.0,
+   "n": 138,
+   "n_oos": 74,
+   "oos_first_fixture": "2025-01-10",
    "residual_mean_usd_day": {
-    "route": 8044.0,
-    "size": 219.0,
-    "timing": 183.0
+    "route": 7742.0,
+    "size": 203.0,
+    "timing": -122.0
    },
    "residual_sd_usd_day": {
-    "route": 5134.0,
-    "size": 851.0,
-    "timing": 4661.0
+    "route": 5159.0,
+    "size": 822.0,
+    "timing": 4694.0
    },
    "residual_variance_share": {
-    "route": 0.536534,
-    "size": 0.007317,
-    "timing": 0.456149
+    "route": 0.534061,
+    "size": 0.008833,
+    "timing": 0.457107
    },
-   "sd_hedged_usd_day": 7279.0,
-   "sd_unhedged_usd_day": 10779.0,
+   "sd_hedged_usd_day": 7425.0,
+   "sd_unhedged_usd_day": 10409.0,
    "voyage": "C5"
   },
   {
    "curve_baskets": {
-    "180000": 83,
+    "180000": 94,
     "182000": 11
    },
-   "cvar_hedged_usd_day": 14298.0,
-   "cvar_reduction_k1": 0.141044,
-   "cvar_route_mean_removed_usd_day": 7650.0,
-   "cvar_unhedged_usd_day": 16645.0,
-   "effectiveness_k1": 0.555814,
+   "cvar_charterer_hedged_usd_day": 17362.0,
+   "cvar_charterer_unhedged_usd_day": 31478.0,
+   "cvar_hedged_usd_day": 14097.0,
+   "cvar_reduction_k1": 0.125021,
+   "cvar_reduction_k1_charterer": 0.448452,
+   "cvar_route_mean_removed_usd_day": 7233.0,
+   "cvar_unhedged_usd_day": 16111.0,
+   "effectiveness_k1": 0.523513,
    "effectiveness_k1_ci": {
     "block": 17,
-    "high": 0.625327,
-    "low": 0.401377,
+    "high": 0.621934,
+    "low": 0.409655,
     "resamples": 2000,
     "seed": 20261117
    },
-   "effectiveness_k1_same_rows": 0.365847,
-   "effectiveness_kstar_oos": 0.369678,
-   "first_fixture": "2023-12-29",
+   "effectiveness_k1_same_rows": 0.400303,
+   "effectiveness_kstar_oos": 0.38831,
+   "first_fixture": "2023-10-13",
    "horizon_months": 3,
-   "k_in_sample": 1.106,
-   "k_oos_last": 1.044,
+   "k_in_sample": 1.025,
+   "k_oos_last": 0.971,
    "k_window_min_fixtures": 52,
    "last_fixture": "2026-10-02",
-   "mean_hedged_usd_day": 8413.0,
-   "mean_unhedged_usd_day": 10536.0,
-   "n": 94,
-   "n_oos": 26,
-   "oos_first_fixture": "2025-06-06",
+   "mean_hedged_usd_day": 7801.0,
+   "mean_unhedged_usd_day": 10969.0,
+   "n": 105,
+   "n_oos": 38,
+   "oos_first_fixture": "2025-03-07",
    "residual_mean_usd_day": {
-    "route": 7650.0,
-    "size": 186.0,
-    "timing": 577.0
+    "route": 7233.0,
+    "size": 200.0,
+    "timing": 368.0
    },
    "residual_sd_usd_day": {
-    "route": 5246.0,
-    "size": 790.0,
-    "timing": 4546.0
+    "route": 5669.0,
+    "size": 817.0,
+    "timing": 4775.0
    },
    "residual_variance_share": {
-    "route": 0.566412,
-    "size": -0.013737,
-    "timing": 0.447325
+    "route": 0.578855,
+    "size": -0.009928,
+    "timing": 0.431073
    },
-   "sd_hedged_usd_day": 7515.0,
-   "sd_unhedged_usd_day": 11276.0,
+   "sd_hedged_usd_day": 7908.0,
+   "sd_unhedged_usd_day": 11456.0,
    "voyage": "C5"
   }
  ],
  "facts": [
   {
    "key": "basis_left",
-   "n": 130,
-   "unhedged_usd_day": 10039,
-   "value_usd_day": 7673
+   "n": 140,
+   "unhedged_usd_day": 9892,
+   "value_usd_day": 7573
   },
   {
    "key": "contango_share",
    "measure": "front month above the spot of the curve's day, or of the latest earlier day within four days (the Friday before a Monday curve), on the same basket",
-   "n": 142,
-   "value": 0.5
+   "n": 151,
+   "value": 0.5166
   },
   {
    "key": "td3c_peak",
@@ -467,51 +494,54 @@
  ],
  "headline": {
   "curve_baskets": {
-   "180000": 101,
-   "182000": 29
+   "180000": 110,
+   "182000": 30
   },
-  "cvar_hedged_usd_day": 14579.0,
-  "cvar_reduction_k1": -0.013386,
-  "cvar_route_mean_removed_usd_day": 7867.0,
-  "cvar_unhedged_usd_day": 14387.0,
-  "effectiveness_k1": 0.415759,
+  "cvar_charterer_hedged_usd_day": 17139.0,
+  "cvar_charterer_unhedged_usd_day": 26411.0,
+  "cvar_hedged_usd_day": 14348.0,
+  "cvar_reduction_k1": -0.013605,
+  "cvar_reduction_k1_charterer": 0.351086,
+  "cvar_route_mean_removed_usd_day": 7636.0,
+  "cvar_unhedged_usd_day": 14155.0,
+  "effectiveness_k1": 0.413891,
   "effectiveness_k1_ci": {
    "block": 8,
-   "high": 0.523948,
-   "low": 0.341126,
+   "high": 0.50059,
+   "low": 0.302276,
    "resamples": 2000,
    "seed": 20261117
   },
-  "effectiveness_k1_same_rows": 0.362399,
-  "effectiveness_kstar_oos": 0.352996,
-  "first_fixture": "2023-10-20",
+  "effectiveness_k1_same_rows": 0.367372,
+  "effectiveness_kstar_oos": 0.36321,
+  "first_fixture": "2023-08-11",
   "horizon_months": 1,
-  "k_in_sample": 0.915,
+  "k_in_sample": 0.918,
   "k_oos_last": 0.92,
   "k_window_min_fixtures": 52,
   "last_fixture": "2026-10-02",
-  "mean_hedged_usd_day": 7986.0,
-  "mean_unhedged_usd_day": 10188.0,
-  "n": 130,
-  "n_oos": 72,
-  "oos_first_fixture": "2025-01-03",
+  "mean_hedged_usd_day": 7509.0,
+  "mean_unhedged_usd_day": 9738.0,
+  "n": 140,
+  "n_oos": 79,
+  "oos_first_fixture": "2024-11-08",
   "residual_mean_usd_day": {
-   "route": 7867.0,
-   "size": 81.0,
-   "timing": 38.0
+   "route": 7636.0,
+   "size": 75.0,
+   "timing": -202.0
   },
   "residual_sd_usd_day": {
-   "route": 5352.0,
-   "size": 528.0,
-   "timing": 4799.0
+   "route": 5266.0,
+   "size": 509.0,
+   "timing": 4720.0
   },
   "residual_variance_share": {
-   "route": 0.547385,
-   "size": -0.001043,
-   "timing": 0.453657
+   "route": 0.546915,
+   "size": -0.000365,
+   "timing": 0.45345
   },
-  "sd_hedged_usd_day": 7673.0,
-  "sd_unhedged_usd_day": 10039.0,
+  "sd_hedged_usd_day": 7573.0,
+  "sd_unhedged_usd_day": 9892.0,
   "voyage": "C5"
  },
  "sources_line": "Banchero Costa weekly FFA assessments and spot tables (via Hellenic Shipping News); Baltic 5TC daily prints (handybulk.com, Reuters as republished); Himalaya Shipping monthly averages (SEC); voyage-tce-model engine. Retrieved to 17 November 2026."

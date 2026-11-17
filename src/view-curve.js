@@ -5,7 +5,7 @@
 import { h, takeaway, table, note, defs, segmented, clear } from "./dom.js";
 import { lineChart, calendarChart, barChart, monthMid, monthStart, monthEnd, dayMs, empty } from "./charts.js";
 import { pct, shareOf, usdDay, num, signed, signedPct, signedPoints, dateLong, dateShort, tenorLabel, monthName, monthAbbr, monthLong, plural, listJoin, isNum, capitalise, usdT, monthShort } from "./format.js";
-import { quarter_months } from "./engine.js";
+import { quarter_months, months_between, add_months } from "./engine.js";
 import { wire, sourceLine, basketForWindow, downloadLine, stripSummary, retrievedOf } from "./view-kit.js";
 
 const RULES = Object.freeze({
@@ -13,6 +13,7 @@ const RULES = Object.freeze({
   minMonthN: 5, // a calendar month needs this many curves to be named in a title
   thousand: 1000, // literal: unit, spot bins are labelled in USD thousand a day
   mostly: 0.8, // a month's front spread "mostly" in one shape from this share up
+  bigGap: 0.1, // a second print this far from the first is called out in the note
 });
 
 function describe(measure, state) {
@@ -29,9 +30,25 @@ function yearTitle(byYear) {
 }
 
 const MEASURES = [
-  { value: "front_vs_spot", label: "Front month against spot", short: "front month above the spot of its day or the Friday before" },
-  { value: "front_spread", label: "Front month against the next month", short: "next month above the front month" },
+  { value: "front_vs_spot", label: "Front month against spot", short: "front month above the spot of its day or the Friday before", subject: "The front month", rel: "above the spot of its day, or the Friday before," },
+  { value: "front_spread", label: "Front month against the next month", short: "next month above the front month", subject: "The next month", rel: "above the front month" },
 ];
+
+/** Years the weekly curves cover only in part: { 2023: "Sep to Dec" }. */
+function yearCoverage(weeks) {
+  const by = {};
+  for (const w of weeks) {
+    const y = w.date.slice(0, 4);
+    const m = Number(w.date.slice(5, 7));
+    by[y] = by[y] || [m, m];
+    by[y] = [Math.min(by[y][0], m), Math.max(by[y][1], m)];
+  }
+  const out = {};
+  for (const [y, [a, b]] of Object.entries(by)) {
+    if (a > 1 || b < 12) out[y] = a === b ? monthAbbr(a) : `${monthAbbr(a)} to ${monthAbbr(b)}`;
+  }
+  return out;
+}
 
 function measureOf(params) {
   return MEASURES.find((m) => m.value === params.measure) || MEASURES[0];
@@ -56,6 +73,52 @@ function vsSpot(v, spot) {
   return `${usdDay(Math.abs(d))} ${d >= 0 ? "above" : "below"} spot (${signedPct(d / spot)})`;
 }
 
+/** How the curve's basket was established, in the page's terms. */
+function basketHow(curve) {
+  const how = curve.basket_how || "";
+  if (/premium column/.test(how)) return `the page's premium column matches the ${num(curve.basket_t)} t spot`;
+  return how;
+}
+
+/** The spot's provenance: date, kind and sources. */
+function spotSource(curve) {
+  const srcs = (curve.spot_sources || []).filter(Boolean);
+  const kind = curve.spot_kind === "implied" ? "implied from" : "as printed in";
+  return `Baltic 5TC of ${dateLong(curve.spot_on)}${srcs.length ? `, ${kind} ${listJoin(srcs)}` : ""}`;
+}
+
+/** Points of a month series with a break (NaN) wherever a calendar month is missing between two prints. */
+function monthLine(entries) {
+  const sorted = entries.slice().sort((a, b) => (a.period < b.period ? -1 : 1));
+  const pts = [];
+  const gaps = [];
+  sorted.forEach((e, i) => {
+    if (i > 0) {
+      const prev = sorted[i - 1].period;
+      const missing = months_between(prev, e.period) - 1;
+      if (missing > 0) {
+        for (let k = 1; k <= missing; k += 1) gaps.push(add_months(prev, k));
+        pts.push({ x: (monthMid(prev) + monthMid(e.period)) / 2, y: NaN });
+      }
+    }
+    pts.push(e.point);
+  });
+  return { pts, gaps };
+}
+
+/** The first print against the second: every tenor of either, with the gap where both print it. */
+function printGap(curve) {
+  const reprint = (curve.reprints || [])[0];
+  if (!reprint) return null;
+  const first = Object.fromEntries(curve.tenors.map((t) => [t.period, t.usd_day]));
+  const second = reprint.tenors || {};
+  const both = Object.keys(first).filter((p) => isNum(second[p]));
+  const onlySecond = Object.keys(second).filter((p) => !isNum(first[p]));
+  const onlyFirst = Object.keys(first).filter((p) => !isNum(second[p]));
+  const gaps = both.map((p) => ({ period: p, gap: (second[p] - first[p]) / first[p] }));
+  return { reprint, gaps, onlySecond, onlyFirst };
+}
+
 function curveChart(box, curve, opts) {
   clear(box);
   const spot = curve.spot_usd_day;
@@ -63,16 +126,15 @@ function curveChart(box, curve, opts) {
   const quarters = curve.tenors.filter((t) => t.kind === "quarter");
   const reprint = (curve.reprints || [])[0];
   const series = [];
-  series.push({
-    cls: "ffa",
-    animate: true,
-    dots: true,
-    points: months.map((t) => ({
+  const firstLine = monthLine(months.map((t) => ({
+    period: t.period,
+    point: {
       x: monthMid(t.period),
       y: t.usd_day,
       tip: { title: `${tenorText(t)}, first print`, rows: [{ key: "ffa", value: usdDay(t.usd_day), label: "" }, ...(isNum(spot) ? [{ key: "spot", value: vsSpot(t.usd_day, spot), label: "" }] : [])], note: `${curve.issue}, page ${curve.page}` },
-    })),
-  });
+    },
+  })));
+  series.push({ cls: "ffa", animate: true, dots: true, points: firstLine.pts });
   const spans = quarters.map((t) => {
     const ms = quarter_months(t.period);
     return {
@@ -83,27 +145,30 @@ function curveChart(box, curve, opts) {
       tip: { title: `${tenorText(t)}, first print`, rows: [{ key: "ffa", value: usdDay(t.usd_day), label: "quarter average" }, ...(isNum(spot) ? [{ key: "spot", value: vsSpot(t.usd_day, spot), label: "" }] : [])], note: `${curve.issue}, page ${curve.page}` },
     };
   });
+  let secondGaps = [];
   if (reprint) {
     const first = Object.fromEntries(curve.tenors.map((t) => [t.period, t.usd_day]));
-    const pts = [];
+    const monthEntries = [];
     for (const [period, v] of Object.entries(reprint.tenors)) {
       const label = tenorLabel(period);
       const firstV = first[period];
-      const tip = { title: `${label}, second print (${reprint.issue})`, rows: [{ key: "ffa", value: usdDay(v), label: "" }, ...(isNum(firstV) ? [{ key: null, value: `${signedPct((v - firstV) / firstV)}`, label: `against the first print (${num(firstV)})` }] : [])] };
+      const tip = { title: `${label}, second print (${reprint.issue})`, rows: [{ key: "ffa", value: usdDay(v), label: "" }, ...(isNum(firstV) ? [{ key: null, value: `${signedPct((v - firstV) / firstV)}`, label: `against the first print (${num(firstV)})` }] : [{ key: null, value: "Not in the first print", label: "" }])] };
       if (period.includes("-Q")) {
         const ms = quarter_months(period);
         spans.push({ x0: monthStart(ms[0]), x1: monthEnd(ms[2]), y: v, cls: "ffa", hollow: true, tip });
-      } else pts.push({ x: monthMid(period), y: v, tip });
+      } else monthEntries.push({ period, point: { x: monthMid(period), y: v, tip } });
     }
-    series.push({ cls: "ffa", thin: true, dots: true, hollow: true, points: pts });
+    const secondLine = monthLine(monthEntries);
+    secondGaps = secondLine.gaps;
+    series.push({ cls: "ffa", thin: true, dots: true, hollow: true, points: secondLine.pts });
   }
   const refs = [];
   const periods = [...curve.tenors.map((t) => t.period), ...(reprint ? Object.keys(reprint.tenors) : [])];
   const xs = periods.flatMap((pd) => (pd.includes("-Q") ? [monthStart(quarter_months(pd)[0]), monthEnd(quarter_months(pd)[2])] : [monthStart(pd), monthEnd(pd)]));
   if (isNum(spot) && curve.spot_on) {
-    refs.push({ y: spot, label: `Spot ${num(spot)}, ${dateShort(curve.spot_on)}`, cls: "spot" });
+    refs.push({ y: spot, label: `Spot ${num(spot)}, ${dateLong(curve.spot_on)}`, cls: "spot" });
     xs.push(dayMs(curve.spot_on));
-    series.push({ cls: "spot", line: false, dots: true, points: [{ x: dayMs(curve.spot_on), y: spot, tip: { title: `Baltic 5TC spot, ${dateLong(curve.spot_on)}`, rows: [{ key: "spot", value: usdDay(spot), label: "" }], note: `${num(curve.basket_t)} t basket; ${curve.basket_how}` } }] });
+    series.push({ cls: "spot", line: false, dots: true, points: [{ x: dayMs(curve.spot_on), y: spot, tip: { title: `Spot, ${dateLong(curve.spot_on)}`, rows: [{ key: "spot", value: usdDay(spot), label: `${num(curve.basket_t)} t basket` }], note: `${spotSource(curve)}; ${basketHow(curve)}` } }] });
   }
   const all = curve.tenors.map((t) => t.usd_day);
   const above = isNum(spot) ? all.filter((v) => v > spot).length : null;
@@ -114,22 +179,23 @@ function curveChart(box, curve, opts) {
   } else {
     const hi = curve.tenors.reduce((a, b) => (b.usd_day > a.usd_day ? b : a));
     const lo = curve.tenors.reduce((a, b) => (b.usd_day < a.usd_day ? b : a));
-    title = `${dateLong(curve.date)}: the curve ran from ${usdDay(hi.usd_day)} (${hi.label}) down to ${usdDay(lo.usd_day)} (${lo.label}); no same-day spot is cited with it`;
+    title = `${dateLong(curve.date)}: the curve ran from ${usdDay(hi.usd_day)} (${hi.label}) down to ${usdDay(lo.usd_day)} (${lo.label}); no spot is cited with it`;
   }
   const legend = [
     { label: reprint ? "Months, first print (the study uses it)" : "Month tenors", cls: "ffa", kind: "linedot" },
-    { label: "Quarter tenors, drawn across their three months", cls: "ffa", kind: "span" },
+    { label: "Quarter tenors, a bar across their three months", cls: "ffa", kind: "span" },
   ];
-  if (reprint) legend.push({ label: `Second print, ${reprint.issue}'s previous-week column`, cls: "ffa", kind: "hollow" });
-  if (isNum(spot)) legend.push({ label: "Baltic 5TC spot on the cited day", cls: "spot", kind: "thin" });
+  if (reprint) legend.push({ label: `Second print (${reprint.issue})`, cls: "ffa", kind: "hollow" });
+  if (isNum(spot)) legend.push({ label: "Baltic 5TC spot", cls: "spot", kind: "thin" });
   const parts = curve.tenors.map((t) => `${t.label} ${num(t.usd_day)}${isNum(spot) ? ` (${signed(t.usd_day - spot)})` : ""}`);
-  const summary = `FFA tenors on ${dateLong(curve.date)}, USD a day${isNum(spot) ? `, with their distance from the spot of ${num(spot)} on ${dateLong(curve.spot_on)}` : ""}: ${parts.join(", ")}.`;
-  const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `, ${opts.retrieved}. Levels shown only on cited dates, as the data policy allows.`);
+  const gapText = firstLine.gaps.length ? ` ${listJoin(firstLine.gaps.map((g) => monthLong(g)))} ${firstLine.gaps.length === 1 ? "is" : "are"} not printed as a month on the page; the line breaks there.` : "";
+  const summary = `FFA tenors on ${dateLong(curve.date)}, USD a day${isNum(spot) ? `, with their distance from the spot of ${num(spot)} on ${dateLong(curve.spot_on)}` : ""}: ${parts.join(", ")}.${gapText}`;
+  const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `, ${opts.retrieved}.${isNum(spot) && curve.spot_on ? ` Spot: ${spotSource(curve)}.` : ""} Levels shown only on cited dates, as the data policy allows.`);
   return lineChart(box, {
     title,
-    subtitle: `USD a day, ${num(curve.basket_t)} t basket (${curve.basket_how}). Banchero Costa's weekly assessment, dated ${dateLong(curve.date)} on the page${new Date(`${curve.date}T00:00:00Z`).getUTCDay() === 0 ? " (a Sunday)" : ""}, cited with issue and page.`,
+    subtitle: `USD a day, ${num(curve.basket_t)} t basket (${basketHow(curve)}). Banchero Costa's weekly assessment, dated ${dateLong(curve.date)} on the page${new Date(`${curve.date}T00:00:00Z`).getUTCDay() === 0 ? " (a Sunday)" : ""}, cited with issue and page.${firstLine.gaps.length || secondGaps.length ? " A line breaks where a month is not printed." : ""}`,
     legend,
-    x: { type: "time", min: Math.min(...xs), max: Math.max(...xs) },
+    x: { type: "time", min: Math.min(...xs), max: Math.max(...xs), title: "Contract month" },
     y: { title: "USD a day" },
     series,
     spans,
@@ -178,17 +244,16 @@ function render(section, ctx) {
       },
     });
     key.append(h("div", { class: "controls" }, seg.el), chartBox, noteBox);
-  } else empty(key, { title: "No cited curve in this build", text: "curve.json carries no cited_curves." });
+  } else empty(key, { title: "No cited curve in this build", text: "This build carries no cited curves." });
 
   function drawCurve() {
     clear(noteBox);
     const flags = selected.flags || [];
     const notes = [];
-    const reprints = flags.filter((f) => f.rule === "reprint");
-    if ((selected.reprints || []).length) {
-      notes.push(`This curve was printed twice: ${listJoin(reprints.map((f) => `${tenorLabel(f.period)} ${num(f.first)} in ${selected.issue} against ${num(f.reprint)} in ${f.issue} (${pct(f.gap)} apart)`))}. The study uses the first print, its pre-registered rule; the second print is a robustness case.`);
-    } else if (reprints.length) {
-      notes.push(`The next issue re-assessed ${listJoin(reprints.map((f) => `${tenorLabel(f.period)} from ${num(f.first)} to ${num(f.reprint)} (${f.issue}, ${pct(f.gap)} apart)`))}; the study uses the first print.`);
+    const gap = printGap(selected);
+    if (gap) {
+      const big = gap.gaps.filter((g) => Math.abs(g.gap) >= RULES.bigGap);
+      notes.push(`This date was printed twice: in ${selected.issue} (the first print, which the study uses: the price a hedger had on the date) and again in ${gap.reprint.issue}'s previous-week column, a week later. On the ${plural(gap.gaps.length, "tenor", "tenors")} both print, the second print differs by ${gap.gaps.map((g) => `${signedPct(g.gap)} (${tenorLabel(g.period)})`).join(", ")}${big.length ? `; ${plural(big.length, "tenor", "tenors")} by ${pct(RULES.bigGap, 0)} or more` : ""}.${gap.onlySecond.length ? ` Only the second print has ${listJoin(gap.onlySecond.map((p2) => tenorLabel(p2)))}.` : ""}${gap.onlyFirst.length ? ` Only the first has ${listJoin(gap.onlyFirst.map((p2) => tenorLabel(p2)))}.` : ""} Every tenor of both prints is in the Data section.`);
     }
     for (const f of flags.filter((x) => x.rule === "one_week_move")) {
       notes.push(`Quality flag: ${tenorLabel(f.period)} moved ${signedPoints(f.move_pct)} in a week while the other tenors moved ${signedPoints(f.median_other_pct)} (median).`);
@@ -216,7 +281,7 @@ function render(section, ctx) {
           const all = shares[m.value]?.all;
           const byYear = shares[`${m.value}_by_year`] || {};
           const named = Object.entries(byYear).filter(([, v]) => v.n >= RULES.minYearN);
-          let title = all ? `The ${m.short} in ${shareOf(all.contango, all.n)} of ${plural(all.n, "week", "weeks")}` : "Contango and backwardation by week";
+          let title = all ? `${m.subject} sat ${m.rel} in ${shareOf(all.contango, all.n)} of ${plural(all.n, "week", "weeks")}` : "Contango and backwardation by week";
           if (named.length > 1) {
             const lo = named.reduce((a, b) => (b[1].contango < a[1].contango ? b : a));
             const hi = named.reduce((a, b) => (b[1].contango > a[1].contango ? b : a));
@@ -230,10 +295,12 @@ function render(section, ctx) {
               tip: { title: `Curve of ${dateLong(w.date)}`, rows: [{ key: st === "contango" ? "contango" : st === "backwardation" ? "backwardation" : "none", value: st ? capitalise(st) : "Not measurable", label: st ? `(${describe(m.value, st)})` : "that week" }], note: `${num(w.basket_t)} t basket` },
             };
           });
-          const yearsList = Object.entries(byYear).map(([y, v]) => `${y} ${shareOf(v.contango, v.n)} of ${v.n}`);
+          const cover = yearCoverage(weeks);
+          const yearsList = Object.entries(byYear).map(([y, v]) => `${y}${cover[y] ? ` (${cover[y]})` : ""} ${shareOf(v.contango, v.n)} of ${v.n}`);
+          const partial = Object.entries(cover).map(([y, c]) => `${y} ${c}`);
           calendarChart(box, {
             title,
-            subtitle: `One cell per week with a curve (ISO weeks), coloured by the ${m.short.startsWith("front") ? "front month against the spot of its day or the Friday before" : "front month against the next month"}. Outlined: a curve without the tenor or spot needed. Empty: no curve that week. No levels are shown.`,
+            subtitle: `One cell per week with a curve (ISO weeks), coloured by the ${m.short.startsWith("front") ? "front month against the spot of its day or the Friday before" : "front month against the next month"}. Outlined: a curve without the tenor or spot needed. Empty: no curve that week. No levels are shown.${partial.length ? ` Years covered in part: ${listJoin(partial)}.` : ""}`,
             legend: [
               { label: "Contango", cls: "contango", kind: "rect" },
               { label: "Backwardation", cls: "backwardation", kind: "rect" },
@@ -288,20 +355,21 @@ function render(section, ctx) {
             source: sourceLine(curve, "Banchero Costa weekly FFA assessments; Baltic 5TC prints."),
           });
           const yearKeys = Object.keys(byYear).sort();
+          const yearCov = yearCoverage(curve.weeks || []);
           const yBox = h("div");
           box.append(yBox);
           barChart(yBox, {
             title: yearTitle(byYear),
-            subtitle: `Share of weekly curves by year, ${m.label.toLowerCase()}. Percent; n under each year. ${listJoin(yearKeys.filter((y) => byYear[y].n < RULES.minYearN).map((y) => `${y} (n ${byYear[y].n})`))} ${yearKeys.filter((y) => byYear[y].n < RULES.minYearN).length === 1 ? "has" : "have"} too few curves to read.`,
+            subtitle: `Share of weekly curves by year, ${m.label.toLowerCase()}. Percent; n under each year.${yearKeys.some((y) => byYear[y].n < RULES.minYearN) ? ` ${listJoin(yearKeys.filter((y) => byYear[y].n < RULES.minYearN).map((y) => `${y} (n ${byYear[y].n})`))} ${yearKeys.filter((y) => byYear[y].n < RULES.minYearN).length === 1 ? "has" : "have"} too few curves to read and ${yearKeys.filter((y) => byYear[y].n < RULES.minYearN).length === 1 ? "is" : "are"} drawn faint.` : ""}${Object.keys(yearCov).length ? ` Years covered in part: ${listJoin(Object.entries(yearCov).map(([y, c]) => `${y} ${c}`))}.` : ""}`,
             legend: [{ label: "Contango", cls: "contango", kind: "rect" }, { label: "Backwardation", cls: "backwardation", kind: "rect" }],
-            cats: yearKeys.map((y) => ({ key: y, label: y, sub: `n ${byYear[y].n}` })),
+            cats: yearKeys.map((y) => ({ key: y, label: y, sub: `n ${byYear[y].n}`, muted: byYear[y].n < RULES.minYearN })),
             stacks: [
               { cls: "contango", values: Object.fromEntries(yearKeys.map((y) => [y, byYear[y].contango])) },
               { cls: "backwardation", values: Object.fromEntries(yearKeys.map((y) => [y, byYear[y].backwardation])) },
             ],
-            tips: Object.fromEntries(yearKeys.map((y) => [y, { title: `${y}, ${plural(byYear[y].n, "curve", "curves")}`, rows: [{ key: "contango", value: shareOf(byYear[y].contango, byYear[y].n), label: "contango" }, { key: "backwardation", value: shareOf(byYear[y].backwardation, byYear[y].n), label: "backwardation" }] }])),
+            tips: Object.fromEntries(yearKeys.map((y) => [y, { title: `${y}${yearCov[y] ? ` (${yearCov[y]})` : ""}, ${plural(byYear[y].n, "curve", "curves")}`, rows: [{ key: "contango", value: shareOf(byYear[y].contango, byYear[y].n), label: "contango" }, { key: "backwardation", value: shareOf(byYear[y].backwardation, byYear[y].n), label: "backwardation" }], note: byYear[y].n < RULES.minYearN ? "Too few curves to read" : null }])),
             y: { min: 0, max: 1, title: "Share of curves, percent", format: (v) => pct(v, 0) },
-            summary: `By year: ${yearKeys.map((y) => `${y} ${shareOf(byYear[y].contango, byYear[y].n)} contango of ${byYear[y].n}`).join("; ")}.`,
+            summary: `By year: ${yearKeys.map((y) => `${y}${yearCov[y] ? ` (${yearCov[y]})` : ""} ${shareOf(byYear[y].contango, byYear[y].n)} contango of ${byYear[y].n}`).join("; ")}.`,
             source: sourceLine(curve, "Banchero Costa weekly FFA assessments; Baltic 5TC prints."),
           });
           if (q1 && isNum(q1.n)) {
@@ -322,7 +390,7 @@ function render(section, ctx) {
       render(body) {
         const bins = curve.slope_by_spot || [];
         if (!bins.length) {
-          empty(body, { title: "Slope against spot", text: "curve.json carries no slope_by_spot bins in this build." });
+          empty(body, { title: "Slope against spot", text: "This build carries no slope bins." });
           return;
         }
         const width = bins[0].spot_to - bins[0].spot_from;
@@ -358,7 +426,7 @@ function render(section, ctx) {
       render(body) {
         const strips = curve.td3c_strips || [];
         if (!strips.length) {
-          empty(body, { title: "TD3C quarter-end strips", text: "curve.json carries no td3c_strips in this build." });
+          empty(body, { title: "TD3C quarter-end strips", text: "This build carries no TD3C strips." });
           return;
         }
         const lot = engine?.constants?.TONNES_PER_LOT_TD3C;
@@ -374,12 +442,17 @@ function render(section, ctx) {
         lineChart(box, {
           title,
           subtitle: `USD a tonne, each line one quarter-end filing of the Amplify Commodity Trust (BWET): price = notional / contracts / ${isNum(lot) ? num(lot) : "lot size in"} t. Public records.`,
-          legend: [{ label: "TD3C futures marks of one filing", cls: "ffa", kind: "line" }],
-          x: { type: "time" },
+          legend: [
+            { label: `Latest filing, marked ${dateLong(strips[strips.length - 1].as_of)}`, cls: "ffa", kind: "linedot" },
+            { label: "Earlier quarter-end filings", cls: "ffa", kind: "thin" },
+          ],
+          x: { type: "time", title: "Contract month" },
           y: { title: "USD a tonne", includeZero: true },
-          series: strips.map((st) => ({
+          series: strips.map((st, i) => ({
             cls: "ffa",
             dots: true,
+            muted: i < strips.length - 1,
+            endLabel: i === strips.length - 1 ? dateLong(st.as_of) : null,
             points: st.months.map((mm) => ({ x: monthMid(mm.month), y: mm.usd_t, tip: { title: `${monthLong(mm.month)} contract, marked ${dateLong(st.as_of)}`, rows: [{ key: "ffa", value: usdT(mm.usd_t, 3), label: "" }, { key: null, value: num(mm.contracts), label: "contracts held" }] } })),
           })),
           summary: stripSummary(strips),
@@ -425,16 +498,35 @@ function render(section, ctx) {
         label: "Data",
         render(body) {
           for (const c of curves) {
+            const rp = (c.reprints || [])[0];
+            const firstBy = Object.fromEntries(c.tenors.map((t) => [t.period, t.usd_day]));
+            // months first, then quarters, each in calendar order, as the broker's page lists them
+            const periods = [...new Set([...c.tenors.map((t) => t.period), ...Object.keys(rp?.tenors || {})])].sort((a, b) => {
+              const qa = a.includes("-Q");
+              const qb = b.includes("-Q");
+              if (qa !== qb) return qa ? 1 : -1;
+              return a < b ? -1 : 1;
+            });
+            const rows = periods.map((p2) => ({ period: p2, first: firstBy[p2], second: rp?.tenors?.[p2], label: c.tenors.find((t) => t.period === p2)?.label || tenorLabel(p2), kind: p2.includes("-Q") ? "quarter" : "month" }));
+            const gap = printGap(c);
             body.append(table({
               caption: `Curve of ${dateLong(c.date)} (${c.issue}, page ${c.page}), ${num(c.basket_t)} t basket`,
               columns: [
-                { label: "Tenor", format: (t) => tenorText(t) },
-                { label: "USD a day", num: true, format: (t) => num(t.usd_day) },
-                { label: "Against spot, USD a day", num: true, format: (t) => (isNum(c.spot_usd_day) ? signed(t.usd_day - c.spot_usd_day) : "") },
-                { label: "Second print", num: true, format: (t) => { const r = (c.reprints || [])[0]?.tenors?.[t.period]; return isNum(r) ? num(r) : ""; } },
+                { label: "Tenor", format: (r) => tenorText(r) },
+                { label: "First print, USD a day", num: true, format: (r) => (isNum(r.first) ? num(r.first) : "") },
+                ...(rp ? [
+                  { label: `Second print (${rp.issue}), USD a day`, num: true, format: (r) => (isNum(r.second) ? num(r.second) : "") },
+                  { label: "Second against first", num: true, format: (r) => (isNum(r.first) && isNum(r.second) ? signedPct((r.second - r.first) / r.first) : "") },
+                ] : []),
+                { label: "First print against spot, USD a day", num: true, format: (r) => (isNum(c.spot_usd_day) && isNum(r.first) ? signed(r.first - c.spot_usd_day) : "") },
               ],
-              rows: c.tenors,
-              note: h("span", {}, isNum(c.spot_usd_day) ? `Spot ${usdDay(c.spot_usd_day)} on ${dateLong(c.spot_on)}. ` : "No spot cited with this curve. ", h("a", { href: c.url }, "Source report (PDF)")),
+              rows,
+              note: h("span", {},
+                isNum(c.spot_usd_day) ? `Spot ${usdDay(c.spot_usd_day)}: ${spotSource(c)}. ` : "No spot cited with this curve. ",
+                gap && gap.gaps.length ? `The second print differs from the first by ${pct(Math.min(...gap.gaps.map((g) => Math.abs(g.gap))))} to ${pct(Math.max(...gap.gaps.map((g) => Math.abs(g.gap))))} on the tenors both print. ` : "",
+                h("a", { href: c.url }, "Source report (PDF)"),
+                rp ? h("span", {}, "; ", h("a", { href: rp.url }, `${rp.issue} (PDF)`)) : null,
+                "."),
             }));
           }
           body.append(table({
@@ -493,6 +585,7 @@ function render(section, ctx) {
   if (w.panelsEl) section.append(w.panelsEl);
   section.append(w.disclosuresEl);
   return {
+    state: () => ({ ...w.state(), date: selected?.date, measure: measureOf(ctx.params).value }),
     update(params) {
       w.update(params);
       if (params.date && params.date !== selected?.date) {

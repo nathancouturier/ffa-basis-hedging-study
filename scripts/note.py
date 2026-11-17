@@ -349,7 +349,7 @@ def build() -> list:
             "n/a"
             if r.get("effectiveness_kstar_oos") is None
             else f"{pct(r['effectiveness_kstar_oos'])} / {pct(r['effectiveness_k1_same_rows'])} ({r['n_oos']})",
-            pct(r["cvar_reduction_k1"]),
+            f"{pct(r['cvar_reduction_k1'], 0)} / {pct(r.get('cvar_reduction_k1_charterer'), 0)}",
             pct(r["residual_variance_share"]["route"], 0),
             pct(r["residual_variance_share"]["timing"], 0),
             pct(r["residual_variance_share"]["size"], 0),
@@ -362,7 +362,9 @@ def build() -> list:
                 Paragraph(
                     "<b>Table 1.</b> Hedge effectiveness by voyage and horizon. k* out of sample against k = 1 on "
                     "the same fixtures (their number in brackets). CVaR: the reduction in the 5 percent expected "
-                    "shortfall of the surprise at k = 1. Route, timing and size: shares of the hedged residual's "
+                    "shortfall at k = 1 for an owner (the lowest 5 percent of earnings) and for a charterer (the "
+                    "highest 5 percent of hire), the route basis's mean taken out; negative: the tail is worse. "
+                    "Route, timing and size: shares of the hedged residual's "
                     "variance (size basis is a constant USD 3,503 a day where a hedge on the 180,000 t curve covers "
                     "a voyage on the 182,000 t ship from 2026, so its share is small and can be negative).",
                     small,
@@ -375,7 +377,7 @@ def build() -> list:
                         "k = 1",
                         "90% interval",
                         "k* / k = 1",
-                        "CVaR",
+                        "CVaR owner / charterer",
                         "Route",
                         "Timing",
                         "Size",
@@ -390,10 +392,14 @@ def build() -> list:
     s.append(
         Paragraph(
             f"<b>Residual and Ederington.</b> One month ahead, the hedged C5 result still has a standard deviation of "
-            f"USD {usd(h['sd_hedged_usd_day'])} a day against USD {usd(h['sd_unhedged_usd_day'])} unhedged, and its "
-            f"5 percent CVaR {'falls' if h['cvar_hedged_usd_day'] < h['cvar_unhedged_usd_day'] else 'rises'} from USD "
-            f"{usd(h['cvar_unhedged_usd_day'])} to USD {usd(h['cvar_hedged_usd_day'])} (measured with the route basis's "
-            f"mean of USD {usd(h.get('cvar_route_mean_removed_usd_day'))} a day taken out, its level being overstated). "
+            f"USD {usd(h['sd_hedged_usd_day'])} a day against USD {usd(h['sd_unhedged_usd_day'])} unhedged. Its 5 "
+            "percent CVaR, measured with the route basis's mean of USD "
+            f"{usd(h.get('cvar_route_mean_removed_usd_day'))} a day taken out (its level being overstated), "
+            f"{'falls' if h['cvar_hedged_usd_day'] < h['cvar_unhedged_usd_day'] else 'rises'} from USD "
+            f"{usd(h['cvar_unhedged_usd_day'])} to USD {usd(h['cvar_hedged_usd_day'])} for an owner (the low-earnings "
+            f"tail) and {'falls' if h['cvar_charterer_hedged_usd_day'] < h['cvar_charterer_unhedged_usd_day'] else 'rises'}"
+            f" from USD {usd(h['cvar_charterer_unhedged_usd_day'])} to USD {usd(h['cvar_charterer_hedged_usd_day'])} "
+            "for a charterer (the high-hire tail): the surprise is skewed, so the two tails differ. "
             "Route basis is the C5 voyage's own freight moving apart from the 5TC; timing basis is the day's rate "
             "against the average of the months the voyage runs through. Ederington's measure on weekly changes "
             f"(spot and the next month's FFA, Monday to Monday, same basket) gives R squared {e['r_squared']:.2f} at a "

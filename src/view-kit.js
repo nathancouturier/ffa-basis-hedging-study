@@ -4,7 +4,7 @@
 import { basket_of } from "./engine.js";
 import { h, disclosures, panelSwitch } from "./dom.js";
 import { exists } from "./data.js";
-import { num, dateLong, dateShort, addDays, plural, tenorLabel } from "./format.js";
+import { num, dateLong, addDays, plural, tenorLabel, capitalise } from "./format.js";
 
 /** The 5TC basket rule from data/engine.json, with the basket sizes produced by engine.js. */
 export function basketRule(engine) {
@@ -32,7 +32,7 @@ export function sourceLine(artifact, fallback) {
 
 export function retrievedTo(manifest) {
   const last = (manifest?.sources || []).map((s) => s.last_retrieved).filter(Boolean).sort().pop();
-  return last ? `Retrieved to ${last.slice(0, 10)}.` : "";
+  return last ? `Retrieved to ${dateLong(last.slice(0, 10))}.` : "";
 }
 
 /** "retrieved 17 November 2026" for the manifest source whose name contains `needle`. */
@@ -61,6 +61,10 @@ export function wire(ctx, viewId, { panels, sections, panelLabel, onOpenChange }
     update(params) {
       if (pn && params.panel) pn.set(params.panel);
       ds.setOpen(openIds(params));
+    },
+    /** What the view shows now, for the hash. */
+    state() {
+      return { panel: pn ? pn.current() : undefined, open: ds.ids().join(",") };
     },
   };
 }
@@ -92,14 +96,19 @@ export function downloadLine(items) {
   return el;
 }
 
-/** A short text summary of the quarter-end strips and the spot prints; the full list is in the Data table. */
+/** A short text summary of the quarter-end strips (and the spot prints): the range and the latest strip. */
 export function stripSummary(strips, bw = []) {
   const all = strips.flatMap((st) => st.months.map((mm) => ({ ...mm, as_of: st.as_of })));
   if (!all.length) return "";
   const lo = all.reduce((a, b) => (b.usd_t < a.usd_t ? b : a));
   const hi = all.reduce((a, b) => (b.usd_t > a.usd_t ? b : a));
   const last = strips[strips.length - 1];
-  let text = `${plural(strips.length, "quarter-end strip", "quarter-end strips")} from ${dateLong(strips[0].as_of)} to ${dateLong(last.as_of)}, USD a tonne: lowest ${num(lo.usd_t, 2)} (${tenorLabel(lo.month)}, marked ${dateShort(lo.as_of)}), highest ${num(hi.usd_t, 2)} (${tenorLabel(hi.month)}, marked ${dateShort(hi.as_of)}); the latest strip ${last.months.map((mm) => `${tenorLabel(mm.month)} ${num(mm.usd_t, 2)}`).join(", ")}.`;
-  if (bw.length) text += ` Breakwave spot prints: ${bw.map((b) => `${dateShort(b.date)} ${num(b.td3c_usd_t, 2)}`).join(", ")}.`;
-  return `${text} Every mark is in the Data section.`;
+  let text = `${plural(strips.length, "quarter-end strip", "quarter-end strips")} from ${dateLong(strips[0].as_of)} to ${dateLong(last.as_of)}, USD a tonne: lowest ${num(lo.usd_t, 2)} (${tenorLabel(lo.month)}, marked ${dateLong(lo.as_of)}), highest ${num(hi.usd_t, 2)} (${tenorLabel(hi.month)}, marked ${dateLong(hi.as_of)}); the latest strip, of ${dateLong(last.as_of)}: ${last.months.map((mm) => `${tenorLabel(mm.month)} ${num(mm.usd_t, 2)}`).join(", ")}.`;
+  const prints = bw.filter((b) => Number.isFinite(b.td3c_usd_t));
+  if (prints.length) {
+    const plo = prints.reduce((a, b) => (b.td3c_usd_t < a.td3c_usd_t ? b : a));
+    const phi = prints.reduce((a, b) => (b.td3c_usd_t > a.td3c_usd_t ? b : a));
+    text += ` ${plural(prints.length, "Breakwave spot print", "Breakwave spot prints")} from ${dateLong(prints[0].date)} to ${dateLong(prints[prints.length - 1].date)}: lowest ${num(plo.td3c_usd_t, 2)} (${dateLong(plo.date)}), highest ${num(phi.td3c_usd_t, 2)} (${dateLong(phi.date)}).`;
+  }
+  return capitalise(text);
 }

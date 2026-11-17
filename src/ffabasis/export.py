@@ -92,6 +92,9 @@ def hedge_cells(table: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "cvar_unhedged_usd_day": _usd(row["cvar_unhedged_usd_day"]),
                 "cvar_hedged_usd_day": _usd(row["cvar_hedged_usd_day"]),
                 "cvar_reduction_k1": _share(row["cvar_reduction_k1"]),
+                "cvar_charterer_unhedged_usd_day": _usd(row["cvar_charterer_unhedged_usd_day"]),
+                "cvar_charterer_hedged_usd_day": _usd(row["cvar_charterer_hedged_usd_day"]),
+                "cvar_reduction_k1_charterer": _share(row["cvar_reduction_k1_charterer"]),
                 "cvar_route_mean_removed_usd_day": _usd(row["cvar_route_mean_removed_usd_day"]),
                 "residual_variance_share": {k: _share(v) for k, v in row["residual_variance_share"].items()},
                 "residual_mean_usd_day": {k: _usd(v) for k, v in row["residual_mean_usd_day"].items()},
@@ -237,6 +240,8 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
             "rmse_ratio_ffa_to_naive": _r(s.get("rmse_ratio_ffa_to_naive"), 3),
             "first": s["first"],
             "last": s["last"],
+            "block": s.get("block"),
+            "block_unit": s.get("block_unit"),
         }
 
     roll = {
@@ -340,7 +345,8 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
             "n_oos",
             "sd_unhedged_usd_day",
             "sd_hedged_usd_day",
-            "cvar_reduction_k1",
+            "cvar_reduction_k1_owner",
+            "cvar_reduction_k1_charterer",
             "share_timing",
             "share_route",
             "share_size",
@@ -360,6 +366,7 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
                 c["sd_unhedged_usd_day"],
                 c["sd_hedged_usd_day"],
                 c["cvar_reduction_k1"],
+                c["cvar_reduction_k1_charterer"],
                 c["residual_variance_share"]["timing"],
                 c["residual_variance_share"]["route"],
                 c["residual_variance_share"]["size"],

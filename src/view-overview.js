@@ -3,7 +3,7 @@
 
 import { h, takeaway, table, note, defs } from "./dom.js";
 import { forestChart, lineChart } from "./charts.js";
-import { pct, shareOf, usdDay, num, numTrim, dateLong, dateShort, ws, horizonLabel, listJoin, signed, isNum, capitalise, plural } from "./format.js";
+import { pct, shareOf, usdDay, num, numTrim, dateLong, ws, horizonLabel, listJoin, signed, isNum, capitalise, plural } from "./format.js";
 import { wire, basketForWindow, basketRule, sourceLine, downloadLine, sectionHead, retrievedOf } from "./view-kit.js";
 
 const VOYAGES = ["5TC trip", "C3", "C5"];
@@ -19,14 +19,31 @@ function cellTip(r) {
   ];
   if (r.effectiveness_k1_ci) rows.push({ key: null, value: `${pct(r.effectiveness_k1_ci.low)} to ${pct(r.effectiveness_k1_ci.high)}`, label: "90 percent interval" });
   if (isNum(r.effectiveness_kstar_oos)) {
-    rows.push({ key: "ink", value: pct(r.effectiveness_kstar_oos), label: `out-of-sample minimum variance ratio, ${plural(r.n_oos, "fixture", "fixtures")}${isNum(r.effectiveness_k1_same_rows) ? ` (k = 1 on the same fixtures: ${pct(r.effectiveness_k1_same_rows)})` : ""}` });
+    const from = r.oos_first_fixture ? `from ${dateLong(r.oos_first_fixture)}, ` : "";
+    rows.push({ key: "ink", value: pct(r.effectiveness_kstar_oos), label: `minimum variance ratio out of sample (${from}n ${r.n_oos})` });
+    if (isNum(r.effectiveness_k1_same_rows)) rows.push({ key: "ink", value: pct(r.effectiveness_k1_same_rows), label: "k = 1 on those same fixtures" });
   }
   rows.push({ key: null, value: `${usdDay(r.sd_unhedged_usd_day)} to ${num(r.sd_hedged_usd_day)}`, label: "standard deviation, unhedged to hedged" });
   return {
     title: `${r.voyage}, hedge placed ${horizonLabel(r.horizon_months)} ahead`,
     rows,
-    note: `${plural(r.n, "fixture", "fixtures")}, ${dateShort(r.first_fixture)} to ${dateShort(r.last_fixture)}`,
+    note: `${plural(r.n, "fixture", "fixtures")}, ${dateLong(r.first_fixture)} to ${dateLong(r.last_fixture)}`,
   };
+}
+
+/** Which voyages' tail risk is measured with the route basis net of its average, and by how much. */
+function cvarNote(effs) {
+  const rows = effs.filter((r) => isNum(r.cvar_route_mean_removed_usd_day) && r.cvar_route_mean_removed_usd_day !== 0);
+  const base = "Change in 5% CVaR: the share by which the hedge reduced the average of the worst 5 percent of outcomes, for an owner the lowest 5 percent of earnings and for a charterer the highest 5 percent of hire; the two tails differ in size and sometimes in sign. Negative means the hedged tail was worse.";
+  if (!rows.length) return base;
+  const byVoyage = VOYAGES.map((v) => {
+    const xs = rows.filter((r) => r.voyage === v).map((r) => r.cvar_route_mean_removed_usd_day);
+    if (!xs.length) return null;
+    const lo = Math.min(...xs);
+    const hi = Math.max(...xs);
+    return `${v} ${lo === hi ? signed(lo) : `${signed(lo)} to ${signed(hi)}`}`;
+  }).filter(Boolean);
+  return `${base} It is measured with the route basis net of its average (${listJoin(byVoyage)} USD a day), because the voyage TCEs leave out port charges and loading time, so the route basis's level is overstated while its spread is not.`;
 }
 
 function render(section, ctx) {
@@ -53,11 +70,12 @@ function render(section, ctx) {
   }
   const meta = h("dl", { class: "headline-meta" });
   for (const f of facts) meta.append(h("div", {}, h("dt", {}, f.term), h("dd", {}, f.desc)));
-  section.append(meta);
 
   // ---------------------------------------------------------- key chart
   const keyBox = h("div");
   section.append(keyBox);
+  // the headline's interval, window and basket follow the chart, so a phone shows the chart first
+  section.append(meta);
   const cells = effs.filter((r) => isNum(r.effectiveness_k1));
   if (cells.length) {
     const lo = cells.reduce((a, b) => (b.effectiveness_k1 < a.effectiveness_k1 ? b : a));
@@ -70,7 +88,7 @@ function render(section, ctx) {
         lo: r.effectiveness_k1_ci?.low,
         hi: r.effectiveness_k1_ci?.high,
         emph: r.voyage === hl.voyage && r.horizon_months === hl.horizon_months,
-        extra: isNum(r.effectiveness_kstar_oos) ? { value: r.effectiveness_kstar_oos } : null,
+        extra: isNum(r.effectiveness_kstar_oos) ? { value: r.effectiveness_kstar_oos, same: r.effectiveness_k1_same_rows } : null,
         tip: cellTip(r),
       })),
     }));
@@ -83,7 +101,7 @@ function render(section, ctx) {
     let summary = `Share of earnings variance removed at a 1:1 hedge ratio. ${byVoyage.join("; ")}.`;
     if (oos.length) {
       const scope = oos.length === cells.length ? "for every voyage and horizon, on the later fixtures that have enough history" : `only for ${listJoin(oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)}`))}`;
-      summary += ` The minimum variance ratio estimated on past fixtures exists ${scope}. Against k = 1 on the same fixtures it removed: ${oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)}, ${pct(r.effectiveness_kstar_oos)} against ${pct(r.effectiveness_k1_same_rows)} (${r.n_oos} fixtures)`).join("; ")}.`;
+      summary += ` The minimum variance ratio estimated on past fixtures exists ${scope}; it is measured on those later fixtures only, so it is compared with k = 1 on the same fixtures: ${oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)} (from ${dateLong(r.oos_first_fixture)}, n ${r.n_oos}), ${pct(r.effectiveness_kstar_oos)} against ${pct(r.effectiveness_k1_same_rows)}`).join("; ")}.`;
     }
     const outside = cells.filter((r) => r.effectiveness_k1_ci && (r.effectiveness_k1 < r.effectiveness_k1_ci.low || r.effectiveness_k1 > r.effectiveness_k1_ci.high));
     const footer = outside.length
@@ -93,8 +111,9 @@ function render(section, ctx) {
       title: `Effectiveness ranges from ${pct(lo.effectiveness_k1)} (${lo.voyage}, ${horizonShort(lo.horizon_months)}) to ${pct(hi.effectiveness_k1)} (${hi.voyage}, ${horizonShort(hi.horizon_months)})`,
       subtitle: "Share of the variance of the earnings surprise (gross TCE minus the FFA strip, USD a day) removed by a 5TC hedge, by voyage and by how far ahead of the fixture the hedge was placed. Percent.",
       legend: [
-        { label: "Hedge ratio 1:1, with its 90 percent interval", cls: "ffa", kind: "dot" },
-        { label: "Minimum variance ratio estimated on past fixtures only (out of sample), on the later fixtures where it exists; k = 1 on those same fixtures is in the tooltip and the summary", cls: "ink", kind: "diamond" },
+        { label: "k = 1, all fixtures, 90 percent interval", cls: "ffa", kind: "dot" },
+        { label: "Minimum variance ratio, out of sample", cls: "ink", kind: "diamond" },
+        { label: "k = 1 on the same later fixtures", cls: "ink", kind: "ring" },
       ],
       valueTitle: "k = 1",
       x: { title: "Variance removed, percent", format: (v, axis) => (axis ? pct(v, 0) : pct(v)) },
@@ -112,7 +131,7 @@ function render(section, ctx) {
   if (basis) {
     const share = hl.residual_variance_share || {};
     const fact = h("div", { class: "fact" },
-      h("dt", {}, "Basis left after the hedge"),
+      h("dt", {}, "Basis risk left (one standard deviation)"),
       h("dd", { class: "fact-value" }, `USD ${num(basis.value_usd_day)}`, " ", h("span", { class: "fact-unit" }, "a day")),
       h("dd", { class: "fact-detail" }, `Standard deviation of the hedged ${hl.voyage} result (${horizonShort(hl.horizon_months)}, k = 1) against ${usdDay(basis.unhedged_usd_day)} unhedged; ${plural(basis.n, "fixture", "fixtures")}.`));
     const parts = ["timing", "route", "size"].filter((k) => isNum(share[k]));
@@ -150,36 +169,10 @@ function render(section, ctx) {
   if (factEls.childElementCount) section.append(factEls);
 
   // ------------------------------------------------------ owner, charterer
-  const roles = h("div", { class: "roles" });
-  const text = h("div", { class: "prose" },
+  section.append(h("div", { class: "prose" },
     sectionHead("Owner or charterer: the same hedge, mirrored"),
-    h("p", {}, "An owner sells FFAs against the voyage it will fix; a charterer buys them against the hire it will pay. Both remove the same share of variance, because one position is the other with the sign reversed. Their profit and loss runs in opposite directions: when the settlement falls below the price, the owner's paper gains what its voyage loses, and the charterer's paper loses what its cheaper hire saves."),
-    h("p", {}, "A short pays (F minus S) times the days hedged, a long (S minus F); the owner hedges the days it will earn, net of commission, as the Method and data view sets out."));
-  roles.append(text);
-  const chartBox = h("div");
-  roles.append(chartBox);
-  section.append(roles);
-  const sd = hl.sd_unhedged_usd_day;
-  if (isNum(sd)) {
-    const pts = (sign) => [{ x: -sd, y: sign * sd }, { x: sd, y: -sign * sd }];
-    lineChart(chartBox, {
-      title: "Below the price the owner's paper gains; above it the charterer's does",
-      subtitle: `Paper profit and loss per FFA day against the settlement's distance from the price, USD, over plus or minus one standard deviation of the ${hl.voyage} surprise (${usdDay(sd)}).`,
-      legend: [
-        { label: "Owner, short FFA", cls: "owner", kind: "line" },
-        { label: "Charterer, long FFA", cls: "charterer", kind: "line" },
-      ],
-      height: SHAPE.rolesHeight,
-      x: { type: "linear", title: "Settlement minus FFA price, USD a day", format: (v) => signed(v) },
-      y: { title: "USD per FFA day", includeZero: true, format: (v) => signed(v) },
-      series: [
-        { cls: "owner", points: pts(1).map((p) => ({ ...p, tip: { title: `Settlement ${signed(p.x)} USD a day from the price`, rows: [{ key: "owner", value: signed(p.y), label: "owner (short), USD per FFA day" }, { key: "charterer", value: signed(-p.y), label: "charterer (long)" }] } })), dots: true },
-        { cls: "charterer", points: pts(-1), dots: true },
-      ],
-      summary: `An owner short one FFA day gains a dollar for every dollar the settlement falls below the price and loses the same when it rises; a charterer long the same day mirrors it. At one standard deviation of the surprise (${usdDay(sd)}) one side gains USD ${num(sd)} per FFA day and the other loses it.`,
-      source: `Source: the payoff of an FFA settled against the monthly average of the Baltic assessments (EEX Capesize 5TC futures, one day a lot; contract specification ${retrievedOf(ctx.data.manifest, "EEX")}).`,
-    });
-  }
+    h("p", {}, "An owner sells FFAs against the voyage it will fix; a charterer buys them against the hire it will pay. Both remove the same share of variance, because one position is the other with the sign reversed. Their profit and loss runs in opposite directions: when the settlement falls below the price, the owner's paper gains what its voyage loses, and the charterer's paper loses what its cheaper hire saves. Their tails differ, though: an owner's worst case is the lowest earnings and a charterer's the highest hire, so the hedge changes the two tails by different amounts (both are in the Data section)."),
+    h("p", {}, "A short receives (F minus S) per day hedged, and pays when that is negative; a long receives (S minus F). The owner hedges the days it will earn, net of commission; the payoff is drawn in the Method section.")));
 
   section.append(note(h("strong", {}, "A hedging study, not a trading strategy. "), "Roll cost and forward bias are costs and premiums a hedger faces when it rolls paper; the study reports them so a desk can price its hedge, not as a signal, a position size or a profit to chase."));
 
@@ -199,9 +192,33 @@ function render(section, ctx) {
             { term: "Residual", desc: formulas["Residual at k = 1"] || "TCE minus S, split into route, timing and size basis." },
             { term: "Intervals", desc: hl.effectiveness_k1_ci ? `Moving block bootstrap, ${num(hl.effectiveness_k1_ci.resamples)} resamples, fixed seed ${hl.effectiveness_k1_ci.seed}; the block is the horizon in weeks plus four (${listJoin(cells.filter((r) => r.voyage === hl.voyage).map((r) => `${r.effectiveness_k1_ci?.block} weeks at ${horizonShort(r.horizon_months)}`))}).` : "Moving block bootstrap." },
             { term: "Minimum variance ratio", desc: `k* = Cov(U, S minus F0) / Var(S minus F0), estimated on an expanding window of past fixtures only (fixtures whose last month settled before the hedge date, at least ${isNum(hl.k_window_min_fixtures) ? num(hl.k_window_min_fixtures) : "a year of"} of them) and applied to the next fixture; reported where the window is long enough, on the fixtures where it exists.` },
-            { term: "Tail risk", desc: "The reduction in the conditional value at risk of the surprise (the average of the worst 5 percent of outcomes), shown in the Data section." },
+            { term: "Tail risk", desc: "The change in the 5 percent conditional value at risk (the average of the worst 5 percent of outcomes), hedged against unhedged, for each side: an owner's worst outcomes are the lowest earnings, a charterer's the highest hire, so the two changes differ. For C3 and C5 it is measured with the route basis net of its average. Both are in the Data section." },
           ];
           body.append(defs(items));
+          const sd = hl.sd_unhedged_usd_day;
+          if (isNum(sd)) {
+            const box = h("div");
+            body.append(box);
+            const pts = (sign) => [{ x: -sd, y: sign * sd }, { x: sd, y: -sign * sd }];
+            lineChart(box, {
+              level: 3,
+              title: "Below the price the owner's paper gains; above it the charterer's does",
+              subtitle: `The payoff of one FFA day, not data: USD per FFA day against the settlement's distance from the price, over plus or minus one standard deviation of the ${hl.voyage} surprise (${usdDay(sd)}).`,
+              legend: [
+                { label: "Owner, short FFA", cls: "owner", kind: "line" },
+                { label: "Charterer, long FFA", cls: "charterer", kind: "line" },
+              ],
+              height: SHAPE.rolesHeight,
+              x: { type: "linear", title: "Settlement minus FFA price, USD a day", format: (v) => signed(v) },
+              y: { title: "USD per FFA day", includeZero: true, format: (v) => signed(v) },
+              series: [
+                { cls: "owner", points: pts(1).map((p) => ({ ...p, tip: { title: `Settlement ${signed(p.x)} USD a day from the price`, rows: [{ key: "owner", value: signed(p.y), label: "owner (short), USD per FFA day" }, { key: "charterer", value: signed(-p.y), label: "charterer (long)" }] } })), dots: true },
+                { cls: "charterer", points: pts(-1), dots: true },
+              ],
+              summary: `An owner short one FFA day receives a dollar for every dollar the settlement falls below the price and pays the same when it rises; a charterer long the same day mirrors it. At one standard deviation of the surprise (${usdDay(sd)}) one side gains USD ${num(sd)} per FFA day and the other loses it.`,
+              source: `Source: the payoff of an FFA settled against the monthly average of the Baltic assessments (EEX Capesize 5TC futures, one day a lot; contract specification ${retrievedOf(ctx.data.manifest, "EEX")}).`,
+            });
+          }
         },
       },
       {
@@ -211,7 +228,7 @@ function render(section, ctx) {
           const commission = engine?.constants?.CAPESIZE_COMMISSION_PCT;
           const items = [
             { term: "Hedge ratio", desc: "k = 1 (one FFA day per voyage day kept by the owner) unless the out-of-sample ratio is named." },
-            { term: "Commission", desc: isNum(commission) ? `${numTrim(commission)} percent total on the Capesize routes (Baltic Guide to Market Benchmarks): the voyage TCE is grossed up by it before it meets the gross 5TC, and the owner hedges the net share.` : "The route's total commission, from data/engine.json." },
+            { term: "Commission", desc: isNum(commission) ? `${numTrim(commission)} percent total on the Capesize routes (Baltic Guide to Market Benchmarks): the voyage TCE is grossed up by it before it meets the gross 5TC, and the owner hedges the net share.` : "The route's total commission, from the Baltic's route definitions." },
             { term: "Curve prints", desc: "The first print of each weekly curve; a curve re-assessed in the next issue is a robustness case (Method and data, robustness)." },
             { term: "Missing months", desc: "A voyage month not printed takes its quarter's price, flagged as a quarter proxy; the robustness table drops those fixtures." },
             { term: "Settlements", desc: "Exact months only in the headline: complete months from the study's own daily series and months whose average Himalaya Shipping published. Estimated months enter only the robustness checks." },
@@ -231,16 +248,17 @@ function render(section, ctx) {
               { key: "voyage", label: "Voyage" },
               { label: "Horizon", format: (r) => horizonShort(r.horizon_months) },
               { label: "Fixtures", num: true, format: (r) => num(r.n) },
-              { label: "Window", format: (r) => `${dateShort(r.first_fixture)} to ${dateShort(r.last_fixture)}` },
+              { label: "Window", format: (r) => `${dateLong(r.first_fixture)} to ${dateLong(r.last_fixture)}` },
               { label: "Removed, k = 1", num: true, format: (r) => pct(r.effectiveness_k1) },
               { label: "90% interval", num: true, format: (r) => (r.effectiveness_k1_ci ? `${pct(r.effectiveness_k1_ci.low)} to ${pct(r.effectiveness_k1_ci.high)}` : "") },
               { label: "Out of sample k*", num: true, format: (r) => (isNum(r.effectiveness_kstar_oos) ? `${pct(r.effectiveness_kstar_oos)} (n = ${r.n_oos})` : "") },
               { label: "k* in sample", num: true, format: (r) => (isNum(r.k_in_sample) ? num(r.k_in_sample, 3) : "") },
               { label: "SD unhedged, USD a day", num: true, format: (r) => num(r.sd_unhedged_usd_day) },
               { label: "SD hedged, USD a day", num: true, format: (r) => num(r.sd_hedged_usd_day) },
-              { label: "Tail risk cut (CVaR)", num: true, format: (r) => pct(r.cvar_reduction_k1) },
+              { label: "Change in 5% CVaR, owner / charterer (negative: tail worse)", num: true, format: (r) => `${pct(r.cvar_reduction_k1)} / ${pct(r.cvar_reduction_k1_charterer)}` },
             ],
             rows: effs,
+            note: cvarNote(effs),
           }));
           body.append(table({
             caption: "Where the hedged result's variance comes from (k = 1)",
@@ -266,7 +284,7 @@ function render(section, ctx) {
     ],
   });
   section.append(w.disclosuresEl);
-  return { update: w.update };
+  return { update: w.update, state: w.state };
 }
 
 export default {

@@ -127,3 +127,15 @@ def test_2026_month_lengths_match_the_baltic_prints():
 def test_previous_publication_day_skips_weekends_and_holidays():
     assert calendar.previous_publication_day("2026-04-07") == "2026-04-02"
     assert calendar.previous_publication_day("2026-07-06") == "2026-07-03"
+
+
+def test_no_publication_between_christmas_and_new_year():
+    # Reuters: "observed a week-long holiday from Dec. 25 to Dec. 29, 2023"; "will not be published until Jan. 2,
+    # 2025"; "will not publish data for the main index from December 25 through January 1, 2021".
+    for day in ("2023-12-27", "2023-12-28", "2023-12-29", "2024-12-27", "2024-12-30", "2024-12-31", "2020-12-31"):
+        assert not calendar.is_publication_day(day)
+    assert calendar.is_publication_day("2024-12-24")
+    assert calendar.is_publication_day("2025-01-02")
+    assert calendar.previous_publication_day("2024-01-02") == "2023-12-22"
+    assert calendar.previous_publication_day("2025-01-02") == "2024-12-24"
+    assert len(calendar.publication_days("2023-12")) == 16

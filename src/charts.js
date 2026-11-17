@@ -7,14 +7,14 @@
 // redraws only when its width changes.
 
 import { h, clear, nextId } from "./dom.js";
-import { num, tick, monthAbbr } from "./format.js";
+import { tick, monthAbbr } from "./format.js";
 
 const LAYOUT = Object.freeze({
   heightMin: 230, // literal: px, smallest plot height
   heightMax: 380, // literal: px, tallest plot height
   aspect: 0.5,
   top: 26,
-  bottom: 44,
+  bottom: 48,
   right: 14,
   tickGap: 10,
   minTickSpace: 64,
@@ -39,6 +39,9 @@ const LAYOUT = Object.freeze({
   labelGap: 8,
   yPad: 0.06,
   stackedLabel: 16,
+  stackForest: 480, // literal: px, below this width forest rows put their label above the interval
+  labelShare: 0.4, // a bar chart whose row labels would take more of the width puts them above the bars
+  tickY: 20,
   regular: 400, // literal: font weight of labels
   bold: 600, // literal: font weight of strong labels
 });
@@ -171,6 +174,7 @@ export function dayMs(iso) {
 function timeTicks(min, max, width) {
   const steps = [1, 2, 3, 6, 12, 24, 36];
   const startDate = new Date(min);
+  let single = null;
   for (const step of steps) {
     const ticks = [];
     let y = startDate.getUTCFullYear();
@@ -196,13 +200,19 @@ function timeTicks(min, max, width) {
       ticks.push({ v: t, label });
       m += step;
     }
-    if (ticks.length < 2) continue;
+    if (step < LAYOUT.monthsPerYear && ticks.length && !/\d{4}/.test(ticks[0].label)) ticks[0].label = `${ticks[0].label} ${new Date(ticks[0].v).getUTCFullYear()}`;
+    if (ticks.length < 2) {
+      // a range shorter than the step: one labelled tick is better than none
+      if (ticks.length === 1 && !single) single = ticks;
+      continue;
+    }
     const span = max - min || 1;
     const spacing = (width * (ticks[1].v - ticks[0].v)) / span;
-    const widest = Math.max(...ticks.map((t) => textWidth(t.label)));
-    if (spacing >= widest + LAYOUT.labelGap * 2) return ticks;
+    // neighbours share the space between them: the first label carries its year and is the widest
+    const need = Math.max(...ticks.slice(1).map((t, i) => (textWidth(ticks[i].label) + textWidth(t.label)) / 2)) + LAYOUT.labelGap * 2;
+    if (spacing >= need) return ticks;
   }
-  return [];
+  return single || [];
 }
 
 // ------------------------------------------------------------------ frame
@@ -216,8 +226,9 @@ function legendSwatch(kind, cls) {
   else if (kind === "linedot") sw.append(s("line", { x1: 1, y1: 6, x2: 17, y2: 6, class: `line s-${cls}` }), s("circle", { cx: 9, cy: 6, r: 3.5, class: `f-${cls}` }));
   else if (kind === "hollow") sw.append(s("circle", { cx: 9, cy: 6, r: 3.5, class: `dot hollow s-${cls}` }));
   else if (kind === "diamond") sw.append(s("path", { d: "M9 1.5 L13.5 6 L9 10.5 L4.5 6 Z", class: `dot hollow s-${cls}` }));
+  else if (kind === "ring") sw.append(s("circle", { cx: 9, cy: 6, r: 3, class: `dot hollow s-${cls}` }));
   else if (kind === "square") sw.append(s("rect", { x: 5, y: 2, width: 8, height: 8, class: `dot hollow s-${cls}` }));
-  else if (kind === "span") sw.append(s("line", { x1: 2, y1: 6, x2: 16, y2: 6, class: `span s-${cls}` }));
+  else if (kind === "span") sw.append(s("line", { x1: 1, y1: 6, x2: 17, y2: 6, class: `span s-${cls}` }), s("circle", { cx: 9, cy: 6, r: 3, class: `f-${cls}` }));
   else if (kind === "band") sw.append(s("rect", { x: 1, y: 1, width: 16, height: 10, class: `band f-${cls}` }));
   else if (kind === "outline") sw.append(s("rect", { x: 3, y: 1.5, width: 12, height: 9, rx: 1.5, class: "outline-bar" }));
   else if (kind === "hatch") {
@@ -428,7 +439,7 @@ function yAxis({ nodes, y, ticks, left, right, fmt, title, maxAbs }) {
   for (const t of ticks) {
     const py = Math.round(y(t)) + 0.5;
     grid.append(s("line", { x1: left, x2: right, y1: py, y2: py }));
-    nodes.push(s("text", { x: left - LAYOUT.tickGap, y: py + 4, "text-anchor": "end", text: fmt ? fmt(t) : tick(t, maxAbs) }));
+    nodes.push(s("text", { x: left - LAYOUT.tickGap, y: py + 4, "text-anchor": "end", text: fmt ? fmt(t, maxAbs) : tick(t, maxAbs) }));
   }
   nodes.unshift(grid);
   if (title) nodes.push(s("text", { x: 0, y: LAYOUT.fontSize, class: "axis-title", text: title }));
@@ -439,7 +450,7 @@ function xTitle(nodes, text, width, height) {
 }
 
 function tickMargin(ticks, fmt, maxAbs) {
-  return Math.ceil(Math.max(...ticks.map((t) => textWidth(fmt ? fmt(t) : tick(t, maxAbs))))) + LAYOUT.tickGap + 4;
+  return Math.ceil(Math.max(...ticks.map((t) => textWidth(fmt ? fmt(t, maxAbs) : tick(t, maxAbs))))) + LAYOUT.tickGap + 4;
 }
 
 function barPath(x, y0, y1, w, r) {
@@ -541,7 +552,7 @@ export function lineChart(container, opts) {
         const px = x(t.v);
         if (px < left - 1 || px > right + 1) continue;
         nodes.push(s("line", { x1: px, x2: px, y1: bottom, y2: bottom + 4, class: "axis-line" }));
-        nodes.push(xTickLabel(px, bottom + 17, t.label, width));
+        nodes.push(xTickLabel(px, bottom + LAYOUT.tickY, t.label, width));
       }
       nodes.push(s("line", { x1: left, x2: right, y1: bottom + 0.5, y2: bottom + 0.5, class: "axis-line" }));
       xTitle(nodes, opts.x.title, width, height);
@@ -584,7 +595,7 @@ export function lineChart(container, opts) {
           { x: left + 4, anchor: "start", y: py + 15, x0: left + 4 },
         ];
         const pick = spots.find((sp) => !clashes(sp.x0, sp.x0 + tw, sp.y - LAYOUT.fontSize, sp.y)) || spots[0];
-        nodes.push(s("text", { x: pick.x, y: pick.y, "text-anchor": pick.anchor, class: "label", text: r.label }));
+        nodes.push(s("text", { x: pick.x, y: pick.y, "text-anchor": pick.anchor, class: "label halo", text: r.label }));
       }
 
       const vlineNodes = [];
@@ -593,7 +604,7 @@ export function lineChart(container, opts) {
         vlineNodes.push(s("line", { x1: px, x2: px, y1: top, y2: bottom, class: v.cls ? `line thin ${v.dash ? "dash " : ""}s-${v.cls}` : "event-line" }));
         if (v.label) {
           const anchorEnd = px > right - textWidth(v.label) - 6;
-          vlineNodes.push(s("text", { x: anchorEnd ? px - 4 : px + 4, y: top + 10 + (v.row || 0) * 14, "text-anchor": anchorEnd ? "end" : "start", class: "label-strong", text: v.label }));
+          vlineNodes.push(s("text", { x: anchorEnd ? px - 4 : px + 4, y: top + 10 + (v.row || 0) * 14, "text-anchor": anchorEnd ? "end" : "start", class: "label-strong halo", text: v.label }));
         }
       });
       nodes.push(...vlineNodes);
@@ -601,7 +612,7 @@ export function lineChart(container, opts) {
       for (const sp of opts.spans || []) {
         const x0 = x(sp.x0);
         const x1 = x(sp.x1);
-        nodes.push(s("line", { x1: x0 + 2, x2: x1 - 2, y1: y(sp.y), y2: y(sp.y), class: `span s-${sp.cls}${sp.hollow ? " hollow-span" : ""}`, "stroke-opacity": sp.hollow ? 0.55 : null }));
+        nodes.push(s("line", { x1: x0 + 1, x2: x1 - 1, y1: y(sp.y), y2: y(sp.y), class: `span s-${sp.cls}${sp.hollow ? " hollow-span" : ""}` }));
       }
 
       const animated = [];
@@ -621,7 +632,7 @@ export function lineChart(container, opts) {
           for (const seg of segs) {
             if (seg.length < 2) continue;
             const d = `M${seg.map((p) => `${x(p.x).toFixed(1)},${y(p.y).toFixed(1)}`).join("L")}`;
-            const path = s("path", { d, class: `line s-${se.cls}${se.thin ? " thin" : ""}${se.dash ? " dash" : ""}` });
+            const path = s("path", { d, class: `line s-${se.cls}${se.thin ? " thin" : ""}${se.dash ? " dash" : ""}${se.muted ? " is-muted" : ""}` });
             nodes.push(path);
             if (se.animate) animated.push(path);
           }
@@ -630,14 +641,15 @@ export function lineChart(container, opts) {
           for (const p of pts) {
             const cx = x(p.x);
             const cy = y(p.y);
-            if (se.shape === "square") nodes.push(s("rect", { x: cx - 4, y: cy - 4, width: 8, height: 8, class: `dot hollow s-${se.cls}` }));
-            else if (p.hollow || se.hollow) nodes.push(s("circle", { cx, cy, r: se.r || LAYOUT.dotR, class: `dot hollow s-${p.cls || se.cls}` }));
-            else nodes.push(s("circle", { cx, cy, r: se.r || LAYOUT.dotR, class: `dot f-${p.cls || se.cls}` }));
+            const mute = se.muted ? " is-muted" : "";
+            if (se.shape === "square") nodes.push(s("rect", { x: cx - 4, y: cy - 4, width: 8, height: 8, class: `dot hollow s-${se.cls}${mute}` }));
+            else if (p.hollow || se.hollow) nodes.push(s("circle", { cx, cy, r: se.r || LAYOUT.dotR, class: `dot hollow s-${p.cls || se.cls}${mute}` }));
+            else nodes.push(s("circle", { cx, cy, r: se.r || LAYOUT.dotR, class: `dot f-${p.cls || se.cls}${mute}` }));
           }
         }
         if (se.endLabel && pts.length) {
           const last = pts[pts.length - 1];
-          nodes.push(s("text", { x: x(last.x) + LAYOUT.labelGap, y: y(last.y) + 4, class: "label-strong", text: se.endLabel }));
+          nodes.push(s("text", { x: x(last.x) + LAYOUT.labelGap, y: y(last.y) + 4, class: "label-strong halo", text: se.endLabel }));
         }
       }
       for (const sp of opts.spans || []) {
@@ -646,7 +658,7 @@ export function lineChart(container, opts) {
         nodes.push(s("circle", { cx, cy: y(sp.y), r: LAYOUT.dotR, class: sp.hollow ? `dot hollow s-${sp.cls}` : `dot f-${sp.cls}` }));
       }
       for (const lab of opts.labels || []) {
-        nodes.push(s("text", { x: x(lab.x) + (lab.dx || 0), y: y(lab.y) + (lab.dy || 0), "text-anchor": lab.anchor || "start", class: lab.strong ? "label-strong" : "label", text: lab.text }));
+        nodes.push(s("text", { x: x(lab.x) + (lab.dx || 0), y: y(lab.y) + (lab.dy || 0), "text-anchor": lab.anchor || "start", class: `${lab.strong ? "label-strong" : "label"} halo`, text: lab.text }));
       }
 
       // targets
@@ -700,17 +712,20 @@ export function forestChart(container, opts) {
     render(width) {
       const nodes = [];
       const values = [];
-      for (const g of opts.groups) for (const r of g.rows) values.push(r.est, r.lo, r.hi, r.extra?.value);
+      for (const g of opts.groups) for (const r of g.rows) values.push(r.est, r.lo, r.hi, r.extra?.value, r.extra?.same);
       const finite = values.filter(Number.isFinite);
-      const labelW = Math.ceil(Math.max(...opts.groups.flatMap((g) => [textWidth(g.label, LAYOUT.bold), ...g.rows.map((r) => textWidth(r.label, r.emph ? LAYOUT.bold : LAYOUT.regular) + 12)]))) + LAYOUT.labelGap;
+      // Below this width each row's label sits above its interval, so the interval gets the full width.
+      const stacked = width < LAYOUT.stackForest;
+      const rowH = stacked ? LAYOUT.rowHeight + LAYOUT.stackedLabel : LAYOUT.rowHeight;
+      const labelW = stacked ? 0 : Math.ceil(Math.max(...opts.groups.flatMap((g) => [textWidth(g.label, LAYOUT.bold), ...g.rows.map((r) => textWidth(r.label, r.emph ? LAYOUT.bold : LAYOUT.regular) + 12)]))) + LAYOUT.labelGap;
       const valueW = Math.ceil(Math.max(...opts.groups.flatMap((g) => g.rows.map((r) => textWidth(opts.x.format(r.est), LAYOUT.bold))))) + LAYOUT.labelGap * 2;
-      const left = labelW + LAYOUT.labelGap;
+      const left = stacked ? LAYOUT.labelGap : labelW + LAYOUT.labelGap;
       const right = width - valueW;
       const nt = fitAxis(Math.min(0, ...finite), Math.max(...finite), right - left, (t) => opts.x.format(t, true));
       let rowsN = 0;
       for (const g of opts.groups) rowsN += g.rows.length;
       const top = LAYOUT.top;
-      const bodyH = opts.groups.length * LAYOUT.groupHeight + rowsN * LAYOUT.rowHeight;
+      const bodyH = opts.groups.length * LAYOUT.groupHeight + rowsN * rowH;
       const bottom = top + bodyH;
       const height = bottom + LAYOUT.bottom;
       const x = scaleLinear(nt.lo, nt.hi, left, right);
@@ -718,7 +733,7 @@ export function forestChart(container, opts) {
       for (const t of nt.ticks) {
         const px = Math.round(x(t)) + 0.5;
         grid.append(s("line", { x1: px, x2: px, y1: top, y2: bottom }));
-        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + 17, opts.x.format(t, true), width));
+        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + LAYOUT.tickY, opts.x.format(t, true), width));
       }
       nodes.unshift(grid);
       nodes.push(s("line", { x1: left, x2: right, y1: bottom + 0.5, y2: bottom + 0.5, class: "axis-line" }));
@@ -728,15 +743,18 @@ export function forestChart(container, opts) {
       const targets = [];
       let cy = top;
       for (const g of opts.groups) {
-        nodes.push(s("text", { x: 0, y: cy + LAYOUT.groupHeight - 10, class: "label-strong", text: g.label }));
+        nodes.push(s("text", { x: 0, y: cy + LAYOUT.groupHeight - 10, class: "label-strong halo", text: g.label }));
         cy += LAYOUT.groupHeight;
         for (const r of g.rows) {
-          const my = cy + LAYOUT.rowHeight / 2;
-          nodes.push(s("text", { x: 12, y: my + 4, class: r.emph ? "label-strong" : "label", text: r.label }));
+          const my = stacked ? cy + LAYOUT.stackedLabel + LAYOUT.rowHeight / 2 : cy + rowH / 2;
+          nodes.push(s("text", { x: stacked ? 0 : 12, y: stacked ? cy + LAYOUT.fontSize + 2 : my + 4, class: `${r.emph ? "label-strong" : "label"} halo`, text: r.label }));
           if (Number.isFinite(r.lo) && Number.isFinite(r.hi)) {
             nodes.push(s("line", { x1: x(r.lo), x2: x(r.hi), y1: my, y2: my, class: "whisker s-ffa" }));
             nodes.push(s("line", { x1: x(r.lo), x2: x(r.lo), y1: my - 5, y2: my + 5, class: "whisker s-ffa" }));
             nodes.push(s("line", { x1: x(r.hi), x2: x(r.hi), y1: my - 5, y2: my + 5, class: "whisker s-ffa" }));
+          }
+          if (r.extra && Number.isFinite(r.extra.same)) {
+            nodes.push(s("circle", { cx: x(r.extra.same), cy: my, r: 3.5, class: "dot hollow s-ink" }));
           }
           if (r.extra && Number.isFinite(r.extra.value)) {
             const ex = x(r.extra.value);
@@ -747,7 +765,7 @@ export function forestChart(container, opts) {
             nodes.push(s("text", { x: width, y: my + 4, "text-anchor": "end", class: r.emph ? "label-strong" : "label", text: opts.x.format(r.est) }));
             targets.push({ x: x(r.est), y: my, r: r.emph ? 6 : 5, tip: r.tip });
           }
-          cy += LAYOUT.rowHeight;
+          cy += rowH;
         }
       }
       return { height, nodes, targets, plotTop: top, plotBottom: bottom };
@@ -889,8 +907,8 @@ export function barChart(container, opts) {
         const cx = left + band * i + band / 2;
         const bx = cx - bw / 2;
         if (i % labelEvery === 0) {
-          nodes.push(s("text", { x: cx, y: bottom + 17, "text-anchor": "middle", text: c.label }));
-          if (c.sub) nodes.push(s("text", { x: cx, y: bottom + 31, "text-anchor": "middle", text: c.sub }));
+          nodes.push(s("text", { x: cx, y: bottom + LAYOUT.tickY, "text-anchor": "middle", class: c.muted ? "muted-text" : null, text: c.label }));
+          if (c.sub) nodes.push(s("text", { x: cx, y: bottom + LAYOUT.tickY + 14, "text-anchor": "middle", class: c.muted ? "muted-text" : null, text: c.sub }));
         }
         let yTop = bottom;
         let yBot = bottom;
@@ -902,8 +920,9 @@ export function barChart(container, opts) {
             const y1 = y(acc + sg.v);
             const last = j === segs.length - 1;
             const gap = j > 0 ? 1 : 0;
-            if (last) nodes.push(s("path", { d: barPath(bx, y0 - gap, y1, bw, LAYOUT.barRadius), class: `bar f-${sg.st.cls}` }));
-            else nodes.push(s("rect", { x: bx, y: y1 + 1, width: bw, height: Math.max(0, y0 - y1 - 1 - gap), class: `bar f-${sg.st.cls}` }));
+            const mute = c.muted ? " is-muted" : "";
+            if (last) nodes.push(s("path", { d: barPath(bx, y0 - gap, y1, bw, LAYOUT.barRadius), class: `bar f-${sg.st.cls}${mute}` }));
+            else nodes.push(s("rect", { x: bx, y: y1 + 1, width: bw, height: Math.max(0, y0 - y1 - 1 - gap), class: `bar f-${sg.st.cls}${mute}` }));
             acc += sg.v;
           });
           yTop = y(acc);
@@ -945,53 +964,62 @@ export function hbarChart(container, opts) {
     mode: "xy",
     render(width) {
       const nodes = [];
-      const vals = opts.groups.flatMap((g) => g.rows.map((r) => r.value)).filter(Number.isFinite);
-      const labelW = Math.ceil(Math.max(...opts.groups.flatMap((g) => g.rows.map((r) => textWidth(r.label))))) + LAYOUT.labelGap * 2;
-      const valW = Math.ceil(Math.max(...opts.groups.flatMap((g) => g.rows.map((r) => textWidth(r.valueLabel || ""))))) + LAYOUT.labelGap;
+      const rowsAll = opts.groups.flatMap((g) => g.rows);
+      const vals = rowsAll.map((r) => r.value).filter(Number.isFinite);
+      const labelText = Math.ceil(Math.max(...rowsAll.map((r) => textWidth(r.label))));
+      // long row labels on a narrow chart go above their bars, so the bars keep the width
+      const stacked = labelText + LAYOUT.labelGap * 2 + 12 > width * LAYOUT.labelShare;
+      const rowH = stacked ? LAYOUT.rowHeight + LAYOUT.stackedLabel : LAYOUT.rowHeight;
+      const labelW = stacked ? 12 : labelText + LAYOUT.labelGap * 2;
+      const valW = Math.ceil(Math.max(...rowsAll.map((r) => textWidth(r.valueLabel || "")))) + LAYOUT.labelGap;
       const left = labelW + valW;
       const right = width - valW;
-      const hfmt = (t) => (opts.x.format ? opts.x.format(t) : tick(t, Math.max(...vals.map(Math.abs))));
+      const hMax = Math.max(...vals.map(Math.abs));
+      const hfmt = (t) => (opts.x.format ? opts.x.format(t, hMax) : tick(t, hMax));
       const nt = fitAxis(Math.min(0, ...vals), Math.max(0, ...vals), right - left, hfmt);
-      let rowsN = 0;
-      for (const g of opts.groups) rowsN += g.rows.length;
-      const top = LAYOUT.top + (opts.sides ? 16 : 0);
-      const bottom = top + opts.groups.length * LAYOUT.groupHeight + rowsN * LAYOUT.rowHeight;
-      const height = bottom + LAYOUT.bottom;
       const x = scaleLinear(nt.lo, nt.hi, left, right);
+      // the two sides' names sit either side of zero; when the right one does not fit, it goes a line up
+      const sidesSplit = opts.sides && x(0) + 6 + textWidth(opts.sides.pos, LAYOUT.bold) > width;
+      const top = LAYOUT.top + (opts.sides ? (sidesSplit ? 32 : 16) : 0);
+      const bottom = top + opts.groups.length * LAYOUT.groupHeight + rowsAll.length * rowH;
+      const height = bottom + LAYOUT.bottom;
       const grid = s("g", { class: "grid" });
       for (const t of nt.ticks) {
         const px = Math.round(x(t)) + 0.5;
         grid.append(s("line", { x1: px, x2: px, y1: top, y2: bottom }));
-        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + 17, hfmt(t), width));
+        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + LAYOUT.tickY, hfmt(t), width));
       }
       nodes.unshift(grid);
       nodes.push(s("line", { x1: left, x2: right, y1: bottom + 0.5, y2: bottom + 0.5, class: "axis-line" }));
       nodes.push(s("line", { x1: x(0), x2: x(0), y1: top - 4, y2: bottom, class: "zero" }));
       if (opts.sides) {
         nodes.push(s("text", { x: x(0) - 6, y: top - 10, "text-anchor": "end", class: "label-strong", text: opts.sides.neg }));
-        nodes.push(s("text", { x: x(0) + 6, y: top - 10, "text-anchor": "start", class: "label-strong", text: opts.sides.pos }));
+        if (sidesSplit) nodes.push(s("text", { x: width, y: top - 26, "text-anchor": "end", class: "label-strong", text: opts.sides.pos }));
+        else nodes.push(s("text", { x: x(0) + 6, y: top - 10, "text-anchor": "start", class: "label-strong", text: opts.sides.pos }));
       }
       xTitle(nodes, opts.x.title, width, height);
       const targets = [];
       let cy = top;
       const bh = Math.min(LAYOUT.barMax, LAYOUT.rowHeight - 12);
       for (const g of opts.groups) {
-        nodes.push(s("text", { x: 0, y: cy + LAYOUT.groupHeight - 10, class: "label-strong", text: g.label }));
+        nodes.push(s("text", { x: 0, y: cy + LAYOUT.groupHeight - 10, class: "label-strong halo", text: g.label }));
         cy += LAYOUT.groupHeight;
         for (const r of g.rows) {
-          const by = cy + (LAYOUT.rowHeight - bh) / 2;
-          nodes.push(s("text", { x: 12, y: cy + LAYOUT.rowHeight / 2 + 4, class: "label", text: r.label }));
+          const barTop = stacked ? cy + LAYOUT.stackedLabel : cy;
+          const by = barTop + (LAYOUT.rowHeight - bh) / 2;
+          const ly = stacked ? cy + LAYOUT.stackedLabel - 2 : cy + LAYOUT.rowHeight / 2 + 4;
+          nodes.push(s("text", { x: 12, y: ly, class: `label halo${r.muted ? " muted-text" : ""}`, text: r.label }));
           if (Number.isFinite(r.value)) {
             const x0 = x(0);
             const x1 = x(r.value);
-            nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), class: `bar f-${r.cls}` }));
+            nodes.push(s("path", { d: hbarPath(x0, x1, by, bh, LAYOUT.barRadius), class: `bar f-${r.cls}${r.muted ? " is-muted" : ""}` }));
             if (r.valueLabel) {
               const pos = r.value >= 0;
-              nodes.push(s("text", { x: pos ? x1 + 6 : x1 - 6, y: by + bh / 2 + 4, "text-anchor": pos ? "start" : "end", class: "label", text: r.valueLabel }));
+              nodes.push(s("text", { x: pos ? x1 + 6 : x1 - 6, y: by + bh / 2 + 4, "text-anchor": pos ? "start" : "end", class: "label halo", text: r.valueLabel }));
             }
             targets.push({ x: x1, y: by + bh / 2, box: { x: Math.min(x0, x1), y: by, w: Math.max(2, Math.abs(x1 - x0)), h: bh }, tip: r.tip });
           }
-          cy += LAYOUT.rowHeight;
+          cy += rowH;
         }
       }
       return { height, nodes, targets };
@@ -1030,8 +1058,8 @@ export function stripChart(container, opts) {
         const cx = left + band * i + band * 0.42;
         const fits = (t) => textWidth(t) <= band - 6;
         const label = fits(c.label) || !c.short ? c.label : c.short;
-        nodes.push(s("text", { x: left + band * i + band / 2, y: bottom + 17, "text-anchor": "middle", class: "label", text: label }));
-        if (c.sub) nodes.push(s("text", { x: left + band * i + band / 2, y: bottom + 31, "text-anchor": "middle", text: fits(c.sub) || !c.subShort ? c.sub : c.subShort }));
+        nodes.push(s("text", { x: left + band * i + band / 2, y: bottom + LAYOUT.tickY, "text-anchor": "middle", class: "label", text: label }));
+        if (c.sub) nodes.push(s("text", { x: left + band * i + band / 2, y: bottom + LAYOUT.tickY + 14, "text-anchor": "middle", text: fits(c.sub) || !c.subShort ? c.sub : c.subShort }));
         // simple dodge: points in the same 9px row step sideways
         const rows = new Map();
         const pts = c.points.filter((pp) => Number.isFinite(pp.y)).map((pp) => ({ ...pp, py: y(pp.y) })).sort((a, b) => a.py - b.py);
@@ -1105,7 +1133,8 @@ export function waterfallChart(container, opts) {
       const valW = Math.ceil(Math.max(...bars.map((b) => textWidth(b.valueLabel || "")))) + LAYOUT.labelGap;
       const left = labelW + valW;
       const right = width - valW;
-      const wfmt = (t) => (opts.x.format ? opts.x.format(t) : tick(t, Math.max(...vals.map(Math.abs))));
+      const wMax = Math.max(...vals.map(Math.abs));
+      const wfmt = (t) => (opts.x.format ? opts.x.format(t, wMax) : tick(t, wMax));
       const nt = fitAxis(Math.min(0, ...vals), Math.max(0, ...vals), right - left, wfmt);
       const top = LAYOUT.top;
       const bottom = top + bars.length * rowH;
@@ -1115,7 +1144,7 @@ export function waterfallChart(container, opts) {
       for (const t of nt.ticks) {
         const px = Math.round(x(t)) + 0.5;
         grid.append(s("line", { x1: px, x2: px, y1: top, y2: bottom }));
-        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + 17, wfmt(t), width));
+        if (nt.labelled(t)) nodes.push(xTickLabel(px, bottom + LAYOUT.tickY, wfmt(t), width));
       }
       nodes.unshift(grid);
       nodes.push(s("line", { x1: left, x2: right, y1: bottom + 0.5, y2: bottom + 0.5, class: "axis-line" }));
@@ -1126,7 +1155,7 @@ export function waterfallChart(container, opts) {
       bars.forEach((b, i) => {
         const ry = top + i * rowH;
         const by = stacked ? ry + LAYOUT.stackedLabel + (LAYOUT.rowHeight - bh) / 2 : ry + (rowH - bh) / 2;
-        nodes.push(s("text", { x: 0, y: stacked ? ry + LAYOUT.fontSize + 2 : ry + rowH / 2 + 4, class: b.kind === "total" ? "label-strong" : "label", text: b.label }));
+        nodes.push(s("text", { x: 0, y: stacked ? ry + LAYOUT.fontSize + 2 : ry + rowH / 2 + 4, class: `${b.kind === "total" ? "label-strong" : "label"} halo`, text: b.label }));
         const x0 = x(b.a);
         const x1 = x(b.b);
         if (b.outline) nodes.push(s("rect", { x: Math.min(x0, x1), y: by, width: Math.max(1, Math.abs(x1 - x0)), height: bh, rx: 2, class: "outline-bar" }));
@@ -1138,7 +1167,7 @@ export function waterfallChart(container, opts) {
         }
         if (b.valueLabel) {
           const pos = b.b >= b.a;
-          nodes.push(s("text", { x: pos ? Math.max(x0, x1) + 6 : Math.min(x0, x1) - 6, y: by + bh / 2 + 4, "text-anchor": pos ? "start" : "end", class: "label", text: b.valueLabel }));
+          nodes.push(s("text", { x: pos ? Math.max(x0, x1) + 6 : Math.min(x0, x1) - 6, y: by + bh / 2 + 4, "text-anchor": pos ? "start" : "end", class: "label halo", text: b.valueLabel }));
         }
         targets.push({ x: x1, y: by + bh / 2, box: { x: Math.min(x0, x1), y: by, w: Math.max(2, Math.abs(x1 - x0)), h: bh }, tip: b.tip });
       });

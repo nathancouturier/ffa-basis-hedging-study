@@ -146,6 +146,36 @@ def price(curve: dict[str, Any], month: str, allow_proxy: bool = True) -> tuple[
     return None, False
 
 
+def quarter_price(curve: dict[str, Any], quarter: str) -> tuple[float | None, bool]:
+    """A quarter's FFA on a curve: the quarter as printed, else the average of its three months when the curve
+    prints all three (a quarter is the average of its months, EEX release 047a); the flag says it was derived."""
+    if quarter in curve["tenors"]:
+        return curve["tenors"][quarter], False
+    months = engine.quarter_months(quarter)
+    if all(m in curve["tenors"] for m in months):
+        return sum(curve["tenors"][m] for m in months) / 3.0, True
+    return None, False
+
+
+def curve_quarters(curve: dict[str, Any]) -> dict[str, float]:
+    """Every quarter a curve prices, printed or derived from its three printed months, oldest first."""
+    candidates = {p for p in curve["tenors"] if "-Q" in p} | {
+        engine.quarter_of(p) for p in curve["tenors"] if p[5:6].isdigit()
+    }
+    out = {}
+    for q in sorted(candidates):
+        value, _ = quarter_price(curve, q)
+        if value is not None:
+            out[q] = value
+    return out
+
+
+def curves_back(curves: list[dict[str, Any]], on_or_before: str, max_days: int) -> list[dict[str, Any]]:
+    """The curves printed on or before a date and at most max_days before it, latest first."""
+    limit = dt.date.fromisoformat(on_or_before) - dt.timedelta(days=max_days)
+    return [c for c in reversed(curves) if limit <= dt.date.fromisoformat(c["date"]) and c["date"] <= on_or_before]
+
+
 def latest_curve(curves: list[dict[str, Any]], on_or_before: str) -> dict[str, Any] | None:
     best = None
     for curve in curves:
@@ -176,7 +206,8 @@ def curve_shape(panel: dict[str, Any], curves: list[dict[str, Any]]) -> list[dic
         date, basket = curve["date"], curve["basket_t"]
         spot, spot_day = spot_on_or_before(panel, date, basket)
         months = sorted(p for p in curve["tenors"] if p[5:6].isdigit())
-        quarters = sorted(p for p in curve["tenors"] if "-Q" in p)
+        qprice = curve_quarters(curve)
+        quarters = list(qprice)
         front = date[:7] if date[:7] in curve["tenors"] else (months[0] if months else None)
         row: dict[str, Any] = {
             "date": date,
@@ -184,6 +215,7 @@ def curve_shape(panel: dict[str, Any], curves: list[dict[str, Any]]) -> list[dic
             "year": int(date[:4]),
             "month": int(date[5:7]),
             "spot_day": spot_day if spot is not None else None,
+            "derived_quarters": [q for q in quarters if q not in curve["tenors"]],
         }
         if front and spot is not None:
             row["front_minus_spot"] = curve["tenors"][front] - spot
@@ -203,32 +235,37 @@ def curve_shape(panel: dict[str, Any], curves: list[dict[str, Any]]) -> list[dic
                 )
         quarter_spreads = []
         for a, b in itertools.pairwise(quarters):
+            if engine.months_between(engine.quarter_months(a)[0], engine.quarter_months(b)[0]) != 3:
+                continue
             quarter_spreads.append(
                 {
                     "from": a,
                     "to": b,
-                    "spread": curve["tenors"][b] - curve["tenors"][a],
-                    "shape": engine.shape(curve["tenors"][a], curve["tenors"][b]),
+                    "spread": qprice[b] - qprice[a],
+                    "shape": engine.shape(qprice[a], qprice[b]),
                 }
             )
         row["month_spreads"] = month_spreads
         row["quarter_spreads"] = quarter_spreads
-        if month_spreads:
-            row["front_spread"] = month_spreads[0]["spread"]
-            row["front_spread_shape"] = month_spreads[0]["shape"]
+        # The front month against the month after it, when the curve prints both.
+        after = engine.add_months(front, 1) if front else None
+        if front and after in curve["tenors"]:
+            row["front_spread"] = curve["tenors"][after] - curve["tenors"][front]
+            row["front_spread_shape"] = engine.shape(curve["tenors"][front], curve["tenors"][after])
         # Slope: the first quarter that starts after the front month, against the front month, in percent of spot.
         if front and spot:
             later = [q for q in quarters if engine.quarter_months(q)[0] > front]
             if later:
-                row["slope_pct"] = (curve["tenors"][later[0]] - curve["tenors"][front]) / spot
+                row["slope_pct"] = (qprice[later[0]] - curve["tenors"][front]) / spot
                 row["slope_quarter"] = later[0]
-        # The first-quarter discount: Q1 of next year against Q4 of this one, when both are printed.
+        # The first-quarter discount: Q1 of next year against Q4 of this one, when the curve prices both
+        # (printed, or as the average of the quarter's three printed months).
         for q in quarters:
             if q.endswith("Q4"):
                 nxt = "%d-Q1" % (int(q[:4]) + 1)
-                if nxt in curve["tenors"]:
-                    row["q1_minus_q4"] = curve["tenors"][nxt] - curve["tenors"][q]
-                    row["q1_minus_q4_pct"] = row["q1_minus_q4"] / curve["tenors"][q]
+                if nxt in qprice:
+                    row["q1_minus_q4"] = qprice[nxt] - qprice[q]
+                    row["q1_minus_q4_pct"] = row["q1_minus_q4"] / qprice[q]
         rows.append(row)
     return rows
 
@@ -296,7 +333,9 @@ def forecast_errors(
     settle: dict[str, dict[str, Any]],
     statuses: Iterable[str] = EXACT,
 ) -> list[dict[str, Any]]:
-    """For every settled contract month and horizon h: error = settlement - price on the last curve of month M - h.
+    """For every settled contract month and horizon h: error = settlement - price on the last curve of month M - h
+    that prints contract M (a page whose row for M was not read, an OCR row that failed its week-on-week check,
+    gives way to the week before it in the same month; the row says so).
 
     Positive: the contract settled above the price paid, a gain to the long (the charterer) and a cost to
     the short (the owner). The roll cost a rolling long pays is the negative: price paid - settlement.
@@ -314,9 +353,10 @@ def forecast_errors(
             candidates = by_month.get(source_month)
             if not candidates:
                 continue
-            curve = candidates[-1]
-            if month not in curve["tenors"]:
+            printing = [c for c in candidates if month in c["tenors"]]
+            if not printing:
                 continue
+            curve = printing[-1]
             f = curve["tenors"][month]
             s = settlement_in(settle, month, curve["basket_t"])
             if s is None:
@@ -335,6 +375,7 @@ def forecast_errors(
                     "error_pct": (s - f) / s,
                     "naive_error_usd_day": None if spot is None else s - spot,
                     "flagged": any(fl.get("period") == month for fl in curve["flags"]),
+                    "not_last_curve": curve is not candidates[-1],
                 }
             )
     return rows
@@ -343,7 +384,8 @@ def forecast_errors(
 def quarter_errors(
     curves: list[dict[str, Any]], settle: dict[str, dict[str, Any]], statuses: Iterable[str] = EXACT
 ) -> list[dict[str, Any]]:
-    """The front quarter bought on the last curve before it starts, held to the average of its three months."""
+    """The front quarter bought on the last curve before it starts that prices it (as printed, or as the average
+    of its three printed months), held to the average of its three months' settlements."""
     allowed = set(statuses)
     rows = []
     quarters = sorted({engine.quarter_of(m) for m in settle})
@@ -352,7 +394,7 @@ def quarter_errors(
         if not all(m in settle and settle[m]["status"] in allowed for m in months):
             continue
         before = engine.add_months(months[0], -1)
-        candidates = [c for c in curves if c["date"][:7] == before and quarter in c["tenors"]]
+        candidates = [c for c in curves if c["date"][:7] == before and quarter_price(c, quarter)[0] is not None]
         if not candidates:
             continue
         curve = candidates[-1]
@@ -360,7 +402,7 @@ def quarter_errors(
         if None in values:
             continue
         s = sum(values) / 3.0
-        f = curve["tenors"][quarter]
+        f, derived = quarter_price(curve, quarter)
         rows.append(
             {
                 "contract": quarter,
@@ -371,6 +413,7 @@ def quarter_errors(
                 "error_usd_day": s - f,
                 "error_pct": (s - f) / s,
                 "statuses": sorted({settle[m]["status"] for m in months}),
+                "from_months": derived,
             }
         )
     return rows
@@ -381,13 +424,24 @@ def block_months(h: int) -> int:
     return max(1, math.ceil((WEEKS_PER_MONTH * h + 4.0) / WEEKS_PER_MONTH))
 
 
-def error_summary(rows: list[dict[str, Any]], h: int | None = None) -> dict[str, Any] | None:
+WEEKS_PER_QUARTER = 52.0 / 4.0
+
+
+def block_quarters() -> int:
+    """The bootstrap block for front-quarter errors, one row a quarter: the horizon to the quarter's last month
+    (three months, 13 weeks) plus four weeks, in quarters."""
+    return max(1, math.ceil((WEEKS_PER_QUARTER + 4.0) / WEEKS_PER_QUARTER))
+
+
+def error_summary(rows: list[dict[str, Any]], h: int | None = None, quarters: bool = False) -> dict[str, Any] | None:
+    """Mean, median, RMSE and share positive of the errors at horizon h (or of front-quarter rows), with moving
+    block bootstrap intervals; the block is counted in rows, months or quarters."""
     sel = [r for r in rows if h is None or r.get("horizon_months") == h]
     if len(sel) < 3:
         return None
     errors = [r["error_usd_day"] for r in sel]
     pct = [r["error_pct"] for r in sel]
-    block = block_months(h or 3)
+    block = block_quarters() if quarters else block_months(h or 3)
     out = {
         "n": len(sel),
         "mean_usd_day": stats.mean(errors),
@@ -399,6 +453,8 @@ def error_summary(rows: list[dict[str, Any]], h: int | None = None) -> dict[str,
         "rmse_ci": stats.block_bootstrap(errors, stats.rmse, block),
         "first": sel[0].get("contract"),
         "last": sel[-1].get("contract"),
+        "block": block,
+        "block_unit": "quarters" if quarters else "months",
     }
     # The naive forecast (the spot on the pricing date) is compared on the rows that have that spot print,
     # the FFA's RMSE recomputed on the same rows so the ratio compares like with like.

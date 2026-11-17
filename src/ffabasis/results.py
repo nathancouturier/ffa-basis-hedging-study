@@ -183,7 +183,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
         "errors": errors,
         "bias": {h: analysis.error_summary(errors, h) for h in analysis.HORIZONS},
         "quarter_errors": quarters,
-        "quarter_bias": analysis.error_summary(quarters),
+        "quarter_bias": analysis.error_summary(quarters, quarters=True),
         "roll_1m": analysis.roll_cost_by_year(errors, 1),
         "roll_quarter": analysis.roll_cost_by_year(
             [dict(q, horizon_months=1, contract=q["contract"][:4]) for q in quarters], 1

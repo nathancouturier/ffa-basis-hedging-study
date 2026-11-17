@@ -62,12 +62,37 @@ export function setTakeaway(el, viewName, sentence) {
   el.append(h("span", { class: "vh" }, `${viewName}: `), document.createTextNode(sentence));
 }
 
+// a header longer than `wrap` characters gets a minimum width of its length over `per` (in ch), at most
+// `maxCh`: with whole words to a line that wraps it to about three lines
+const HEAD = Object.freeze({ wrap: 12, per: 2.4, maxCh: 16 });
+
+/**
+ * A box that scrolls sideways fades on the side that has more to show (classes more-left, more-right),
+ * so a table wider than a phone says so before anyone tries to scroll it.
+ */
+export function scrollCue(el) {
+  const sync = () => {
+    const more = el.scrollWidth - el.clientWidth;
+    el.classList.toggle("more-left", more > 2 && el.scrollLeft > 2);
+    el.classList.toggle("more-right", more > 2 && el.scrollLeft < more - 2);
+  };
+  el.addEventListener("scroll", sync, { passive: true });
+  if (typeof ResizeObserver !== "undefined") {
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+  }
+  return sync;
+}
+
 /**
  * Table: columns [{ key, label, num?, format?(row) -> string|Node }], rows [...].
  * Wrapped in a focusable region that scrolls sideways inside its own box.
  */
 export function table({ caption, columns, rows, note: tableNote, label, rowAttrs, limit, wrap: wrapText = false }) {
-  const thead = h("thead", {}, h("tr", {}, columns.map((c) => h("th", { scope: "col", class: c.num ? "num" : null }, c.label))));
+  // a long header over a narrow column would stack word by word: give it room for whole words
+  const headStyle = (c) => (typeof c.label === "string" && c.label.length > HEAD.wrap ? `min-width: ${Math.min(HEAD.maxCh, Math.ceil(c.label.length / HEAD.per))}ch` : null);
+  const thead = h("thead", {}, h("tr", {}, columns.map((c) => h("th", { scope: "col", class: c.num ? "num" : null, style: headStyle(c) }, c.label))));
   const tbody = h("tbody");
   const cut = limit && rows.length > limit + 2 ? limit : null;
   const extra = [];
@@ -88,6 +113,7 @@ export function table({ caption, columns, rows, note: tableNote, label, rowAttrs
   });
   const tableEl = h("table", { class: wrapText ? null : "is-compact" }, caption ? h("caption", { class: "vh" }, caption) : null, thead, tbody);
   const wrap = h("div", { class: "table-wrap", role: "region", tabindex: "0", "aria-label": label || caption || "Table" }, tableEl);
+  scrollCue(wrap);
   const out = h("div", { class: "table-block" });
   if (caption) out.append(h("p", { class: "table-caption", "aria-hidden": "true" }, caption));
   out.append(wrap);

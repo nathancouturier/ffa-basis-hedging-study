@@ -23,7 +23,20 @@ Pre-registered rules (docs/methodology.md):
   reprinted the previous assessment under new dates (weeks 28 and 29 of 2025
   repeat 30 June 2025, whose printed premium matches that day's spot). Such a
   curve is flagged and not used, and its previous-week column is not a reprint.
-* Flags never change a value. The analysis reports its results on first
+* Stale month labels (added after a review). A page that prints a month
+  before its own date carries the previous layout's labels: if, read one month
+  on, each quarter whose three months are printed equals their average to the
+  dollar (as on every other page), the months are read one month on (week 48
+  of 2024, dated 2 December 2024, prints the December to May prices as "Nov-24"
+  to "Apr-25"); otherwise its months are left out and its quarters kept.
+  Flagged either way.
+* Copied previous column (added after a review). A previous-week column whose
+  figures sit in the earlier page under other tenors (at least three, none
+  under its own) copies that page into rows relabelled for the new date (1
+  July 2024 repeats 24 June 2024 one row down): flagged, not a reprint, and no
+  one-week move is measured against it.
+* Flags never change a value, except the stale-label rule, which says what a
+  page's rows are. The analysis reports its results on first
   prints and, as a sensitivity, with flagged prints replaced by the reprint
   where one exists.
 """
@@ -123,7 +136,11 @@ def curves(chosen: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             for t in ffa["tenors"]
             if t["current"] is not None and (not ocr or _wow_consistent(t))
         }
+        tenors, relabel, stale = stale_month_labels(date, tenors)
         record = out.setdefault(date, {"assessed_on": date, "tenors": {}, "flags": []})
+        if stale is not None and not record["tenors"]:
+            key = issue_key(issue["year"], issue["week"])
+            record["flags"].append({"rule": "stale_month_labels", "issue": key, **stale})
         printed = {p: v["usd_day"] for p, v in tenors.items()}
         repeated_from = None
         if last is not None and last[0] != date:
@@ -149,8 +166,17 @@ def curves(chosen: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             previous_on=ffa["previous_on"],
         )
         # The previous-week column of this issue reprints the curve of previous_on.
-        reprint = {t["period"]: t["previous"] for t in ffa["tenors"] if t["previous"] is not None}
+        reprint = {
+            relabel.get(t["period"], t["period"]): t["previous"]
+            for t in ffa["tenors"]
+            if t["previous"] is not None and relabel.get(t["period"], t["period"]) is not None
+        }
         prior = out.setdefault(ffa["previous_on"], {"assessed_on": ffa["previous_on"], "tenors": {}, "flags": []})
+        if rolled_copy(reprint, {p: v["usd_day"] for p, v in prior["tenors"].items()}):
+            # The previous-week column copies the earlier page's figures into rows relabelled for the new
+            # date: not a re-assessment, so neither a reprint nor a base for one-week moves.
+            prior["flags"].append({"rule": "previous_column_copied", "issue": issue_key(issue["year"], issue["week"])})
+            continue
         prior.setdefault("reprints", []).append(
             {"issue": issue_key(issue["year"], issue["week"]), "url": issue["url"], "tenors": reprint}
         )
@@ -158,6 +184,47 @@ def curves(chosen: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         _reprint_flags(record)
         _move_flags(record, out)
     return dict(sorted(out.items()))
+
+
+def rolled_copy(column: dict[str, float], first: dict[str, float], at_least: int = 3) -> bool:
+    """A previous-week column that repeats the earlier page's figures under other rows: at least three of its
+    values sit in that page under another tenor, and none under its own."""
+    values = set(first.values())
+    same = sum(1 for p, v in column.items() if first.get(p) == v)
+    moved = sum(1 for p, v in column.items() if v in values and first.get(p) != v)
+    return moved >= at_least and same == 0
+
+
+#: A printed quarter matches the average of its three months to within this many dollars a day.
+QUARTER_CHECK_USD = 2.0
+
+
+def stale_month_labels(
+    date: str, tenors: dict[str, dict[str, Any]]
+) -> tuple[dict[str, dict[str, Any]], dict[str, str | None], dict[str, Any] | None]:
+    """A page that prints a month before its own date carries the previous layout's month labels.
+
+    Banchero Costa's quarters are the average of their months to the dollar. If moving every month label one
+    month on makes each quarter whose three months are printed equal their average (at least one, none against),
+    the months are read one month on; otherwise the page's months are left out and its quarters kept. Returns
+    the tenors, the period map applied to the page's other columns (None: dropped) and the flag, or None.
+    """
+    months = {p: v for p, v in tenors.items() if v["kind"] == "month"}
+    if not any(p < date[:7] for p in months):
+        return tenors, {}, None
+    shifted = {engine.add_months(p, 1): v for p, v in months.items()}
+    quarters = {p: v for p, v in tenors.items() if v["kind"] == "quarter"}
+    checked, against = [], []
+    for q, v in quarters.items():
+        parts = engine.quarter_months(q)
+        if all(m in shifted for m in parts):
+            mean = sum(shifted[m]["usd_day"] for m in parts) / 3.0
+            (checked if abs(mean - v["usd_day"]) <= QUARTER_CHECK_USD else against).append(q)
+    if checked and not against:
+        relabel = {p: engine.add_months(p, 1) for p in months}
+        out = {relabel[p]: dict(v, label_printed=v["label"]) for p, v in months.items()} | quarters
+        return out, relabel, {"months_read_one_month_on": len(months), "quarters_checked": sorted(checked)}
+    return quarters, dict.fromkeys(months), {"months_left_out": len(months)}
 
 
 def _wow_consistent(tenor: dict[str, Any]) -> bool:

@@ -3,16 +3,33 @@
 
 import { h, takeaway, table, defs, clear } from "./dom.js";
 import { barChart } from "./charts.js";
-import { num, numTrim, pct, signed, signedPct, dateLong, dateShort, monthShort, tenorLabel, plural, listJoin, isNum, capitalise, horizonLabel, usdDay } from "./format.js";
+import { num, numTrim, pct, signed, signedPct, dateLong, tenorLabel, plural, listJoin, isNum, capitalise, horizonLabel } from "./format.js";
 import { exists } from "./data.js";
-import { wire, csvLink, basketRule } from "./view-kit.js";
+import { wire, csvLink, basketRule, sourceLine } from "./view-kit.js";
 
 const FLAG_RULES = Object.freeze({
   reprint: "Re-printed differently next week",
   one_week_move: "One-week move out of line",
   repeated_page: "Page repeats the previous issue",
   second_first_print: "Date printed twice",
+  stale_month_labels: "Stale month labels",
+  previous_column_copied: "Previous-week column copied",
 });
+
+/** "1,039 days in the daily series: 781 printed, 258 implied by the next day's printed change". */
+function dailyText(cov) {
+  if (!isNum(cov.daily_days)) return "The daily series is not in this build";
+  const split = isNum(cov.daily_printed_days) && isNum(cov.daily_implied_days)
+    ? `: ${num(cov.daily_printed_days)} printed, ${num(cov.daily_implied_days)} implied by the next day's printed change`
+    : "";
+  return `${num(cov.daily_days)} days in the daily series${split}`;
+}
+
+/** "Q1 25" or "3 months" from a field that may be a list of periods or a count. */
+function periodsText(v, one, many) {
+  if (Array.isArray(v)) return listJoin(v.map((x) => tenorLabel(String(x))));
+  return isNum(v) ? plural(v, one, many) : "";
+}
 
 const NOTE_PDF = "FFA-Basis-Hedging-Study-Research-Note.pdf";
 const CITE_EDERINGTON = "Ederington, 1979, Journal of Finance";
@@ -27,7 +44,7 @@ const DOWNLOADS = [
   { file: "roll_cost_by_year.csv", what: "Roll cost of a rolling one-month and front-quarter long by year: USD a day, percent of settlement and per ship-year." },
   { file: "monthly_settlements_5tc.csv", what: "Monthly 5TC settlements with their status (complete, published, estimated), both baskets in 2026, coverage and links." },
   { file: "sec_freight_futures_marks.csv", what: "Every BDRY and BWET quarter-end futures mark from SEC filings: contracts, notional, price and filing link." },
-  { file: "td3c_weekly_prints.csv", what: "Weekly TD3C and TD34 prints in Worldscale and TCE, with the thin-market marks and each report's link." },
+  { file: "td3c_weekly_prints.csv", what: "Weekly TD3C and TD34 prints in Worldscale and TCE, with the marked weeks and each report's link." },
 ];
 
 function statusRows(coverage) {
@@ -47,7 +64,7 @@ function render(section, ctx) {
   const parts = [];
   if (validation.length) parts.push(ok === validation.length ? `All ${num(ok)} validation anchors reproduce` : `${num(ok)} of ${num(validation.length)} validation anchors reproduce`);
   if (isNum(cov.issues_read)) {
-    let read = `the study read ${num(cov.issues_read)} Banchero Costa issues${isNum(cov.daily_days) ? ` and ${num(cov.daily_days)} days of 5TC prints` : ""}`;
+    let read = `the study read ${num(cov.issues_read)} Banchero Costa issues${isNum(cov.daily_days) ? ` and built a daily 5TC series of ${num(cov.daily_days)} days` : ""}`;
     if (rows.length) read += `, and settles ${num(totals.complete + totals.published)} months exactly and ${num(totals.estimated)} by estimate`;
     parts.push(read);
   }
@@ -71,13 +88,13 @@ function render(section, ctx) {
     };
     barChart(key, {
       title: `Settlements: ${num(totals.complete)} complete months from the study's own daily series (${span(full)}), ${num(totals.published)} published (${span(pub)}), ${num(totals.estimated)} estimated (${span(est)})`,
-      subtitle: "Monthly 5TC settlements by year and how each was established. The second figure under each year is the number of weekly FFA curves read that year.",
+      subtitle: "Monthly 5TC settlements by year and how each was established. The details of each year also give the weekly FFA curves read that year.",
       legend: [
         { label: "Complete: every publication day in the study's daily series", cls: "status-complete", kind: "rect" },
         { label: "Published: Himalaya Shipping's monthly average (SEC 6-K)", cls: "status-published", kind: "rect" },
         { label: "Estimated: average of the days observed (robustness only)", cls: "status-estimated", kind: "rect" },
       ],
-      cats: rows.map((r) => ({ key: r.year, label: r.year, sub: num(ffaWeeks[r.year] || 0) })),
+      cats: rows.map((r) => ({ key: r.year, label: r.year })),
       stacks: [
         { cls: "status-complete", values: Object.fromEntries(rows.map((r) => [r.year, r.complete])) },
         { cls: "status-published", values: Object.fromEntries(rows.map((r) => [r.year, r.published])) },
@@ -85,8 +102,8 @@ function render(section, ctx) {
       ],
       tips: Object.fromEntries(rows.map((r) => [r.year, { title: `${r.year}`, rows: [{ key: "status-complete", value: num(r.complete), label: "complete months" }, { key: "status-published", value: num(r.published), label: "published" }, { key: "status-estimated", value: num(r.estimated), label: "estimated" }, { key: null, value: num(ffaWeeks[r.year] || 0), label: "weekly FFA curves" }] }])),
       y: { min: 0, title: "Months" },
-      summary: `By year: ${rows.map((r) => `${r.year} ${r.complete} complete, ${r.published} published, ${r.estimated} estimated, ${plural(ffaWeeks[r.year] || 0, "curve", "curves")}`).join("; ")}. First FFA week ${dateLong(cov.first_ffa_week)}, last ${dateLong(cov.last_ffa_week)}.`,
-      source: `Source: method.json coverage, built ${dateLong(manifest.built_on)} from ${num(manifest.documents)} cached documents.`,
+      summary: `By year: ${rows.map((r) => `${r.year} ${r.complete} complete, ${r.published} published, ${r.estimated} estimated, ${plural(ffaWeeks[r.year] || 0, "weekly curve", "weekly curves")} read`).join("; ")}. First FFA week ${dateLong(cov.first_ffa_week)}, last ${dateLong(cov.last_ffa_week)}.`,
+      source: `${sourceLine(method, "every source in the manifest")} Built ${dateLong(manifest.built_on)} from ${num(manifest.documents)} cached documents.`,
     });
   }
 
@@ -123,7 +140,7 @@ function render(section, ctx) {
         if (rule) {
           body.append(table({
             caption: "Constants the browser engine reads (data/engine.json)",
-            columns: [{ label: "Constant", format: (r) => r[0] }, { label: "Value", num: true, format: (r) => (typeof r[1] === "number" ? num(r[1], Number.isInteger(r[1]) ? 0 : 2) : String(r[1])) }],
+            columns: [{ label: "Constant", format: (r) => r[0] }, { label: "Value", num: true, format: (r) => (typeof r[1] === "number" ? num(r[1], Number.isInteger(r[1]) ? 0 : 2) : /^\d{4}-\d{2}-\d{2}$/.test(String(r[1])) ? dateLong(String(r[1])) : String(r[1])) }],
             rows: Object.entries(rule),
           }));
         }
@@ -136,7 +153,16 @@ function render(section, ctx) {
         body.append(defs((method.formulas || []).map((f) => ({ term: f.name, desc: f.text }))));
         if (method.ederington) {
           const e = method.ederington;
-          body.append(h("p", { class: "prose" }, `For comparison with the literature (${CITE_EDERINGTON}): regressing weekly spot changes on the changes of the next month's FFA, Monday to Monday on the same basket, from ${dateLong(e.first)} to ${dateLong(e.last)} (${plural(e.n, "pair of weeks", "pairs of weeks")}) gives a hedge ratio of ${num(e.hedge_ratio, 2)} and an R-squared of ${num(e.r_squared, 2)}, the share of weekly spot variance such a hedge would remove.${e.pairs_considered ? ` Of ${num(e.pairs_considered)} consecutive curves, the pairs used are those 7 days apart with the tenor on both and a spot print on both Mondays (${num(e.pairs_dropped?.no_same_day_spot ?? 0)} lack one); ${num(e.pairs_in_2026 ?? 0)} of the pairs fall on or after ${dateLong(engine?.constants?.BASKET_182_FROM)}, when the daily series is complete.` : ""}`));
+          const dropped = e.pairs_dropped || {};
+          const why = [
+            [dropped.not_7_days_apart, "are not 7 days apart"],
+            [dropped.no_next_month_tenor, "lack the next month's tenor on one of the two curves"],
+            [dropped.no_same_day_spot, "lack a spot level on a curve's own date"],
+            [dropped.basket_changed, "straddle the change of basket"],
+          ].filter(([n]) => isNum(n) && n > 0).map(([n, t]) => `${num(n)} ${t}`);
+          body.append(h("h3", { class: "section-title" }, "Ederington's measure"));
+          const implied = [e.pairs_implied_spot, e.pairs_with_implied_spot, e.pairs_implied].find(isNum);
+          body.append(h("p", { class: "prose" }, `For comparison with the literature (${CITE_EDERINGTON}), not with a published figure: regressing weekly spot changes on the changes of the next month's FFA, from one curve's date to the next a week later, on the same basket, from ${dateLong(e.first)} to ${dateLong(e.last)} (${plural(e.n, "pair of weeks", "pairs of weeks")}) gives a hedge ratio of ${num(e.hedge_ratio, 2)} and an R-squared of ${num(e.r_squared, 2)}, the share of weekly spot variance such a hedge would remove. A pair needs the tenor on both curves and a spot level on both curve dates, mostly Mondays (printed, or implied by the next day's printed change).${e.pairs_considered ? ` Of ${num(e.pairs_considered)} pairs of consecutive curves, ${listJoin(why)}, which leaves ${num(e.n)}${isNum(implied) ? `, ${num(implied)} of them with an implied level` : ""}; ${num(e.pairs_in_2026 ?? 0)} fall on or after ${dateLong(engine?.constants?.BASKET_182_FROM)}, when the daily series is complete.` : ""}`));
         }
       },
     },
@@ -150,8 +176,9 @@ function render(section, ctx) {
           columns: [
             { label: "Source", format: (s) => s.source },
             { label: "Documents", num: true, format: (s) => num(s.documents) },
-            { label: "First retrieved", format: (s) => dateShort(s.first_retrieved?.slice(0, 10)) },
-            { label: "Last retrieved", format: (s) => dateShort(s.last_retrieved?.slice(0, 10)) },
+            { label: "Links", format: (s) => sourceLinks(s.links) },
+            { label: "First retrieved", format: (s) => dateLong(s.first_retrieved?.slice(0, 10)) },
+            { label: "Last retrieved", format: (s) => dateLong(s.last_retrieved?.slice(0, 10)) },
             { label: "Terms", format: (s) => (s.licence || []).join("; ") },
           ],
           rows: manifest.sources || [],
@@ -190,13 +217,13 @@ function render(section, ctx) {
           wrap: true,
           limit: 20,
           columns: [
-            { label: "Group", format: (v) => v.group },
             { label: "Item", format: (v) => v.item },
+            { label: "Result", format: (v) => h("span", { class: v.ok ? "ok-yes" : "ok-no" }, v.ok ? "Reproduced" : "Not reproduced") },
             { label: "Expected", num: true, format: (v) => fmtV(v.expected) },
             { label: "Reproduced", num: true, format: (v) => fmtV(v.reproduced) },
-            { label: "Error", num: true, format: (v) => (isNum(v.error) ? (v.error === 0 ? "0" : Math.abs(v.error) < 1e-3 ? v.error.toExponential(1).replace("-", "\u2212") : signed(v.error, 2)) : "") },
             { label: "Unit", format: (v) => unitOf(v.unit) },
-            { label: "Result", format: (v) => h("span", { class: v.ok ? "ok-yes" : "ok-no" }, v.ok ? "Reproduced" : "Not reproduced") },
+            { label: "Error", num: true, format: (v) => (isNum(v.error) ? (v.error === 0 ? "0" : Math.abs(v.error) < 1e-3 ? v.error.toExponential(1).replace(/-/g, "\u2212") : signed(v.error, 2)) : "") },
+            { label: "Group", format: (v) => v.group },
             { label: "Note", format: (v) => v.note || "" },
             { label: "Source", format: (v) => (v.url ? h("a", { href: v.url }, "Link") : "") },
           ],
@@ -210,13 +237,13 @@ function render(section, ctx) {
       render(body) {
         body.append(defs([
           { term: "FFA curves", desc: `${num(cov.issues_read)} Banchero Costa issues read (${num(cov.ocr_issues)} by OCR), weekly curves from ${dateLong(cov.first_ffa_week)} to ${dateLong(cov.last_ffa_week)}: ${Object.entries(cov.ffa_weeks_by_year || {}).map(([y, n]) => `${y} ${n}`).join(", ")}.` },
-          { term: "Daily 5TC", desc: `${num(cov.daily_days)} days of prints; exact monthly settlements (complete or published): ${num(cov.exact_months_180)}, of which ${num(cov.exact_months_182)} on both baskets; complete from the study's own daily series: ${num(cov.complete_months_180)} (${cov.complete_months}).` },
+          { term: "Daily 5TC", desc: `${dailyText(cov)}; exact monthly settlements (complete or published): ${num(cov.exact_months_180)}, of which ${num(cov.exact_months_182)} on both baskets; complete from the study's own daily series: ${num(cov.complete_months_180)} (${cov.complete_months}).` },
           { term: "SEC marks", desc: `${num(cov.sec_quarter_ends_bdry)} BDRY and ${num(cov.sec_quarter_ends_bwet)} BWET quarter ends.` },
           { term: "TD3C", desc: `${num(cov.td3c_weekly)} weekly prints from ${dateLong(cov.td3c_weekly_first)} to ${dateLong(cov.td3c_weekly_last)}; ${num(cov.breakwave_reports)} Breakwave reports.` },
         ]));
         body.append(table({
           caption: "Hedge observations (fixtures) by voyage and horizon",
-          columns: [{ label: "Voyage", format: (r) => r.voyage }, { label: "Placed ahead", format: (r) => horizonLabel(r.horizon_months) }, { label: "Fixtures", num: true, format: (r) => num(r.n) }],
+          columns: [{ label: "Voyage", format: (r) => r.voyage }, { label: "Placed ahead", format: (r) => capitalise(horizonLabel(r.horizon_months)) }, { label: "Fixtures", num: true, format: (r) => num(r.n) }],
           rows: cov.hedge_observations || [],
         }));
       },
@@ -236,17 +263,23 @@ function render(section, ctx) {
           wrap: true,
           columns: [
             { label: "Case", format: (r) => r.label },
-            ...combos.map((cb) => ({ label: `${cb.voyage}, ${cb.horizon_months} m`, num: true, format: (r) => { const c = (r.hedge || []).find((x) => x.voyage === cb.voyage && x.horizon_months === cb.horizon_months); return c ? `${pct(c.effectiveness_k1)} (${c.n})` : ""; } })),
+            ...combos.map((cb) => ({ label: `${cb.voyage}, ${cb.horizon_months}\u00a0m`, num: true, format: (r) => { const c = (r.hedge || []).find((x) => x.voyage === cb.voyage && x.horizon_months === cb.horizon_months); return c ? `${pct(c.effectiveness_k1)} (${c.n})` : "no fixture"; } })),
           ],
           rows: rob,
         }));
+        const notes = rob.filter((r) => r.note);
+        if (notes.length) {
+          const ul = h("ul", { class: "table-note notes" });
+          for (const r of notes) ul.append(h("li", {}, `${r.label}: ${r.note}.`));
+          body.append(ul);
+        }
         const biasCols = ["1", "2", "3"];
         body.append(table({
           caption: "Mean forecast error under each robustness case, USD a day (contracts in brackets)",
           wrap: true,
           columns: [
             { label: "Case", format: (r) => r.label },
-            ...biasCols.map((k) => ({ label: `${k} month${k === "1" ? "" : "s"}`, num: true, format: (r) => { const b = r.bias?.[k]; return b ? `${signed(b.mean_usd_day)} (${b.n})` : ""; } })),
+            ...biasCols.map((k) => ({ label: `${k} month${k === "1" ? "" : "s"}`, num: true, format: (r) => { const b = r.bias?.[k]; return b ? `${signed(b.mean_usd_day)} (${b.n})` : "no contract"; } })),
           ],
           rows: rob,
         }));
@@ -285,7 +318,7 @@ function render(section, ctx) {
           wrap: true,
           limit: 16,
           columns: [
-            { label: "Curve", format: (f) => dateShort(f.curve) },
+            { label: "Curve", format: (f) => dateLong(f.curve) },
             { label: "Tenor", format: (f) => (f.period ? tenorLabel(f.period) : "Every tenor") },
             { label: "Rule", format: (f) => FLAG_RULES[f.rule] || f.rule },
             {
@@ -296,14 +329,18 @@ function render(section, ctx) {
                   : f.rule === "one_week_move"
                     ? `${signed(f.move_pct, 1)}% against ${signed(f.median_other_pct, 1)}% for the other tenors`
                     : f.rule === "repeated_page"
-                      ? `${f.issue} prints the figures of ${dateShort(f.same_as)} again; the curve is not used`
+                      ? `${f.issue} prints the figures of ${dateLong(f.same_as)} again; the curve is not used`
                       : f.rule === "second_first_print"
                         ? `${f.issue} prints the same date again; the first issue's print is kept`
-                        : "",
+                        : f.rule === "previous_column_copied"
+                          ? `${f.issue}'s previous-week column copied this page into rows relabelled for its new date: not a re-print, and no one-week move is measured against it`
+                        : f.rule === "stale_month_labels"
+                          ? `${f.issue}'s page printed its months a month before its own date; read one month on (${periodsText(f.months_read_one_month_on, "month", "months")})${f.quarters_checked ? `, its quarters (${periodsText(f.quarters_checked, "quarter", "quarters")}) equal the average of their months` : ""}${f.months_left_out ? `; left out: ${periodsText(f.months_left_out, "month", "months")}` : ""}`
+                          : "",
             },
           ],
           rows: flags,
-          note: "Rule: the study keeps the first print; re-prints beyond the study's tolerance and one-week moves out of line with the other tenors are flagged and reported, never silently replaced. A page that repeats the previous issue's figures under new dates is not an assessment of those dates and is not used.",
+          note: "Rule: the study keeps the first print; re-prints beyond the study's tolerance and one-week moves out of line with the other tenors are flagged and reported, never silently replaced. A page that repeats the previous issue's figures under new dates is not an assessment of those dates and is not used. A page whose month labels run a month behind its own date is read one month on when its quarters equal the average of their months; otherwise those months are left out.",
         }));
         const sec = method.qc?.sec_check || [];
         if (sec.length) {
@@ -313,8 +350,8 @@ function render(section, ctx) {
             limit: 16,
             columns: [
               { label: "Contract", format: (r) => tenorLabel(r.contract_month) },
-              { label: "Curve", format: (r) => dateShort(r.curve) },
-              { label: "SEC mark", format: (r) => (r.sec_url ? h("a", { href: r.sec_url }, dateShort(r.sec_as_of)) : dateShort(r.sec_as_of)) },
+              { label: "Curve", format: (r) => dateLong(r.curve) },
+              { label: "SEC mark", format: (r) => (r.sec_url ? h("a", { href: r.sec_url }, dateLong(r.sec_as_of)) : dateLong(r.sec_as_of)) },
               { label: "Days apart", num: true, format: (r) => num(r.days_apart) },
               { label: "SEC, USD a day", num: true, format: (r) => num(r.sec_usd_day_180) },
               { label: "Curve against the mark", format: (r) => (r.direction === "equal" ? "Equal" : `${capitalise(r.band)}, ${r.direction}`) },
@@ -333,7 +370,10 @@ function render(section, ctx) {
       label: "Limitations",
       render(body) {
         const ul = h("ul", { class: "prose" });
-        for (const l of method.limitations) ul.append(h("li", {}, typeof l === "string" ? l : l.text || JSON.stringify(l)));
+        for (const l of method.limitations) {
+          if (typeof l === "string") ul.append(h("li", {}, l));
+          else ul.append(h("li", {}, l.title ? h("strong", {}, `${l.title}. `) : null, l.text || ""));
+        }
         body.append(ul);
       },
     });
@@ -354,7 +394,19 @@ function render(section, ctx) {
   });
   const w = wire(ctx, "method", { sections, label: "Sections of this view" });
   section.append(w.disclosuresEl);
-  return { update: w.update };
+  return { update: w.update, state: w.state };
+}
+
+/** A source's public pages, from the manifest: "Guide to Market Benchmarks, ..." as links. */
+function sourceLinks(links) {
+  const list = (links || []).filter((l) => l && l.url);
+  if (!list.length) return "";
+  const span = h("span", { class: "wrap-ok" });
+  list.forEach((l, i) => {
+    if (i) span.append(", ");
+    span.append(h("a", { href: l.url }, l.label || "Link"));
+  });
+  return span;
 }
 
 export default {

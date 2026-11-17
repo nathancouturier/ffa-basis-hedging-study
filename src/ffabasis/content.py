@@ -484,6 +484,8 @@ def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
         "complete_months": month_ranges(sorted(m for m, r in settle.items() if r["status"] == "complete")),
         "published_months": month_ranges(sorted(m for m, r in settle.items() if r["status"] == "published")),
         "daily_days": len(panel["daily"]),
+        "daily_printed_days": sum(1 for v in panel["daily"].values() if v.get("kind") == "printed"),
+        "daily_implied_days": sum(1 for v in panel["daily"].values() if v.get("kind") == "implied"),
         "hedge_observations": [{"voyage": v, "horizon_months": h, "n": n} for (v, h), n in sorted(hedge_n.items())],
         "td3c_weekly": len(panel["td3c_weekly"]),
         "td3c_weekly_first": min(panel["td3c_weekly"]) if panel["td3c_weekly"] else None,
@@ -516,7 +518,8 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
         {
             "title": "The daily 5TC is public in full only from January 2026",
             "text": "A month's settlement is the study's own average only when every London publication day is in a "
-            f"public print ({cov['complete_months']}); otherwise it is the average Himalaya Shipping published in "
+            "public print or implied by the next day's printed change "
+            f"({cov['complete_months']}); otherwise it is the average Himalaya Shipping published in "
             "its SEC filings (May 2023 onwards), which agrees with every complete month to within a dollar. Earlier "
             "months have only partial averages and enter the robustness checks alone.",
         },
@@ -779,9 +782,10 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
         ],
         "strips": t["strips"],
         "monthly": {
+            # Worldscale only: a dollar figure beside the Worldscale average it came from would state the
+            # implied flat rate (data policy: flat rates are never published).
             m: {
                 "ws_points": round(v["ws_points"], 2),
-                "usd_t": None if v["usd_t"] is None else round(v["usd_t"], 3),
                 "weeks": v["weeks"],
                 "flagged_weeks": v["flagged_weeks"],
                 "month_to_date": bool(v.get("month_to_date")),
