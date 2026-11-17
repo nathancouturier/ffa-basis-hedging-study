@@ -120,9 +120,13 @@ buttons: **Overview**, **Curve**, **Bias and roll**, **Hedge lab** (size and str
 | ![Hedge lab](assets/lab-1440-light.png) | ![TD3C 2026 view, dark theme](assets/td3c-1440-dark.png) |
 | ![Method and data view](assets/method-1440-light.png) | ![Overview at 390 px, dark theme](assets/overview-390-dark.png) |
 
-The first screen of each view is in [`assets/`](assets/) (`node scripts/readme_shots.mjs`); every view at 1440, 768,
-390 and 320 px in both themes, with its sections open and each secondary chart, is written by
+The first screen of each view is in [`assets/`](assets/) (`node scripts/readme_shots.mjs`); every view at 1440, 1024,
+768, 390 and 320 px in both themes, with its sections open and each secondary chart, is written by
 `node scripts/screenshots.mjs --out <folder>`.
+
+Lighthouse 12.8 on the overview of the production build, served compressed as GitHub Pages serves it (17 November
+2026): performance 98 on a simulated phone and 100 on a desktop; accessibility, best practices and SEO 100 on
+both. The browser check (`node tools/check-site.mjs`, 121 checks) runs in CI on every push.
 
 ## Running it
 
@@ -175,7 +179,11 @@ a failure opens an issue. It also captures Amplify's BDRY and BWET holdings with
 grows with each run. SEC EDGAR is asked for new filings only when the repository variable `SEC_USER_AGENT` holds
 a contact, as EDGAR's fair access policy requires; without it the refresh skips EDGAR and keeps the committed
 marks. The first runs on an empty cache fill it over several weeks (Hellenic Shipping News asks for 30 seconds
-between requests) and commit nothing until the rebuilt panel is at least as complete as the committed one.
+between requests, and stopped answering the first run after 73 issues) and do not rebuild the study until the
+rebuilt panel is at least as complete as the committed one; the Amplify snapshot is committed every week
+regardless. The first manual run (17 November 2026) reached every source but Hellenic Shipping News and EDGAR
+(no contact set yet); it rendered Amplify's holdings, but committed nothing, a gap the weekly snapshot commit now
+closes.
 
 `.github/workflows/build.yml` runs the gate and the browser check on every push and deploys the site to GitHub
 Pages from `main`; Pages must be set to deploy from GitHub Actions (Settings, Pages, Source).

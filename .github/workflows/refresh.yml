@@ -87,7 +87,25 @@ jobs:
           git push
       - name: Cache still filling
         if: steps.coverage.outputs.complete != 'true'
-        run: echo "The document cache is still filling (see the coverage step); nothing committed this run."
+        run: echo "The document cache is still filling (see the coverage step); the study is not rebuilt this run."
+      # The Amplify holdings are a public record that no artifact reads yet: keep each week's snapshot even while
+      # the document cache fills, so the record grows from the first run.
+      - name: Commit the Amplify snapshot while the cache fills
+        if: steps.coverage.outputs.complete != 'true'
+        run: |
+          git config user.name "ffa-basis-hedging-study refresh"
+          git config user.email "refresh@users.noreply.github.com"
+          git restore --staged . 2>/dev/null || true
+          git add data/public/amplify_holdings.json
+          if git diff --cached --quiet; then echo "no new snapshot"; exit 0; fi
+          git commit -m "Amplify holdings snapshot of $(date -u +%Y-%m-%d)"
+          git stash --include-untracked --quiet || true
+          if ! git pull --rebase origin main; then
+            git rebase --abort
+            echo "main changed during the run: the snapshot is left to the next run"
+            exit 0
+          fi
+          git push
       - name: Open an issue on failure
         if: failure()
         env:
