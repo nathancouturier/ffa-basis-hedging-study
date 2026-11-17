@@ -1,0 +1,1398 @@
+{
+ "artifact": "roll",
+ "as_of": "2026-11-08",
+ "bias": [
+  {
+   "first": "2024-09",
+   "horizon_months": 1,
+   "last": "2026-10",
+   "mean_ci": {
+    "block": 2,
+    "high": 3319.0,
+    "low": -106.0
+   },
+   "mean_pct": 0.0243,
+   "mean_usd_day": 1372.0,
+   "median_usd_day": 1225.0,
+   "n": 25,
+   "rmse_ci": {
+    "high": 6660.0,
+    "low": 4948.0
+   },
+   "rmse_naive_usd_day": 6650.0,
+   "rmse_ratio_ffa_to_naive": 0.884,
+   "rmse_usd_day": 5880.0,
+   "share_positive": 0.6
+  },
+  {
+   "first": "2024-10",
+   "horizon_months": 2,
+   "last": "2026-10",
+   "mean_ci": {
+    "block": 3,
+    "high": 4620.0,
+    "low": 97.0
+   },
+   "mean_pct": 0.0127,
+   "mean_usd_day": 1876.0,
+   "median_usd_day": 2091.0,
+   "n": 24,
+   "rmse_ci": {
+    "high": 8422.0,
+    "low": 5876.0
+   },
+   "rmse_naive_usd_day": 8413.0,
+   "rmse_ratio_ffa_to_naive": 0.894,
+   "rmse_usd_day": 7524.0,
+   "share_positive": 0.5833
+  },
+  {
+   "first": "2024-11",
+   "horizon_months": 3,
+   "last": "2026-10",
+   "mean_ci": {
+    "block": 4,
+    "high": 6562.0,
+    "low": 1150.0
+   },
+   "mean_pct": 0.0414,
+   "mean_usd_day": 3487.0,
+   "median_usd_day": 4419.0,
+   "n": 23,
+   "rmse_ci": {
+    "high": 8338.0,
+    "low": 5872.0
+   },
+   "rmse_naive_usd_day": 9684.0,
+   "rmse_ratio_ffa_to_naive": 0.789,
+   "rmse_usd_day": 7639.0,
+   "share_positive": 0.7826
+  }
+ ],
+ "errors": [
+  {
+   "basket_t": 180000,
+   "contract": "2024-09",
+   "error_pct": 0.0388,
+   "error_usd_day": 1064.0,
+   "horizon_months": 1,
+   "priced_on": "2024-08-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-10",
+   "error_pct": -0.5228,
+   "error_usd_day": -10929.0,
+   "horizon_months": 1,
+   "priced_on": "2024-09-30",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-10",
+   "error_pct": -0.3337,
+   "error_usd_day": -6976.0,
+   "horizon_months": 2,
+   "priced_on": "2024-08-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-11",
+   "error_pct": 0.158,
+   "error_usd_day": 3303.0,
+   "horizon_months": 1,
+   "priced_on": "2024-10-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-11",
+   "error_pct": -0.3794,
+   "error_usd_day": -7930.0,
+   "horizon_months": 2,
+   "priced_on": "2024-09-30",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-11",
+   "error_pct": -0.2957,
+   "error_usd_day": -6180.0,
+   "horizon_months": 3,
+   "priced_on": "2024-08-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-12",
+   "error_pct": -0.7427,
+   "error_usd_day": -8595.0,
+   "horizon_months": 2,
+   "priced_on": "2024-10-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2024-12",
+   "error_pct": -1.4025,
+   "error_usd_day": -16231.0,
+   "horizon_months": 3,
+   "priced_on": "2024-09-30",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-01",
+   "error_pct": -0.0915,
+   "error_usd_day": -929.0,
+   "horizon_months": 1,
+   "priced_on": "2024-12-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-01",
+   "error_pct": -0.4687,
+   "error_usd_day": -4757.0,
+   "horizon_months": 3,
+   "priced_on": "2024-10-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-02",
+   "error_pct": -0.0585,
+   "error_usd_day": -464.0,
+   "horizon_months": 1,
+   "priced_on": "2025-01-27",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-02",
+   "error_pct": -0.1971,
+   "error_usd_day": -1564.0,
+   "horizon_months": 2,
+   "priced_on": "2024-12-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-02",
+   "error_pct": -0.3978,
+   "error_usd_day": -3157.0,
+   "horizon_months": 3,
+   "priced_on": "2024-11-25",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-03",
+   "error_pct": 0.3117,
+   "error_usd_day": 6484.0,
+   "horizon_months": 1,
+   "priced_on": "2025-02-24",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-03",
+   "error_pct": 0.4156,
+   "error_usd_day": 8645.0,
+   "horizon_months": 2,
+   "priced_on": "2025-01-27",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-03",
+   "error_pct": 0.3579,
+   "error_usd_day": 7445.0,
+   "horizon_months": 3,
+   "priced_on": "2024-12-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-04",
+   "error_pct": -0.222,
+   "error_usd_day": -3557.0,
+   "horizon_months": 1,
+   "priced_on": "2025-03-31",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-04",
+   "error_pct": -0.1375,
+   "error_usd_day": -2203.0,
+   "horizon_months": 2,
+   "priced_on": "2025-02-24",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-04",
+   "error_pct": 0.0473,
+   "error_usd_day": 758.0,
+   "horizon_months": 3,
+   "priced_on": "2025-01-27",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-05",
+   "error_pct": -0.2044,
+   "error_usd_day": -3204.0,
+   "horizon_months": 1,
+   "priced_on": "2025-04-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-05",
+   "error_pct": -0.3559,
+   "error_usd_day": -5579.0,
+   "horizon_months": 2,
+   "priced_on": "2025-03-31",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-06",
+   "error_pct": 0.2624,
+   "error_usd_day": 6318.0,
+   "horizon_months": 1,
+   "priced_on": "2025-05-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-06",
+   "error_pct": 0.1541,
+   "error_usd_day": 3709.0,
+   "horizon_months": 2,
+   "priced_on": "2025-04-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-06",
+   "error_pct": 0.0956,
+   "error_usd_day": 2301.0,
+   "horizon_months": 3,
+   "priced_on": "2025-03-31",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-07",
+   "error_pct": 0.0939,
+   "error_usd_day": 2066.0,
+   "horizon_months": 1,
+   "priced_on": "2025-06-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-07",
+   "error_pct": 0.2097,
+   "error_usd_day": 4616.0,
+   "horizon_months": 2,
+   "priced_on": "2025-05-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-07",
+   "error_pct": 0.0829,
+   "error_usd_day": 1825.0,
+   "horizon_months": 3,
+   "priced_on": "2025-04-28",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-08",
+   "error_pct": 0.3457,
+   "error_usd_day": 8899.0,
+   "horizon_months": 1,
+   "priced_on": "2025-07-14",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-08",
+   "error_pct": 0.332,
+   "error_usd_day": 8545.0,
+   "horizon_months": 2,
+   "priced_on": "2025-06-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-08",
+   "error_pct": 0.3121,
+   "error_usd_day": 8033.0,
+   "horizon_months": 3,
+   "priced_on": "2025-05-26",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-09",
+   "error_pct": -0.0618,
+   "error_usd_day": -1638.0,
+   "horizon_months": 1,
+   "priced_on": "2025-08-25",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-09",
+   "error_pct": 0.2768,
+   "error_usd_day": 7341.0,
+   "horizon_months": 2,
+   "priced_on": "2025-07-14",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-09",
+   "error_pct": 0.2801,
+   "error_usd_day": 7428.0,
+   "horizon_months": 3,
+   "priced_on": "2025-06-16",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-10",
+   "error_pct": -0.1392,
+   "error_usd_day": -3402.0,
+   "horizon_months": 1,
+   "priced_on": "2025-09-29",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-10",
+   "error_pct": -0.1928,
+   "error_usd_day": -4714.0,
+   "horizon_months": 2,
+   "priced_on": "2025-08-25",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-10",
+   "error_pct": 0.1808,
+   "error_usd_day": 4419.0,
+   "horizon_months": 3,
+   "priced_on": "2025-07-14",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-11",
+   "error_pct": 0.0426,
+   "error_usd_day": 1225.0,
+   "horizon_months": 1,
+   "priced_on": "2025-10-20",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-11",
+   "error_pct": 0.1094,
+   "error_usd_day": 3143.0,
+   "horizon_months": 2,
+   "priced_on": "2025-09-29",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-11",
+   "error_pct": 0.0541,
+   "error_usd_day": 1553.0,
+   "horizon_months": 3,
+   "priced_on": "2025-08-25",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-12",
+   "error_pct": 0.218,
+   "error_usd_day": 7564.0,
+   "horizon_months": 1,
+   "priced_on": "2025-11-24",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-12",
+   "error_pct": 0.2596,
+   "error_usd_day": 9007.0,
+   "horizon_months": 2,
+   "priced_on": "2025-10-20",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2025-12",
+   "error_pct": 0.3325,
+   "error_usd_day": 11535.0,
+   "horizon_months": 3,
+   "priced_on": "2025-09-29",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-01",
+   "error_pct": 0.0062,
+   "error_usd_day": 133.0,
+   "horizon_months": 1,
+   "priced_on": "2025-12-15",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-01",
+   "error_pct": 0.0485,
+   "error_usd_day": 1040.0,
+   "horizon_months": 2,
+   "priced_on": "2025-11-24",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-01",
+   "error_pct": 0.1422,
+   "error_usd_day": 3047.0,
+   "horizon_months": 3,
+   "priced_on": "2025-10-20",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-02",
+   "error_pct": 0.1871,
+   "error_usd_day": 5228.0,
+   "horizon_months": 1,
+   "priced_on": "2026-01-19",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-02",
+   "error_pct": 0.3239,
+   "error_usd_day": 7917.0,
+   "horizon_months": 2,
+   "priced_on": "2025-12-15",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-02",
+   "error_pct": 0.3965,
+   "error_usd_day": 9692.0,
+   "horizon_months": 3,
+   "priced_on": "2025-11-24",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-03",
+   "error_pct": -0.2691,
+   "error_usd_day": -7107.0,
+   "horizon_months": 1,
+   "priced_on": "2026-02-23",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-03",
+   "error_pct": -0.0575,
+   "error_usd_day": -1518.0,
+   "horizon_months": 2,
+   "priced_on": "2026-01-19",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 180000,
+   "contract": "2026-03",
+   "error_pct": 0.107,
+   "error_usd_day": 2450.0,
+   "horizon_months": 3,
+   "priced_on": "2025-12-15",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-04",
+   "error_pct": 0.1721,
+   "error_usd_day": 6010.0,
+   "horizon_months": 1,
+   "priced_on": "2026-03-30",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-04",
+   "error_pct": -0.0259,
+   "error_usd_day": -904.0,
+   "horizon_months": 2,
+   "priced_on": "2026-02-23",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-04",
+   "error_pct": 0.1564,
+   "error_usd_day": 5463.0,
+   "horizon_months": 3,
+   "priced_on": "2026-01-19",
+   "settlement_status": "published"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-05",
+   "error_pct": 0.2377,
+   "error_usd_day": 10929.0,
+   "horizon_months": 1,
+   "priced_on": "2026-04-27",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-05",
+   "error_pct": 0.323,
+   "error_usd_day": 14850.0,
+   "horizon_months": 2,
+   "priced_on": "2026-03-30",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-05",
+   "error_pct": 0.2226,
+   "error_usd_day": 10236.0,
+   "horizon_months": 3,
+   "priced_on": "2026-02-23",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-06",
+   "error_pct": -0.0793,
+   "error_usd_day": -3086.0,
+   "horizon_months": 1,
+   "priced_on": "2026-05-25",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-06",
+   "error_pct": 0.1072,
+   "error_usd_day": 4171.0,
+   "horizon_months": 2,
+   "priced_on": "2026-04-27",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-06",
+   "error_pct": 0.1996,
+   "error_usd_day": 7768.0,
+   "horizon_months": 3,
+   "priced_on": "2026-03-30",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-07",
+   "error_pct": 0.1884,
+   "error_usd_day": 7279.0,
+   "horizon_months": 1,
+   "priced_on": "2026-06-29",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-07",
+   "error_pct": 0.0235,
+   "error_usd_day": 907.0,
+   "horizon_months": 2,
+   "priced_on": "2026-05-25",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-07",
+   "error_pct": 0.146,
+   "error_usd_day": 5643.0,
+   "horizon_months": 3,
+   "priced_on": "2026-04-27",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-08",
+   "error_pct": 0.1885,
+   "error_usd_day": 8181.0,
+   "horizon_months": 1,
+   "priced_on": "2026-07-27",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-08",
+   "error_pct": 0.2303,
+   "error_usd_day": 9999.0,
+   "horizon_months": 2,
+   "priced_on": "2026-06-29",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-08",
+   "error_pct": 0.1651,
+   "error_usd_day": 7167.0,
+   "horizon_months": 3,
+   "priced_on": "2026-05-25",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-09",
+   "error_pct": 0.0693,
+   "error_usd_day": 3652.0,
+   "horizon_months": 1,
+   "priced_on": "2026-08-31",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-09",
+   "error_pct": 0.2717,
+   "error_usd_day": 14320.0,
+   "horizon_months": 2,
+   "priced_on": "2026-07-27",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-09",
+   "error_pct": 0.3137,
+   "error_usd_day": 16534.0,
+   "horizon_months": 3,
+   "priced_on": "2026-06-29",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-10",
+   "error_pct": -0.2643,
+   "error_usd_day": -9714.0,
+   "horizon_months": 1,
+   "priced_on": "2026-09-28",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-10",
+   "error_pct": -0.3589,
+   "error_usd_day": -13192.0,
+   "horizon_months": 2,
+   "priced_on": "2026-08-31",
+   "settlement_status": "complete"
+  },
+  {
+   "basket_t": 182000,
+   "contract": "2026-10",
+   "error_pct": -0.0756,
+   "error_usd_day": -2778.0,
+   "horizon_months": 3,
+   "priced_on": "2026-07-27",
+   "settlement_status": "complete"
+  }
+ ],
+ "quarter_bias": {
+  "first": "2024-Q4",
+  "horizon_months": "front quarter",
+  "last": "2026-Q2",
+  "mean_ci": {
+   "block": 4,
+   "high": 3055.0,
+   "low": -2932.0
+  },
+  "mean_pct": -0.0137,
+  "mean_usd_day": 928.0,
+  "median_usd_day": 2539.0,
+  "n": 6,
+  "rmse_ci": {
+   "high": 7372.0,
+   "low": 3561.0
+  },
+  "rmse_naive_usd_day": null,
+  "rmse_ratio_ffa_to_naive": null,
+  "rmse_usd_day": 6954.0,
+  "share_positive": 0.6667
+ },
+ "roll_1m": [
+  {
+   "n": 3,
+   "roll_cost_pct": 0.1087,
+   "roll_cost_usd_day": 2187.0,
+   "ship_year_usd": 798377.0,
+   "statuses": [
+    "published"
+   ],
+   "year": 2024
+  },
+  {
+   "n": 12,
+   "roll_cost_pct": -0.0414,
+   "roll_cost_usd_day": -1614.0,
+   "ship_year_usd": -588928.0,
+   "statuses": [
+    "published"
+   ],
+   "year": 2025
+  },
+  {
+   "n": 10,
+   "roll_cost_pct": -0.0436,
+   "roll_cost_usd_day": -2151.0,
+   "ship_year_usd": -784951.0,
+   "statuses": [
+    "complete",
+    "published"
+   ],
+   "year": 2026
+  }
+ ],
+ "roll_quarter": [
+  {
+   "n": 1,
+   "roll_cost_pct": 0.6574,
+   "roll_cost_usd_day": 11696.0,
+   "ship_year_usd": 4269162.0,
+   "statuses": [],
+   "year": 2024
+  },
+  {
+   "n": 3,
+   "roll_cost_pct": -0.0611,
+   "roll_cost_usd_day": -1407.0,
+   "ship_year_usd": -513677.0,
+   "statuses": [],
+   "year": 2025
+  },
+  {
+   "n": 2,
+   "roll_cost_pct": -0.1958,
+   "roll_cost_usd_day": -6521.0,
+   "ship_year_usd": -2380296.0,
+   "statuses": [],
+   "year": 2026
+  }
+ ],
+ "settlements": [
+  {
+   "coverage": 0.9,
+   "month": "2020-02",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 2761.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7273,
+   "month": "2020-03",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 2983.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6087,
+   "month": "2020-07",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 22772.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.35,
+   "month": "2020-08",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 18832.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4545,
+   "month": "2020-10",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 22666.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.2857,
+   "month": "2020-11",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 14076.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.381,
+   "month": "2020-12",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 12958.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.75,
+   "month": "2021-01",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 20572.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.65,
+   "month": "2021-02",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 12911.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.3913,
+   "month": "2021-03",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 16962.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4091,
+   "month": "2021-06",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 29495.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6818,
+   "month": "2021-07",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 30216.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8095,
+   "month": "2021-08",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 42486.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.5455,
+   "month": "2021-09",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 55421.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.619,
+   "month": "2021-10",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 60444.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8182,
+   "month": "2021-11",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 29452.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4762,
+   "month": "2021-12",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 26971.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6,
+   "month": "2022-01",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 14573.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4348,
+   "month": "2022-03",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 18090.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4737,
+   "month": "2022-04",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 13370.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6667,
+   "month": "2022-05",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 28272.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.45,
+   "month": "2022-06",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 21286.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.619,
+   "month": "2022-07",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 21080.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.5455,
+   "month": "2022-08",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 7348.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6667,
+   "month": "2022-09",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 11639.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.3333,
+   "month": "2022-10",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 17709.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4545,
+   "month": "2022-11",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 11221.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4,
+   "month": "2022-12",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 17374.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8571,
+   "month": "2023-01",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 9332.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6,
+   "month": "2023-02",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 3742.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6522,
+   "month": "2023-03",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 13229.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7222,
+   "month": "2023-04",
+   "published_url": null,
+   "status": "estimated",
+   "usd_day_180": 16042.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8,
+   "month": "2023-05",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000114036123029369/brhc20054333_ex99-1.htm",
+   "status": "published",
+   "usd_day_180": 17773.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6818,
+   "month": "2023-06",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000004/commercialupdatejune2023ex.htm",
+   "status": "published",
+   "usd_day_180": 13247.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 1.0,
+   "month": "2023-07",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000016/commercialupdatejuly2023ex.htm",
+   "status": "complete",
+   "usd_day_180": 13192.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.9091,
+   "month": "2023-08",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000024/commercialupdateaugust2023.htm",
+   "status": "published",
+   "usd_day_180": 12942.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7143,
+   "month": "2023-09",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000028/himalayashippingltdcommerc.htm",
+   "status": "published",
+   "usd_day_180": 14110.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7273,
+   "month": "2023-10",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000032/commercialupdateoctober202a.htm",
+   "status": "published",
+   "usd_day_180": 25557.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7727,
+   "month": "2023-11",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000040/commercialupdatenovember20a.htm",
+   "status": "published",
+   "usd_day_180": 24003.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4211,
+   "month": "2023-12",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000002/hsltdpressreleaseex991jan1.htm",
+   "status": "published",
+   "usd_day_180": 37333.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7273,
+   "month": "2024-01",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000007/commercialupdatejanuary202.htm",
+   "status": "published",
+   "usd_day_180": 20565.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7619,
+   "month": "2024-02",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000013/commercialupdatefebruary20.htm",
+   "status": "published",
+   "usd_day_180": 21557.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.65,
+   "month": "2024-03",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000027/hslpressreleaseex-991apr92.htm",
+   "status": "published",
+   "usd_day_180": 31245.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8095,
+   "month": "2024-04",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000031/hslpressreleaseex-991may82.htm",
+   "status": "published",
+   "usd_day_180": 20034.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.619,
+   "month": "2024-05",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000041/commercialupdatejune72024e.htm",
+   "status": "published",
+   "usd_day_180": 23424.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.75,
+   "month": "2024-06",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000050/commercialupdatejuly92024e.htm",
+   "status": "published",
+   "usd_day_180": 24924.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.3913,
+   "month": "2024-07",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000052/commercialupdateaug82024ex.htm",
+   "status": "published",
+   "usd_day_180": 25542.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.3333,
+   "month": "2024-08",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000065/commercialupdatesep62024ex.htm",
+   "status": "published",
+   "usd_day_180": 21714.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.2857,
+   "month": "2024-09",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000067/commercialupdateoct82024ex.htm",
+   "status": "published",
+   "usd_day_180": 27410.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.2174,
+   "month": "2024-10",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000073/commercialupdateoctober202a.htm",
+   "status": "published",
+   "usd_day_180": 20903.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.2381,
+   "month": "2024-11",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000079/commercialupdatedecember20.htm",
+   "status": "published",
+   "usd_day_180": 20899.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6,
+   "month": "2024-12",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000002/pressreleasejanuary82025ex.htm",
+   "status": "published",
+   "usd_day_180": 11573.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8636,
+   "month": "2025-01",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000004/pressreleasefebruary112025.htm",
+   "status": "published",
+   "usd_day_180": 10150.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.35,
+   "month": "2025-02",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000013/pressreleasemarch72025ex-9.htm",
+   "status": "published",
+   "usd_day_180": 7936.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.5238,
+   "month": "2025-03",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000035/pressreleaseapril42025ex-9.htm",
+   "status": "published",
+   "usd_day_180": 20802.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.8,
+   "month": "2025-04",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000039/pressreleasemay82025ex-991.htm",
+   "status": "published",
+   "usd_day_180": 16022.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4,
+   "month": "2025-05",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000049/pressreleasejune62025ex-991.htm",
+   "status": "published",
+   "usd_day_180": 15675.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.5238,
+   "month": "2025-06",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000052/pressreleasejuly92025ex-991.htm",
+   "status": "published",
+   "usd_day_180": 24076.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.6087,
+   "month": "2025-07",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000059/pressreleaseaugust82025ex-.htm",
+   "status": "published",
+   "usd_day_180": 22008.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.35,
+   "month": "2025-08",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000068/pressreleaseseptember52025.htm",
+   "status": "published",
+   "usd_day_180": 25741.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.2727,
+   "month": "2025-09",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000074/pressreleaseoctober82025ex.htm",
+   "status": "published",
+   "usd_day_180": 26520.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4348,
+   "month": "2025-10",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000079/pressreleasenovember62025e.htm",
+   "status": "published",
+   "usd_day_180": 24444.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.4,
+   "month": "2025-11",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000085/pressreleasedecember52025e.htm",
+   "status": "published",
+   "usd_day_180": 28732.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 0.7143,
+   "month": "2025-12",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000004/a2ndpressreleasejanuary920.htm",
+   "status": "published",
+   "usd_day_180": 34696.0,
+   "usd_day_182": null
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-01",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000008/pressreleasefebruary102026.htm",
+   "status": "complete",
+   "usd_day_180": 21426.0,
+   "usd_day_182": 24929.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-02",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000016/pressreleasemarch62026ex-9.htm",
+   "status": "complete",
+   "usd_day_180": 24446.0,
+   "usd_day_182": 27949.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-03",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000055/pressreleaseapril82026ex-9.htm",
+   "status": "complete",
+   "usd_day_180": 22907.0,
+   "usd_day_182": 26410.0
+  },
+  {
+   "coverage": 0.8,
+   "month": "2026-04",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000070/pressreleasemay72026ex-991.htm",
+   "status": "published",
+   "usd_day_180": 31417.0,
+   "usd_day_182": 34920.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-05",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000088/pressreleasejune92026ex-991.htm",
+   "status": "complete",
+   "usd_day_180": 42475.0,
+   "usd_day_182": 45978.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-06",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000096/pressreleasejuly82026ex-991.htm",
+   "status": "complete",
+   "usd_day_180": 35414.0,
+   "usd_day_182": 38917.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-07",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000106/hslpressreleaseaugust11202.htm",
+   "status": "complete",
+   "usd_day_180": 35143.0,
+   "usd_day_182": 38646.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-08",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000118/hsl2ndpressreleaseseptembea.htm",
+   "status": "complete",
+   "usd_day_180": 39906.0,
+   "usd_day_182": 43409.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-09",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000122/hslpressreleaseoctober7202.htm",
+   "status": "complete",
+   "usd_day_180": 49209.0,
+   "usd_day_182": 52712.0
+  },
+  {
+   "coverage": 1.0,
+   "month": "2026-10",
+   "published_url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000128/hsl2ndpressreleasenovembera.htm",
+   "status": "complete",
+   "usd_day_180": 33254.0,
+   "usd_day_182": 36757.0
+  }
+ ],
+ "sources_line": "Banchero Costa weekly FFA assessments; 5TC monthly settlements from daily prints and Himalaya Shipping's published averages (SEC). Retrieved to 2026-11-17."
+}

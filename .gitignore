@@ -1,0 +1,27 @@
+# Working notes and local agent configuration (never committed)
+.work/
+.claude/
+CLAUDE.md
+
+# Local caches of third-party downloads (rebuilt by `make data`)
+data/raw/*
+!data/raw/manifest.json
+data/cache/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node
+node_modules/
+
+# Build and screenshot scratch
+build/
+dist/
+_site/
+.lighthouse/

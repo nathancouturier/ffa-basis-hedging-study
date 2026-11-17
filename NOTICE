@@ -1,0 +1,28 @@
+NOTICE
+
+The code in this repository, and the figures this study computes itself, are
+released under the MIT licence in LICENSE. Data and documents published by
+others keep their publishers' terms. data/raw/manifest.json records, for every
+document the pipeline read, its URL, the time it was retrieved, its sha256 and
+its licence; the documents themselves are not committed.
+
+vendor/voyage_tce/:
+  voyage-tce-model (https://github.com/nathancouturier/voyage-tce-model) at
+  commit 0be3b7eb0c1bfda63135ce717b5cb4b335426532: src/voyage/engine.py,
+  src/voyage/baltic.py, src/engine.js, data/engine.json, data/paper.json,
+  copied unmodified under the MIT licence in vendor/voyage_tce/LICENSE
+  (Copyright (c) 2026 Nathan Couturier). Their sha256 are in
+  vendor/voyage_tce/SHA256SUMS.
+
+data/public/sec_marks.json, data/public/himalaya_5tc.json:
+  Figures read from filings with the US Securities and Exchange Commission
+  (Amplify Commodity Trust, CIK 1610940; Himalaya Shipping Ltd., CIK 1959455),
+  public records, each with the link to its filing.
+
+Baltic Exchange indices, Banchero Costa, Breakwave Advisors, handybulk.com,
+Reuters (as republished), The Edge Malaysia, Cyprus Shipping News and
+Hellenic Shipping News keep their copyright. The study commits only derived
+statistics, monthly averages and individually cited dated figures with links,
+under the data policy in data/AUDIT.md.
+
+vendor/fonts/: each face with its own licence file beside it.

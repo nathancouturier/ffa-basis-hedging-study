@@ -1,0 +1,2485 @@
+{
+ "artifact": "method",
+ "as_of": "2026-11-08",
+ "conventions": [
+  {
+   "name": "5TC basket, 180,000 t (to 24 December 2025)",
+   "rule": "C5TC = Sum(C8_14 x 0.25, C9_14 x 0.125, C10_14 x 0.25, C14 x 0.25, C16 x 0.125), the Baltic Capesize (BCI180) of 180,000 dwt, every route at 5 percent total commission",
+   "source": "Baltic Exchange, Guide to Market Benchmarks v7.09 (December 2025)",
+   "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/data-services-/documents-/ocean-bulk/GMB.pdf",
+   "where": "printed page 75"
+  },
+  {
+   "name": "5TC basket, 182,000 t (from 2 January 2026)",
+   "rule": "C5TC(182) = Sum(C8_182 x 0.15, C9_182 x 0.125, C10_182 x 0.35, C14_182 x 0.25, C16_182 x 0.125); C5TC(180) is a derived value, C5TC(182) less USD 3,503 a day",
+   "source": "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026)",
+   "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+   "where": "printed page 77"
+  },
+  {
+   "name": "Capesize futures, EEX",
+   "rule": "CPTM (180,000 t basket) and C5TM (182,000 t basket): one day a lot, USD a day to two decimals, the underlying the arithmetic average of all the Baltic's daily assessments of the month; December's last registration day is 24 December. (BDRY's filings name its 180 kt contract C5TCM, a data vendor ticker.)",
+   "source": "EEX Contract Specifications for Trade Registration, release 047a (23 July 2026)",
+   "url": "https://www.eex.com/fileadmin/EEX/Downloads/Rules/EEX-Contract_Specifications_for_Trade_Registration/20260723_EEX_Contract_Specifications_for_Trade_Registration_047a_EN_FINAL.pdf",
+   "where": "pages 7 and 8"
+  },
+  {
+   "name": "TD3C route",
+   "rule": "270,000 t Middle East Gulf to China (Ras Tanura to Ningbo), laydays 15/30 days from index date, age max 15 years, 3.75 percent total commission; published in Worldscale (TD3C), in USD a tonne (TD3C$) and as a round-trip TCE (TD3C-TCE: 2 days load, 2 discharge, 2 waiting)",
+   "source": "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026)",
+   "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+   "where": "printed pages 84 and 87"
+  },
+  {
+   "name": "TD3C futures, ICE (TDL)",
+   "rule": "1,000 t a lot, USD a tonne to 0.0001; final settlement the average of the Baltic's assessments for each Baltic publication day of the month; December expires on the 24th or the business day before",
+   "source": "ICE Futures Europe, TD3C FFA Middle East Gulf to China (Baltic) Future (TDL), contract specification",
+   "url": "https://www.ice.com/api/productguide/spec/57250507/pdf",
+   "where": "specification sheet, retrieved 17 November 2026"
+  },
+  {
+   "name": "Gross against net",
+   "rule": "A time charter index and its FFA are gross daily hire; a voyage TCE is net of commission and is grossed up by it before the comparison; the owner keeps the net share, so its hedge is the voyage's days times that share",
+   "source": "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026)",
+   "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+   "where": "section 7.4.3, pages 35 and 36"
+  },
+  {
+   "name": "Baltic standard Capesize of the date",
+   "rule": "BCI182 from 2 January 2026: 14 knots on 52 t laden, 44 t ballast (GMB v8.8 page 78). BCI180 before: 14 knots laden or 15 knots ballast on 62 t, 12 or 13 knots on 43 t (GMB v7.09 page 76). Each priced at its fastest pairs.",
+   "source": "Baltic Exchange, Guide to Market Benchmarks v8.8 (September 2026); Baltic Exchange, Guide to Market Benchmarks v7.09 (December 2025)",
+   "url": "https://www.balticexchange.com/content/dam/balticexchange/consumer/documents/data-services/documentation/ocean-bulk-guides-policies/GMB.pdf",
+   "where": "printed pages 78 and 76"
+  },
+  {
+   "name": "Publication days",
+   "rule": "London business days: weekdays less England and Wales bank holidays, by statute and proclamation",
+   "source": "Banking and Financial Dealings Act 1971; Amplify Commodity Trust 10-Q (30 September 2025)",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
+   "where": "schedule 1; note 1"
+  }
+ ],
+ "coverage": {
+  "breakwave_reports": 3,
+  "complete_months_180": 42,
+  "complete_months_182": 10,
+  "daily_days": 1020,
+  "ffa_weeks_by_year": {
+   "2021": 2,
+   "2022": 1,
+   "2024": 16,
+   "2025": 34,
+   "2026": 40
+  },
+  "first_ffa_week": "2021-01-08",
+  "hedge_observations": [
+   {
+    "horizon_months": 1,
+    "n": 73,
+    "voyage": "5TC trip"
+   },
+   {
+    "horizon_months": 2,
+    "n": 72,
+    "voyage": "5TC trip"
+   },
+   {
+    "horizon_months": 3,
+    "n": 40,
+    "voyage": "5TC trip"
+   },
+   {
+    "horizon_months": 1,
+    "n": 52,
+    "voyage": "C3"
+   },
+   {
+    "horizon_months": 2,
+    "n": 38,
+    "voyage": "C3"
+   },
+   {
+    "horizon_months": 3,
+    "n": 34,
+    "voyage": "C3"
+   },
+   {
+    "horizon_months": 1,
+    "n": 73,
+    "voyage": "C5"
+   },
+   {
+    "horizon_months": 2,
+    "n": 72,
+    "voyage": "C5"
+   },
+   {
+    "horizon_months": 3,
+    "n": 40,
+    "voyage": "C5"
+   }
+  ],
+  "issues_read": 98,
+  "last_ffa_week": "2026-11-08",
+  "ocr_issues": 65,
+  "sec_quarter_ends_bdry": 35,
+  "sec_quarter_ends_bwet": 14,
+  "settlements_by_year": {
+   "2020": {
+    "estimated": 7
+   },
+   "2021": {
+    "estimated": 10
+   },
+   "2022": {
+    "estimated": 11
+   },
+   "2023": {
+    "complete": 1,
+    "estimated": 4,
+    "published": 7
+   },
+   "2024": {
+    "published": 12
+   },
+   "2025": {
+    "published": 12
+   },
+   "2026": {
+    "complete": 9,
+    "published": 1
+   }
+  },
+  "td3c_sources": {
+   "Baltic Exchange weekly tanker report": 188
+  },
+  "td3c_weekly": 188,
+  "td3c_weekly_first": "2023-01-06",
+  "td3c_weekly_last": "2026-11-13"
+ },
+ "ederington": {
+  "first": "2025-03-24",
+  "hedge_ratio": 0.8400812977253314,
+  "last": "2026-10-12",
+  "n": 32.0,
+  "r_squared": 0.2615600328699398
+ },
+ "formulas": [
+  {
+   "name": "Settlement",
+   "text": "S(month) = average of the Baltic's assessments on every publication day of the month; a quarter is the average of its three months"
+  },
+  {
+   "name": "Basis",
+   "text": "basis = FFA - spot, per tenor, on the same basket"
+  },
+  {
+   "name": "Strip",
+   "text": "F0 = sum over months of days(month) x F(month) / voyage days, days counted from the fixture date"
+  },
+  {
+   "name": "Hedge size",
+   "text": "FFA days in a month = voyage days in that month x (1 - commission) x k; TD3C in tonnes equal to the cargo"
+  },
+  {
+   "name": "Paper",
+   "text": "short (owner): (F0 - S) x size; long (charterer): (S - F0) x size"
+  },
+  {
+   "name": "Surprise",
+   "text": "U = gross TCE - F0; hedged = U - k (S - F0); effectiveness = 1 - Var(hedged) / Var(U)"
+  },
+  {
+   "name": "Residual at k = 1",
+   "text": "TCE - S = (TCE - 5TC on the day) route + (5TC on the day - S on the ship's basket) timing + (S ship - S curve) size"
+  },
+  {
+   "name": "Forecast error",
+   "text": "error = S - F(h months before expiry); roll cost of a rolling long = F - S (positive: the long pays, the short earns)"
+  },
+  {
+   "name": "Worldscale",
+   "text": "USD a tonne = WS / 100 x flat rate"
+  }
+ ],
+ "policy": [
+  {
+   "decision": "Daily values stay in the ignored cache. Committed: monthly settlement averages, derived statistics, and weekly TD3C and TD34 prints each with the link it was read from.",
+   "source": "Baltic Exchange indices (5TC daily, TD3C, TD34)"
+  },
+  {
+   "decision": "The extracted panel stays in the ignored cache. Committed: derived statistics and the dated curves of the validation weeks and the latest week, each cited with its issue and page.",
+   "source": "Banchero Costa weekly report (FFA assessments, spot, routes, bunkers)"
+  },
+  {
+   "decision": "Public records: every quarter-end mark is committed with its filing's link.",
+   "source": "Amplify Commodity Trust 10-Q and 10-K (BDRY, BWET)"
+  },
+  {
+   "decision": "Public records: the published monthly 5TC averages are committed with their links.",
+   "source": "Himalaya Shipping 6-K exhibits"
+  },
+  {
+   "decision": "TD3C in USD a tonne and the futures index are committed as cited points with each report's link.",
+   "source": "Breakwave bi-weekly tanker reports"
+  },
+  {
+   "decision": "Daily prints stay in the cache; they enter only monthly averages and derived statistics.",
+   "source": "handybulk.com, Reuters as republished"
+  },
+  {
+   "decision": "Never published: only the test of whether dated pairs agree.",
+   "source": "Worldscale flat rates"
+  }
+ ],
+ "qc": {
+  "flags": [
+   {
+    "curve": "2021-01-08",
+    "median_other_pct": 9.910418283134659,
+    "move_pct": 78.65473557208928,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-07-11",
+    "median_other_pct": -1.7409333245573588,
+    "move_pct": -25.684165232358,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2024-08-26",
+    "first": 26346.0,
+    "gap": 0.13136719046534573,
+    "issue": "2024-W34",
+    "period": "2024-09",
+    "reprint": 29807.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-09-30",
+    "first": 31832.0,
+    "gap": -0.10109323950741389,
+    "issue": "2024-W40",
+    "period": "2024-10",
+    "reprint": 28614.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-10-14",
+    "first": 24325.0,
+    "gap": -0.17385405960945532,
+    "issue": "2024-W42",
+    "period": "2024-11",
+    "reprint": 20096.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-10-14",
+    "first": 24818.0,
+    "gap": -0.10290917882182282,
+    "issue": "2024-W42",
+    "period": "2024-12",
+    "reprint": 22264.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-10-14",
+    "first": 24301.0,
+    "gap": -0.11880169540348129,
+    "issue": "2024-W42",
+    "period": "2024-Q4",
+    "reprint": 21414.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-11-25",
+    "first": 21089.0,
+    "gap": -0.18289155483901565,
+    "issue": "2024-W48",
+    "period": "2024-11",
+    "reprint": 17232.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-11-25",
+    "first": 11093.0,
+    "gap": 0.23339042639502394,
+    "issue": "2024-W48",
+    "period": "2025-02",
+    "reprint": 13682.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-12-02",
+    "first": 11382.0,
+    "gap": 0.1707081356527851,
+    "issue": "2024-W49",
+    "period": "2024-12",
+    "reprint": 13325.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-12-02",
+    "first": 9343.0,
+    "gap": 0.2461736059081665,
+    "issue": "2024-W49",
+    "period": "2025-01",
+    "reprint": 11643.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2024-12-02",
+    "first": 13429.0,
+    "gap": -0.262789485441954,
+    "issue": "2024-W49",
+    "period": "2025-02",
+    "reprint": 9900.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-01-27",
+    "first": 8400.0,
+    "gap": 0.1317857142857144,
+    "issue": "2025-W05",
+    "period": "2025-02",
+    "reprint": 9507.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-01-27",
+    "first": 12157.0,
+    "gap": 0.10602944805461867,
+    "issue": "2025-W05",
+    "period": "2025-03",
+    "reprint": 13446.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-17",
+    "first": 6850.0,
+    "gap": 0.12832116788321168,
+    "issue": "2025-W08",
+    "period": "2025-02",
+    "reprint": 7729.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-17",
+    "first": 11529.0,
+    "gap": 0.28371931650620175,
+    "issue": "2025-W08",
+    "period": "2025-03",
+    "reprint": 14800.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-17",
+    "first": 16368.0,
+    "gap": 0.1472996089931573,
+    "issue": "2025-W08",
+    "period": "2025-04",
+    "reprint": 18779.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-17",
+    "first": 17958.0,
+    "gap": 0.10563537142220736,
+    "issue": "2025-W08",
+    "period": "2025-Q2",
+    "reprint": 19855.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-24",
+    "first": 14318.0,
+    "gap": 0.3345439307165805,
+    "issue": "2025-W09",
+    "period": "2025-03",
+    "reprint": 19108.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-02-24",
+    "first": 18225.0,
+    "gap": 0.1559396433470508,
+    "issue": "2025-W09",
+    "period": "2025-04",
+    "reprint": 21067.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-03-31",
+    "median_other_pct": 0.37662219802159225,
+    "move_pct": 46.150256649556695,
+    "period": "2026-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2025-05-05",
+    "first": 19271.0,
+    "gap": -0.16496289761818272,
+    "issue": "2025-W19",
+    "period": "2025-05",
+    "reprint": 16092.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-05-05",
+    "first": 21171.0,
+    "gap": -0.1328704359737377,
+    "issue": "2025-W19",
+    "period": "2025-06",
+    "reprint": 18358.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-07-14",
+    "median_other_pct": -0.35085855271041466,
+    "move_pct": 18.60736590206036,
+    "period": "2026-Q3",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2025-09-01",
+    "median_other_pct": -0.2104652006676866,
+    "move_pct": -17.878542510121452,
+    "period": "2026-02",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2025-09-29",
+    "first": 27846.0,
+    "gap": -0.10874093227034398,
+    "issue": "2025-W40",
+    "period": "2025-10",
+    "reprint": 24818.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-11-03",
+    "first": 23396.0,
+    "gap": 0.10121388271499399,
+    "issue": "2025-W45",
+    "period": "2025-11",
+    "reprint": 25764.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-11-24",
+    "first": 27132.0,
+    "gap": 0.1053000147427392,
+    "issue": "2025-W48",
+    "period": "2025-12",
+    "reprint": 29989.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-11-24",
+    "first": 14754.0,
+    "gap": 0.10044733631557534,
+    "issue": "2025-W48",
+    "period": "2026-02",
+    "reprint": 16236.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2025-12-01",
+    "first": 22782.0,
+    "gap": -0.1133350891054341,
+    "issue": "2025-W49",
+    "period": "2026-01",
+    "reprint": 20200.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-01-12",
+    "first": 19167.0,
+    "gap": 0.13027599520008337,
+    "issue": "2026-W03",
+    "period": "2026-02",
+    "reprint": 21664.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-01-12",
+    "first": 24492.0,
+    "gap": 0.11754858729381024,
+    "issue": "2026-W03",
+    "period": "2026-03",
+    "reprint": 27371.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 32239.0,
+    "gap": -0.1990756537113434,
+    "issue": "2026-W10",
+    "period": "2026-03",
+    "reprint": 25821.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 35589.0,
+    "gap": -0.15524459804995927,
+    "issue": "2026-W10",
+    "period": "2026-04",
+    "reprint": 30064.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 36039.0,
+    "gap": -0.14320597130885981,
+    "issue": "2026-W10",
+    "period": "2026-05",
+    "reprint": 30878.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 36460.0,
+    "gap": -0.13900164563905648,
+    "issue": "2026-W10",
+    "period": "2026-06",
+    "reprint": 31392.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 34624.0,
+    "gap": -0.1267617837338263,
+    "issue": "2026-W10",
+    "period": "2026-08",
+    "reprint": 30235.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 36029.0,
+    "gap": -0.14574370645868606,
+    "issue": "2026-W10",
+    "period": "2026-Q2",
+    "reprint": 30778.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 34911.0,
+    "gap": -0.12792529575205525,
+    "issue": "2026-W10",
+    "period": "2026-Q3",
+    "reprint": 30445.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-03-02",
+    "first": 34724.0,
+    "gap": -0.12403524939523092,
+    "issue": "2026-W10",
+    "period": "2026-Q4",
+    "reprint": 30417.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-04-13",
+    "first": 32078.0,
+    "gap": 0.10321715817694366,
+    "issue": "2026-W16",
+    "period": "2026-04",
+    "reprint": 35389.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-04-27",
+    "first": 35049.0,
+    "gap": 0.14685155068618228,
+    "issue": "2026-W18",
+    "period": "2026-05",
+    "reprint": 40196.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-06-29",
+    "first": 31367.0,
+    "gap": 0.15509930819013618,
+    "issue": "2026-W27",
+    "period": "2026-07",
+    "reprint": 36232.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-06-29",
+    "first": 33410.0,
+    "gap": 0.1023046991918588,
+    "issue": "2026-W27",
+    "period": "2026-08",
+    "reprint": 36828.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-07-27",
+    "first": 35228.0,
+    "gap": 0.1170943567616669,
+    "issue": "2026-W31",
+    "period": "2026-08",
+    "reprint": 39353.0,
+    "rule": "reprint"
+   },
+   {
+    "curve": "2026-08-31",
+    "first": 49060.0,
+    "gap": 0.16059926620464737,
+    "issue": "2026-W36",
+    "period": "2026-09",
+    "reprint": 56939.0,
+    "rule": "reprint"
+   }
+  ],
+  "sec_check": [
+   {
+    "contract_month": "2021-07",
+    "curve": "2021-07-02",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 27607.0,
+    "days_apart": 2,
+    "flag": true,
+    "gap": -0.22962942292666588,
+    "sec_as_of": "2021-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021047450/f10k2021_etfmanagers1.htm",
+    "sec_usd_day_180": 35836.0
+   },
+   {
+    "contract_month": "2021-08",
+    "curve": "2021-07-02",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 31643.0,
+    "days_apart": 2,
+    "flag": true,
+    "gap": -0.20644514106583067,
+    "sec_as_of": "2021-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021047450/f10k2021_etfmanagers1.htm",
+    "sec_usd_day_180": 39875.0
+   },
+   {
+    "contract_month": "2024-10",
+    "curve": "2024-09-30",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 31832.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2024-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024098370/ea0220480-10q_amplify.htm",
+    "sec_usd_day_180": 31832.0
+   },
+   {
+    "contract_month": "2024-11",
+    "curve": "2024-09-30",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 28829.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2024-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024098370/ea0220480-10q_amplify.htm",
+    "sec_usd_day_180": 28829.0
+   },
+   {
+    "contract_month": "2024-12",
+    "curve": "2024-09-30",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 27804.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2024-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024098370/ea0220480-10q_amplify.htm",
+    "sec_usd_day_180": 27804.0
+   },
+   {
+    "contract_month": "2025-04",
+    "curve": "2025-03-31",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 19579.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2025-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025043979/ea0241273-10q_amplify.htm",
+    "sec_usd_day_180": 19579.0
+   },
+   {
+    "contract_month": "2025-05",
+    "curve": "2025-03-31",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 21254.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2025-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025043979/ea0241273-10q_amplify.htm",
+    "sec_usd_day_180": 21254.0
+   },
+   {
+    "contract_month": "2025-06",
+    "curve": "2025-03-31",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 21775.0,
+    "days_apart": 0,
+    "flag": false,
+    "gap": 0.0,
+    "sec_as_of": "2025-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025043979/ea0241273-10q_amplify.htm",
+    "sec_usd_day_180": 21775.0
+   },
+   {
+    "contract_month": "2025-10",
+    "curve": "2025-09-29",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 27846.0,
+    "days_apart": -1,
+    "flag": true,
+    "gap": 0.11993243243243246,
+    "sec_as_of": "2025-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
+    "sec_usd_day_180": 24864.0
+   },
+   {
+    "contract_month": "2025-11",
+    "curve": "2025-09-29",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 25589.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": 0.035698385073056116,
+    "sec_as_of": "2025-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
+    "sec_usd_day_180": 24707.0
+   },
+   {
+    "contract_month": "2025-12",
+    "curve": "2025-09-29",
+    "curve_basket_t": 180000,
+    "curve_usd_day_180": 23161.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": 0.001730028977985354,
+    "sec_as_of": "2025-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
+    "sec_usd_day_180": 23121.0
+   },
+   {
+    "contract_month": "2026-04",
+    "curve": "2026-03-30",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 25407.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.02013189864630338,
+    "sec_as_of": "2026-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
+    "sec_usd_day_180": 25929.0
+   },
+   {
+    "contract_month": "2026-05",
+    "curve": "2026-03-30",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 27625.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.02347202092686207,
+    "sec_as_of": "2026-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
+    "sec_usd_day_180": 28289.0
+   },
+   {
+    "contract_month": "2026-06",
+    "curve": "2026-03-30",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 27646.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.01401619173294344,
+    "sec_as_of": "2026-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
+    "sec_usd_day_180": 28039.0
+   },
+   {
+    "contract_month": "2026-07",
+    "curve": "2026-06-29",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 27864.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.05966522678185748,
+    "sec_as_of": "2026-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
+    "sec_usd_day_180": 29632.0
+   },
+   {
+    "contract_month": "2026-08",
+    "curve": "2026-06-29",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 29907.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.04450479233226834,
+    "sec_as_of": "2026-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
+    "sec_usd_day_180": 31300.0
+   },
+   {
+    "contract_month": "2026-09",
+    "curve": "2026-06-29",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 32675.0,
+    "days_apart": -1,
+    "flag": false,
+    "gap": -0.024219076629038994,
+    "sec_as_of": "2026-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
+    "sec_usd_day_180": 33486.0
+   },
+   {
+    "contract_month": "2026-10",
+    "curve": "2026-09-28",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 42968.0,
+    "days_apart": -2,
+    "flag": false,
+    "gap": 0.06715676534869863,
+    "sec_as_of": "2026-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026119638/ea0310670-10q_amplify.htm",
+    "sec_usd_day_180": 40264.0
+   },
+   {
+    "contract_month": "2026-11",
+    "curve": "2026-09-28",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 42061.0,
+    "days_apart": -2,
+    "flag": false,
+    "gap": 0.013176277882160248,
+    "sec_as_of": "2026-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026119638/ea0310670-10q_amplify.htm",
+    "sec_usd_day_180": 41514.0
+   },
+   {
+    "contract_month": "2026-12",
+    "curve": "2026-09-28",
+    "curve_basket_t": 182000,
+    "curve_usd_day_180": 41086.0,
+    "days_apart": -2,
+    "flag": false,
+    "gap": 0.00305168330851302,
+    "sec_as_of": "2026-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026119638/ea0310670-10q_amplify.htm",
+    "sec_usd_day_180": 40961.0
+   }
+  ]
+ },
+ "robustness": [
+  {
+   "bias": {
+    "1": {
+     "first": "2024-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1372.220408590647,
+      "high": 3319.210381920216,
+      "low": -106.10529346884957,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.024300862859219886,
+     "mean_usd_day": 1372.220408590647,
+     "median_usd_day": 1225.0,
+     "n": 25,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 5880.265949435407,
+      "high": 6660.304638192977,
+      "low": 4948.29312733272,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 6650.142065632818,
+     "rmse_ratio_ffa_to_naive": 0.8842316286480488,
+     "rmse_usd_day": 5880.265949435407,
+     "share_positive": 0.6
+    },
+    "2": {
+     "first": "2024-10",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1876.4795922819242,
+      "high": 4620.368232026047,
+      "low": 97.11802691944814,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.012655027660752624,
+     "mean_usd_day": 1876.4795922819242,
+     "median_usd_day": 2091.2619047619046,
+     "n": 24,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 7523.501485210093,
+      "high": 8422.296882601988,
+      "low": 5876.167791265383,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 8413.105687096291,
+     "rmse_ratio_ffa_to_naive": 0.8942597139543083,
+     "rmse_usd_day": 7523.501485210093,
+     "share_positive": 0.5833333333333334
+    },
+    "3": {
+     "first": "2024-11",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 3486.717835424616,
+      "high": 6561.964504709962,
+      "low": 1150.4592710132868,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.04139156723753855,
+     "mean_usd_day": 3486.717835424616,
+     "median_usd_day": 4419.0,
+     "n": 23,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 7638.6990496957715,
+      "high": 8337.662274272736,
+      "low": 5872.158267009263,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 9684.209945389342,
+     "rmse_ratio_ffa_to_naive": 0.7887787535350326,
+     "rmse_usd_day": 7638.6990496957715,
+     "share_positive": 0.782608695652174
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": 0.5091918567341571,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 5086.116749899516,
+     "sd_unhedged_usd_day": 7259.896765581104,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.5924377745660827,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 5196.0731871635535,
+     "sd_unhedged_usd_day": 8139.135844358885,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.7074859528278539,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 4937.367071706908,
+     "sd_unhedged_usd_day": 9128.975740331394,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.25786637196492446,
+     "horizon_months": 1,
+     "n": 52,
+     "sd_hedged_usd_day": 6432.7193005002455,
+     "sd_unhedged_usd_day": 7467.127128883628,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.6159047277249412,
+     "horizon_months": 2,
+     "n": 38,
+     "sd_hedged_usd_day": 5826.0059127591085,
+     "sd_unhedged_usd_day": 9400.510530633273,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.37296839170441354,
+     "horizon_months": 3,
+     "n": 34,
+     "sd_hedged_usd_day": 7126.709377448741,
+     "sd_unhedged_usd_day": 9000.037768588558,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.45595417291102536,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 7474.623926149123,
+     "sd_unhedged_usd_day": 10133.78310862881,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5221004382024492,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 7676.0525455880115,
+     "sd_unhedged_usd_day": 11103.74866338529,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5880027068152933,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 8143.631044012874,
+     "sd_unhedged_usd_day": 12687.349625483104,
+     "voyage": "C5"
+    }
+   ],
+   "key": "headline",
+   "label": "First prints, exact settlements (complete or published months), quarter proxies allowed"
+  },
+  {
+   "bias": {
+    "1": {
+     "first": "2024-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 394.380408590647,
+      "high": 1937.508844954283,
+      "low": -760.8586845661581,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": -0.0030460940942412616,
+     "mean_usd_day": 394.380408590647,
+     "median_usd_day": 132.52380952380918,
+     "n": 25,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 4404.935135746686,
+      "high": 5086.334914196394,
+      "low": 3648.114000853094,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 6650.142065632818,
+     "rmse_ratio_ffa_to_naive": 0.6623821103778958,
+     "rmse_usd_day": 4404.935135746686,
+     "share_positive": 0.52
+    },
+    "2": {
+     "first": "2024-10",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1028.479592281924,
+      "high": 3829.5702172592228,
+      "low": -559.9182446161927,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": -0.01674400664816104,
+     "mean_usd_day": 1028.479592281924,
+     "median_usd_day": 1080.674901185772,
+     "n": 24,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 7460.758679119292,
+      "high": 8134.766743826844,
+      "low": 5694.839140914431,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 8413.105687096291,
+     "rmse_ratio_ffa_to_naive": 0.8868019678585907,
+     "rmse_usd_day": 7460.758679119292,
+     "share_positive": 0.5416666666666666
+    },
+    "3": {
+     "first": "2024-11",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 3009.1526180333117,
+      "high": 6189.760423878264,
+      "low": 742.515844667305,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.018081325716861052,
+     "mean_usd_day": 3009.1526180333117,
+     "median_usd_day": 3693.304347826088,
+     "n": 23,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 7365.066577194484,
+      "high": 7948.67919709662,
+      "low": 5726.842335297453,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 9684.209945389342,
+     "rmse_ratio_ffa_to_naive": 0.7605232247883057,
+     "rmse_usd_day": 7365.066577194484,
+     "share_positive": 0.7391304347826086
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": 0.49302821609391156,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 5086.116749899516,
+     "sd_unhedged_usd_day": 7143.22665603852,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.5993880469139949,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 5196.0731871635535,
+     "sd_unhedged_usd_day": 8209.435743241562,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.715956564038077,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 4937.367071706908,
+     "sd_unhedged_usd_day": 9264.095802688582,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.268952266076976,
+     "horizon_months": 1,
+     "n": 52,
+     "sd_hedged_usd_day": 6432.7193005002455,
+     "sd_unhedged_usd_day": 7523.531319587761,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.6311841082556034,
+     "horizon_months": 2,
+     "n": 38,
+     "sd_hedged_usd_day": 5826.0059127591085,
+     "sd_unhedged_usd_day": 9593.257637864577,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.39035114116153535,
+     "horizon_months": 3,
+     "n": 34,
+     "sd_hedged_usd_day": 7126.709377448741,
+     "sd_unhedged_usd_day": 9127.44377350563,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.4500367478215962,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 7474.623926149123,
+     "sd_unhedged_usd_day": 10079.117565767592,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5287926144241828,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 7676.0525455880115,
+     "sd_unhedged_usd_day": 11182.31944471431,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5877583349971468,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 8143.631044012874,
+     "sd_unhedged_usd_day": 12683.588615171344,
+     "voyage": "C5"
+    }
+   ],
+   "key": "latest_print",
+   "label": "Latest print of each curve (the next issue's re-assessment) instead of the first"
+  },
+  {
+   "bias": {
+    "1": {
+     "first": "2021-02",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 834.8331864032524,
+      "high": 2859.5368215983617,
+      "low": -721.4665645515539,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": -0.07236618482225163,
+     "mean_usd_day": 834.8331864032524,
+     "median_usd_day": 1144.5,
+     "n": 28,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 7081.707078832998,
+      "high": 8943.633484312557,
+      "low": 5405.0310365770365,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 7279.887297696597,
+     "rmse_ratio_ffa_to_naive": 0.9727770210225227,
+     "rmse_usd_day": 7081.707078832998,
+     "share_positive": 0.5714285714285714
+    },
+    "2": {
+     "first": "2022-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1072.7032657335042,
+      "high": 4373.018416116378,
+      "low": -864.0241042834356,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": -0.050460733609411695,
+     "mean_usd_day": 1072.7032657335042,
+     "median_usd_day": 1039.5238095238092,
+     "n": 25,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 8222.813902271357,
+      "high": 8844.021206040901,
+      "low": 6015.911990199665,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 8367.474899126308,
+     "rmse_ratio_ffa_to_naive": 0.9827115111071255,
+     "rmse_usd_day": 8222.813902271357,
+     "share_positive": 0.56
+    },
+    "3": {
+     "first": "2022-10",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 2878.449830377162,
+      "high": 6432.074644915772,
+      "low": 40.05176018418048,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.013523114571933512,
+     "mean_usd_day": 2878.449830377162,
+     "median_usd_day": 3732.7619047619046,
+     "n": 24,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 7814.286668551599,
+      "high": 8556.022433153192,
+      "low": 5962.324022716787,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 9483.044145768008,
+     "rmse_ratio_ffa_to_naive": 0.8240272372916112,
+     "rmse_usd_day": 7814.286668551599,
+     "share_positive": 0.75
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": 0.5091918567341571,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 5086.116749899516,
+     "sd_unhedged_usd_day": 7259.896765581104,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.5924377745660827,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 5196.0731871635535,
+     "sd_unhedged_usd_day": 8139.135844358885,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.7074859528278539,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 4937.367071706908,
+     "sd_unhedged_usd_day": 9128.975740331394,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.25786637196492446,
+     "horizon_months": 1,
+     "n": 52,
+     "sd_hedged_usd_day": 6432.7193005002455,
+     "sd_unhedged_usd_day": 7467.127128883628,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.6159047277249412,
+     "horizon_months": 2,
+     "n": 38,
+     "sd_hedged_usd_day": 5826.0059127591085,
+     "sd_unhedged_usd_day": 9400.510530633273,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.37296839170441354,
+     "horizon_months": 3,
+     "n": 34,
+     "sd_hedged_usd_day": 7126.709377448741,
+     "sd_unhedged_usd_day": 9000.037768588558,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.45595417291102536,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 7474.623926149123,
+     "sd_unhedged_usd_day": 10133.78310862881,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5221004382024492,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 7676.0525455880115,
+     "sd_unhedged_usd_day": 11103.74866338529,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5880027068152933,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 8143.631044012874,
+     "sd_unhedged_usd_day": 12687.349625483104,
+     "voyage": "C5"
+    }
+   ],
+   "key": "all_months",
+   "label": "All months, estimated settlements of incomplete months included"
+  },
+  {
+   "bias": {
+    "1": {
+     "first": "2026-01",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1721.7233571962415,
+      "high": 5194.642696582805,
+      "low": 23.02992285280723,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.029376291024869303,
+     "mean_usd_day": 1721.7233571962415,
+     "median_usd_day": 3651.545454545456,
+     "n": 9,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 6947.786513241605,
+      "high": 8017.13343321572,
+      "low": 5648.954199951514,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 7066.074954216712,
+     "rmse_ratio_ffa_to_naive": 0.9832596679568877,
+     "rmse_usd_day": 6947.786513241605,
+     "share_positive": 0.6666666666666666
+    },
+    "2": {
+     "first": "2026-01",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 4277.167801640686,
+      "high": 7281.055489679404,
+      "low": 3738.1435326348383,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.10129590029631112,
+     "mean_usd_day": 4277.167801640686,
+     "median_usd_day": 4171.045454545456,
+     "n": 9,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 9332.58785922273,
+      "high": 10935.706690985482,
+      "low": 6812.238819759335,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 10585.85566401406,
+     "rmse_ratio_ffa_to_naive": 0.8816092109538453,
+     "rmse_usd_day": 9332.58785922273,
+     "share_positive": 0.7777777777777778
+    },
+    "3": {
+     "first": "2026-01",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 6639.945579418464,
+      "high": 8550.107580380463,
+      "low": 6123.766649330839,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.17967556262107998,
+     "mean_usd_day": 6639.945579418464,
+     "median_usd_day": 7167.1500000000015,
+     "n": 9,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 8423.763489556928,
+      "high": 9669.806506743846,
+      "low": 7128.327319965817,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 10365.499039959925,
+     "rmse_ratio_ffa_to_naive": 0.8126732207569136,
+     "rmse_usd_day": 8423.763489556928,
+     "share_positive": 0.8888888888888888
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": -0.04506956716720967,
+     "horizon_months": 1,
+     "n": 23,
+     "sd_hedged_usd_day": 5826.241887575526,
+     "sd_unhedged_usd_day": 5699.226415124312,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": -0.015525711826051669,
+     "horizon_months": 2,
+     "n": 26,
+     "sd_hedged_usd_day": 5720.000047378109,
+     "sd_unhedged_usd_day": 5676.1069585870955,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.23111899706764205,
+     "horizon_months": 3,
+     "n": 11,
+     "sd_hedged_usd_day": 5670.041193571178,
+     "sd_unhedged_usd_day": 6466.311899045527,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": -1.0242800266595915,
+     "horizon_months": 1,
+     "n": 10,
+     "sd_hedged_usd_day": 5112.279109691535,
+     "sd_unhedged_usd_day": 3593.18238136298,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.2452384186691865,
+     "horizon_months": 1,
+     "n": 23,
+     "sd_hedged_usd_day": 9209.091425599398,
+     "sd_unhedged_usd_day": 10600.147090706907,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.24467566279646624,
+     "horizon_months": 2,
+     "n": 26,
+     "sd_hedged_usd_day": 8769.748744701074,
+     "sd_unhedged_usd_day": 10090.679486914014,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.3119294063253244,
+     "horizon_months": 3,
+     "n": 11,
+     "sd_hedged_usd_day": 9862.174559518528,
+     "sd_unhedged_usd_day": 11889.297283374306,
+     "voyage": "C5"
+    }
+   ],
+   "key": "complete_only",
+   "label": "Only months the study's own daily series completes (2026 and July 2023)"
+  },
+  {
+   "bias": {
+    "1": {
+     "first": "2024-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1372.220408590647,
+      "high": 3319.210381920216,
+      "low": -106.10529346884957,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.024300862859219886,
+     "mean_usd_day": 1372.220408590647,
+     "median_usd_day": 1225.0,
+     "n": 25,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 5880.265949435407,
+      "high": 6660.304638192977,
+      "low": 4948.29312733272,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 6650.142065632818,
+     "rmse_ratio_ffa_to_naive": 0.8842316286480488,
+     "rmse_usd_day": 5880.265949435407,
+     "share_positive": 0.6
+    },
+    "2": {
+     "first": "2024-10",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1876.4795922819242,
+      "high": 4620.368232026047,
+      "low": 97.11802691944814,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.012655027660752624,
+     "mean_usd_day": 1876.4795922819242,
+     "median_usd_day": 2091.2619047619046,
+     "n": 24,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 7523.501485210093,
+      "high": 8422.296882601988,
+      "low": 5876.167791265383,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 8413.105687096291,
+     "rmse_ratio_ffa_to_naive": 0.8942597139543083,
+     "rmse_usd_day": 7523.501485210093,
+     "share_positive": 0.5833333333333334
+    },
+    "3": {
+     "first": "2024-11",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 3486.717835424616,
+      "high": 6561.964504709962,
+      "low": 1150.4592710132868,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.04139156723753855,
+     "mean_usd_day": 3486.717835424616,
+     "median_usd_day": 4419.0,
+     "n": 23,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 7638.6990496957715,
+      "high": 8337.662274272736,
+      "low": 5872.158267009263,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 9684.209945389342,
+     "rmse_ratio_ffa_to_naive": 0.7887787535350326,
+     "rmse_usd_day": 7638.6990496957715,
+     "share_positive": 0.782608695652174
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": 0.5091918567341571,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 5086.116749899516,
+     "sd_unhedged_usd_day": 7259.896765581104,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.5363299841054301,
+     "horizon_months": 2,
+     "n": 64,
+     "sd_hedged_usd_day": 5231.287724134849,
+     "sd_unhedged_usd_day": 7682.527101690294,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.2741401466382861,
+     "horizon_months": 1,
+     "n": 33,
+     "sd_hedged_usd_day": 6873.796660382976,
+     "sd_unhedged_usd_day": 8068.081794146839,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.45595417291102536,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 7474.623926149123,
+     "sd_unhedged_usd_day": 10133.78310862881,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.4900425373540753,
+     "horizon_months": 2,
+     "n": 64,
+     "sd_hedged_usd_day": 7456.869331570669,
+     "sd_unhedged_usd_day": 10442.141094898989,
+     "voyage": "C5"
+    }
+   ],
+   "key": "no_proxies",
+   "label": "No quarter proxies: a voyage month must be printed as a month"
+  },
+  {
+   "bias": {
+    "1": {
+     "first": "2024-09",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 2,
+      "estimate": 1372.220408590647,
+      "high": 3319.210381920216,
+      "low": -106.10529346884957,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.024300862859219886,
+     "mean_usd_day": 1372.220408590647,
+     "median_usd_day": 1225.0,
+     "n": 25,
+     "rmse_ci": {
+      "block": 2,
+      "estimate": 5880.265949435407,
+      "high": 6660.304638192977,
+      "low": 4948.29312733272,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 6650.142065632818,
+     "rmse_ratio_ffa_to_naive": 0.8842316286480488,
+     "rmse_usd_day": 5880.265949435407,
+     "share_positive": 0.6
+    },
+    "2": {
+     "first": "2024-10",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 3,
+      "estimate": 1876.4795922819242,
+      "high": 4620.368232026047,
+      "low": 97.11802691944814,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.012655027660752624,
+     "mean_usd_day": 1876.4795922819242,
+     "median_usd_day": 2091.2619047619046,
+     "n": 24,
+     "rmse_ci": {
+      "block": 3,
+      "estimate": 7523.501485210093,
+      "high": 8422.296882601988,
+      "low": 5876.167791265383,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 8413.105687096291,
+     "rmse_ratio_ffa_to_naive": 0.8942597139543083,
+     "rmse_usd_day": 7523.501485210093,
+     "share_positive": 0.5833333333333334
+    },
+    "3": {
+     "first": "2024-11",
+     "last": "2026-10",
+     "mean_ci": {
+      "block": 4,
+      "estimate": 3486.717835424616,
+      "high": 6561.964504709962,
+      "low": 1150.4592710132868,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "mean_pct": 0.04139156723753855,
+     "mean_usd_day": 3486.717835424616,
+     "median_usd_day": 4419.0,
+     "n": 23,
+     "rmse_ci": {
+      "block": 4,
+      "estimate": 7638.6990496957715,
+      "high": 8337.662274272736,
+      "low": 5872.158267009263,
+      "resamples": 2000,
+      "seed": 20261117
+     },
+     "rmse_naive_usd_day": 9684.209945389342,
+     "rmse_ratio_ffa_to_naive": 0.7887787535350326,
+     "rmse_usd_day": 7638.6990496957715,
+     "share_positive": 0.782608695652174
+    }
+   },
+   "hedge": [
+    {
+     "effectiveness_k1": 0.551655907837292,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 5301.555250056549,
+     "sd_unhedged_usd_day": 7917.67308433937,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.632341631698208,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 5370.503306518808,
+     "sd_unhedged_usd_day": 8857.124728784993,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.6878655281810251,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 5641.188423226508,
+     "sd_unhedged_usd_day": 10097.171639676224,
+     "voyage": "5TC trip"
+    },
+    {
+     "effectiveness_k1": 0.4049191758302365,
+     "horizon_months": 1,
+     "n": 52,
+     "sd_hedged_usd_day": 6227.777449788165,
+     "sd_unhedged_usd_day": 8073.188756728835,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.6171444931990904,
+     "horizon_months": 2,
+     "n": 38,
+     "sd_hedged_usd_day": 6294.863483137956,
+     "sd_unhedged_usd_day": 10173.464334864693,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.4233219409232575,
+     "horizon_months": 3,
+     "n": 34,
+     "sd_hedged_usd_day": 7380.099568709447,
+     "sd_unhedged_usd_day": 9718.416489336974,
+     "voyage": "C3"
+    },
+    {
+     "effectiveness_k1": 0.4783958117823015,
+     "horizon_months": 1,
+     "n": 73,
+     "sd_hedged_usd_day": 7713.477930889015,
+     "sd_unhedged_usd_day": 10680.207890929132,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.5444738585314138,
+     "horizon_months": 2,
+     "n": 72,
+     "sd_hedged_usd_day": 7907.147433327099,
+     "sd_unhedged_usd_day": 11715.563545930316,
+     "voyage": "C5"
+    },
+    {
+     "effectiveness_k1": 0.582060738227569,
+     "horizon_months": 3,
+     "n": 40,
+     "sd_hedged_usd_day": 8716.758912839674,
+     "sd_unhedged_usd_day": 13483.369894457377,
+     "voyage": "C5"
+    }
+   ],
+   "key": "basket_180_2026",
+   "label": "2026 curves read as 180,000 t (each 2026 price less 3,503)"
+  }
+ ],
+ "validation": [
+  {
+   "error": 0.0,
+   "expected": 24864,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BDRY Capesize 2025-10, notional / contracts",
+   "note": "",
+   "ok": true,
+   "reproduced": 24864.0,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 24707,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BDRY Capesize 2025-11, notional / contracts",
+   "note": "",
+   "ok": true,
+   "reproduced": 24707.0,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 23121,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BDRY Capesize 2025-12, notional / contracts",
+   "note": "",
+   "ok": true,
+   "reproduced": 23121.0,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 17.412,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BWET TD3C 2025-10, notional / contracts / 1,000",
+   "note": "",
+   "ok": true,
+   "reproduced": 17.412,
+   "unit": "usd_t",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 16.285,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BWET TD3C 2025-11, notional / contracts / 1,000",
+   "note": "",
+   "ok": true,
+   "reproduced": 16.285,
+   "unit": "usd_t",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 16.047,
+   "group": "SEC 10-Q, 30 September 2025",
+   "item": "BWET TD3C 2025-12, notional / contracts / 1,000",
+   "note": "",
+   "ok": true,
+   "reproduced": 16.047,
+   "unit": "usd_t",
+   "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm"
+  },
+  {
+   "error": 0.0,
+   "expected": 22764,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-07",
+   "note": "",
+   "ok": true,
+   "reproduced": 22764.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 27857,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-08",
+   "note": "",
+   "ok": true,
+   "reproduced": 27857.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 29857,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-09",
+   "note": "",
+   "ok": true,
+   "reproduced": 29857.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 28821,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-10",
+   "note": "",
+   "ok": true,
+   "reproduced": 28821.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 26826,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-Q3",
+   "note": "",
+   "ok": true,
+   "reproduced": 26826.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 26282,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2022-Q4",
+   "note": "",
+   "ok": true,
+   "reproduced": 26282.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 12786,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2023-Q1",
+   "note": "",
+   "ok": true,
+   "reproduced": 12786.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 17271,
+   "group": "Banchero Costa week 27 of 2022, FFA of 11 July",
+   "item": "2023-Q2",
+   "note": "",
+   "ok": true,
+   "reproduced": 17271.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 18825,
+   "group": "Banchero Costa week 27 of 2022, BCI TC average",
+   "item": "2022-07-08",
+   "note": "",
+   "ok": true,
+   "reproduced": 18825.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 19745,
+   "group": "Banchero Costa week 27 of 2022, BCI TC average",
+   "item": "2022-07-01",
+   "note": "",
+   "ok": true,
+   "reproduced": 19745.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 30.13,
+   "group": "Banchero Costa week 27 of 2022",
+   "item": "C3, 8 July",
+   "note": "",
+   "ok": true,
+   "reproduced": 30.13,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 11.39,
+   "group": "Banchero Costa week 27 of 2022",
+   "item": "C5, 8 July",
+   "note": "",
+   "ok": true,
+   "reproduced": 11.39,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-27.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 38360,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2026-07",
+   "note": "",
+   "ok": true,
+   "reproduced": 38360.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 35228,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2026-08",
+   "note": "",
+   "ok": true,
+   "reproduced": 35228.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 38392,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2026-09",
+   "note": "",
+   "ok": true,
+   "reproduced": 38392.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 39535,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2026-10",
+   "note": "",
+   "ok": true,
+   "reproduced": 39535.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 37621,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2026-12",
+   "note": "",
+   "ok": true,
+   "reproduced": 37621.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 28157,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2027-Q1",
+   "note": "",
+   "ok": true,
+   "reproduced": 28157.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 34728,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2027-Q2",
+   "note": "",
+   "ok": true,
+   "reproduced": 34728.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 33349,
+   "group": "Banchero Costa week 30 of 2026, FFA of 27 July",
+   "item": "2027-Q3",
+   "note": "",
+   "ok": true,
+   "reproduced": 33349.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 35357,
+   "group": "Banchero Costa week 30 of 2026, BCI TC average (180,000 t)",
+   "item": "24 July",
+   "note": "",
+   "ok": true,
+   "reproduced": 35357.0,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 34.68,
+   "group": "Banchero Costa week 30 of 2026",
+   "item": "C3, 24 July",
+   "note": "",
+   "ok": true,
+   "reproduced": 34.68,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 12.86,
+   "group": "Banchero Costa week 30 of 2026",
+   "item": "C5, 24 July",
+   "note": "",
+   "ok": true,
+   "reproduced": 12.86,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": null,
+   "expected": null,
+   "group": "Banchero Costa week 30 of 2026, basket of the curve",
+   "item": "July contract on 27 July against July's settlement on each basket",
+   "note": "July 2026 settled at 38,646 on 182,000 t and 35,143 on 180,000 t; the curve's 38,360 is -286 from the first and 3,217 from the second: the curve is the 182,000 t basket",
+   "ok": true,
+   "reproduced": null,
+   "unit": "usd_day",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/07/Bancosta-Weekly-2026-30.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 3503.0,
+   "group": "2026 basket gap",
+   "item": "2026-07-03: 182,000 t print less 180,000 t print",
+   "note": "handybulk prints 37,181 (182,000 t), Banchero Costa prints 33,678 (180,000 t)",
+   "ok": true,
+   "reproduced": 3503,
+   "unit": "usd_day",
+   "url": "https://www.handybulk.com/baltic-dry-index/2026/july/"
+  },
+  {
+   "error": 0.0,
+   "expected": 33678,
+   "group": "2026 basket gap",
+   "item": "2026-07-03: the study's daily series on 180,000 t",
+   "note": "",
+   "ok": true,
+   "reproduced": 33678.0,
+   "unit": "usd_day",
+   "url": "https://www.handybulk.com/baltic-dry-index/2026/july/"
+  },
+  {
+   "error": 0.0,
+   "expected": 3503.0,
+   "group": "2026 basket gap",
+   "item": "2026-07-29: 182,000 t print less 180,000 t print",
+   "note": "handybulk prints 36,887 (182,000 t), Reuters prints 33,384 (180,000 t)",
+   "ok": true,
+   "reproduced": 3503,
+   "unit": "usd_day",
+   "url": "https://www.maritimeprofessional.com/amp/news/baltic-index-drops-four-week-421570"
+  },
+  {
+   "error": 0.0,
+   "expected": 33384,
+   "group": "2026 basket gap",
+   "item": "2026-07-29: the study's daily series on 180,000 t",
+   "note": "",
+   "ok": true,
+   "reproduced": 33384.0,
+   "unit": "usd_day",
+   "url": "https://www.maritimeprofessional.com/amp/news/baltic-index-drops-four-week-421570"
+  },
+  {
+   "error": 0.0,
+   "expected": 125.78,
+   "group": "TD3C weekly prints",
+   "item": "week to 2025-12-12, WS",
+   "note": "",
+   "ok": true,
+   "reproduced": 125.78,
+   "unit": "ws_points",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2025/tanker-report-week-50.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 122676,
+   "group": "TD3C weekly prints",
+   "item": "week to 2025-12-12, TCE",
+   "note": "",
+   "ok": true,
+   "reproduced": 122676.0,
+   "unit": "usd_day",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2025/tanker-report-week-50.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 1318.75,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-10-09, WS",
+   "note": "",
+   "ok": true,
+   "reproduced": 1318.75,
+   "unit": "ws_points",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-41.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 1412594,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-10-09, TCE",
+   "note": "",
+   "ok": true,
+   "reproduced": 1412594.0,
+   "unit": "usd_day",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-41.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 1014.38,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-11-13, WS",
+   "note": "",
+   "ok": true,
+   "reproduced": 1014.38,
+   "unit": "ws_points",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-46.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 1078714,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-11-13, TCE",
+   "note": "",
+   "ok": true,
+   "reproduced": 1078714.0,
+   "unit": "usd_day",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-46.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 841.07,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-10-09, TD34 WS",
+   "note": "",
+   "ok": true,
+   "reproduced": 841.07,
+   "unit": "ws_points",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-41.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 912660,
+   "group": "TD3C weekly prints",
+   "item": "week to 2026-10-09, TD34 TCE",
+   "note": "",
+   "ok": true,
+   "reproduced": 912660.0,
+   "unit": "usd_day",
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-41.html"
+  },
+  {
+   "error": 0.0,
+   "expected": 20.73,
+   "group": "Breakwave tanker reports",
+   "item": "2025-10-21, TD3C USD a tonne",
+   "note": "",
+   "ok": true,
+   "reproduced": 20.73,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 1658,
+   "group": "Breakwave tanker reports",
+   "item": "2025-10-21, Tanker Futures Index",
+   "note": "",
+   "ok": true,
+   "reproduced": 1658.0,
+   "unit": "points",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 59.62,
+   "group": "Breakwave tanker reports",
+   "item": "2026-06-30, TD3C USD a tonne",
+   "note": "",
+   "ok": true,
+   "reproduced": 59.62,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 3711,
+   "group": "Breakwave tanker reports",
+   "item": "2026-06-30, Tanker Futures Index",
+   "note": "",
+   "ok": true,
+   "reproduced": 3711.0,
+   "unit": "points",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 136.98,
+   "group": "Breakwave tanker reports",
+   "item": "2026-09-08, TD3C USD a tonne",
+   "note": "",
+   "ok": true,
+   "reproduced": 136.98,
+   "unit": "usd_t",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf"
+  },
+  {
+   "error": 0.0,
+   "expected": 11230,
+   "group": "Breakwave tanker reports",
+   "item": "2026-09-08, Tanker Futures Index",
+   "note": "",
+   "ok": true,
+   "reproduced": 11230.0,
+   "unit": "points",
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf"
+  },
+  {
+   "error": -1.8857099348679185e-07,
+   "expected": 35429.099952,
+   "group": "Vendored voyage engine",
+   "item": "C3, 3 July 2026, USD 30.11 a tonne",
+   "note": "relative error below 1e-9",
+   "ok": true,
+   "reproduced": 35429.099952,
+   "unit": "usd_day",
+   "url": "https://github.com/nathancouturier/voyage-tce-model/blob/0be3b7eb0c1bfda63135ce717b5cb4b335426532/data/paper.json"
+  },
+  {
+   "error": 2.7930946089327335e-07,
+   "expected": 43669.795671,
+   "group": "Vendored voyage engine",
+   "item": "C5 fixture, 22 October 2026, USD 14.15 a wet tonne",
+   "note": "relative error below 1e-9",
+   "ok": true,
+   "reproduced": 43669.795671,
+   "unit": "usd_day",
+   "url": "https://github.com/nathancouturier/voyage-tce-model/blob/0be3b7eb0c1bfda63135ce717b5cb4b335426532/data/paper.json"
+  },
+  {
+   "error": -0.47999999999956344,
+   "expected": 13192.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2023-07",
+   "note": "",
+   "ok": true,
+   "reproduced": 13191.52,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000016/commercialupdatejuly2023ex.htm"
+  },
+  {
+   "error": 0.5200000000004366,
+   "expected": 21425.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-01",
+   "note": "",
+   "ok": true,
+   "reproduced": 21425.52,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000008/pressreleasefebruary102026.htm"
+  },
+  {
+   "error": 0.2999999999992724,
+   "expected": 24446.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-02",
+   "note": "",
+   "ok": true,
+   "reproduced": 24446.3,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000016/pressreleasemarch62026ex-9.htm"
+  },
+  {
+   "error": -0.09000000000014552,
+   "expected": 22907.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-03",
+   "note": "",
+   "ok": true,
+   "reproduced": 22906.91,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000055/pressreleaseapril82026ex-9.htm"
+  },
+  {
+   "error": 0.37000000000261934,
+   "expected": 42475.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-05",
+   "note": "",
+   "ok": true,
+   "reproduced": 42475.37,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000088/pressreleasejune92026ex-991.htm"
+  },
+  {
+   "error": 0.05000000000291038,
+   "expected": 35414.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-06",
+   "note": "",
+   "ok": true,
+   "reproduced": 35414.05,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000096/pressreleasejuly82026ex-991.htm"
+  },
+  {
+   "error": 0.3000000000029104,
+   "expected": 35143.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-07",
+   "note": "",
+   "ok": true,
+   "reproduced": 35143.3,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000106/hslpressreleaseaugust11202.htm"
+  },
+  {
+   "error": 0.1500000000014552,
+   "expected": 39906.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-08",
+   "note": "",
+   "ok": true,
+   "reproduced": 39906.15,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000118/hsl2ndpressreleaseseptembea.htm"
+  },
+  {
+   "error": -0.4499999999970896,
+   "expected": 49209.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-09",
+   "note": "",
+   "ok": true,
+   "reproduced": 49208.55,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000122/hslpressreleaseoctober7202.htm"
+  },
+  {
+   "error": 0.3600000000005821,
+   "expected": 33254.0,
+   "group": "Monthly 5TC averages (180,000 t) against Himalaya Shipping's published averages",
+   "item": "2026-10",
+   "note": "",
+   "ok": true,
+   "reproduced": 33254.36,
+   "unit": "usd_day",
+   "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000128/hsl2ndpressreleasenovembera.htm"
+  }
+ ]
+}

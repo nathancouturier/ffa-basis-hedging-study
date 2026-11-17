@@ -1,0 +1,84 @@
+name: refresh
+
+# Weekly, and on demand: fetch the new Banchero Costa, Baltic and Breakwave
+# reports, the Amplify holdings and new SEC filings, rebuild everything, run the
+# gate, and commit only when it passes and the panel did not shrink. The cache of
+# downloaded documents (data/raw, data/cache) is kept between runs, so a run asks
+# only for what it has not seen. A failure opens an issue.
+
+on:
+  schedule:
+    - cron: "17 6 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Restore the document cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+          key: documents-${{ github.run_id }}
+          restore-keys: documents-
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q tesseract-ocr fonts-liberation
+          python -m pip install -r requirements-lock.txt
+          python -m pip install --no-deps -e .
+          npm install --no-save playwright@1.63.0
+          npx playwright install --with-deps chromium
+      - name: Fetch and rebuild
+        run: python scripts/refresh.py --budget 280
+      - name: Save the document cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+          key: documents-${{ github.run_id }}
+      - name: Parity cases, note, README finding
+        run: |
+          python scripts/gen_fixtures.py
+          python scripts/note.py
+          python scripts/finding.py
+      - name: Gate
+        run: make gate PYTHON=python
+      - name: Coverage did not shrink
+        run: python scripts/coverage_guard.py
+      - name: Commit
+        run: |
+          git config user.name "ffa-basis-hedging-study refresh"
+          git config user.email "refresh@users.noreply.github.com"
+          git add data/*.json data/public data/downloads data/fixtures data/raw/manifest.json README.md FFA-Basis-Hedging-Study-Research-Note.pdf
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "Refresh: data to $(date -u +%Y-%m-%d)"
+          git push
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "Refresh failed on $(date -u +%Y-%m-%d)" \
+            --body "The weekly refresh failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

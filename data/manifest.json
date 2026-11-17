@@ -1,0 +1,107 @@
+{
+ "artifact": "manifest",
+ "as_of": {
+  "breakwave": "2026-09-08",
+  "daily_5tc": "2026-11-06",
+  "ffa_curve": "2026-11-08",
+  "published_5tc": "2026-10",
+  "sec_marks": "2026-09-30",
+  "td3c_weekly": "2026-11-13"
+ },
+ "built_on": "2026-11-17",
+ "documents": 1421,
+ "sources": [
+  {
+   "documents": 4,
+   "first_retrieved": "2026-11-17T16:11:29Z",
+   "last_retrieved": "2026-11-17T16:11:35Z",
+   "licence": [
+    "Baltic copyright; figures cited with page, not redistributed",
+    "Baltic copyright; figures cited, not redistributed"
+   ],
+   "source": "Baltic Exchange guides and notes"
+  },
+  {
+   "documents": 481,
+   "first_retrieved": "2026-11-17T16:43:41Z",
+   "last_retrieved": "2026-11-17T17:06:16Z",
+   "licence": [
+    "Baltic copyright; cached, not redistributed; figures cited with links"
+   ],
+   "source": "Baltic Exchange weekly reports"
+  },
+  {
+   "documents": 603,
+   "first_retrieved": "2026-11-17T16:19:05Z",
+   "last_retrieved": "2026-11-17T17:17:00Z",
+   "licence": [
+    "Copyright of the publisher (Reuters text as republished); cached, not redistributed",
+    "Copyright of the publisher; cached, not redistributed"
+   ],
+   "source": "Reuters daily reports as republished"
+  },
+  {
+   "documents": 2,
+   "first_retrieved": "2026-11-17T16:11:40Z",
+   "last_retrieved": "2026-11-17T16:11:42Z",
+   "licence": [
+    "Copyright of the publisher; cited, not redistributed"
+   ],
+   "source": "Exchanges (EEX, ICE)"
+  },
+  {
+   "documents": 107,
+   "first_retrieved": "2026-11-17T16:31:25Z",
+   "last_retrieved": "2026-11-17T17:09:42Z",
+   "licence": [
+    "US public record (SEC EDGAR)"
+   ],
+   "source": "SEC EDGAR (Amplify Commodity Trust, Himalaya Shipping)"
+  },
+  {
+   "documents": 1,
+   "first_retrieved": "2026-11-17T16:11:45Z",
+   "last_retrieved": "2026-11-17T16:11:45Z",
+   "licence": [
+    "US Government work, public domain"
+   ],
+   "source": "EIA"
+  },
+  {
+   "documents": 63,
+   "first_retrieved": "2026-11-17T16:19:05Z",
+   "last_retrieved": "2026-11-17T16:22:20Z",
+   "licence": [
+    "Copyright of the publisher; robots content signal use=reference, ai-train=no; cached, not redistributed"
+   ],
+   "source": "handybulk.com daily archive"
+  },
+  {
+   "documents": 36,
+   "first_retrieved": "2026-11-17T16:39:41Z",
+   "last_retrieved": "2026-11-17T16:41:12Z",
+   "licence": [
+    "Copyright of the publisher; cached, not redistributed"
+   ],
+   "source": "The Edge Malaysia (Baltic weekly report)"
+  },
+  {
+   "documents": 109,
+   "first_retrieved": "2026-11-17T16:11:56Z",
+   "last_retrieved": "2026-11-17T17:19:03Z",
+   "licence": [
+    "Copyright of the publisher; cached, not redistributed"
+   ],
+   "source": "Banchero Costa weekly reports (via Hellenic Shipping News)"
+  },
+  {
+   "documents": 3,
+   "first_retrieved": "2026-11-17T16:44:39Z",
+   "last_retrieved": "2026-11-17T16:45:40Z",
+   "licence": [
+    "Copyright of the publisher; cached, not redistributed"
+   ],
+   "source": "Breakwave tanker reports (via Hellenic Shipping News)"
+  }
+ ]
+}

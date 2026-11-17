@@ -1,0 +1,380 @@
+[
+ {
+  "month": "2023-05",
+  "value_usd_day": 17773.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$17,773 during May 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000114036123029369/brhc20054333_ex99-1.htm",
+  "filed": "2023-06-13",
+  "accession": "0001140361-23-029369"
+ },
+ {
+  "month": "2023-06",
+  "value_usd_day": 13247.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$13,247 during June 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000004/commercialupdatejune2023ex.htm",
+  "filed": "2023-07-11",
+  "accession": "0001959455-23-000004"
+ },
+ {
+  "month": "2023-07",
+  "value_usd_day": 13192.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$13,192 during July 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000016/commercialupdatejuly2023ex.htm",
+  "filed": "2023-08-10",
+  "accession": "0001959455-23-000016"
+ },
+ {
+  "month": "2023-08",
+  "value_usd_day": 12942.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$12,942 during August 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000024/commercialupdateaugust2023.htm",
+  "filed": "2023-09-12",
+  "accession": "0001959455-23-000024"
+ },
+ {
+  "month": "2023-09",
+  "value_usd_day": 14110.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$14,110 during September 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000028/himalayashippingltdcommerc.htm",
+  "filed": "2023-10-12",
+  "accession": "0001959455-23-000028"
+ },
+ {
+  "month": "2023-10",
+  "value_usd_day": 25557.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$25,557 during October 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000032/commercialupdateoctober202a.htm",
+  "filed": "2023-11-09",
+  "accession": "0001959455-23-000032"
+ },
+ {
+  "month": "2023-11",
+  "value_usd_day": 24003.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$24,003 during November 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945523000040/commercialupdatenovember20a.htm",
+  "filed": "2023-12-07",
+  "accession": "0001959455-23-000040"
+ },
+ {
+  "month": "2023-12",
+  "value_usd_day": 37333.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$37,333 during December 2023",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000002/hsltdpressreleaseex991jan1.htm",
+  "filed": "2024-01-12",
+  "accession": "0001959455-24-000002"
+ },
+ {
+  "month": "2024-01",
+  "value_usd_day": 20565.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$20,565 during January 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000007/commercialupdatejanuary202.htm",
+  "filed": "2024-02-08",
+  "accession": "0001959455-24-000007"
+ },
+ {
+  "month": "2024-02",
+  "value_usd_day": 21557.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$21,557 during February 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000013/commercialupdatefebruary20.htm",
+  "filed": "2024-03-06",
+  "accession": "0001959455-24-000013"
+ },
+ {
+  "month": "2024-03",
+  "value_usd_day": 31245.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$31,245 during March 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000027/hslpressreleaseex-991apr92.htm",
+  "filed": "2024-04-09",
+  "accession": "0001959455-24-000027"
+ },
+ {
+  "month": "2024-04",
+  "value_usd_day": 20034.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$20,034 during April 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000031/hslpressreleaseex-991may82.htm",
+  "filed": "2024-05-08",
+  "accession": "0001959455-24-000031"
+ },
+ {
+  "month": "2024-05",
+  "value_usd_day": 23424.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$23,424 during May 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000041/commercialupdatejune72024e.htm",
+  "filed": "2024-06-07",
+  "accession": "0001959455-24-000041"
+ },
+ {
+  "month": "2024-06",
+  "value_usd_day": 24924.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$24,924 during June 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000050/commercialupdatejuly92024e.htm",
+  "filed": "2024-07-09",
+  "accession": "0001959455-24-000050"
+ },
+ {
+  "month": "2024-07",
+  "value_usd_day": 25542.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$25,542 during July 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000052/commercialupdateaug82024ex.htm",
+  "filed": "2024-08-08",
+  "accession": "0001959455-24-000052"
+ },
+ {
+  "month": "2024-08",
+  "value_usd_day": 21714.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$21,714 during August 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000065/commercialupdatesep62024ex.htm",
+  "filed": "2024-09-06",
+  "accession": "0001959455-24-000065"
+ },
+ {
+  "month": "2024-09",
+  "value_usd_day": 27410.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$27,410 during September 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000067/commercialupdateoct82024ex.htm",
+  "filed": "2024-10-08",
+  "accession": "0001959455-24-000067"
+ },
+ {
+  "month": "2024-10",
+  "value_usd_day": 20903.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$20,903 during October 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000073/commercialupdateoctober202a.htm",
+  "filed": "2024-11-07",
+  "accession": "0001959455-24-000073"
+ },
+ {
+  "month": "2024-11",
+  "value_usd_day": 20899.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$20,899 during November 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945524000079/commercialupdatedecember20.htm",
+  "filed": "2024-12-06",
+  "accession": "0001959455-24-000079"
+ },
+ {
+  "month": "2024-12",
+  "value_usd_day": 11573.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$11,573 during December 2024",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000002/pressreleasejanuary82025ex.htm",
+  "filed": "2025-01-08",
+  "accession": "0001959455-25-000002"
+ },
+ {
+  "month": "2025-01",
+  "value_usd_day": 10150.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$10,150 during January 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000004/pressreleasefebruary112025.htm",
+  "filed": "2025-02-11",
+  "accession": "0001959455-25-000004"
+ },
+ {
+  "month": "2025-02",
+  "value_usd_day": 7936.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$7,936 during February 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000013/pressreleasemarch72025ex-9.htm",
+  "filed": "2025-03-07",
+  "accession": "0001959455-25-000013"
+ },
+ {
+  "month": "2025-03",
+  "value_usd_day": 20802.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$20,802 during March 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000035/pressreleaseapril42025ex-9.htm",
+  "filed": "2025-04-04",
+  "accession": "0001959455-25-000035"
+ },
+ {
+  "month": "2025-04",
+  "value_usd_day": 16022.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$16,022 during April 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000039/pressreleasemay82025ex-991.htm",
+  "filed": "2025-05-08",
+  "accession": "0001959455-25-000039"
+ },
+ {
+  "month": "2025-05",
+  "value_usd_day": 15675.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$15,675 during May 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000049/pressreleasejune62025ex-991.htm",
+  "filed": "2025-06-06",
+  "accession": "0001959455-25-000049"
+ },
+ {
+  "month": "2025-06",
+  "value_usd_day": 24076.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$24,076 during June 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000052/pressreleasejuly92025ex-991.htm",
+  "filed": "2025-07-09",
+  "accession": "0001959455-25-000052"
+ },
+ {
+  "month": "2025-07",
+  "value_usd_day": 22008.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$22,008 during July 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000059/pressreleaseaugust82025ex-.htm",
+  "filed": "2025-08-08",
+  "accession": "0001959455-25-000059"
+ },
+ {
+  "month": "2025-08",
+  "value_usd_day": 25741.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$25,741 during August 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000068/pressreleaseseptember52025.htm",
+  "filed": "2025-09-05",
+  "accession": "0001959455-25-000068"
+ },
+ {
+  "month": "2025-09",
+  "value_usd_day": 26520.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$26,520 during September 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000074/pressreleaseoctober82025ex.htm",
+  "filed": "2025-10-08",
+  "accession": "0001959455-25-000074"
+ },
+ {
+  "month": "2025-10",
+  "value_usd_day": 24444.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$24,444 during October 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000079/pressreleasenovember62025e.htm",
+  "filed": "2025-11-06",
+  "accession": "0001959455-25-000079"
+ },
+ {
+  "month": "2025-11",
+  "value_usd_day": 28732.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$28,732 during November 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945525000085/pressreleasedecember52025e.htm",
+  "filed": "2025-12-05",
+  "accession": "0001959455-25-000085"
+ },
+ {
+  "month": "2025-12",
+  "value_usd_day": 34696.0,
+  "basket_printed": null,
+  "sentence": "Baltic 5TC Capesize Index averaged US$34,696 during December 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000004/a2ndpressreleasejanuary920.htm",
+  "filed": "2026-01-09",
+  "accession": "0001959455-26-000004"
+ },
+ {
+  "month": "2026-01",
+  "value_usd_day": 21425.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$21,425 during January 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000008/pressreleasefebruary102026.htm",
+  "filed": "2026-02-10",
+  "accession": "0001959455-26-000008"
+ },
+ {
+  "month": "2026-02",
+  "value_usd_day": 24446.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$24,446 during February 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000016/pressreleasemarch62026ex-9.htm",
+  "filed": "2026-03-06",
+  "accession": "0001959455-26-000016"
+ },
+ {
+  "month": "2026-03",
+  "value_usd_day": 22907.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$22,907 during March 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000055/pressreleaseapril82026ex-9.htm",
+  "filed": "2026-04-08",
+  "accession": "0001959455-26-000055"
+ },
+ {
+  "month": "2026-04",
+  "value_usd_day": 31417.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$31,417 during April 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000070/pressreleasemay72026ex-991.htm",
+  "filed": "2026-05-07",
+  "accession": "0001959455-26-000070"
+ },
+ {
+  "month": "2026-05",
+  "value_usd_day": 42475.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$42,475 during May 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000088/pressreleasejune92026ex-991.htm",
+  "filed": "2026-06-09",
+  "accession": "0001959455-26-000088"
+ },
+ {
+  "month": "2026-06",
+  "value_usd_day": 35414.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$35,414 during June 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000096/pressreleasejuly82026ex-991.htm",
+  "filed": "2026-07-08",
+  "accession": "0001959455-26-000096"
+ },
+ {
+  "month": "2026-07",
+  "value_usd_day": 35143.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$35,143 during July 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000106/hslpressreleaseaugust11202.htm",
+  "filed": "2026-08-11",
+  "accession": "0001959455-26-000106"
+ },
+ {
+  "month": "2026-08",
+  "value_usd_day": 39906.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$39,906 during August 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000118/hsl2ndpressreleaseseptembea.htm",
+  "filed": "2026-09-08",
+  "accession": "0001959455-26-000118"
+ },
+ {
+  "month": "2026-09",
+  "value_usd_day": 49209.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$49,209 during September 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000122/hslpressreleaseoctober7202.htm",
+  "filed": "2026-10-07",
+  "accession": "0001959455-26-000122"
+ },
+ {
+  "month": "2026-10",
+  "value_usd_day": 33254.0,
+  "basket_printed": "180",
+  "sentence": "Baltic 5TC 180 Capesize Index averaged US$33,254 during October 2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1959455/000195945526000128/hsl2ndpressreleasenovembera.htm",
+  "filed": "2026-11-10",
+  "accession": "0001959455-26-000128"
+ }
+]
