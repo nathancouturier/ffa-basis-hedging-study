@@ -166,7 +166,13 @@ User-Agent: set `SEC_USER_AGENT` before `make data`. `make help` lists every tar
 `.github/workflows/refresh.yml` runs every Tuesday and on demand: it restores the document cache, fetches what is
 new, rebuilds, and commits only when the panel is at least as complete as the one committed and the gate passes;
 a failure opens an issue. It also captures Amplify's BDRY and BWET holdings with their as-of date, so that panel
-grows with each run.
+grows with each run. SEC EDGAR is asked for new filings only when the repository variable `SEC_USER_AGENT` holds
+a contact, as EDGAR's fair access policy requires; without it the refresh skips EDGAR and keeps the committed
+marks. The first runs on an empty cache fill it over several weeks (Hellenic Shipping News asks for 30 seconds
+between requests) and commit nothing until the rebuilt panel is at least as complete as the committed one.
+
+`.github/workflows/build.yml` runs the gate and the browser check on every push and deploys the site to GitHub
+Pages from `main`; Pages must be set to deploy from GitHub Actions (Settings, Pages, Source).
 
 ## Data policy
 
