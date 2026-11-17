@@ -506,3 +506,20 @@ def test_charterer_cvar_is_the_upper_tail():
     assert s["cvar_charterer_unhedged_usd_day"] == pytest.approx(1400.0)  # the highest 5 percent: 1,400 of hire
     assert s["cvar_reduction_k1"] == pytest.approx(0.5)
     assert s["cvar_reduction_k1_charterer"] == pytest.approx(0.5)
+
+
+def test_td3c_week_whose_level_and_tce_disagree_is_left_out():
+    from ffabasis import td3c
+
+    # The week to 24 February 2023 prints "eased 3.5 points to WS4.73" with a TCE of USD 47,300.
+    weekly = {
+        "2023-02-10": {"td3c_ws_points": 53.0, "td3c_tce_usd_day": 33200.0},
+        "2023-02-17": {"td3c_ws_points": 66.32, "td3c_tce_usd_day": 46125.0},
+        "2023-02-24": {"td3c_ws_points": 4.73, "td3c_tce_usd_day": 47300.0},
+        "2023-03-03": {"td3c_ws_points": 70.23, "td3c_tce_usd_day": 54600.0},
+        "2023-03-10": {"td3c_ws_points": 80.0, "td3c_tce_usd_day": 68000.0},
+    }
+    clean, typos = td3c.flag_source_typos(weekly)
+    assert list(typos) == ["2023-02-24"]
+    assert typos["2023-02-24"]["ws_points_printed"] == 4.73
+    assert "2023-02-24" not in clean and "2023-03-03" in clean

@@ -457,7 +457,9 @@ def error_summary(rows: list[dict[str, Any]], h: int | None = None, quarters: bo
         "median_usd_day": stats.median(errors),
         "rmse_usd_day": stats.rmse(errors),
         "share_positive": stats.share_positive(errors),
-        "mean_pct": stats.mean(pct),
+        "mean_pct": stats.mean(errors) / stats.mean([r["settlement_usd_day"] for r in sel])
+        if all(r.get("settlement_usd_day") for r in sel)
+        else stats.mean(pct),
         "mean_ci": stats.block_bootstrap(errors, stats.mean, block),
         "rmse_ci": stats.block_bootstrap(errors, stats.rmse, block),
         "first": sel[0].get("contract"),
@@ -477,7 +479,8 @@ def error_summary(rows: list[dict[str, Any]], h: int | None = None, quarters: bo
 
 
 def roll_cost_by_year(rows: list[dict[str, Any]], h: int = 1) -> list[dict[str, Any]]:
-    """A rolling long's cost each year: mean (price paid - settlement), USD a day and percent, and a ship-year."""
+    """A rolling long's cost each year: mean (price paid - settlement) in USD a day, the same in percent of the
+    year's average settlement (a ratio of averages, so one low-settlement month cannot swing it), and a ship-year."""
     years: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for r in rows:
         if r.get("horizon_months", h) == h:
@@ -485,13 +488,13 @@ def roll_cost_by_year(rows: list[dict[str, Any]], h: int = 1) -> list[dict[str, 
     out = []
     for year, sel in sorted(years.items()):
         cost = [-r["error_usd_day"] for r in sel]
-        pct = [-r["error_pct"] for r in sel]
+        settled = [r["settlement_usd_day"] for r in sel if r.get("settlement_usd_day") is not None]
         out.append(
             {
                 "year": year,
                 "n": len(sel),
                 "roll_cost_usd_day": stats.mean(cost),
-                "roll_cost_pct": stats.mean(pct),
+                "roll_cost_pct": stats.mean(cost) / stats.mean(settled) if settled else None,
                 "ship_year_usd": stats.mean(cost) * 365.0,
                 "statuses": sorted({r.get("settlement_status", "") for r in sel} - {""}),
                 "baskets": {str(b): sum(1 for r in sel if r.get("basket_t") == b) for b in (180000, 182000)},

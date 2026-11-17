@@ -88,8 +88,9 @@ the year to 30 June 2026).
   before it); error = settlement - price (positive: a gain to the long, a cost to the short). Mean,
   median, RMSE, share positive; RMSE against the naive forecast (the spot on the pricing date); 90 percent moving
   block bootstrap intervals (block of the horizon in weeks plus four, in months; 2,000 resamples; seed 20261117).
-  Roll cost of a rolling long = price paid - settlement, by contract year, in USD a day, percent and per
-  ship-year (times 365). The front quarter: bought on the last curve of the month before it starts that prices it,
+  Roll cost of a rolling long = price paid - settlement, by contract year, in USD a day, in percent of the
+  year's average settlement (the mean error over the mean settlement, so a month with a low settlement cannot
+  swing it; the bias table's percent is defined the same way) and per ship-year (times 365). The front quarter: bought on the last curve of the month before it starts that prices it,
   held to the average of its three monthly settlements; its bootstrap block is two quarters (the horizon to the
   quarter's last month, 13 weeks, plus four, in quarters).
   The comparison with the naive forecast is made on the contracts that have a spot print on the pricing date, the
@@ -122,7 +123,10 @@ the year to 30 June 2026).
   first print (the week to 27 March 2026, assessed on Thursdays) and as a TCE from the week to 10 July 2026; a
   level the report gives as a range is recorded at its upper end with the range in the week's note. The next
   report sometimes restates the previous Friday differently (13 March 2026 gives "WS466.67 last Friday" where 6
-  March printed WS473.33); each week keeps its own report's figure. USD a tonne = WS / 100 x flat rate; a flat rate is
+  March printed WS473.33); each week keeps its own report's figure. A week whose TCE per Worldscale point is more
+  than ten times above or below both neighbouring weeks' has a typo in one of its two figures (the week to 24
+  February 2023 prints "eased 3.5 points to WS4.73" with a TCE of USD 47,300): it keeps its printed figures and a
+  note in the tables and enters no average, chart or statistic. USD a tonne = WS / 100 x flat rate; a flat rate is
   never stated: it is implied by dated pairs (Breakwave's dollar print against the Baltic's Worldscale print of the
   nearest earlier assessment, the gap kept) and used for a period only if the pairs agree (interquartile range
   within 2 percent of the median, at least four pairs; 2025 split at 1 July for the Ras Tanura port cost change).

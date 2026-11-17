@@ -2251,7 +2251,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.001298,
+     "mean_pct": 0.044035,
      "mean_usd_day": 1102.830572,
      "median_usd_day": 1105.0,
      "n": 42,
@@ -2283,7 +2283,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.005056,
+     "mean_pct": 0.066629,
      "mean_usd_day": 1663.140096,
      "median_usd_day": 178.152174,
      "n": 42,
@@ -2315,7 +2315,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.028648,
+     "mean_pct": 0.111411,
      "mean_usd_day": 2771.663905,
      "median_usd_day": 2194.0,
      "n": 42,
@@ -2427,7 +2427,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.072427,
+     "mean_pct": 0.04519,
      "mean_usd_day": 1131.759143,
      "median_usd_day": 446.261905,
      "n": 42,
@@ -2459,7 +2459,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.030511,
+     "mean_pct": 0.036422,
      "mean_usd_day": 909.140096,
      "median_usd_day": -508.075,
      "n": 42,
@@ -2491,7 +2491,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.013244,
+     "mean_pct": 0.092461,
      "mean_usd_day": 2300.235334,
      "median_usd_day": 2301.454545,
      "n": 42,
@@ -2604,7 +2604,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.046069,
+     "mean_pct": 0.037212,
      "mean_usd_day": 864.78508,
      "median_usd_day": 839.444444,
      "n": 51,
@@ -2636,7 +2636,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.025008,
+     "mean_pct": 0.059702,
      "mean_usd_day": 1392.080725,
      "median_usd_day": 973.414079,
      "n": 48,
@@ -2668,7 +2668,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.023968,
+     "mean_pct": 0.104554,
      "mean_usd_day": 2458.564611,
      "median_usd_day": 2301.0,
      "n": 47,
@@ -2781,7 +2781,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.017025,
+     "mean_pct": 0.047902,
      "mean_usd_day": 1656.171275,
      "median_usd_day": 3651.545455,
      "n": 11,
@@ -2813,7 +2813,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.052928,
+     "mean_pct": 0.089131,
      "mean_usd_day": 3053.262184,
      "median_usd_day": 1039.52381,
      "n": 11,
@@ -2845,7 +2845,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.10444,
+     "mean_pct": 0.15264,
      "mean_usd_day": 5180.171275,
      "median_usd_day": 5643.304348,
      "n": 11,
@@ -2958,7 +2958,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.001298,
+     "mean_pct": 0.044035,
      "mean_usd_day": 1102.830572,
      "median_usd_day": 1105.0,
      "n": 42,
@@ -2990,7 +2990,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.005056,
+     "mean_pct": 0.066629,
      "mean_usd_day": 1663.140096,
      "median_usd_day": 178.152174,
      "n": 42,
@@ -3022,7 +3022,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.028648,
+     "mean_pct": 0.111411,
      "mean_usd_day": 2771.663905,
      "median_usd_day": 2194.0,
      "n": 42,
@@ -3103,7 +3103,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.001298,
+     "mean_pct": 0.044035,
      "mean_usd_day": 1102.830572,
      "median_usd_day": 1105.0,
      "n": 42,
@@ -3135,7 +3135,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": -0.005056,
+     "mean_pct": 0.066629,
      "mean_usd_day": 1663.140096,
      "median_usd_day": 178.152174,
      "n": 42,
@@ -3167,7 +3167,7 @@
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.028648,
+     "mean_pct": 0.111411,
      "mean_usd_day": 2771.663905,
      "median_usd_day": 2194.0,
      "n": 42,
@@ -3603,7 +3603,7 @@
    "expected": 3503.0,
    "group": "2026 basket gap",
    "item": "2026-07-03: 182,000 t print less 180,000 t print",
-   "note": "handybulk.com, Baltic Dry Index archive prints 37,181 (182,000 t), Banchero Costa weekly report prints 33,678.0 (180,000 t)",
+   "note": "handybulk.com, Baltic Dry Index archive prints 37,181 (182,000 t), Banchero Costa weekly report prints 33,678 (180,000 t)",
    "ok": true,
    "reproduced": 3503.0,
    "unit": "usd_day",

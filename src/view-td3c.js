@@ -108,7 +108,8 @@ function render(section, ctx) {
       const other = unit === "tce" ? ws(w.ws_points) : usdDay(w.tce_usd_day);
       rowsT.push({ key: null, value: other, label: unit === "tce" ? "TD3C in Worldscale" : "TD3C round-trip TCE" });
       let noteText = null;
-      if (w.thin_market) noteText = `Marked (${REASONS[w.thin_reason] || "thin market"}). The Baltic: "${w.note}"`;
+      if (w.source_typo) noteText = `The report printed ${ws(w.ws_points_printed)} with a TCE of ${usdDay(w.tce_usd_day_printed)}. ${w.source_typo}`;
+      else if (w.thin_market) noteText = `Marked (${REASONS[w.thin_reason] || "thin market"}). The Baltic: "${w.note}"`;
       else if (w.note) noteText = `The Baltic: "${w.note}"`;
       const days = [w.assessed_day && `TD3C assessed ${w.assessed_day}`, isNum(v34(w)) && w.td34_assessed_day && `TD34 ${w.td34_assessed_day}`].filter(Boolean);
       return { title: `Week to ${dateLong(w.week)}${days.length ? ` (${days.join("; ")})` : ""}`, rows: rowsT, note: noteText };
@@ -145,7 +146,7 @@ function render(section, ctx) {
       vlines,
       mode: "x",
       targets: ({ x, y }) => rows.map((w) => ({ x: x(dayMs(w.week)), y: y(v3(w)), tip: tip(w) })),
-      summary: `Weekly TD3C ${unit === "tce" ? "TCE" : "Worldscale"} from ${yearly}: low ${fmt(Math.min(...rows.map(v3)))}, high ${fmt(v3(pk))} (week to ${dateLong(pk.week)}), last ${fmt(v3(rows[rows.length - 1]))} (week to ${dateLong(rows[rows.length - 1].week)}).${td34pk ? ` ${td34From}: high ${fmt(v34(td34pk))}, last ${fmt(v34(td34[td34.length - 1]))}.` : ""}${thin.length ? ` Marked weeks: ${listJoin(thin.filter((w) => w.week >= range.from).map((w) => dateLong(w.week)))}.` : ""}${gaps.length ? ` The lines break at ${plural(gaps.length, "gap", "gaps")} where a weekly report is missing, the first in this range the week to ${dateLong(gaps[0].first)}.` : ""}`,
+      summary: `Weekly TD3C ${unit === "tce" ? "TCE" : "Worldscale"} from ${yearly}: low ${fmt(Math.min(...rows.map(v3).filter(isNum)))}, high ${fmt(v3(pk))} (week to ${dateLong(pk.week)}), last ${fmt(v3(rows[rows.length - 1]))} (week to ${dateLong(rows[rows.length - 1].week)}).${td34pk ? ` ${td34From}: high ${fmt(v34(td34pk))}, last ${fmt(v34(td34[td34.length - 1]))}.` : ""}${thin.length ? ` Marked weeks: ${listJoin(thin.filter((w) => w.week >= range.from).map((w) => dateLong(w.week)))}.` : ""}${gaps.length ? ` The lines break at ${plural(gaps.length, "gap", "gaps")} where a weekly report is missing, the first in this range the week to ${dateLong(gaps[0].first)}.` : ""}`,
       source: weeklySource,
     });
     clear(eventsBox);
@@ -416,11 +417,11 @@ function render(section, ctx) {
             limit: 16,
             columns: [
               { label: "Week to", format: (r) => dateLong(r.week) },
-              { label: "TD3C, WS", num: true, format: (r) => num(r.ws_points, 2) },
-              { label: "TD3C TCE, USD a day", num: true, format: (r) => num(r.tce_usd_day) },
+              { label: "TD3C, WS", num: true, format: (r) => (r.source_typo ? `${num(r.ws_points_printed, 2)} (typo)` : num(r.ws_points, 2)) },
+              { label: "TD3C TCE, USD a day", num: true, format: (r) => (r.source_typo ? `${num(r.tce_usd_day_printed)} (typo)` : num(r.tce_usd_day)) },
               { label: "TD34, WS", num: true, format: (r) => (isNum(r.td34_ws_points) ? num(r.td34_ws_points, 2) : "") },
               { label: "TD34 TCE, USD a day", num: true, format: (r) => (isNum(r.td34_tce_usd_day) ? num(r.td34_tce_usd_day) : "") },
-              { label: "Marked week", format: (r) => (r.thin_market ? capitalise(REASONS[r.thin_reason] || "yes") : "") },
+              { label: "Marked week", format: (r) => (r.thin_market ? capitalise(REASONS[r.thin_reason] || "yes") : r.source_typo ? "Source typo: left out" : "") },
               { label: "Report", format: (r) => (r.url ? h("a", { href: r.url }, "Baltic") : "") },
             ],
             rows: weekly.slice().reverse(),

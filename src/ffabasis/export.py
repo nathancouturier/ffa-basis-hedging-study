@@ -502,6 +502,7 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
             "td34_ws_points",
             "td34_tce_usd_day",
             "thin_market",
+            "source_typo",
             "source",
             "url",
         ],
@@ -513,10 +514,11 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
                 r.get("td34_ws_points"),
                 r.get("td34_tce_usd_day"),
                 bool(r.get("thin_market")),
+                w in (results["td3c"].get("source_typos") or {}),
                 r.get("source"),
                 r.get("url"),
             ]
-            for w, r in sorted(results["td3c"]["weekly"].items())
+            for w, r in sorted((results["td3c"].get("weekly_printed") or results["td3c"]["weekly"]).items())
         ],
     )
     written += sorted(downloads.glob("*.csv"))

@@ -502,13 +502,13 @@
      "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary132026Report.pdf",
      "locked_usd": 3849120.0,
      "month": "2026-01",
-     "paper_usd": -1094580.0000000005,
+     "paper_usd": -1094579.9999999995,
      "physical": 15.71,
      "physical_vs_locked_usd": 392580.0000000002,
      "prints": 2,
-     "settlement": 18.310000000000002,
+     "settlement": 18.31,
      "single_print": false,
-     "total_usd": 3147119.9999999995
+     "total_usd": 3147120.0000000005
     },
     {
      "f0": 15.0,
@@ -574,13 +574,13 @@
      "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf",
      "locked_usd": 21078630.0,
      "month": "2026-04",
-     "paper_usd": -430919.99999999715,
+     "paper_usd": -430920.000000001,
      "physical": 72.88,
      "physical_vs_locked_usd": -1401030.0000000019,
      "prints": 2,
-     "settlement": 79.66499999999999,
+     "settlement": 79.665,
      "single_print": false,
-     "total_usd": 19246680.000000004
+     "total_usd": 19246680.0
     },
     {
      "f0": 67.636,
@@ -620,13 +620,13 @@
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 50924160.0,
-    "paper_usd": -9941939.999999996,
+    "paper_usd": -9941940.000000002,
     "physical_vs_locked_usd": 6950339.999999998,
     "total_usd": 47932560.0
    },
    "total_two_prints": {
     "locked_usd": 39340350.0,
-    "paper_usd": -5428349.999999997,
+    "paper_usd": -5428350.000000001,
     "physical_vs_locked_usd": 2436749.9999999977,
     "total_usd": 36348750.0
    },
@@ -659,13 +659,13 @@
      "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
      "locked_usd": 11175840.0,
      "month": "2026-09",
-     "paper_usd": -39102209.99999999,
+     "paper_usd": -39102210.0,
      "physical": 136.98,
      "physical_vs_locked_usd": 25808760.0,
      "prints": 2,
-     "settlement": 186.21499999999997,
+     "settlement": 186.215,
      "single_print": false,
-     "total_usd": -2117609.9999999925
+     "total_usd": -2117610.0
     }
    ],
    "months_two_prints": [
@@ -678,15 +678,15 @@
    "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 23022360.0,
-    "paper_usd": -53993789.99999999,
+    "paper_usd": -53993790.0,
     "physical_vs_locked_usd": 40700340.0,
-    "total_usd": 9728910.000000006
+    "total_usd": 9728909.999999998
    },
    "total_two_prints": {
     "locked_usd": 11175840.0,
-    "paper_usd": -39102209.99999999,
+    "paper_usd": -39102210.0,
     "physical_vs_locked_usd": 25808760.0,
-    "total_usd": -2117609.9999999925
+    "total_usd": -2117610.0
    },
    "unit": "usd_t"
   }
@@ -1074,8 +1074,8 @@
   "2023-02": {
    "flagged_weeks": 0,
    "month_to_date": false,
-   "weeks": 4,
-   "ws_points": 43.33
+   "weeks": 3,
+   "ws_points": 56.2
   },
   "2023-03": {
    "flagged_weeks": 0,
@@ -1374,7 +1374,7 @@
     "mark_usd_t": 26.816,
     "month": "2026-09",
     "prints": 2,
-    "settlement_estimate_usd_t": 186.21499999999997
+    "settlement_estimate_usd_t": 186.215
    }
   ],
   "settled_mean_usd_t": 142.6225,
@@ -1387,10 +1387,10 @@
     "first": "2023-07",
     "horizon_months": 1,
     "last": "2026-10",
-    "mean_error_usd_t": 2.253256410256409,
+    "mean_error_usd_t": 2.253256384615384,
     "n": 13,
     "n_effectiveness": 11,
-    "rmse_usd_t": 4.70816533578206,
+    "rmse_usd_t": 4.708165332507154,
     "share_positive": 0.7692307692307693
    },
    {
@@ -1409,10 +1409,10 @@
     "first": "2023-09",
     "horizon_months": 3,
     "last": "2026-09",
-    "mean_error_usd_t": 19.145461538461536,
+    "mean_error_usd_t": 19.14546153846154,
     "n": 13,
     "n_effectiveness": 8,
-    "rmse_usd_t": 45.395797078414816,
+    "rmse_usd_t": 45.39579707841482,
     "share_positive": 0.7692307692307693
    }
   ],
@@ -1582,13 +1582,13 @@
    {
     "as_of": "2024-06-30",
     "contract": "2024-07",
-    "error": 0.6013333333333346,
+    "error": 0.6013330000000003,
     "f0": 11.692,
     "horizon_months": 1,
-    "paper_move": 0.6013333333333346,
+    "paper_move": 0.6013330000000003,
     "physical": 12.1,
     "prints": 3,
-    "settlement": 12.293333333333335,
+    "settlement": 12.293333,
     "unhedged": 0.4079999999999995
    },
    {
@@ -1678,25 +1678,25 @@
    {
     "as_of": "2024-12-31",
     "contract": "2025-03",
-    "error": 0.22100000000000186,
+    "error": 0.22100000000000009,
     "f0": 12.184,
     "horizon_months": 3,
-    "paper_move": 0.22100000000000186,
+    "paper_move": 0.22100000000000009,
     "physical": 12.26,
     "prints": 2,
-    "settlement": 12.405000000000001,
+    "settlement": 12.405,
     "unhedged": 0.07600000000000051
    },
    {
     "as_of": "2025-03-31",
     "contract": "2025-04",
-    "error": -0.03999999999999915,
+    "error": -0.040000000000000924,
     "f0": 13.16,
     "horizon_months": 1,
-    "paper_move": -0.03999999999999915,
+    "paper_move": -0.040000000000000924,
     "physical": 12.13,
     "prints": 2,
-    "settlement": 13.120000000000001,
+    "settlement": 13.12,
     "unhedged": -1.0299999999999994
    },
    {
@@ -1798,13 +1798,13 @@
    {
     "as_of": "2025-12-31",
     "contract": "2026-01",
-    "error": 4.054000000000002,
+    "error": 4.0539999999999985,
     "f0": 14.256,
     "horizon_months": 1,
-    "paper_move": 4.054000000000002,
+    "paper_move": 4.0539999999999985,
     "physical": 15.71,
     "prints": 2,
-    "settlement": 18.310000000000002,
+    "settlement": 18.31,
     "unhedged": 1.4540000000000006
    },
    {
@@ -1834,13 +1834,13 @@
    {
     "as_of": "2026-03-31",
     "contract": "2026-04",
-    "error": 1.5959999999999894,
+    "error": 1.5960000000000036,
     "f0": 78.069,
     "horizon_months": 1,
-    "paper_move": 1.5959999999999894,
+    "paper_move": 1.5960000000000036,
     "physical": 72.88,
     "prints": 2,
-    "settlement": 79.66499999999999,
+    "settlement": 79.665,
     "unhedged": -5.189000000000007
    },
    {
@@ -1882,13 +1882,13 @@
    {
     "as_of": "2026-06-30",
     "contract": "2026-09",
-    "error": 144.82299999999998,
+    "error": 144.823,
     "f0": 41.392,
     "horizon_months": 3,
-    "paper_move": 144.82299999999998,
+    "paper_move": 144.823,
     "physical": 136.98,
     "prints": 2,
-    "settlement": 186.21499999999997,
+    "settlement": 186.215,
     "unhedged": 95.588
    },
    {
@@ -1911,10 +1911,10 @@
     "first": "2023-07",
     "horizon_months": 1,
     "last": "2026-10",
-    "mean_error_usd_t": 2.3080277777777773,
+    "mean_error_usd_t": 2.308027749999999,
     "n": 12,
     "n_effectiveness": 10,
-    "rmse_usd_t": 4.878707605313944,
+    "rmse_usd_t": 4.878707601890148,
     "share_positive": 0.75
    },
    {
@@ -1933,10 +1933,10 @@
     "first": "2023-09",
     "horizon_months": 3,
     "last": "2026-09",
-    "mean_error_usd_t": 14.692083333333331,
+    "mean_error_usd_t": 14.692083333333334,
     "n": 12,
     "n_effectiveness": 7,
-    "rmse_usd_t": 42.34913586780726,
+    "rmse_usd_t": 42.34913586780727,
     "share_positive": 0.75
    }
   ]
@@ -2445,7 +2445,9 @@
    "assessed_day": null,
    "note": null,
    "source": "Baltic Exchange weekly tanker report",
-   "tce_usd_day": 47300.0,
+   "source_typo": "The report's Worldscale level and TCE cannot both be right: its TCE per Worldscale point is more than ten times its neighbouring weeks'. Left out of averages, charts and statistics.",
+   "tce_usd_day": null,
+   "tce_usd_day_printed": 47300.0,
    "td34_assessed_day": null,
    "td34_tce_usd_day": null,
    "td34_ws_points": null,
@@ -2453,7 +2455,8 @@
    "thin_reason": null,
    "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2023/tanker-report-week-8.html",
    "week": "2023-02-24",
-   "ws_points": 4.73
+   "ws_points": null,
+   "ws_points_printed": 4.73
   },
   {
    "assessed_day": null,

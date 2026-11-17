@@ -155,7 +155,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
         )
     _robustness_notes(robustness)
 
-    weekly = panel["td3c_weekly"]
+    weekly, typos = td3c.flag_source_typos(panel["td3c_weekly"])
     bw = panel.get("breakwave", [])
     pairs = td3c.implied_flat_rates(weekly, bw)
     flat = td3c.flat_rate_by_period(pairs)
@@ -196,6 +196,8 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
         "td3c": {
             "as_of": td3c_as_of,
             "weekly": weekly,
+            "source_typos": typos,
+            "weekly_printed": panel["td3c_weekly"],
             "breakwave": bw,
             "flat_pairs": pairs,
             "flat": flat,

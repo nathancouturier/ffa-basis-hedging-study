@@ -335,7 +335,12 @@ def validation(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str,
                 "no pair of prints on the day"
                 if p182 is None or p180 is None
                 else "%s prints %s (182,000 t), %s prints %s (180,000 t)"
-                % (p182["source"], format(p182["usd_day"], ","), p180["source"], format(p180["usd_day"], ","))
+                % (
+                    p182["source"],
+                    format(round(p182["usd_day"]), ","),
+                    p180["source"],
+                    format(round(p180["usd_day"]), ","),
+                )
             ),
         )
         for basket, expected, found in ((182000, expected_182, p182), (180000, expected_180, p180)):
@@ -784,6 +789,28 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
         }
         for w, r in sorted(t["weekly"].items())
     ]
+    for w, typo in (t.get("source_typos") or {}).items():
+        r = t["weekly_printed"][w]
+        weekly.append(
+            {
+                "week": w,
+                "ws_points": None,
+                "tce_usd_day": None,
+                "td34_ws_points": r.get("td34_ws_points"),
+                "td34_tce_usd_day": r.get("td34_tce_usd_day"),
+                "assessed_day": r.get("assessed_day"),
+                "td34_assessed_day": r.get("td34_assessed_day"),
+                "thin_market": False,
+                "thin_reason": None,
+                "note": None,
+                "source_typo": typo["note"],
+                "ws_points_printed": typo["ws_points_printed"],
+                "tce_usd_day_printed": typo["tce_usd_day_printed"],
+                "url": r.get("url"),
+                "source": r.get("source"),
+            }
+        )
+    weekly.sort(key=lambda row: row["week"])
     flat = {
         p: {
             k: (round(v, 4) if k == "dispersion" else v) for k, v in f.items() if k in ("n", "dispersion", "consistent")

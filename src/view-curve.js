@@ -7,6 +7,19 @@ import { lineChart, calendarChart, barChart, monthMid, monthStart, monthEnd, day
 import { pct, shareOf, usdDay, num, signed, signedPct, signedPoints, dateLong, dateShort, tenorLabel, monthName, monthAbbr, monthLong, plural, listJoin, isNum, capitalise, usdT, monthShort } from "./format.js";
 import { quarter_months, months_between, add_months } from "./engine.js";
 import { wire, sourceLine, basketForWindow, downloadLine, stripSummary, retrievedOf } from "./view-kit.js";
+import { basketRule } from "./view-kit.js";
+
+/** The basket the slope bins use: the earlier (smaller) one, for every curve. */
+function binBasket(engine) {
+  const rule = basketRule(engine);
+  return rule ? `${num(rule.before)} t` : "one basket";
+}
+
+function binRule(engine) {
+  const rule = basketRule(engine);
+  if (!rule) return "The bins use one basket for every curve.";
+  return `The bins use the spot on the ${num(rule.before)} t basket for every curve (from ${dateLong(rule.from)}, the ${num(rule.after)} t spot less the Baltic's fixed differential); the slope is in percent of the spot on the curve's own basket.`;
+}
 
 const RULES = Object.freeze({
   minYearN: 10, // a year needs this many curves to be named in a title
@@ -408,7 +421,7 @@ function render(section, ctx) {
         body.append(box);
         barChart(box, {
           title,
-          subtitle: `Mean slope: the first full quarter after the front month minus the front month, in percent of spot, for curves grouped by the spot level in bins of USD ${num(width)} a day (spot on each curve's basket). n under each bin.`,
+          subtitle: `Mean slope: the first full quarter after the front month minus the front month, in percent of spot, for curves grouped by the spot level in bins of USD ${num(width)} a day. ${binRule(engine)} n under each bin.`,
           legend: [{ label: "Mean slope up (contango)", cls: "contango", kind: "rect" }, { label: "Mean slope down (backwardation)", cls: "backwardation", kind: "rect" }],
           cats: bins.map((b) => ({ key: String(b.spot_from), label: `${k(b.spot_from)} to ${k(b.spot_to)}`, sub: `n ${b.n}` })),
           bars: bins.map((b) => ({ key: String(b.spot_from), value: b.mean_slope_pct, cls: b.mean_slope_pct >= 0 ? "contango" : "backwardation" })),
@@ -558,7 +571,7 @@ function render(section, ctx) {
           body.append(table({
             caption: "Slope against spot, by spot level",
             columns: [
-              { label: "Spot, USD a day", format: (b) => `${num(b.spot_from)} to ${num(b.spot_to)}` },
+              { label: `Spot (${binBasket(engine)}), USD a day`, format: (b) => `${num(b.spot_from)} to ${num(b.spot_to)}` },
               { label: "Curves", num: true, format: (b) => num(b.n) },
               { label: "Mean slope, % of spot", num: true, format: (b) => signedPct(b.mean_slope_pct) },
               { label: "Sloping up", num: true, format: (b) => shareOf(b.contango_share, b.n) },

@@ -108,6 +108,34 @@ def flat_rate_by_period(pairs: list[dict[str, Any]]) -> dict[str, dict[str, Any]
     return out
 
 
+#: A week's TCE per Worldscale point this many times above or below that of both neighbouring weeks means one of
+#: its two printed figures is a typo (the ratio moves with bunker costs and the flat rate, by a few times at most).
+TYPO_FACTOR = 10.0
+
+
+def flag_source_typos(weekly: dict[str, dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    """Weeks whose Worldscale level and TCE cannot both be right, taken out of the analysis and returned apart.
+
+    The Baltic's report for the week to 24 February 2023 prints "eased 3.5 points to WS4.73" with a TCE of USD
+    47,300 against WS66.32 and USD 46,125 a week earlier: its TCE per Worldscale point is fourteen times its
+    neighbours'. Such a week keeps its printed figures and a note, and enters no average, chart or statistic.
+    """
+    weeks = sorted(w for w, r in weekly.items() if r.get("td3c_ws_points") and r.get("td3c_tce_usd_day"))
+    ratio = {w: weekly[w]["td3c_tce_usd_day"] / weekly[w]["td3c_ws_points"] for w in weeks}
+    typos = {}
+    for prev, week, nxt in zip(weeks, weeks[1:], weeks[2:], strict=False):
+        lo, hi = min(ratio[prev], ratio[nxt]), max(ratio[prev], ratio[nxt])
+        if ratio[week] > TYPO_FACTOR * hi or ratio[week] < lo / TYPO_FACTOR:
+            typos[week] = {
+                "ws_points_printed": weekly[week]["td3c_ws_points"],
+                "tce_usd_day_printed": weekly[week]["td3c_tce_usd_day"],
+                "note": "The report's Worldscale level and TCE cannot both be right: its TCE per Worldscale point is "
+                "more than ten times its neighbouring weeks'. Left out of averages, charts and statistics.",
+            }
+    clean = {w: r for w, r in weekly.items() if w not in typos}
+    return clean, typos
+
+
 def data_date(weekly: dict[str, dict[str, Any]], breakwave: list[dict[str, Any]], strips: list[dict[str, Any]]) -> str:
     """The TD3C record's date: its latest weekly print, Breakwave report or quarter-end mark."""
     dates = [max(weekly)] if weekly else []
@@ -282,7 +310,8 @@ def dollar_months(breakwave: list[dict[str, Any]], as_of: str) -> dict[str, dict
             "fixture_usd_t": rows[0]["td3c_usd_t"],
             "fixture_on": rows[0]["report_date"],
             "fixture_url": rows[0].get("url"),
-            "settlement_estimate_usd_t": float(np.mean([r["td3c_usd_t"] for r in rows])) if ended else None,
+            # rounded once here, so every table that shows it formats the same number
+            "settlement_estimate_usd_t": round(float(np.mean([r["td3c_usd_t"] for r in rows])), 6) if ended else None,
             "prints": len(rows),
             "ended": ended,
         }
