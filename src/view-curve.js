@@ -1,4 +1,4 @@
-// view-curve.js: spot against the curve. Cited dated curves against the same day's spot, contango and
+// view-curve.js: spot against the curve. Cited dated curves against that day's spot, contango and
 // backwardation week by week, by year and calendar month (the first-quarter discount), slope against the
 // spot level, and TD3C's quarter-end strips from SEC filings.
 
@@ -17,7 +17,7 @@ const RULES = Object.freeze({
 
 function describe(measure, state) {
   const word = state === "contango" ? "above" : "below";
-  return measure === "front_spread" ? `next month ${word} the front month` : `front month ${word} the same day's spot`;
+  return measure === "front_spread" ? `next month ${word} the front month` : `front month ${word} the spot of its day or the Friday before`;
 }
 
 function yearTitle(byYear) {
@@ -29,7 +29,7 @@ function yearTitle(byYear) {
 }
 
 const MEASURES = [
-  { value: "front_vs_spot", label: "Front month against spot", short: "front month above the same day's spot" },
+  { value: "front_vs_spot", label: "Front month against spot", short: "front month above the spot of its day or the Friday before" },
   { value: "front_spread", label: "Front month against the next month", short: "next month above the front month" },
 ];
 
@@ -127,7 +127,7 @@ function curveChart(box, curve, opts) {
   const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `, ${opts.retrieved}. Levels shown only on cited dates, as the data policy allows.`);
   return lineChart(box, {
     title,
-    subtitle: `USD a day, ${num(curve.basket_t)} t basket (${curve.basket_how}). Banchero Costa's Monday assessment, cited with issue and page.`,
+    subtitle: `USD a day, ${num(curve.basket_t)} t basket (${curve.basket_how}). Banchero Costa's weekly assessment, dated ${dateLong(curve.date)} on the page${new Date(`${curve.date}T00:00:00Z`).getUTCDay() === 0 ? " (a Sunday)" : ""}, cited with issue and page.`,
     legend,
     x: { type: "time", min: Math.min(...xs), max: Math.max(...xs) },
     y: { title: "USD a day" },
@@ -150,7 +150,7 @@ function render(section, ctx) {
   // ---------------------------------------------------------- takeaway
   let sentence = "The curve's shape is not in this build of the data.";
   if (fvs) {
-    sentence = `The front month sat above the same day's spot in ${shareOf(fvs.contango, fvs.n)} of ${plural(fvs.n, "weekly curve", "weekly curves")}`;
+    sentence = `The front month sat above the spot of its day, or the Friday before, in ${shareOf(fvs.contango, fvs.n)} of ${plural(fvs.n, "weekly curve", "weekly curves")}`;
     if (q1 && isNum(q1.n) && q1.n > 0) {
       const all = q1.share_below === 1;
       sentence += `, and the next year's first quarter priced below the fourth quarter before it in ${all ? `all ${q1.n}` : `${shareOf(q1.share_below, q1.n)} of ${q1.n}`} curves that printed both, ${pct(Math.abs(q1.mean_pct))} ${q1.mean_pct < 0 ? "lower" : "higher"} on average.`;
@@ -233,7 +233,7 @@ function render(section, ctx) {
           const yearsList = Object.entries(byYear).map(([y, v]) => `${y} ${shareOf(v.contango, v.n)} of ${v.n}`);
           calendarChart(box, {
             title,
-            subtitle: `One cell per week with a curve (ISO weeks), coloured by the ${m.short.startsWith("front") ? "front month against the same day's spot" : "front month against the next month"}. Outlined: a curve without the tenor or spot needed. Empty: no curve that week. No levels are shown.`,
+            subtitle: `One cell per week with a curve (ISO weeks), coloured by the ${m.short.startsWith("front") ? "front month against the spot of its day or the Friday before" : "front month against the next month"}. Outlined: a curve without the tenor or spot needed. Empty: no curve that week. No levels are shown.`,
             legend: [
               { label: "Contango", cls: "contango", kind: "rect" },
               { label: "Backwardation", cls: "backwardation", kind: "rect" },
@@ -399,9 +399,9 @@ function render(section, ctx) {
         label: "Method",
         render(body) {
           body.append(defs([
-            { term: "Contango and backwardation", desc: "Contango: a later tenor above an earlier one, and the front month above spot; backwardation the reverse. Measured on adjacent months and adjacent quarters, and on the front month against the same day's spot." },
+            { term: "Contango and backwardation", desc: "Contango: a later tenor above an earlier one, and the front month above spot; backwardation the reverse. Measured on adjacent months and adjacent quarters, and on the front month against the spot of its day, or the Friday before when that day has no print." },
             { term: "Front month", desc: "The month of the curve's date when printed, otherwise the first printed month." },
-            { term: "Spot", desc: "The Baltic 5TC of the curve's date on the curve's basket, or of the Friday before for a Monday assessment." },
+            { term: "Spot", desc: "The Baltic 5TC of the curve's date on the curve's basket, or of the latest earlier publication day within four days (the Friday before a Monday or Sunday date). Banchero Costa's own premium column may use another day's spot, so a distance from spot here can differ from the page's premium." },
             { term: "First-quarter discount", desc: "The next year's first quarter against the fourth quarter of the curve's year, on every curve that prints both." },
             { term: "Slope", desc: "The first full quarter after the front month minus the front month, divided by spot; averaged by bins of the spot level." },
             { term: "Quarter tenors", desc: "A quarter is the average of its three months, so the chart draws it across them rather than as a point." },

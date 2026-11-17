@@ -468,7 +468,7 @@ function render(section, ctx) {
     }
     const b = bandsFor(state.voyage, horizon());
     let s = `${who} hedging a ${v.label} voyage from ${dateLong(state.start)} locks ${usdDay(m.f0)} (${num(curve.basket_t)} t basket)`;
-    if (b) s += `; past ${v.label} hedges placed ${horizonLabel(horizon())} ahead ended ${signed(b.p05)} to ${signed(b.p95)} USD a day from what they locked (5th to 95th percentile).`;
+    if (b) s += `; past ${v.label} hedges placed ${horizonLabel(horizon())} ahead left a residual of ${signed(b.p05)} to ${signed(b.p95)} USD a day around what they locked (5th to 95th percentile${isNum(b.route_mean_removed_usd_day) && b.route_mean_removed_usd_day !== 0 ? ", route basis taken at its mean" : ""}).`;
     else s += ".";
     return s;
   }
@@ -621,7 +621,7 @@ function render(section, ctx) {
       bandsEl.append(h("p", { class: "small muted" }, `Route basis enters with its mean (${signed(b.route_mean_removed_usd_day)} USD a day for ${state.voyage} at ${horizonLabel(b.horizon_months)}) removed: the study's voyage TCEs leave out port charges and the loading time at the port's scale, which have no public figure, so the level of the route basis is overstated while its spread, which these bands show, is not.`));
     }
     bandsEl.append(table({
-      caption: `Residual after the hedge, ${state.voyage}, USD a day (k = 1)`,
+      caption: `Residual after the hedge, ${state.voyage}, USD a day (k = 1${all.some((r) => isNum(r.route_mean_removed_usd_day) && r.route_mean_removed_usd_day !== 0) ? "; route basis at its mean" : ""})`,
       columns: [
         { label: "Placed ahead", format: (r) => horizonLabel(r.horizon_months) },
         { label: "Fixtures", num: true, format: (r) => num(r.n) },

@@ -207,6 +207,7 @@ def summarise(rows: list[dict[str, Any]], horizon: int) -> dict[str, Any] | None
     u = [r["unhedged"] for r in sel]
     x = [r["paper_move"] for r in sel]
     h1 = [a - b for a, b in zip(u, x, strict=True)]
+    route_mean = stats.mean([r["route_basis"] for r in sel])
     block = max(1, round(analysis.WEEKS_PER_MONTH * horizon + 4))
     out: dict[str, Any] = {
         "n": len(sel),
@@ -219,8 +220,11 @@ def summarise(rows: list[dict[str, Any]], horizon: int) -> dict[str, Any] | None
         "effectiveness_k1": stats.effectiveness(u, h1),
         "effectiveness_k1_ci": stats.block_bootstrap((u, x), lambda a, b: stats.effectiveness(a, a - b), block),
         "k_in_sample": stats.min_variance_ratio(u, x),
-        "cvar_unhedged_usd_day": stats.cvar(u),
-        "cvar_hedged_usd_day": stats.cvar(h1),
+        # CVaR with the route basis's mean taken out of both: its level is overstated by the costs the voyage
+        # TCEs leave out, and a constant shift would move a tail measure (variances are unaffected).
+        "cvar_unhedged_usd_day": stats.cvar([a - route_mean for a in u]),
+        "cvar_hedged_usd_day": stats.cvar([a - route_mean for a in h1]),
+        "cvar_route_mean_removed_usd_day": route_mean,
         "block_weeks": block,
         "curve_baskets": {str(b): sum(1 for r in sel if r["curve_basket_t"] == b) for b in (180000, 182000)},
         "k_window_min_fixtures": MIN_WINDOW,
@@ -268,18 +272,34 @@ def _cov(a: list[float], b: list[float]) -> float:
 def ederington(panel: dict[str, Any], curves: list[dict[str, Any]]) -> dict[str, Any] | None:
     """Weekly spot and next-month FFA changes, Monday to Monday on the same basket, regressed (Ederington 1979)."""
     pairs = []
-    for a, b in itertools.pairwise(curves):
+    dropped = {"not_7_days_apart": 0, "basket_changed": 0, "no_next_month_tenor": 0, "no_same_day_spot": 0}
+    candidates = list(itertools.pairwise(curves))
+    for a, b in candidates:
         gap = (dt.date.fromisoformat(b["date"]) - dt.date.fromisoformat(a["date"])).days
-        if gap != 7 or a["basket_t"] != b["basket_t"]:
+        if gap != 7:
+            dropped["not_7_days_apart"] += 1
+            continue
+        if a["basket_t"] != b["basket_t"]:
+            dropped["basket_changed"] += 1
             continue
         nxt = engine.add_months(b["date"][:7], 1)
         fa, fb = a["tenors"].get(nxt), b["tenors"].get(nxt)
+        if None in (fa, fb):
+            dropped["no_next_month_tenor"] += 1
+            continue
         sa, sb = analysis.spot_in(panel, a["date"], a["basket_t"]), analysis.spot_in(panel, b["date"], b["basket_t"])
-        if None in (fa, fb, sa, sb):
+        if None in (sa, sb):
+            dropped["no_same_day_spot"] += 1
             continue
         pairs.append((sb - sa, fb - fa, b["date"]))
     if len(pairs) < 10:
         return None
     result = stats.ederington([p[0] for p in pairs], [p[1] for p in pairs])
-    result.update(first=pairs[0][2], last=pairs[-1][2])
+    result.update(
+        first=pairs[0][2],
+        last=pairs[-1][2],
+        pairs_considered=len(candidates),
+        pairs_dropped=dropped,
+        pairs_in_2026=sum(1 for p in pairs if p[2] >= engine.BASKET_182_FROM),
+    )
     return result

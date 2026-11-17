@@ -5,7 +5,7 @@ import { h, takeaway, table, defs, clear } from "./dom.js";
 import { barChart } from "./charts.js";
 import { num, numTrim, pct, signed, signedPct, dateLong, dateShort, monthShort, tenorLabel, plural, listJoin, isNum, capitalise, horizonLabel, usdDay } from "./format.js";
 import { exists } from "./data.js";
-import { wire, csvLink } from "./view-kit.js";
+import { wire, csvLink, basketRule } from "./view-kit.js";
 
 const FLAG_RULES = Object.freeze({
   reprint: "Re-printed differently next week",
@@ -136,7 +136,7 @@ function render(section, ctx) {
         body.append(defs((method.formulas || []).map((f) => ({ term: f.name, desc: f.text }))));
         if (method.ederington) {
           const e = method.ederington;
-          body.append(h("p", { class: "prose" }, `For comparison with the literature (${CITE_EDERINGTON}): regressing weekly spot changes on front-month FFA changes from ${dateLong(e.first)} to ${dateLong(e.last)} (${plural(e.n, "week", "weeks")}) gives a hedge ratio of ${num(e.hedge_ratio, 2)} and an R-squared of ${num(e.r_squared, 2)}, the share of weekly spot variance a front-month hedge would remove.`));
+          body.append(h("p", { class: "prose" }, `For comparison with the literature (${CITE_EDERINGTON}): regressing weekly spot changes on the changes of the next month's FFA, Monday to Monday on the same basket, from ${dateLong(e.first)} to ${dateLong(e.last)} (${plural(e.n, "pair of weeks", "pairs of weeks")}) gives a hedge ratio of ${num(e.hedge_ratio, 2)} and an R-squared of ${num(e.r_squared, 2)}, the share of weekly spot variance such a hedge would remove.${e.pairs_considered ? ` Of ${num(e.pairs_considered)} consecutive curves, the pairs used are those 7 days apart with the tenor on both and a spot print on both Mondays (${num(e.pairs_dropped?.no_same_day_spot ?? 0)} lack one); ${num(e.pairs_in_2026 ?? 0)} of the pairs fall on or after ${dateLong(engine?.constants?.BASKET_182_FROM)}, when the daily series is complete.` : ""}`));
         }
       },
     },
@@ -292,7 +292,7 @@ function render(section, ctx) {
               label: "Detail",
               format: (f) =>
                 f.rule === "reprint"
-                  ? `${num(f.first)} first, ${num(f.reprint)} in ${f.issue} (${pct(f.gap)})`
+                  ? `${f.issue}'s re-print differs from the first print by ${signedPct(f.gap)}`
                   : f.rule === "one_week_move"
                     ? `${signed(f.move_pct, 1)}% against ${signed(f.median_other_pct, 1)}% for the other tenors`
                     : f.rule === "repeated_page"
@@ -307,6 +307,7 @@ function render(section, ctx) {
         }));
         const sec = method.qc?.sec_check || [];
         if (sec.length) {
+          const summary = method.qc?.sec_summary;
           body.append(table({
             caption: "Curve against the SEC quarter-end marks within a few days",
             limit: 16,
@@ -315,13 +316,12 @@ function render(section, ctx) {
               { label: "Curve", format: (r) => dateShort(r.curve) },
               { label: "SEC mark", format: (r) => (r.sec_url ? h("a", { href: r.sec_url }, dateShort(r.sec_as_of)) : dateShort(r.sec_as_of)) },
               { label: "Days apart", num: true, format: (r) => num(r.days_apart) },
-              { label: "Curve, USD a day", num: true, format: (r) => num(r.curve_usd_day_180) },
               { label: "SEC, USD a day", num: true, format: (r) => num(r.sec_usd_day_180) },
-              { label: "Gap", num: true, format: (r) => signedPct(r.gap) },
+              { label: "Curve against the mark", format: (r) => `${capitalise(r.band)}, ${r.curve_above_sec ? "above" : "below"}` },
               { label: "Flag", format: (r) => (r.flag ? "Flagged" : "") },
             ],
             rows: sec,
-            note: "Both on the first basket. A gap can be the market moving between the two dates as well as an error.",
+            note: `Both on the ${num(basketRule(engine)?.before ?? sec[0].curve_basket_t)} t basket that BDRY's futures settle on (a later curve converted through the fixed differential).${summary ? ` ${num(summary.n)} comparisons, ${num(summary.flagged)} beyond 10 percent; median gap ${pct(summary.median_abs_gap)}.` : ""} The gap is shown as a band: with the public SEC mark beside it, an exact gap would publish the broker's level. A gap can be the market moving between the two dates as well as an error.`,
           }));
         }
       },

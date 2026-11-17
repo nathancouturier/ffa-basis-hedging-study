@@ -635,7 +635,7 @@ def facts(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str, Any]
                 "key": "contango_share",
                 "value": round(contango["contango"], 4),
                 "n": contango["n"],
-                "measure": "front month above the same day's spot on the same basket",
+                "measure": "front month above the spot of the curve's day, or of the latest earlier day within four days (the Friday before a Monday curve), on the same basket",
             }
         )
     if peak_week:
@@ -662,8 +662,10 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             "td34_ws_points": r.get("td34_ws_points"),
             "td34_tce_usd_day": r.get("td34_tce_usd_day"),
             "assessed_day": r.get("assessed_day"),
+            "td34_assessed_day": r.get("td34_assessed_day"),
             "thin_market": bool(r.get("thin_market")),
-            "note": clean(r.get("assessment_note")),
+            "thin_reason": r.get("thin_reason"),
+            "note": clean(" ".join(x for x in (r.get("range_note"), r.get("assessment_note")) if x) or None),
             "url": r.get("url"),
             "source": r.get("source"),
         }
@@ -732,9 +734,12 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             },
             {
                 "date": "2026-03-26",
-                "text": "TD34 (270,000 t Mina Al Fahal to Ningbo) on public trial",
-                "source": "Baltic Exchange circular 17/26, as reported in its weekly tanker reports",
-                "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup.html",
+                "text": "TD34, 270,000 t Gulf of Oman to China, first assessed (WS197) as an alternative to TD3C on "
+                "public trial",
+                "source": "Baltic Exchange weekly tanker report, week 13 of 2026; route: Guide to Market Benchmarks "
+                "v8.8, page 87 (Mina Al Fahal to Ningbo)",
+                "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/"
+                "tanker-report-week-13.html",
             },
         ],
     }

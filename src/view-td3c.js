@@ -4,12 +4,19 @@
 
 import { h, clear, takeaway, table, note, defs, segmented } from "./dom.js";
 import { lineChart, waterfallChart, monthMid, dayMs, empty } from "./charts.js";
-import { num, pct, signed, usdDay, usdT, ws, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, tenorLabel, plural, listJoin, isNum, tonnes, addDays } from "./format.js";
+import { num, pct, signed, usdDay, usdT, ws, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, tenorLabel, plural, listJoin, isNum, tonnes, addDays, capitalise } from "./format.js";
 import { wire, retrievedTo, retrievedOf, downloadLine, stripSummary } from "./view-kit.js";
 
 const SHAPE = Object.freeze({
   weekDays: 6, // a week's shade runs back six days from the report's date
   pointsPerUnit: 1,
+});
+
+// Why a week is marked, in the Baltic's terms (td3c.json weekly thin_reason).
+const REASONS = Object.freeze({
+  assessment: "assessment hard or theoretical",
+  transits: "transits all but stopped",
+  "assessment and transits": "assessment hard, transits all but stopped",
 });
 
 const UNITS = [
@@ -32,7 +39,7 @@ function render(section, ctx) {
   let sentence = "The TD3C weekly prints are not in this build of the data.";
   if (peak) {
     sentence = before
-      ? `TD3C went from ${ws(before.ws_points)} in the last week before the Strait of Hormuz closed to ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}${thin.length ? `; the Baltic's panel reported difficulty assessing the Gulf in ${plural(thin.length, "week", "weeks")}` : ""}.`
+      ? `TD3C went from ${ws(before.ws_points)} in the last week before the Strait of Hormuz closed to ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}${thin.length ? `; the Baltic's reports marked ${plural(thin.length, "week", "weeks")} of the closure as hard to assess or with transits all but stopped` : ""}.`
       : `TD3C peaked at ${ws(peak.ws_points)}, ${usdDay(peak.tce_usd_day)} round trip, in the week to ${dateLong(peak.week)}.`;
   }
   section.append(takeaway("TD3C 2026", sentence));
@@ -68,9 +75,10 @@ function render(section, ctx) {
       const other = unit === "tce" ? ws(w.ws_points) : usdDay(w.tce_usd_day);
       rowsT.push({ key: null, value: other, label: unit === "tce" ? "TD3C in Worldscale" : "TD3C round-trip TCE" });
       let noteText = null;
-      if (w.thin_market) noteText = `Marked thin market. The Baltic: "${w.note}"`;
+      if (w.thin_market) noteText = `Marked (${REASONS[w.thin_reason] || "thin market"}). The Baltic: "${w.note}"`;
       else if (w.note) noteText = `The Baltic: "${w.note}"`;
-      return { title: `Week to ${dateLong(w.week)} (${w.assessed_day || "report"})`, rows: rowsT, note: noteText };
+      const days = [w.assessed_day && `TD3C assessed ${w.assessed_day}`, isNum(v34(w)) && w.td34_assessed_day && `TD34 ${w.td34_assessed_day}`].filter(Boolean);
+      return { title: `Week to ${dateLong(w.week)}${days.length ? ` (${days.join("; ")})` : ""}`, rows: rowsT, note: noteText };
     };
     const series = [
       { cls: "spot", dots: false, points: rows.map((w) => ({ x: dayMs(w.week), y: v3(w), tip: tip(w) })), endLabel: "TD3C" },
@@ -86,7 +94,7 @@ function render(section, ctx) {
       { label: "TD3C, Ras Tanura to Ningbo", cls: "spot", kind: "line" },
     ];
     if (td34.length) legend.push({ label: "TD34, Mina Al Fahal to Ningbo (trial route)", cls: "route", kind: "line" });
-    if (thin.length) legend.push({ label: "Week the Baltic's panel found hard to assess (thin market)", cls: "spot", kind: "hatch" });
+    if (thin.length) legend.push({ label: "Week the Baltic called hard to assess or with transits all but stopped", cls: "spot", kind: "hatch" });
     const yearly = rows.length ? `${dateLong(rows[0].week)} to ${dateLong(rows[rows.length - 1].week)}` : "";
     lineChart(chartBox, {
       title,
@@ -109,8 +117,10 @@ function render(section, ctx) {
       eventsBox.append(h("div", { class: "prose" }, ol));
     }
     if (thin.length) {
-      const noted = weekly.filter((w) => w.note && !w.thin_market);
-      eventsBox.append(note(h("strong", {}, "How the closure weeks were assessed. "), `The study marks a week as thin market when the Baltic's own weekly report says its panel had difficulty assessing the routes from the region (${listJoin(thin.map((w) => dateShort(w.week)))}).${noted.length ? ` Weeks with a Baltic note but no reported difficulty (${listJoin(noted.map((w) => dateShort(w.week)))}) are not marked.` : ""} Every note is in the tooltips and the Data section.`));
+      const byReason = (r) => thin.filter((w) => (w.thin_reason || "").includes(r));
+      const hard = byReason("assessment");
+      const stopped = byReason("transits");
+      eventsBox.append(note(h("strong", {}, "How the closure weeks were assessed. "), `The study marks a week when the Baltic's own weekly report says its Gulf assessment was theoretical or hard (its panellists had "an extraordinarily difficult week", "challenges", "some difficulties in assessing"): ${listJoin(hard.map((w) => dateShort(w.week)))}; or that transits through the Strait of Hormuz were extremely limited or blocked: ${listJoin(stopped.map((w) => dateShort(w.week)))}. Every week's own sentence is in the tooltips and the Data section.`));
     }
   }
   if (weekly.length) drawWeekly();
@@ -305,7 +315,7 @@ function render(section, ctx) {
         render(body) {
           body.append(defs([
             { term: "Weekly prints", desc: "TD3C and TD34 in Worldscale points and as round-trip TCE, read from the Baltic Exchange's own weekly tanker reports, each with its link." },
-            { term: "Thin-market weeks", desc: "A pre-registered rule marks a week when the Baltic's report says its panel had difficulty assessing the routes from the region; the report's sentence is kept with the week." },
+            { term: "Marked weeks", desc: "A week is marked when the Baltic's report says its Gulf assessment was theoretical, hypothetical or hard for its panellists, or that transits through the Strait of Hormuz were extremely limited or blocked; the reason and the report's sentence are kept with the week." },
             { term: "Worldscale and USD a tonne", desc: `USD a tonne = WS / ${num(engine?.constants?.PERCENT)} times the route's flat rate. Flat rates are licensed and never published; the study tests whether dated public pairs of WS and USD a tonne imply one consistent rate before converting.` },
             { term: "Flat-rate test", desc: Object.keys(flat).length ? Object.entries(flat).map(([k, v]) => `${k}: ${plural(v.n, "dated pair", "dated pairs")}, ${v.consistent ? "consistent" : "not enough to establish a consistent rate"}`).join("; ") + ". Without one, TD3C stays in Worldscale here." : "Not in this build." },
             { term: "Cases", desc: "A hedge at a quarter-end mark of BWET's TD3C futures, sized to the cargo in tonnes and held to settlement; the physical fixture is TD3C in USD a tonne in the loading month from Breakwave's report, the settlement an estimate from the USD a tonne prints of that month." },
@@ -337,7 +347,7 @@ function render(section, ctx) {
               { label: "TD3C TCE, USD a day", num: true, format: (r) => num(r.tce_usd_day) },
               { label: "TD34, WS", num: true, format: (r) => (isNum(r.td34_ws_points) ? num(r.td34_ws_points, 2) : "") },
               { label: "TD34 TCE, USD a day", num: true, format: (r) => (isNum(r.td34_tce_usd_day) ? num(r.td34_tce_usd_day) : "") },
-              { label: "Thin market", format: (r) => (r.thin_market ? "Yes" : "") },
+              { label: "Marked", format: (r) => (r.thin_market ? capitalise(REASONS[r.thin_reason] || "yes") : "") },
               { label: "Report", format: (r) => (r.url ? h("a", { href: r.url }, "Baltic") : "") },
             ],
             rows: weekly.slice().reverse(),

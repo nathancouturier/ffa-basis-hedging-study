@@ -36,7 +36,8 @@ def _usd(v: Any) -> Any:
 
 
 def _share(v: Any) -> Any:
-    return _r(v, 4)
+    """A share to six decimals: rounding it again for display (one decimal of a percent) then rounds once."""
+    return _r(v, 6)
 
 
 def dump(path: Path, data: Any) -> None:
@@ -90,6 +91,7 @@ def hedge_cells(table: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "cvar_unhedged_usd_day": _usd(row["cvar_unhedged_usd_day"]),
                 "cvar_hedged_usd_day": _usd(row["cvar_hedged_usd_day"]),
                 "cvar_reduction_k1": _share(row["cvar_reduction_k1"]),
+                "cvar_route_mean_removed_usd_day": _usd(row["cvar_route_mean_removed_usd_day"]),
                 "residual_variance_share": {k: _share(v) for k, v in row["residual_variance_share"].items()},
                 "residual_mean_usd_day": {k: _usd(v) for k, v in row["residual_mean_usd_day"].items()},
                 "residual_sd_usd_day": {k: _usd(v) for k, v in row["residual_sd_usd_day"].items()},
@@ -135,9 +137,7 @@ def cited_curves(results: dict[str, Any], panel: dict[str, Any]) -> list[dict[st
                         "tenors": {p: v for p, v in r["tenors"].items() if v is not None},
                     }
                     for r in curve.get("reprints", [])
-                ]
-                if date == "2026-06-29"
-                else [],
+                ],
                 "flags": curve.get("flags", []),
             }
         )

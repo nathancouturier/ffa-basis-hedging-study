@@ -50,14 +50,65 @@ POLICY = [
 
 
 def rounded(value):
-    """Floats to four decimals, as the overview stores its shares, so every view shows the same digits."""
+    """Floats to six decimals, as the overview stores its shares, so every view shows the same digits."""
     if isinstance(value, float):
-        return round(value, 4)
+        return round(value, 6)
     if isinstance(value, dict):
         return {k: rounded(v) for k, v in value.items()}
     if isinstance(value, list):
         return [rounded(v) for v in value]
     return value
+
+
+#: The SEC comparison is published as a band: a precise gap beside the public mark would give the curve's level.
+SEC_BANDS = ((0.05, "within 5 percent"), (0.10, "5 to 10 percent"), (float("inf"), "over 10 percent"))
+#: Keys of a quality flag that carry an FFA level: kept in the ignored cache, never published.
+LEVEL_KEYS = ("first", "reprint", "curve_usd_day_180")
+
+
+def qc_tables(panel: dict) -> dict:
+    """The quality-control tables the site shows, without FFA levels (data policy, data/AUDIT.md).
+
+    Re-print flags keep their gap in percent (two unknown levels, so neither can be read from it) and one-week
+    moves their changes in percent; the SEC comparison keeps the public mark, the days apart and a band with its
+    direction, plus the median absolute gap over all comparisons.
+    """
+    import statistics
+
+    flags = [
+        {k: v for k, v in {"curve": d, **f}.items() if k not in LEVEL_KEYS}
+        for d, c in panel["curves"].items()
+        for f in c.get("flags", [])
+        if f["rule"] != "reprint" or abs(f.get("gap", 0)) > 0.10
+    ]
+    rows = []
+    for r in panel["sec_check"]:
+        gap = r["gap"]
+        band = next(label for limit, label in SEC_BANDS if abs(gap) <= limit)
+        rows.append(
+            {
+                "contract_month": r["contract_month"],
+                "curve": r["curve"],
+                "curve_basket_t": r["curve_basket_t"],
+                "sec_as_of": r["sec_as_of"],
+                "sec_url": r["sec_url"],
+                "sec_usd_day_180": r["sec_usd_day_180"],
+                "days_apart": r["days_apart"],
+                "band": band,
+                "curve_above_sec": gap > 0,
+                "flag": r["flag"],
+            }
+        )
+    gaps = [abs(r["gap"]) for r in panel["sec_check"]]
+    return {
+        "flags": flags,
+        "sec_check": rows,
+        "sec_summary": {
+            "n": len(gaps),
+            "flagged": sum(1 for r in panel["sec_check"] if r["flag"]),
+            "median_abs_gap": round(statistics.median(gaps), 4) if gaps else None,
+        },
+    }
 
 
 def audit_block(method: dict, panel: dict) -> str:
@@ -145,15 +196,7 @@ def main() -> int:
         "robustness": rounded(res["robustness"]),
         "hedge_by_year": rounded(res["hedge_by_year"]),
         "ederington": rounded(res["ederington"]),
-        "qc": {
-            "sec_check": panel["sec_check"],
-            "flags": [
-                {"curve": d, **f}
-                for d, c in panel["curves"].items()
-                for f in c.get("flags", [])
-                if f["rule"] != "reprint" or abs(f.get("gap", 0)) > 0.10
-            ],
-        },
+        "qc": qc_tables(panel),
     }
     extra = {
         "as_of": as_of,

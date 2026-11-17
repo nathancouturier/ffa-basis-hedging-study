@@ -6,6 +6,7 @@
 //    and in the lab's default curve, which must be one of them; SEC marks are public records and allowed.
 // 3. Monthly aggregates only: settlement rows are keyed by month (YYYY-MM).
 // 4. No flat rate table: no implied flat rate figure in any artifact or download.
+// 5. Quality tables without levels: flags carry gaps in percent, the SEC comparison a band beside the public mark.
 
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -52,6 +53,15 @@ if (existsSync(path.join(root, "data", "curve.json"))) {
     for (const h of lab.history || []) {
       if (Object.keys(h).some((k) => /^(f0|tce|spot|settlement)/.test(k))) problems.push("lab.json history carries a level");
     }
+  }
+}
+if (existsSync(path.join(root, "data", "method.json"))) {
+  const qc = read("method.json").qc || {};
+  for (const f of qc.flags || []) {
+    for (const k of ["first", "reprint", "curve_usd_day_180", "usd_day"]) if (k in f) problems.push(`method.json qc flag on ${f.curve}: carries the level ${k}`);
+  }
+  for (const r of qc.sec_check || []) {
+    for (const k of ["curve_usd_day_180", "gap"]) if (k in r) problems.push(`method.json qc sec_check ${r.curve}: ${k} would give the curve's level`);
   }
 }
 if (existsSync(path.join(root, "data", "roll.json"))) {

@@ -183,7 +183,22 @@
    ],
    "issue": "2026-W30",
    "page": 15,
-   "reprints": [],
+   "reprints": [
+    {
+     "issue": "2026-W31",
+     "tenors": {
+      "2026-08": 39353.0,
+      "2026-09": 41342.0,
+      "2026-10": 42049.0,
+      "2026-11": 40564.0,
+      "2027-01": 29310.0,
+      "2027-Q1": 29074.0,
+      "2027-Q2": 35553.0,
+      "2027-Q3": 33807.0
+     },
+     "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/08/Bancosta-Weekly-2026-31.pdf"
+    }
+   ],
    "source": "Banchero Costa weekly market report 2026-W30, Dry bulk FFA assessments (Capesize)",
    "spot_on": "2026-07-27",
    "spot_usd_day": 38090.0,
@@ -310,7 +325,7 @@
   }
  ],
  "q1_discount": {
-  "mean_pct": -0.3864,
+  "mean_pct": -0.386364,
   "n": 66,
   "share_below": 1.0
  },
@@ -418,8 +433,8 @@
   },
   "front_vs_spot": {
    "all": {
-    "backwardation": 0.49295774647887325,
-    "contango": 0.5070422535211268,
+    "backwardation": 0.5,
+    "contango": 0.5,
     "n": 142
    }
   },
@@ -450,8 +465,8 @@
     "n": 11
    },
    "3": {
-    "backwardation": 0.4166666666666667,
-    "contango": 0.5833333333333334,
+    "backwardation": 0.5,
+    "contango": 0.5,
     "n": 12
    },
    "4": {
@@ -502,8 +517,8 @@
     "n": 14
    },
    "2024": {
-    "backwardation": 0.391304347826087,
-    "contango": 0.6086956521739131,
+    "backwardation": 0.41304347826086957,
+    "contango": 0.5869565217391305,
     "n": 46
    },
    "2025": {
@@ -535,77 +550,77 @@
  "slope_by_spot": [
   {
    "contango_share": 1.0,
-   "mean_slope_pct": 1.3665,
+   "mean_slope_pct": 1.366538,
    "n": 5,
    "spot_from": 5000.0,
    "spot_to": 10000.0
   },
   {
-   "contango_share": 0.7143,
-   "mean_slope_pct": 0.2924,
+   "contango_share": 0.714286,
+   "mean_slope_pct": 0.29244,
    "n": 7,
    "spot_from": 10000.0,
    "spot_to": 15000.0
   },
   {
-   "contango_share": 0.52,
-   "mean_slope_pct": -0.0223,
-   "n": 25,
+   "contango_share": 0.541667,
+   "mean_slope_pct": -0.016457,
+   "n": 24,
    "spot_from": 15000.0,
    "spot_to": 20000.0
   },
   {
-   "contango_share": 0.5161,
-   "mean_slope_pct": -0.0442,
+   "contango_share": 0.516129,
+   "mean_slope_pct": -0.044165,
    "n": 31,
    "spot_from": 20000.0,
    "spot_to": 25000.0
   },
   {
    "contango_share": 0.5,
-   "mean_slope_pct": -0.0692,
+   "mean_slope_pct": -0.06922,
    "n": 32,
    "spot_from": 25000.0,
    "spot_to": 30000.0
   },
   {
-   "contango_share": 0.1818,
-   "mean_slope_pct": -0.236,
-   "n": 11,
+   "contango_share": 0.166667,
+   "mean_slope_pct": -0.222755,
+   "n": 12,
    "spot_from": 30000.0,
    "spot_to": 35000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.1661,
+   "mean_slope_pct": -0.16611,
    "n": 13,
    "spot_from": 35000.0,
    "spot_to": 40000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.2346,
+   "mean_slope_pct": -0.234612,
    "n": 9,
    "spot_from": 40000.0,
    "spot_to": 45000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.2144,
+   "mean_slope_pct": -0.214447,
    "n": 5,
    "spot_from": 45000.0,
    "spot_to": 50000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.2032,
+   "mean_slope_pct": -0.203189,
    "n": 3,
    "spot_from": 50000.0,
    "spot_to": 55000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.1006,
+   "mean_slope_pct": -0.100577,
    "n": 1,
    "spot_from": 55000.0,
    "spot_to": 60000.0
@@ -1168,7 +1183,7 @@
    "basket_t": 180000,
    "date": "2024-03-04",
    "front_spread": "backwardation",
-   "front_vs_spot": "contango"
+   "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,

@@ -208,6 +208,16 @@ def test_tanker_parser_reads_the_close_not_the_week_passed_through():
         dt.date(2024, 3, 8),
     )
     assert old["td3c_ws_points"] == 71.5 and old["td3c_tce_usd_day"] == 48914
+    # The Tuesday belongs to the WS74.55 the week passed through, not to the WS71.5 close.
+    assert old["assessed_day"] is None
+    trial = tankers.parse(
+        "VLCC Rates for the TD3C route (270,000mt Middle East Gulf to China) are now being assessed at WS444, which "
+        "corresponds to a daily round-trip TCE of over $444,200 for the standard Baltic VLCC. TD34 (Gulf of "
+        "Oman/China) was assessed on Thursday at WS183. In the Atlantic market rates eased.",
+        dt.date(2026, 4, 10),
+    )
+    assert trial["td34_ws_points"] == 183 and trial["td34_tce_usd_day"] is None
+    assert trial["td34_assessed_day"] == "Thursday" and trial["assessed_day"] is None
 
 
 def test_himalaya_sentence():

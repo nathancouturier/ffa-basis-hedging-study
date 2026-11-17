@@ -13,9 +13,10 @@ route, changing only what the week changes:
   speeds and consumptions of GMB v8.8 page 78 (as upstream); before that date
   the BCI180, whose description GMB v8.8 no longer prints, from the dated
   source recorded in data/seed/conventions.json;
-* C3's cargo of the date: 170,000 t from 2 January 2025 (Baltic circular
-  44/24, recorded upstream), the earlier cargo before it, with its discharge
-  days at the route's 30,000 t a day plus 24 hours turn time.
+* the cargo: 170,000 t on C3 and C5 at every date (build.CARGO_T; C3 allowed
+  160,000 or 170,000 t before 2 January 2025, Baltic circular 44/24, and C5
+  still does), with its discharge days at the route's 30,000 t a day plus 24
+  hours turn time.
 
 Everything else (distances, port days, commission, the 5 percent weather
 margin, no ECA or ETS exposure, no war risk) is the upstream input unchanged.

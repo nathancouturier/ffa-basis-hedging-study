@@ -49,7 +49,10 @@ the year to 30 June 2026).
   marked implied, and where both exist they must agree (the chain check). A month's settlement is the average of
   every publication day; it is computed only for a complete month. Otherwise the month takes the average Himalaya
   Shipping published in its SEC filings ("published"); otherwise, for the robustness that admits all months only,
-  the average of the days observed when at least four days span the month ("estimated").
+  the average of the days observed when at least four days span the month ("estimated"). When a day's prints
+  disagree, the value most source families support wins (handybulk, Reuters in any republication, Banchero Costa;
+  the level implied by the next day's change counts as support); a tie goes to the value nearest the median of the
+  other days within a week. A print that loses implies nothing for the day before.
 - **OCR.** Some reports were uploaded with tables in fonts that have no Unicode map. Those tables are read by OCR
   (Tesseract 5 at four times page size, a second reading with a white margin when the first gives no table). The
   text is normalised before it is parsed (long dashes, lone noise glyphs, a hyphenless date, a quarter label read
@@ -77,15 +80,26 @@ the year to 30 June 2026).
   C3 and C5 voyages priced by the vendored engine; hedges placed 1, 2 or 3 months before on the latest curve (no
   older than 14 days); U = gross TCE - F0, X = S - F0; effectiveness = 1 - Var(U - kX) / Var(U) at k = 1 and at k*
   estimated only from fixtures settled before the hedge date (at least 52); intervals by moving block bootstrap
-  (block of the horizon in weeks plus four, in weeks); 5 percent CVaR of U and U - X; the residual's variance
-  split into route, timing and size basis by Cov(part, residual) / Var(residual).
+  (block of the horizon in weeks plus four, in weeks); 5 percent CVaR of U and U - X, both with the route basis's
+  mean taken out (its level is overstated by the costs the voyage TCEs leave out, and a constant shift moves a tail
+  measure though not a variance); the residual's variance split into route, timing and size basis by
+  Cov(part, residual) / Var(residual). For a 2026 voyage hedged on a 2025 curve (180,000 t), the surprise includes
+  the fixed USD 3,503 between the ship's basket and the paper's: size basis, a constant. Taking it out of the
+  surprise lowers the three-month effectiveness by one to five points (C3 most) and leaves the others nearly
+  unchanged.
 - **Basis bands in the lab.** The 5th to 95th percentiles of the residual at k = 1 by voyage and horizon, with the
   route basis's mean removed: its level is overstated by the costs the voyage TCEs leave out, its spread is not.
 - **Ederington.** Monday to Monday changes of the spot and of the next month's FFA on the same basket, regressed;
-  R squared is the variance a hedge at the regression ratio removes (Ederington 1979).
+  R squared is the variance a hedge at the regression ratio removes (Ederington 1979). A pair needs curves 7 days
+  apart with the tenor on both and a spot print on both Mondays; most pairs before 2026 lack a Monday print, so the
+  sample is small and leans on 2026 (the pair accounting is in data/method.json).
 - **TD3C.** The weekly record is the Baltic's own weekly tanker report (republished copies are checked against it).
-  A week is marked "thin market" when the Baltic's VLCC paragraph says its panellists had difficulty assessing Gulf
-  loadings or that transits were extremely limited or blocked. USD a tonne = WS / 100 x flat rate; a flat rate is
+  A week is marked when the Baltic's VLCC paragraph says its Gulf assessment was theoretical or hypothetical or hard
+  for its panellists ("mostly theoretical", "an extraordinarily difficult week ... for the Baltic panellists",
+  "challenges for the Baltic panellists", "some difficulties in assessing"), or that transits through the Strait of
+  Hormuz were extremely limited or blocked; the reason is kept with the week. TD34 is read in Worldscale from its
+  first print (the week to 27 March 2026, assessed on Thursdays) and as a TCE from the week to 10 July 2026; a
+  level the report gives as a range is recorded at its upper end with the range in the week's note. USD a tonne = WS / 100 x flat rate; a flat rate is
   never stated: it is implied by dated pairs (Breakwave's dollar print against the Baltic's Worldscale print of the
   nearest earlier assessment, the gap kept) and used for a period only if the pairs agree (interquartile range
   within 2 percent of the median, at least four pairs; 2025 split at 1 July for the Ras Tanura port cost change).
@@ -110,3 +124,14 @@ the year to 30 June 2026).
 - Late 2023 and early 2024 issues print the spot table's dates on the line after the table's name; the parser
   read them from the name's line and dropped those issues whole until the dates were read from the table's first
   "Unit dd-Mon dd-Mon".
+- Marked TD3C weeks: the first reading marked only the weeks of "difficulties in assessing" and of blocked
+  transits, and recorded 6, 13 and 20 March 2026 as "able to price". Re-read against the rule's own description
+  after an independent review, those three reports also call the assessment "mostly theoretical" or the week
+  "extraordinarily difficult" or a "challenge" for the panellists, so they are marked as well. The TD3C statistics
+  without marked weeks drop the same months as before (March and April 2026).
+- TD34 before July 2026 was printed in Worldscale only; the parser looked for a TCE and missed fourteen weeks
+  until it read a Worldscale-only print.
+- Daily 5TC: handybulk's March 2024 page carries the report of 4 March 2025 under "5-March-2024", and its
+  December 2025 page dates the first week a day late. The pool took handybulk first by fixed priority; it now
+  votes by agreement, which restores the Reuters and Banchero Costa values (Ederington's R squared moves from 0.23
+  to 0.42 on the corrected March 2024 days; other results move by a few tenths of a point at most).

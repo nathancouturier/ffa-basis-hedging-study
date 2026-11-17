@@ -82,7 +82,8 @@ function render(section, ctx) {
     }).filter(Boolean);
     let summary = `Share of earnings variance removed at a 1:1 hedge ratio. ${byVoyage.join("; ")}.`;
     if (oos.length) {
-      summary += ` The minimum variance ratio estimated on past fixtures only exists for ${listJoin(oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)}`))}: it removed ${listJoin(oos.map((r) => `${pct(r.effectiveness_kstar_oos)} (${r.voyage}, against ${pct(r.effectiveness_k1_same_rows)} at k = 1 on the same ${r.n_oos} fixtures)`))}.`;
+      const scope = oos.length === cells.length ? "for every voyage and horizon, on the later fixtures that have enough history" : `only for ${listJoin(oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)}`))}`;
+      summary += ` The minimum variance ratio estimated on past fixtures exists ${scope}. Against k = 1 on the same fixtures it removed: ${oos.map((r) => `${r.voyage} at ${horizonShort(r.horizon_months)}, ${pct(r.effectiveness_kstar_oos)} against ${pct(r.effectiveness_k1_same_rows)} (${r.n_oos} fixtures)`).join("; ")}.`;
     }
     const outside = cells.filter((r) => r.effectiveness_k1_ci && (r.effectiveness_k1 < r.effectiveness_k1_ci.low || r.effectiveness_k1 > r.effectiveness_k1_ci.high));
     const footer = outside.length

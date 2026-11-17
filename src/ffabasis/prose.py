@@ -78,7 +78,8 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict, method: dict | 
             f"{', though the interval includes zero' if zero else ''}." + print_sensitivity(method, b1["mean_usd_day"])
         )
     out.append(
-        f"The front month stood above the same day's spot in {pct(fa['contango'])} of {fa['n']} weekly curves, "
+        f"The front month stood above the spot (of the curve's day, or the Friday before) in {pct(fa['contango'])} of "
+        f"{fa['n']} weekly curves, "
         f"and the next year's first quarter priced below the fourth quarter before it in {pct(q1['share_below'], 0)} "
         f"of the {q1['n']} curves that printed both, {pct(abs(q1['mean_pct']))} lower on average."
     )

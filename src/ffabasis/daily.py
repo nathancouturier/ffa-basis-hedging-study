@@ -15,6 +15,17 @@ minus change), marked "implied", and used only when the previous publication
 day is unambiguous on the London calendar. Where it has one, the two must
 agree: the chain check, which confirms both the prints and the calendar.
 
+When a day's prints disagree, the value most independent sources support
+wins: each print supports its own value, and each print of the next
+publication day supports the level its change implies. Sources are counted by
+family (handybulk, Reuters in any republication, Banchero Costa); a tie goes
+to a direct print over an implied level, then to the value nearest the median
+of the other days within a week, then to the order in PRIORITY. A print that
+loses implies nothing for the day before it. (handybulk's March
+2024 page carries the 4 March 2025 report under "5-March-2024", and its
+December 2025 page dates the first week's reports a day late; Reuters, Banchero
+Costa and the chain outvote both.)
+
 A month's settlement is the plain average over every publication day
 (ffabasis.engine.settlement_average). It is computed only for a complete
 month, one with a value for every expected day; an incomplete month keeps its
@@ -24,6 +35,8 @@ study uses only in the robustness that admits all months.
 
 from __future__ import annotations
 
+import datetime as dt
+import statistics
 from collections import defaultdict
 from collections.abc import Iterable
 from typing import Any
@@ -33,6 +46,8 @@ from . import calendar, engine
 #: When two prints of a day disagree, the order of trust (the chain check reports every disagreement).
 PRIORITY = ("handybulk.com", "Reuters", "Banchero Costa")
 TOLERANCE_USD_DAY = 1.0
+#: A tie between source families goes to the value nearest the median of the other days this close.
+NEIGHBOUR_DAYS = 7
 
 
 def _family(source: str) -> str:
@@ -95,11 +110,34 @@ def pool(observations: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             continue
         by_day[obs["date"]].append(dict(obs, value_180=value, family=_family(obs.get("source", ""))))
 
+    # The level each print's change implies for the previous publication day: support for that day's value.
+    support_from_next: dict[str, list[tuple[float, str]]] = defaultdict(list)
+    for day, prints in by_day.items():
+        previous = calendar.previous_publication_day(day)
+        for p in prints:
+            if p.get("change_usd_day") is not None:
+                support_from_next[previous].append((p["value_180"] - p["change_usd_day"], p["family"]))
+
     days: dict[str, dict[str, Any]] = {}
+    choices = {day: _vote(prints, support_from_next.get(day, [])) for day, prints in by_day.items()}
+    # A tie between families goes to the value nearest the median of the other days within a week.
+    settled = {d: c[0] for d, c in choices.items() if len(c[1]) < 2}
+    for day, (_value, tied) in choices.items():
+        if len(tied) < 2:
+            continue
+        here = dt.date.fromisoformat(day)
+        near = [
+            v for d, v in settled.items() if d != day and abs((dt.date.fromisoformat(d) - here).days) <= NEIGHBOUR_DAYS
+        ]
+        if near:
+            middle = statistics.median(near)
+            choices[day] = (min(tied, key=lambda v: abs(v - middle)), tied)
     for day, prints in by_day.items():
         prints.sort(key=lambda p: PRIORITY.index(p["family"]))
-        chosen = prints[0]["value_180"]
+        chosen = choices[day][0]
         conflicts = [p for p in prints if abs(p["value_180"] - chosen) > TOLERANCE_USD_DAY]
+        for p in prints:
+            p["outvoted"] = abs(p["value_180"] - chosen) > TOLERANCE_USD_DAY
         days[day] = {
             "date": day,
             "value_180": chosen,
@@ -117,7 +155,7 @@ def pool(observations: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for day, record in sorted(days.items()):
         for p in record["prints"]:
             change = p.get("change_usd_day")
-            if change is None:
+            if change is None or p.get("outvoted"):
                 continue
             previous = calendar.previous_publication_day(day)
             level_prev = p["value_180"] - change
@@ -138,6 +176,28 @@ def pool(observations: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for day, record in implied.items():
         days.setdefault(day, record)
     return dict(sorted(days.items()))
+
+
+def _vote(prints: list[dict[str, Any]], implied: list[tuple[float, str]]) -> tuple[float, list[float]]:
+    """The value most source families support (prints and the next day's implied levels), and the values that
+    tie with it on that count (empty when one value leads); a tie is settled by the neighbouring days."""
+    groups: list[dict[str, Any]] = []
+    for value, family, direct in [(p["value_180"], p["family"], True) for p in prints] + [
+        (v, f, False) for v, f in implied
+    ]:
+        group = next((g for g in groups if abs(g["value"] - value) <= TOLERANCE_USD_DAY), None)
+        if group is None:
+            group = {"value": value, "families": set(), "direct": False, "best": len(PRIORITY)}
+            groups.append(group)
+        group["families"].add(family)
+        if direct:
+            group["direct"] = True
+            group["value"] = value if group["best"] == len(PRIORITY) else group["value"]
+            group["best"] = min(group["best"], PRIORITY.index(family))
+    groups = [g for g in groups if g["direct"]] or groups
+    best = max(groups, key=lambda g: (len(g["families"]), g["direct"], -g["best"]))
+    tied = [float(g["value"]) for g in groups if len(g["families"]) == len(best["families"])]
+    return float(best["value"]), tied if len(tied) > 1 else []
 
 
 def months(days: dict[str, dict[str, Any]], first: str, last: str) -> list[dict[str, Any]]:

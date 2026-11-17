@@ -60,15 +60,15 @@ Each was asked once and not retried. What each would have added:
 | Source | Decision |
 |---|---|
 | Baltic indices (5TC daily, TD3C, TD34) | Daily values stay in the ignored cache. Committed: monthly settlement averages, derived statistics, and weekly TD3C and TD34 prints each with its link. |
-| Banchero Costa weekly report | The extracted panel stays in the cache. Committed: derived statistics and at most six dated curves (the validation weeks 11 July 2022 and 27 July 2026, the double-printed 29 June 2026 and the latest week), each cited. |
+| Banchero Costa weekly report | The extracted panel stays in the cache. Committed: derived statistics and at most six dated curves (the validation weeks 11 July 2022 and 27 July 2026, the double-printed 29 June 2026 and the latest week), each cited with its re-print. The quality tables give re-print gaps in percent and the comparison with SEC marks as a band and a direction, never a level. |
 | SEC filings (Amplify, Himalaya) | Public records, committed with links. |
 | Breakwave reports | Each dollar print and index value committed as a cited point. |
 | handybulk.com, Reuters as republished | Daily prints stay in the cache; they enter only monthly averages and derived statistics. |
 | Worldscale flat rates | Never published; only the test of whether dated pairs agree. |
 
 `tools/check-policy.mjs` enforces the policy on every artifact and download in the gate: no key carrying a daily
-level or a flat rate, no more than six dated curves, monthly settlement rows only, no level columns in the
-downloads except the SEC marks.
+level or a flat rate, no more than six dated curves, monthly settlement rows only, no level in the quality tables,
+no level columns in the downloads except the SEC marks.
 
 <!-- coverage:start -->
 ## Coverage (written by scripts/build.py)
@@ -82,7 +82,7 @@ downloads except the SEC marks.
 | Complete settlement months (the study's own average of every publication day) | 11 on the 180,000 t basket (July 2023; January to October 2026); 10 of them also on the 182,000 t basket |
 | Published settlement months (Himalaya Shipping, SEC) | May to June 2023; August 2023 to December 2025 |
 | Exact settlement months (complete or published), 180,000 t | 42 |
-| Days in the pooled daily 5TC | 1041 |
+| Days in the pooled daily 5TC | 1040 |
 | Hedge observations (voyage, horizon, fixtures) | 5TC trip 1m 130, 5TC trip 2m 128, 5TC trip 3m 94, C3 1m 108, C3 2m 91, C3 3m 88, C5 1m 130, C5 2m 128, C5 3m 94 |
 | TD3C weekly prints | 188 (2023-01-06 to 2026-11-13) |
 | Breakwave tanker reports | 68 |

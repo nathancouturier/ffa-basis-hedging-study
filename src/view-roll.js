@@ -154,7 +154,7 @@ function render(section, ctx) {
         const earned = m1.filter((r) => r.roll_cost_usd_day < 0);
         const parts = [];
         if (paid.length) parts.push(`paid ${listJoin(paid.map((r) => `USD ${num(r.roll_cost_usd_day)} a day in ${r.year}`))}`);
-        if (earned.length) parts.push(`earned ${listJoin(earned.map((r) => `USD ${num(-r.roll_cost_usd_day)} in ${r.year}`))}`);
+        if (earned.length) parts.push(`earned ${listJoin(earned.map((r) => `USD ${num(-r.roll_cost_usd_day)} a day in ${r.year}`))}`);
         const box = h("div");
         body.append(box);
         hbarChart(box, {
@@ -217,7 +217,7 @@ function render(section, ctx) {
             { label: "Positive", num: true, format: (b) => shareOf(b.share_positive, b.n) },
           ],
           rows,
-          note: "Spot's RMSE: the error of using the same day's spot as the forecast of the settlement. A ratio below 1 means the FFA forecast better.",
+          note: "Spot's RMSE: the error of using the spot on the pricing date (or the Friday before) as the forecast of the settlement, on the contracts that have one. A ratio below 1 means the FFA forecast better.",
         }));
       },
     },

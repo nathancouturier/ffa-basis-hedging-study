@@ -391,7 +391,9 @@ def build() -> list:
         Paragraph(
             f"<b>Residual and Ederington.</b> One month ahead, the hedged C5 result still has a standard deviation of "
             f"USD {usd(h['sd_hedged_usd_day'])} a day against USD {usd(h['sd_unhedged_usd_day'])} unhedged, and its "
-            f"5 percent CVaR falls from USD {usd(h['cvar_unhedged_usd_day'])} to USD {usd(h['cvar_hedged_usd_day'])}. "
+            f"5 percent CVaR {'falls' if h['cvar_hedged_usd_day'] < h['cvar_unhedged_usd_day'] else 'rises'} from USD "
+            f"{usd(h['cvar_unhedged_usd_day'])} to USD {usd(h['cvar_hedged_usd_day'])} (measured with the route basis's "
+            f"mean of USD {usd(h.get('cvar_route_mean_removed_usd_day'))} a day taken out, its level being overstated). "
             "Route basis is the C5 voyage's own freight moving apart from the 5TC; timing basis is the day's rate "
             "against the average of the months the voyage runs through. Ederington's measure on weekly changes "
             f"(spot and the next month's FFA, Monday to Monday, same basket) gives R squared {e['r_squared']:.2f} at a "
