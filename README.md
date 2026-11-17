@@ -74,11 +74,11 @@ Read this part first.
 ## What it does
 
 - **A panel built from public documents.** The Banchero Costa weekly reports Hellenic Shipping News served to
-  the build (curves, Friday spot, C3, C5 and bunkers), every Baltic weekly tanker and bulk report since 2023 and 2021,
-  every Amplify Commodity Trust 10-Q and 10-K since 2018 (BDRY and BWET quarter-end FFA marks), Himalaya
-  Shipping's monthly 5TC averages, Breakwave's tanker reports, and the daily 5TC from handybulk.com and Reuters as
-  republished. A fetcher reads each host's robots.txt, waits between requests, and records every document's URL,
-  retrieval time and sha256 in `data/raw/manifest.json`.
+  the build (curves, Friday spot, C3, C5 and bunkers), every Baltic weekly tanker report since 2023 and bulk
+  report since 2021, every Amplify Commodity Trust 10-Q and 10-K since 2018 (BDRY and BWET quarter-end FFA
+  marks), Himalaya Shipping's monthly 5TC averages, Breakwave's tanker reports, and the daily 5TC from
+  handybulk.com and Reuters as republished. A fetcher reads each host's robots.txt, waits between requests, and
+  records every document's URL, retrieval time and sha256 in `data/raw/manifest.json`.
 - **Contract conventions applied exactly.** Settlement on the average of every publication day; the 180,000 t
   and 182,000 t baskets with their weights by period and the fixed USD 3,503 difference from 2 January 2026;
   gross time charter hire against net voyage TCEs; hedges sized in days at the net share, from the fixture date,
