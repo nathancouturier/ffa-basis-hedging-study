@@ -89,8 +89,11 @@ def job_edge(f, budget: Budget) -> None:
     seed = json.loads((ROOT / "data" / "seed" / "edge_weekly_reports.json").read_text(encoding="utf-8"))
     for url in seed["reports"].values():
         if budget.left():
-            f.get(url, source="The Edge Malaysia (Baltic Exchange shipping updates)",
-                  licence="Copyright of the publisher; cached, not redistributed")
+            f.get(
+                url,
+                source="The Edge Malaysia (Baltic Exchange shipping updates)",
+                licence="Copyright of the publisher; cached, not redistributed",
+            )
 
 
 def job_handybulk(f, budget: Budget) -> None:
@@ -121,16 +124,32 @@ def job_hsn(f, budget: Budget) -> None:
             if re.search(r"(?i)bancosta[-_ +]weekly[-_ +]\d{4}", url) or ("breakwave" in title and "tanker" in title):
                 pdfs.append((item["date"], url))
     for year in range(2018, dt.date.today().year + 1):
-        list(hsn_posts.iter_posts(f, "average daily earnings capesize", after=f"{year}-01-01T00:00:00",
-                                  before=f"{year + 1}-01-01T00:00:00", refetch=year == dt.date.today().year))
+        list(
+            hsn_posts.iter_posts(
+                f,
+                "average daily earnings capesize",
+                after=f"{year}-01-01T00:00:00",
+                before=f"{year + 1}-01-01T00:00:00",
+                refetch=year == dt.date.today().year,
+            )
+        )
     for year in (2025, 2026, dt.date.today().year):
-        list(hsn_posts.iter_posts(f, "TD3C", after=f"{year}-01-01T00:00:00", before=f"{year + 1}-01-01T00:00:00",
-                                  refetch=year == dt.date.today().year))
+        list(
+            hsn_posts.iter_posts(
+                f,
+                "TD3C",
+                after=f"{year}-01-01T00:00:00",
+                before=f"{year + 1}-01-01T00:00:00",
+                refetch=year == dt.date.today().year,
+            )
+        )
     for _date, url in sorted(set(pdfs), reverse=True):
         if not budget.left():
             print("hsn: time budget reached")
             break
-        f.get(url, source="Hellenic Shipping News (PDF)", licence="Copyright of the publisher; cached, not redistributed")
+        f.get(
+            url, source="Hellenic Shipping News (PDF)", licence="Copyright of the publisher; cached, not redistributed"
+        )
 
 
 def job_amplify(f, budget: Budget) -> None:
@@ -169,7 +188,21 @@ def main() -> int:
         status["blocked_hosts"] = f.blocked_hosts()
     print(json.dumps(status, indent=1))
     build = subprocess.run([sys.executable, str(ROOT / "scripts" / "build.py")], cwd=ROOT)
+    if build.returncode != 0 and cache_still_filling():
+        print("the rebuild failed on a cache that holds fewer reports than the committed study: nothing replaced")
+        return 0
     return build.returncode
+
+
+def cache_still_filling() -> bool:
+    """Whether the cache holds fewer Banchero Costa issues than the committed study was built from."""
+    try:
+        committed = json.loads((ROOT / "data" / "method.json").read_text(encoding="utf-8"))["coverage"]["issues_read"]
+        manifest = json.loads((ROOT / "data" / "raw" / "manifest.json").read_text(encoding="utf-8"))["entries"]
+    except (OSError, KeyError, ValueError):
+        return True
+    cached = sum(1 for e in manifest if "Bancosta" in e["url"] and (ROOT / "data" / "raw" / e["path"]).exists())
+    return cached < committed
 
 
 if __name__ == "__main__":

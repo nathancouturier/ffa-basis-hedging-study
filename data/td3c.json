@@ -21,6 +21,120 @@
    "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf"
   }
  ],
+ "breakwave_statement": {
+  "date": "2026-04-07",
+  "text": "The VLCC futures curve is currently in steep backwardation, reflecting market expectations of an eventual resolution, with third-quarter futures trading at a nearly 50% discount to the current TD3C Index.",
+  "url": "https://www.breakwaveadvisors.com/insights/tanker4726"
+ },
+ "cases": [
+  {
+   "as_of": "2025-09-30",
+   "cargo_t": 270000.0,
+   "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
+   "months": [
+    {
+     "f0": 17.412,
+     "fixture_on": "2025-10-21",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf",
+     "locked_usd": 4701240.0,
+     "month": "2025-10",
+     "paper_usd": -895860.0000000003,
+     "physical": 20.73,
+     "physical_vs_locked_usd": 895860.0000000003,
+     "prints": 1,
+     "settlement": 20.73,
+     "total_usd": 4701240.0
+    }
+   ],
+   "role": "owner",
+   "total": {
+    "locked_usd": 4701240.0,
+    "paper_usd": -895860.0000000003,
+    "physical_vs_locked_usd": 895860.0000000003,
+    "total_usd": 4701240.0
+   },
+   "unit": "usd_t"
+  },
+  {
+   "as_of": "2026-03-31",
+   "cargo_t": 270000.0,
+   "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
+   "months": [
+    {
+     "f0": 42.903,
+     "fixture_on": "2026-06-30",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf",
+     "locked_usd": 11583810.0,
+     "month": "2026-06",
+     "paper_usd": -4513590.0,
+     "physical": 59.62,
+     "physical_vs_locked_usd": 4513590.0,
+     "prints": 1,
+     "settlement": 59.62,
+     "total_usd": 11583810.0
+    }
+   ],
+   "role": "owner",
+   "total": {
+    "locked_usd": 11583810.0,
+    "paper_usd": -4513590.0,
+    "physical_vs_locked_usd": 4513590.0,
+    "total_usd": 11583810.0
+   },
+   "unit": "usd_t"
+  },
+  {
+   "as_of": "2026-06-30",
+   "cargo_t": 270000.0,
+   "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
+   "months": [
+    {
+     "f0": 41.392,
+     "fixture_on": "2026-09-08",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
+     "locked_usd": 11175840.0,
+     "month": "2026-09",
+     "paper_usd": -25808760.0,
+     "physical": 136.98,
+     "physical_vs_locked_usd": 25808760.0,
+     "prints": 1,
+     "settlement": 136.98,
+     "total_usd": 11175840.0
+    }
+   ],
+   "role": "owner",
+   "total": {
+    "locked_usd": 11175840.0,
+    "paper_usd": -25808760.0,
+    "physical_vs_locked_usd": 25808760.0,
+    "total_usd": 11175840.0
+   },
+   "unit": "usd_t"
+  }
+ ],
+ "dollar_months": {
+  "2025-10": {
+   "fixture_on": "2025-10-21",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf",
+   "fixture_usd_t": 20.73,
+   "prints": 1,
+   "settlement_estimate_usd_t": 20.73
+  },
+  "2026-06": {
+   "fixture_on": "2026-06-30",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf",
+   "fixture_usd_t": 59.62,
+   "prints": 1,
+   "settlement_estimate_usd_t": 59.62
+  },
+  "2026-09": {
+   "fixture_on": "2026-09-08",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
+   "fixture_usd_t": 136.98,
+   "prints": 1,
+   "settlement_estimate_usd_t": 136.98
+  }
+ },
  "events": [
   {
    "date": "2026-03-02",
@@ -330,6 +444,45 @@
    "weeks": 2,
    "ws_points": 1117.51
   }
+ },
+ "statistics": {
+  "by_horizon": [],
+  "rows": [
+   {
+    "as_of": "2025-09-30",
+    "contract": "2025-10",
+    "error": 3.3180000000000014,
+    "f0": 17.412,
+    "horizon_months": 1,
+    "paper_move": 3.3180000000000014,
+    "physical": 20.73,
+    "settlement": 20.73,
+    "unhedged": 3.3180000000000014
+   },
+   {
+    "as_of": "2026-03-31",
+    "contract": "2026-06",
+    "error": 16.717,
+    "f0": 42.903,
+    "horizon_months": 3,
+    "paper_move": 16.717,
+    "physical": 59.62,
+    "settlement": 59.62,
+    "unhedged": 16.717
+   },
+   {
+    "as_of": "2026-06-30",
+    "contract": "2026-09",
+    "error": 95.588,
+    "f0": 41.392,
+    "horizon_months": 3,
+    "paper_move": 95.588,
+    "physical": 136.98,
+    "settlement": 136.98,
+    "unhedged": 95.588
+   }
+  ],
+  "without_thin_weeks": []
  },
  "strips": [
   {

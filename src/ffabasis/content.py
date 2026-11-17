@@ -597,10 +597,16 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             for m, v in t["monthly"].items()
         },
         "flat_rate_test": flat,
-        "dollar_months": {m: {k: (round(v, 3) if isinstance(v, float) else v) for k, v in d.items()}
-                          for m, d in t["dollar_months"].items()},
+        "dollar_months": {
+            m: {k: (round(v, 3) if isinstance(v, float) else v) for k, v in d.items()}
+            for m, d in t["dollar_months"].items()
+        },
         "cases": t["cases"],
-        "statistics": {"by_horizon": t["statistics"]["by_horizon"], "rows": t["statistics"]["rows"]},
+        "statistics": {
+            "by_horizon": t["statistics"]["by_horizon"],
+            "rows": t["statistics"]["rows"],
+            "without_thin_weeks": t["statistics_without_thin_weeks"]["by_horizon"],
+        },
         "breakwave_statement": td3c.BREAKWAVE_STATEMENT,
         "events": [
             {

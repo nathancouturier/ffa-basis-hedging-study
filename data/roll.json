@@ -725,16 +725,16 @@
   "last": "2026-Q2",
   "mean_ci": {
    "block": 4,
-   "high": 3055.0,
-   "low": -2932.0
+   "high": null,
+   "low": null
   },
   "mean_pct": -0.0137,
   "mean_usd_day": 928.0,
   "median_usd_day": 2539.0,
   "n": 6,
   "rmse_ci": {
-   "high": 7372.0,
-   "low": 3561.0
+   "high": null,
+   "low": null
   },
   "rmse_naive_usd_day": null,
   "rmse_ratio_ffa_to_naive": null,

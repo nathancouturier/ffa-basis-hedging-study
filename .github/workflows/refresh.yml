@@ -58,23 +58,30 @@ jobs:
             data/raw
             data/cache
           key: documents-${{ github.run_id }}
+      - name: Is the rebuilt panel at least as complete as the committed one?
+        id: coverage
+        run: python scripts/coverage_guard.py --github-output "$GITHUB_OUTPUT"
       - name: Parity cases, note, README finding
+        if: steps.coverage.outputs.complete == 'true'
         run: |
           python scripts/gen_fixtures.py
           python scripts/note.py
           python scripts/finding.py
       - name: Gate
+        if: steps.coverage.outputs.complete == 'true'
         run: make gate PYTHON=python
-      - name: Coverage did not shrink
-        run: python scripts/coverage_guard.py
       - name: Commit
+        if: steps.coverage.outputs.complete == 'true'
         run: |
           git config user.name "ffa-basis-hedging-study refresh"
           git config user.email "refresh@users.noreply.github.com"
-          git add data/*.json data/public data/downloads data/fixtures data/raw/manifest.json README.md FFA-Basis-Hedging-Study-Research-Note.pdf
+          git add data/*.json data/AUDIT.md data/public data/downloads data/fixtures data/raw/manifest.json README.md FFA-Basis-Hedging-Study-Research-Note.pdf
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -m "Refresh: data to $(date -u +%Y-%m-%d)"
           git push
+      - name: Cache still filling
+        if: steps.coverage.outputs.complete != 'true'
+        run: echo "The document cache is still filling (see the coverage step); nothing committed this run."
       - name: Open an issue on failure
         if: failure()
         env:

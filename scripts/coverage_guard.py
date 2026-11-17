@@ -14,23 +14,40 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-KEYS = ("complete_months_180", "complete_months_182", "td3c_weekly", "sec_quarter_ends_bdry", "sec_quarter_ends_bwet",
-        "issues_read", "daily_days")
+KEYS = (
+    "complete_months_180",
+    "complete_months_182",
+    "td3c_weekly",
+    "sec_quarter_ends_bdry",
+    "sec_quarter_ends_bwet",
+    "issues_read",
+    "daily_days",
+)
 
 
 def main() -> int:
+    out = None
+    if "--github-output" in sys.argv:
+        out = Path(sys.argv[sys.argv.index("--github-output") + 1])
     new = json.loads((ROOT / "data" / "method.json").read_text(encoding="utf-8"))["coverage"]
     try:
-        old_text = subprocess.run(["git", "show", "HEAD:data/method.json"], cwd=ROOT, capture_output=True, text=True,
-                                  check=True).stdout
+        old_text = subprocess.run(
+            ["git", "show", "HEAD:data/method.json"], cwd=ROOT, capture_output=True, text=True, check=True
+        ).stdout
     except subprocess.CalledProcessError:
         print("no committed method.json: nothing to compare")
+        if out is not None:
+            with out.open("a", encoding="utf-8") as handle:
+                handle.write("complete=true\n")
         return 0
     old = json.loads(old_text)["coverage"]
     shrunk = [f"{k}: {old.get(k)} -> {new.get(k)}" for k in KEYS if (new.get(k) or 0) < (old.get(k) or 0)]
+    if out is not None:
+        with out.open("a", encoding="utf-8") as handle:
+            handle.write(f"complete={'false' if shrunk else 'true'}\n")
     if shrunk:
         print("coverage shrank:\n  " + "\n  ".join(shrunk))
-        return 1
+        return 0 if out is not None else 1
     print("coverage holds: " + ", ".join(f"{k} {new.get(k)}" for k in KEYS))
     return 0
 

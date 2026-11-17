@@ -23,6 +23,7 @@ approximate: TD3C futures settle on every publication day's assessment.
 from __future__ import annotations
 
 import datetime as dt
+import itertools
 from collections import defaultdict
 from typing import Any
 
@@ -135,15 +136,16 @@ def quarter_end_strips(marks: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out = []
     for date, rows in sorted(by_date.items()):
         rows.sort(key=lambda r: r["contract_month"])
-        out.append(
-            {
-                "as_of": date,
-                "months": [
-                    {"month": r["contract_month"], "usd_t": r["price"], "contracts": r["contracts"], "url": r["url"]}
-                    for r in rows
-                ],
-            }
-        )
+        months = [
+            {"month": r["contract_month"], "usd_t": r["price"], "contracts": r["contracts"], "url": r["url"]}
+            for r in rows
+        ]
+        shapes = [
+            engine.shape(a["usd_t"], b["usd_t"])
+            for a, b in itertools.pairwise(months)
+            if engine.months_between(a["month"], b["month"]) == 1
+        ]
+        out.append({"as_of": date, "months": months, "shapes": shapes})
     return out
 
 
@@ -239,7 +241,9 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
     return out
 
 
-def statistics(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def statistics(
+    strips: list[dict[str, Any]], months: dict[str, dict[str, Any]], exclude: set[str] | None = None
+) -> dict[str, Any]:
     """Item 3 for TD3C, approximate: each quarter-end mark of month M at horizon h (months from the mark's month),
     the error S - F and the hedge of the month's cargo fixed at its first print."""
     rows = []
@@ -247,11 +251,22 @@ def statistics(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) 
         for m in strip["months"]:
             h = engine.months_between(strip["as_of"][:7], m["month"])
             info = months.get(m["month"])
-            if info is None or h not in (1, 2, 3):
+            if info is None or h not in (1, 2, 3) or (exclude and m["month"] in exclude):
                 continue
             f0, p, s = m["usd_t"], info["fixture_usd_t"], info["settlement_estimate_usd_t"]
-            rows.append({"as_of": strip["as_of"], "contract": m["month"], "horizon_months": h, "f0": f0, "physical": p,
-                         "settlement": s, "error": s - f0, "unhedged": p - f0, "paper_move": s - f0})
+            rows.append(
+                {
+                    "as_of": strip["as_of"],
+                    "contract": m["month"],
+                    "horizon_months": h,
+                    "f0": f0,
+                    "physical": p,
+                    "settlement": s,
+                    "error": s - f0,
+                    "unhedged": p - f0,
+                    "paper_move": s - f0,
+                }
+            )
     out: dict[str, Any] = {"rows": rows, "by_horizon": []}
     from . import stats
 
@@ -261,14 +276,18 @@ def statistics(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) 
             continue
         u = [r["unhedged"] for r in sel]
         x = [r["paper_move"] for r in sel]
-        out["by_horizon"].append({
-            "horizon_months": h,
-            "n": len(sel),
-            "mean_error_usd_t": stats.mean([r["error"] for r in sel]),
-            "rmse_usd_t": stats.rmse([r["error"] for r in sel]),
-            "share_positive": stats.share_positive([r["error"] for r in sel]),
-            "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)]) if len(sel) >= 4 else None,
-            "first": sel[0]["contract"],
-            "last": sel[-1]["contract"],
-        })
+        out["by_horizon"].append(
+            {
+                "horizon_months": h,
+                "n": len(sel),
+                "mean_error_usd_t": stats.mean([r["error"] for r in sel]),
+                "rmse_usd_t": stats.rmse([r["error"] for r in sel]),
+                "share_positive": stats.share_positive([r["error"] for r in sel]),
+                "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)])
+                if len(sel) >= 4
+                else None,
+                "first": sel[0]["contract"],
+                "last": sel[-1]["contract"],
+            }
+        )
     return out

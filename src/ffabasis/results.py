@@ -153,7 +153,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
         ),
         "hedge_rows": rows,
         "hedge": _hedge_table(rows),
-        "hedge_by_year_c5_1m": _by_year(rows, "C5", 1),
+        "hedge_by_year": {v: _by_year(rows, v, 1) for v in hedge.VOYAGES},
         "ederington": hedge.ederington(panel, curves),
         "robustness": robustness,
         "td3c": {
@@ -166,6 +166,9 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
             "dollar_months": dollars,
             "cases": td3c.cases(strips, dollars),
             "statistics": td3c.statistics(strips, dollars),
+            "statistics_without_thin_weeks": td3c.statistics(
+                strips, dollars, exclude={w[:7] for w, row in weekly.items() if row.get("thin_market")}
+            ),
         },
         "constants": engine.constants(),
     }

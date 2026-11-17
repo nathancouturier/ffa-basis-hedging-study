@@ -109,13 +109,7 @@ def cited_curves(results: dict[str, Any], panel: dict[str, Any]) -> list[dict[st
         if not curve or not curve.get("tenors"):
             continue
         basket = curve.get("basket_t", 180000)
-        spot = analysis.spot_in(panel, date, basket)
-        spot_day = date
-        if spot is None:
-            import datetime as dt
-
-            spot_day = (dt.date.fromisoformat(date) - dt.timedelta(days=3)).isoformat()
-            spot = analysis.spot_in(panel, spot_day, basket)
+        spot, spot_day = analysis.spot_on_or_before(panel, date, basket)
         out.append(
             {
                 "date": date,

@@ -52,6 +52,34 @@ def to_180(value: float, basket: int, day: str) -> float | None:
     return None
 
 
+def resolve_baskets(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Give a 2026 print with no basket the basket its own change ties it to.
+
+    A print's level less its change is the previous publication day's level on
+    the same basket. Where that equals, to the dollar, a known print of the
+    previous day on one basket, the print is on that basket (handybulk left out
+    the BCI points from 21 to 27 April 2026; the chain from 20 April tags them).
+    Walking forward in date order carries a run of untagged days along.
+    """
+    known: dict[str, dict[int, float]] = defaultdict(dict)
+    for obs in observations:
+        if obs.get("basket_t") is not None:
+            known[obs["date"]][obs["basket_t"]] = float(obs["c5tc_usd_day"])
+    out = []
+    for obs in sorted(observations, key=lambda o: o["date"]):
+        untagged = obs.get("basket_t") is None and obs.get("change_usd_day") is not None
+        if untagged and obs["date"] >= engine.BASKET_182_FROM:
+            previous = calendar.previous_publication_day(obs["date"])
+            implied = float(obs["c5tc_usd_day"]) - float(obs["change_usd_day"])
+            for basket, level in known.get(previous, {}).items():
+                if abs(level - implied) <= TOLERANCE_USD_DAY:
+                    obs = dict(obs, basket_t=basket, basket_how="carried by the day's change from the previous print")
+                    known[obs["date"]][basket] = float(obs["c5tc_usd_day"])
+                    break
+        out.append(obs)
+    return out
+
+
 def pool(observations: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """One record a day: the 180 t value chosen, every print beside it, conflicts and chain checks.
 
@@ -59,7 +87,7 @@ def pool(observations: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for daily reports, change_usd_day.
     """
     by_day: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for obs in observations:
+    for obs in resolve_baskets(list(observations)):
         if obs.get("basket_t") is None or not calendar.is_publication_day(obs["date"]):
             continue
         value = to_180(obs["c5tc_usd_day"], obs["basket_t"], obs["date"])

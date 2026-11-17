@@ -86,7 +86,18 @@ def block_bootstrap(
         [np.asarray(series, dtype=float)] if np.ndim(series[0]) == 0 else [np.asarray(c, dtype=float) for c in series]
     )
     n = len(columns[0])
-    block = max(1, min(block, n))
+    block = max(1, block)
+    if n < 2 * block:
+        # Fewer than two blocks: every resample would be nearly the sample itself, so no interval is given.
+        return {
+            "estimate": float(statistic(*columns)),
+            "low": None,
+            "high": None,
+            "block": block,
+            "resamples": 0,
+            "seed": seed,
+            "note": "fewer than two blocks of data",
+        }
     rng = np.random.default_rng(seed)
     starts_count = n - block + 1
     draws = math.ceil(n / block)

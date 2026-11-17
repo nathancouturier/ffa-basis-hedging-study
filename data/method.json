@@ -202,6 +202,77 @@
    "text": "USD a tonne = WS / 100 x flat rate"
   }
  ],
+ "hedge_by_year": {
+  "5TC trip": [
+   {
+    "effectiveness_k1": 0.20081964802420782,
+    "n": 12,
+    "sd_hedged_usd_day": 5266.650734078925,
+    "sd_unhedged_usd_day": 5891.313303070188,
+    "year": 2024
+   },
+   {
+    "effectiveness_k1": 0.5743234100056595,
+    "n": 33,
+    "sd_hedged_usd_day": 4261.415595567535,
+    "sd_unhedged_usd_day": 6531.516186986922,
+    "year": 2025
+   },
+   {
+    "effectiveness_k1": 0.21458308221490863,
+    "n": 28,
+    "sd_hedged_usd_day": 5856.973354074026,
+    "sd_unhedged_usd_day": 6608.807810149256,
+    "year": 2026
+   }
+  ],
+  "C3": [
+   {
+    "effectiveness_k1": 0.20297621870802363,
+    "n": 12,
+    "sd_hedged_usd_day": 5998.436061143125,
+    "sd_unhedged_usd_day": 6718.965235318374,
+    "year": 2024
+   },
+   {
+    "effectiveness_k1": 0.20742435538281012,
+    "n": 26,
+    "sd_hedged_usd_day": 5414.489468527135,
+    "sd_unhedged_usd_day": 6081.870268441372,
+    "year": 2025
+   },
+   {
+    "effectiveness_k1": -0.0358757546761046,
+    "n": 14,
+    "sd_hedged_usd_day": 7306.716019787638,
+    "sd_unhedged_usd_day": 7179.073412572739,
+    "year": 2026
+   }
+  ],
+  "C5": [
+   {
+    "effectiveness_k1": 0.17272995858722573,
+    "n": 12,
+    "sd_hedged_usd_day": 7432.8808159834925,
+    "sd_unhedged_usd_day": 8172.097142599001,
+    "year": 2024
+   },
+   {
+    "effectiveness_k1": 0.4985795476762065,
+    "n": 33,
+    "sd_hedged_usd_day": 6021.991646424709,
+    "sd_unhedged_usd_day": 8504.31085809487,
+    "year": 2025
+   },
+   {
+    "effectiveness_k1": 0.3306906297577622,
+    "n": 28,
+    "sd_hedged_usd_day": 9055.960294708637,
+    "sd_unhedged_usd_day": 11069.322921585153,
+    "year": 2026
+   }
+  ]
+ },
  "policy": [
   {
    "decision": "Daily values stay in the ignored cache. Committed: monthly settlement averages, derived statistics, and weekly TD3C and TD34 prints each with the link it was read from.",

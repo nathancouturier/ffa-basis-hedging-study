@@ -9,7 +9,7 @@
   "td3c_weekly": "2026-11-13"
  },
  "built_on": "2026-11-17",
- "documents": 1421,
+ "documents": 1455,
  "sources": [
   {
    "documents": 4,
@@ -86,18 +86,18 @@
    "source": "The Edge Malaysia (Baltic weekly report)"
   },
   {
-   "documents": 109,
+   "documents": 116,
    "first_retrieved": "2026-11-17T16:11:56Z",
-   "last_retrieved": "2026-11-17T17:19:03Z",
+   "last_retrieved": "2026-11-17T17:22:35Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
    "source": "Banchero Costa weekly reports (via Hellenic Shipping News)"
   },
   {
-   "documents": 3,
+   "documents": 29,
    "first_retrieved": "2026-11-17T16:44:39Z",
-   "last_retrieved": "2026-11-17T16:45:40Z",
+   "last_retrieved": "2026-11-17T17:36:14Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],

@@ -92,6 +92,20 @@ def spot_in(panel: dict[str, Any], day: str, basket: int) -> float | None:
     return row["value_180"]
 
 
+def spot_on_or_before(
+    panel: dict[str, Any], day: str, basket: int, max_days: int = 4
+) -> tuple[float | None, str | None]:
+    """The latest spot print on or before a date, at most max_days back (a curve dated on a Monday takes its own
+    day or the Friday before; Banchero Costa dates its late-2026 columns on Sundays)."""
+    date = dt.date.fromisoformat(day)
+    for back in range(max_days + 1):
+        candidate = (date - dt.timedelta(days=back)).isoformat()
+        value = spot_in(panel, candidate, basket)
+        if value is not None:
+            return value, candidate
+    return None, None
+
+
 # ---------------------------------------------------------------------------
 # Curves
 # ---------------------------------------------------------------------------
@@ -160,12 +174,7 @@ def curve_shape(panel: dict[str, Any], curves: list[dict[str, Any]]) -> list[dic
     rows = []
     for curve in curves:
         date, basket = curve["date"], curve["basket_t"]
-        spot = spot_in(panel, date, basket)
-        spot_day = date
-        if spot is None:
-            # the Friday before the Monday assessment
-            friday = (dt.date.fromisoformat(date) - dt.timedelta(days=3)).isoformat()
-            spot, spot_day = spot_in(panel, friday, basket), friday
+        spot, spot_day = spot_on_or_before(panel, date, basket)
         months = sorted(p for p in curve["tenors"] if p[5:6].isdigit())
         quarters = sorted(p for p in curve["tenors"] if "-Q" in p)
         front = date[:7] if date[:7] in curve["tenors"] else (months[0] if months else None)
@@ -312,10 +321,7 @@ def forecast_errors(
             s = settlement_in(settle, month, curve["basket_t"])
             if s is None:
                 continue
-            spot = spot_in(panel, curve["date"], curve["basket_t"])
-            if spot is None:
-                friday = (dt.date.fromisoformat(curve["date"]) - dt.timedelta(days=3)).isoformat()
-                spot = spot_in(panel, friday, curve["basket_t"])
+            spot, _ = spot_on_or_before(panel, curve["date"], curve["basket_t"])
             rows.append(
                 {
                     "contract": month,

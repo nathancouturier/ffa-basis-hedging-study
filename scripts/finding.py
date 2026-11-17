@@ -37,11 +37,12 @@ def block() -> str:
     h = ov["headline"]
     facts = {f["key"]: f for f in ov["facts"]}
     ci = h["effectiveness_k1_ci"]
+    interval = f"90 percent interval {pct(ci['low'])} to {pct(ci['high'])}; " if ci else ""
     lines = [
         f"**Data to {day(ov['as_of'])}.** A 5TC paper hedge placed one month before a C5 West Australia to Qingdao "
         f"fixture removed {pct(h['effectiveness_k1'])} of the variance of the voyage's earnings against the forward "
-        f"(90 percent interval {pct(ci['low'])} to {pct(ci['high'])}; {h['n']} weekly fixtures from "
-        f"{day(h['first_fixture'])} to {day(h['last_fixture'])}, hedged one for one).",
+        f"({interval}{h['n']} weekly fixtures from {day(h['first_fixture'])} to {day(h['last_fixture'])}, hedged "
+        f"one for one).",
     ]
     if "basis_left" in facts:
         b = facts["basis_left"]

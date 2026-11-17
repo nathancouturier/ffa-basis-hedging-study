@@ -49,6 +49,49 @@ POLICY = [
 ]
 
 
+def audit_block(method: dict, panel: dict) -> str:
+    """The coverage and quality tables of data/AUDIT.md, rewritten on every build."""
+    c = method["coverage"]
+    years = ", ".join(f"{y}: {n}" for y, n in c["ffa_weeks_by_year"].items())
+    status = "; ".join(
+        f"{y}: " + ", ".join(f"{n} {k}" for k, n in sorted(s.items())) for y, s in c["settlements_by_year"].items()
+    )
+    hedge = ", ".join(f"{r['voyage']} {r['horizon_months']}m {r['n']}" for r in c["hedge_observations"])
+    gaps = sorted(
+        abs(f["gap"]) for cv in panel["curves"].values() for f in cv.get("flags", []) if f["rule"] == "reprint"
+    )
+    reprint_pairs = sum(len(r["tenors"]) for cv in panel["curves"].values() for r in cv.get("reprints", []))
+    sec = panel["sec_check"]
+    lines = [
+        "<!-- coverage:start -->",
+        "## Coverage (written by scripts/build.py)",
+        "",
+        "| Item | Value |",
+        "|---|---|",
+        f"| First and last FFA curve | {c['first_ffa_week']} and {c['last_ffa_week']} |",
+        f"| FFA curves by year | {years} |",
+        f"| Banchero Costa issues read | {c['issues_read']} ({c['ocr_issues']} with at least one table read by OCR) |",
+        f"| Monthly settlements by year | {status} |",
+        f"| Exact settlement months (complete or published), 180,000 t | {c['complete_months_180']} |",
+        f"| Of which on both baskets (2026) | {c['complete_months_182']} |",
+        f"| Days in the pooled daily 5TC | {c['daily_days']} |",
+        f"| Hedge observations (voyage, horizon, fixtures) | {hedge} |",
+        f"| TD3C weekly prints | {c['td3c_weekly']} ({c['td3c_weekly_first']} to {c['td3c_weekly_last']}) |",
+        f"| Breakwave tanker reports | {c['breakwave_reports']} |",
+        f"| SEC quarter ends | BDRY {c['sec_quarter_ends_bdry']}, BWET {c['sec_quarter_ends_bwet']} |",
+        "",
+        "## Quality control (written by scripts/build.py)",
+        "",
+        f"- Reprints compared: {reprint_pairs} tenor pairs; {len(gaps)} differ by more than 10 percent. The previous-week "
+        "column is a later re-assessment, not a copy; the first print is used and the latest is a sensitivity.",
+        f"- SEC comparisons within three days of a quarter end: {len(sec)}, of which {sum(r['flag'] for r in sec)} "
+        "differ by more than 10 percent (listed in data/method.json, qc).",
+        f"- One-week moves flagged: {sum(1 for cv in panel['curves'].values() for f in cv.get('flags', []) if f['rule'] == 'one_week_move')}.",
+        "<!-- coverage:end -->",
+    ]
+    return "\n".join(lines)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--reuse", action="store_true")
@@ -71,6 +114,7 @@ def main() -> int:
         "coverage": content.coverage(panel, res),
         "policy": POLICY,
         "robustness": res["robustness"],
+        "hedge_by_year": res["hedge_by_year"],
         "ederington": res["ederington"],
         "qc": {
             "sec_check": panel["sec_check"],
@@ -92,6 +136,18 @@ def main() -> int:
         "manifest": manifest,
     }
     written = export.write_all(ROOT, res, panel, extra)
+    audit = ROOT / "data" / "AUDIT.md"
+    if audit.exists():
+        import re
+
+        text = audit.read_text(encoding="utf-8")
+        text = re.sub(
+            r"<!-- coverage:start -->.*?<!-- coverage:end -->",
+            audit_block(method, panel).replace("\\", "\\\\"),
+            text,
+            flags=re.S,
+        )
+        audit.write_text(text, encoding="utf-8")
     (ROOT / "data" / "cache" / "results_summary.json").write_text(
         json.dumps(
             {"hedge": export.hedge_cells(res["hedge"]), "bias": res["bias"], "shape": res["shape"]["front_vs_spot"]},
