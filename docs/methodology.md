@@ -49,7 +49,8 @@ the year to 30 June 2026).
   marked implied, and where both exist they must agree (the chain check). A month's settlement is the average of
   every publication day; it is computed only for a complete month. Otherwise the month takes the average Himalaya
   Shipping published in its SEC filings ("published"); otherwise, for the robustness that admits all months only,
-  the average of the days observed when at least four days span the month ("estimated"). When a day's prints
+  the average of the days observed when at least four days span the month, one on or before the 10th and one on or
+  after the 19th ("estimated"). When a day's prints
   disagree, the value most source families support wins (handybulk, Reuters in any republication, Banchero Costa;
   the level implied by the next day's change counts as support); a tie goes to the value nearest the median of the
   other days within a week. A print that loses implies nothing for the day before.
@@ -106,9 +107,11 @@ the year to 30 June 2026).
   Case studies hedge one 270,000 t cargo a month at Amplify's quarter-end TD3C marks, the cargo fixed at the month's
   first Breakwave print and the paper settled at the average of the month's prints (approximate). Breakwave's
   statement of 7 April 2026 (third-quarter futures nearly 50 percent below the index) is set against the BWET
-  marks of the quarter end before it and against each third-quarter month's settlement estimate. Item 3's
-  statistics for TD3C are reported only where at least 12 contract months have a mark and a settlement estimate
-  at the same horizon.
+  marks of the quarter end before it and against each third-quarter month's settlement estimate. A month is
+  estimated only once it has ended. Item 3's statistics for TD3C are reported only where at least 12 contract
+  months have a mark and a settlement estimate at the same horizon; the variance a hedge removes needs 12 months
+  with at least two prints, since with one print the settlement estimate is the fixture itself and the hedged
+  residual is zero by construction.
 
 ## 4. What changed while building, and why
 
@@ -129,6 +132,11 @@ the year to 30 June 2026).
   after an independent review, those three reports also call the assessment "mostly theoretical" or the week
   "extraordinarily difficult" or a "challenge" for the panellists, so they are marked as well. The TD3C statistics
   without marked weeks drop the same months as before (March and April 2026).
+- TD3C statistics: the first computation counted the month still running (November 2026, one print) as settled
+  and let months with a single Breakwave print, whose settlement estimate is the fixture itself, into the variance
+  removed (a residual of zero by construction). Both were corrected after a review; the effectiveness is not
+  reported, as fewer than 12 months per horizon have two prints, and the error statistics stand on the months
+  that have ended.
 - TD34 before July 2026 was printed in Worldscale only; the parser looked for a TCE and missed fourteen weeks
   until it read a Worldscale-only print.
 - Daily 5TC: handybulk's March 2024 page carries the report of 4 March 2025 under "5-March-2024", and its

@@ -16,8 +16,12 @@ least four pairs). Worldscale amended Ras Tanura's port costs from 1 July
 2025, so 2025 is tested in halves. A year without a consistent rate stays in
 Worldscale and is said so.
 
-Settlement estimates are the average of the month's weekly prints, labelled
-approximate: TD3C futures settle on every publication day's assessment.
+Settlement estimates, labelled approximate (TD3C futures settle on every
+publication day's assessment): in Worldscale, the average of the month's weekly
+Baltic prints; in dollars, the average of the month's Breakwave prints. A month
+is estimated only once it has ended. A month with one dollar print has no
+estimate apart from its own fixture, so it enters the error statistics but not
+the variance removed by a hedge, whose residual would be zero by construction.
 """
 
 from __future__ import annotations
@@ -104,8 +108,21 @@ def flat_rate_by_period(pairs: list[dict[str, Any]]) -> dict[str, dict[str, Any]
     return out
 
 
-def monthly_estimates(weekly: dict[str, dict[str, Any]], flat: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Each month's TD3C as the average of its weekly prints (approximate), in WS and, where a flat rate holds, USD/t."""
+def data_date(weekly: dict[str, dict[str, Any]], breakwave: list[dict[str, Any]], strips: list[dict[str, Any]]) -> str:
+    """The TD3C record's date: its latest weekly print, Breakwave report or quarter-end mark."""
+    dates = [max(weekly)] if weekly else []
+    dates += [max(b["report_date"] for b in breakwave)] if breakwave else []
+    dates += [strips[-1]["as_of"]] if strips else []
+    return max(dates)
+
+
+def monthly_estimates(
+    weekly: dict[str, dict[str, Any]], flat: dict[str, dict[str, Any]], as_of: str | None = None
+) -> dict[str, dict[str, Any]]:
+    """Each month's TD3C as the average of its weekly prints (approximate), in WS and, where a flat rate holds, USD/t.
+
+    A month not over by `as_of` is marked month to date.
+    """
     groups: dict[str, list[tuple[str, dict[str, Any]]]] = defaultdict(list)
     for week, row in weekly.items():
         groups[week[:7]].append((week, row))
@@ -123,6 +140,7 @@ def monthly_estimates(weekly: dict[str, dict[str, Any]], flat: dict[str, dict[st
             "weeks": len(rows),
             "flagged_weeks": sum(1 for r in rows if r[1].get("thin_market")),
             "tce_usd_day": float(np.mean([r[1]["td3c_tce_usd_day"] for r in rows])),
+            "month_to_date": as_of is not None and month >= as_of[:7],
         }
     return out
 
@@ -241,11 +259,16 @@ def statement_check(
     }
 
 
-def dollar_months(breakwave: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+#: A month's dollar settlement estimate differs from its fixture only with at least this many prints.
+MIN_PRINTS_FOR_RESIDUAL = 2
+
+
+def dollar_months(breakwave: list[dict[str, Any]], as_of: str) -> dict[str, dict[str, Any]]:
     """Each month's TD3C in USD a tonne from Breakwave's prints: the first print (the fixture) and their average.
 
     The average of a month's prints stands in for its settlement, which averages every publication day:
-    labelled approximate, with the number of prints.
+    labelled approximate, with the number of prints, and only for a month over by `as_of` (a month still
+    running has no settlement).
     """
     groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for b in breakwave:
@@ -254,12 +277,14 @@ def dollar_months(breakwave: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     out = {}
     for month, rows in sorted(groups.items()):
         rows.sort(key=lambda r: r["report_date"])
+        ended = month < as_of[:7]
         out[month] = {
             "fixture_usd_t": rows[0]["td3c_usd_t"],
             "fixture_on": rows[0]["report_date"],
             "fixture_url": rows[0].get("url"),
-            "settlement_estimate_usd_t": float(np.mean([r["td3c_usd_t"] for r in rows])),
+            "settlement_estimate_usd_t": float(np.mean([r["td3c_usd_t"] for r in rows])) if ended else None,
             "prints": len(rows),
+            "ended": ended,
         }
     return out
 
@@ -274,13 +299,20 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
             continue
         quarter_months = [m for m in strip["months"] if engine.months_between(date[:7], m["month"]) <= 3]
         physical = {m: v["fixture_usd_t"] for m, v in months.items()}
-        settle = {m: v["settlement_estimate_usd_t"] for m, v in months.items()}
+        settle = {
+            m: v["settlement_estimate_usd_t"] for m, v in months.items() if v["settlement_estimate_usd_t"] is not None
+        }
         result = case(date, {"months": quarter_months}, physical, settle, "usd_t")
         if not result["months"]:
             continue
         for row in result["months"]:
             info = months[row["month"]]
-            row.update(fixture_on=info["fixture_on"], prints=info["prints"], fixture_url=info["fixture_url"])
+            row.update(
+                fixture_on=info["fixture_on"],
+                prints=info["prints"],
+                fixture_url=info["fixture_url"],
+                single_print=info["prints"] < MIN_PRINTS_FOR_RESIDUAL,
+            )
         result["mark_url"] = strip["months"][0]["url"]
         out.append(result)
     return out
@@ -296,8 +328,10 @@ def statistics(
     """Item 3 for TD3C, approximate: each quarter-end mark of month M at horizon h (months from the mark's month),
     the error S - F and the hedge of the month's cargo fixed at its first print.
 
-    The rows are always returned; the statistics by horizon only where at least MIN_STATISTICS_MONTHS contract
-    months have a mark and a settlement estimate at that horizon, the threshold set before the data were seen.
+    Only months over, with a settlement estimate, enter. The error statistics by horizon need at least
+    MIN_STATISTICS_MONTHS contract months at that horizon, the threshold set before the data were seen; the
+    variance a hedge removes needs as many months with at least MIN_PRINTS_FOR_RESIDUAL prints, since with one
+    print the settlement estimate is the fixture itself and the hedged residual is zero by construction.
     """
     rows = []
     for strip in strips:
@@ -305,6 +339,8 @@ def statistics(
             h = engine.months_between(strip["as_of"][:7], m["month"])
             info = months.get(m["month"])
             if info is None or h not in (1, 2, 3) or (exclude and m["month"] in exclude):
+                continue
+            if info["settlement_estimate_usd_t"] is None:
                 continue
             f0, p, s = m["usd_t"], info["fixture_usd_t"], info["settlement_estimate_usd_t"]
             rows.append(
@@ -315,6 +351,7 @@ def statistics(
                     "f0": f0,
                     "physical": p,
                     "settlement": s,
+                    "prints": info["prints"],
                     "error": s - f0,
                     "unhedged": p - f0,
                     "paper_move": s - f0,
@@ -325,16 +362,18 @@ def statistics(
         "by_horizon": [],
         "counts": [],
         "threshold_months": MIN_STATISTICS_MONTHS,
+        "min_prints_for_residual": MIN_PRINTS_FOR_RESIDUAL,
     }
     from . import stats
 
     for h in (1, 2, 3):
         sel = [r for r in rows if r["horizon_months"] == h]
-        out["counts"].append({"horizon_months": h, "n": len(sel)})
+        two = [r for r in sel if r["prints"] >= MIN_PRINTS_FOR_RESIDUAL]
+        out["counts"].append({"horizon_months": h, "n": len(sel), "n_two_prints": len(two)})
         if len(sel) < MIN_STATISTICS_MONTHS:
             continue
-        u = [r["unhedged"] for r in sel]
-        x = [r["paper_move"] for r in sel]
+        u = [r["unhedged"] for r in two]
+        x = [r["paper_move"] for r in two]
         out["by_horizon"].append(
             {
                 "horizon_months": h,
@@ -342,7 +381,10 @@ def statistics(
                 "mean_error_usd_t": stats.mean([r["error"] for r in sel]),
                 "rmse_usd_t": stats.rmse([r["error"] for r in sel]),
                 "share_positive": stats.share_positive([r["error"] for r in sel]),
-                "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)]),
+                "n_effectiveness": len(two),
+                "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)])
+                if len(two) >= MIN_STATISTICS_MONTHS
+                else None,
                 "first": sel[0]["contract"],
                 "last": sel[-1]["contract"],
             }

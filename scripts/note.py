@@ -269,8 +269,8 @@ def build() -> list:
     title = ParagraphStyle("title", fontName="LiberationSerif-Bold", fontSize=17, leading=21, spaceAfter=4)
     small = ParagraphStyle("small", parent=body, fontSize=8.5, leading=11, alignment=0)
 
-    def source(line: str) -> Paragraph:
-        return Paragraph(f"Source: {line} Data as of {as_of}.", small)
+    def source(line: str, data_as_of: str | None = None) -> Paragraph:
+        return Paragraph(f"Source: {line} Data as of {data_as_of or as_of}.", small)
 
     s: list = []
     s.append(Paragraph("FFA basis and hedging: Capesize 5TC and TD3C", title))
@@ -584,7 +584,7 @@ def build() -> list:
                     small,
                 ),
                 td3c_chart(td3c),
-                source(td3c["sources_line"]),
+                source(td3c["sources_line"], day(td3c["as_of"])),
             ]
         )
     )
@@ -637,22 +637,33 @@ def build() -> list:
                 f"{b['mean_error_usd_t']:+.2f}",
                 f"{b['rmse_usd_t']:.2f}",
                 pct(b["share_positive"], 0),
-                pct(b["effectiveness_k1"]),
+                pct(b["effectiveness_k1"]) if b.get("effectiveness_k1") is not None else f"({b['n_effectiveness']})",
             ]
             for b in st["by_horizon"]
         ]
         thin_free = {b["horizon_months"]: b for b in st.get("without_thin_weeks", [])}
+        no_eff = all(b.get("effectiveness_k1") is None for b in st["by_horizon"])
+        eff_text = (
+            "The variance a hedge removes is not computed: a month with one dollar print settles at its own fixture "
+            "(a residual of zero by construction), and the months with two prints, in brackets, are fewer than "
+            f"{st['threshold_months']} at every horizon."
+            if no_eff
+            else "The last column is the share of the variance of a one-cargo hedge's surprise removed at one for one, "
+            "on months with two prints."
+        )
+        thin_text = (
+            " Without the marked months the one-month mean error is "
+            + (f"{thin_free[1]['mean_error_usd_t']:+.2f}" if 1 in thin_free else "not computed")
+            + "."
+        )
         s.append(
             KeepTogether(
                 [
                     Paragraph(
                         "<b>Table 6.</b> TD3C, approximate: BWET's quarter-end mark for each month 1, 2 or 3 months "
-                        "ahead against the month's settlement estimate (the average of Breakwave's dollar prints), "
-                        "USD a tonne, and the share of the variance of a one-cargo hedge's surprise removed at one "
-                        "for one. The closure months dominate every figure; without the thin-market months the "
-                        "one-month figure is "
-                        + (pct(thin_free[1]["effectiveness_k1"]) if 1 in thin_free else "n/a")
-                        + ".",
+                        "ahead against the month's settlement estimate (the average of Breakwave's dollar prints, "
+                        "months that have ended), USD a tonne; the error is the estimate less the mark. The closure "
+                        "months dominate every figure. " + eff_text + thin_text,
                         small,
                     ),
                     table_png(

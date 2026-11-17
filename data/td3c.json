@@ -1,6 +1,6 @@
 {
  "artifact": "td3c",
- "as_of": "2026-11-08",
+ "as_of": "2026-11-13",
  "breakwave": [
   {
    "btfi_points": 1179.0,
@@ -435,6 +435,7 @@
      "physical_vs_locked_usd": -194939.9999999994,
      "prints": 2,
      "settlement": 18.71,
+     "single_print": false,
      "total_usd": 4155839.9999999995
     },
     {
@@ -448,6 +449,7 @@
      "physical_vs_locked_usd": 2960550.0,
      "prints": 2,
      "settlement": 27.555,
+     "single_print": false,
      "total_usd": 4314600.0
     },
     {
@@ -461,11 +463,12 @@
      "physical_vs_locked_usd": 3235410.0,
      "prints": 2,
      "settlement": 27.55,
+     "single_print": false,
      "total_usd": 4462290.0
     }
    ],
    "role": "owner",
-   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 13430880.0,
     "paper_usd": -6499170.0,
@@ -492,6 +495,7 @@
      "physical_vs_locked_usd": 392580.0000000002,
      "prints": 2,
      "settlement": 18.310000000000002,
+     "single_print": false,
      "total_usd": 3147119.9999999995
     },
     {
@@ -505,6 +509,7 @@
      "physical_vs_locked_usd": 3537000.0000000005,
      "prints": 2,
      "settlement": 31.17,
+     "single_print": false,
      "total_usd": 3221100.0
     },
     {
@@ -518,11 +523,12 @@
      "physical_vs_locked_usd": 21401820.0,
      "prints": 2,
      "settlement": 87.63,
+     "single_print": false,
      "total_usd": 5865480.0
     }
    ],
    "role": "owner",
-   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 11961000.0,
     "paper_usd": -25058700.0,
@@ -549,6 +555,7 @@
      "physical_vs_locked_usd": -1401030.0000000019,
      "prints": 2,
      "settlement": 79.66499999999999,
+     "single_print": false,
      "total_usd": 19246680.000000004
     },
     {
@@ -562,6 +569,7 @@
      "physical_vs_locked_usd": 3837779.9999999995,
      "prints": 2,
      "settlement": 86.145,
+     "single_print": false,
      "total_usd": 17102070.0
     },
     {
@@ -575,11 +583,12 @@
      "physical_vs_locked_usd": 4513590.0,
      "prints": 1,
      "settlement": 59.62,
+     "single_print": true,
      "total_usd": 11583810.0
     }
    ],
    "role": "owner",
-   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 50924160.0,
     "paper_usd": -9941939.999999996,
@@ -606,6 +615,7 @@
      "physical_vs_locked_usd": 14891580.000000002,
      "prints": 1,
      "settlement": 99.03,
+     "single_print": true,
      "total_usd": 11846519.999999998
     },
     {
@@ -619,11 +629,12 @@
      "physical_vs_locked_usd": 25808760.0,
      "prints": 2,
      "settlement": 186.21499999999997,
+     "single_print": false,
      "total_usd": -2117609.9999999925
     }
    ],
    "role": "owner",
-   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day; a month with one print settles at its own fixture, so its paper exactly offsets its physical side",
    "total": {
     "locked_usd": 23022360.0,
     "paper_usd": -53993789.99999999,
@@ -635,6 +646,7 @@
  ],
  "dollar_months": {
   "2023-07": {
+   "ended": true,
    "fixture_on": "2023-07-11",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/07/BreakwaveTankersJuly112023Report.pdf",
    "fixture_usd_t": 12.7,
@@ -642,6 +654,7 @@
    "settlement_estimate_usd_t": 12.7
   },
   "2023-08": {
+   "ended": true,
    "fixture_on": "2023-08-08",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/08/BreakwaveTankersAugust82023Report.pdf",
    "fixture_usd_t": 11.83,
@@ -649,6 +662,7 @@
    "settlement_estimate_usd_t": 11.83
   },
   "2023-09": {
+   "ended": true,
    "fixture_on": "2023-09-19",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/09/BreakwaveTankersSeptember192023Report.pdf",
    "fixture_usd_t": 9.13,
@@ -656,6 +670,7 @@
    "settlement_estimate_usd_t": 9.13
   },
   "2023-10": {
+   "ended": true,
    "fixture_on": "2023-10-03",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/10/BreakwaveTankersOctober32023Report.pdf",
    "fixture_usd_t": 12.12,
@@ -663,6 +678,7 @@
    "settlement_estimate_usd_t": 13.63
   },
   "2023-11": {
+   "ended": true,
    "fixture_on": "2023-11-14",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/11/BreakwaveTankersNovember142023Report.pdf",
    "fixture_usd_t": 16.39,
@@ -670,6 +686,7 @@
    "settlement_estimate_usd_t": 16.305
   },
   "2023-12": {
+   "ended": true,
    "fixture_on": "2023-12-12",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/12/BreakwaveTankersDecember122023Report.pdf",
    "fixture_usd_t": 16.0,
@@ -677,6 +694,7 @@
    "settlement_estimate_usd_t": 16.0
   },
   "2024-01": {
+   "ended": true,
    "fixture_on": "2024-01-16",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/01/BreakwaveTankersJanuary162024Report.pdf",
    "fixture_usd_t": 17.18,
@@ -684,6 +702,7 @@
    "settlement_estimate_usd_t": 17.18
   },
   "2024-02": {
+   "ended": true,
    "fixture_on": "2024-02-13",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/02/BreakwaveTankersFebruary132024Report.pdf",
    "fixture_usd_t": 16.73,
@@ -691,6 +710,7 @@
    "settlement_estimate_usd_t": 16.165
   },
   "2024-03": {
+   "ended": true,
    "fixture_on": "2024-03-12",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/03/BreakwaveTankersMarch122024Report.pdf",
    "fixture_usd_t": 16.88,
@@ -698,6 +718,7 @@
    "settlement_estimate_usd_t": 16.59
   },
   "2024-04": {
+   "ended": true,
    "fixture_on": "2024-04-09",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/04/BreakwaveTankersApril92024Report.pdf",
    "fixture_usd_t": 15.87,
@@ -705,6 +726,7 @@
    "settlement_estimate_usd_t": 15.18
   },
   "2024-05": {
+   "ended": true,
    "fixture_on": "2024-05-07",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/05/BreakwaveTankersMay72024Report.pdf",
    "fixture_usd_t": 16.24,
@@ -712,6 +734,7 @@
    "settlement_estimate_usd_t": 16.24
   },
   "2024-06": {
+   "ended": true,
    "fixture_on": "2024-06-04",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/06/BreakwaveTankersJune42024Report.pdf",
    "fixture_usd_t": 14.05,
@@ -719,6 +742,7 @@
    "settlement_estimate_usd_t": 14.05
   },
   "2024-07": {
+   "ended": true,
    "fixture_on": "2024-07-02",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/07/BreakwaveTankersJuly22024Report.pdf",
    "fixture_usd_t": 12.1,
@@ -726,6 +750,7 @@
    "settlement_estimate_usd_t": 12.293
   },
   "2024-08": {
+   "ended": true,
    "fixture_on": "2024-08-13",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/08/BreakwaveTankersAugust132024Report-1.pdf",
    "fixture_usd_t": 11.24,
@@ -733,6 +758,7 @@
    "settlement_estimate_usd_t": 12.01
   },
   "2024-09": {
+   "ended": true,
    "fixture_on": "2024-09-10",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/09/BreakwaveTankersSeptember102024Report.pdf",
    "fixture_usd_t": 12.08,
@@ -740,6 +766,7 @@
    "settlement_estimate_usd_t": 13.42
   },
   "2024-10": {
+   "ended": true,
    "fixture_on": "2024-10-08",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/10/BreakwaveTankersOctober82024Report-1.pdf",
    "fixture_usd_t": 14.56,
@@ -747,6 +774,7 @@
    "settlement_estimate_usd_t": 14.275
   },
   "2024-11": {
+   "ended": true,
    "fixture_on": "2024-11-05",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/11/BreakwaveTankersNovember52024Report.pdf",
    "fixture_usd_t": 12.35,
@@ -754,6 +782,7 @@
    "settlement_estimate_usd_t": 12.35
   },
   "2024-12": {
+   "ended": true,
    "fixture_on": "2024-12-17",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/12/BreakwaveTankersDecember172024Report.pdf",
    "fixture_usd_t": 8.63,
@@ -761,6 +790,7 @@
    "settlement_estimate_usd_t": 8.63
   },
   "2025-01": {
+   "ended": true,
    "fixture_on": "2025-01-14",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/01/BreakwaveTankersJanuary142025Report.pdf",
    "fixture_usd_t": 12.88,
@@ -768,6 +798,7 @@
    "settlement_estimate_usd_t": 11.925
   },
   "2025-02": {
+   "ended": true,
    "fixture_on": "2025-02-11",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/02/BreakwaveTankersFebruary112025Report.pdf",
    "fixture_usd_t": 13.69,
@@ -775,6 +806,7 @@
    "settlement_estimate_usd_t": 13.19
   },
   "2025-03": {
+   "ended": true,
    "fixture_on": "2025-03-11",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/03/BreakwaveTankersMarch112025Report.pdf",
    "fixture_usd_t": 12.26,
@@ -782,6 +814,7 @@
    "settlement_estimate_usd_t": 12.405
   },
   "2025-04": {
+   "ended": true,
    "fixture_on": "2025-04-08",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/04/BreakwaveTankersApril82025Report2.pdf",
    "fixture_usd_t": 12.13,
@@ -789,6 +822,7 @@
    "settlement_estimate_usd_t": 13.12
   },
   "2025-05": {
+   "ended": true,
    "fixture_on": "2025-05-06",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/05/BreakwaveTankersMay62025Report.pdf",
    "fixture_usd_t": 14.24,
@@ -796,6 +830,7 @@
    "settlement_estimate_usd_t": 14.24
   },
   "2025-06": {
+   "ended": true,
    "fixture_on": "2025-06-03",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/06/BreakwaveTankersJune32025Report.pdf",
    "fixture_usd_t": 10.5,
@@ -803,6 +838,7 @@
    "settlement_estimate_usd_t": 12.295
   },
   "2025-07": {
+   "ended": true,
    "fixture_on": "2025-07-29",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/07/BreakwaveTankersJuly292025Report.pdf",
    "fixture_usd_t": 9.82,
@@ -810,6 +846,7 @@
    "settlement_estimate_usd_t": 9.82
   },
   "2025-08": {
+   "ended": true,
    "fixture_on": "2025-08-12",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/08/BreakwaveTankersAugust122025Report.pdf",
    "fixture_usd_t": 12.28,
@@ -817,6 +854,7 @@
    "settlement_estimate_usd_t": 12.28
   },
   "2025-09": {
+   "ended": true,
    "fixture_on": "2025-09-09",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/09/BreakwaveTankersSeptember92025Report.pdf",
    "fixture_usd_t": 16.51,
@@ -824,6 +862,7 @@
    "settlement_estimate_usd_t": 19.51
   },
   "2025-10": {
+   "ended": true,
    "fixture_on": "2025-10-07",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober72025Report.pdf",
    "fixture_usd_t": 16.69,
@@ -831,6 +870,7 @@
    "settlement_estimate_usd_t": 18.71
   },
   "2025-11": {
+   "ended": true,
    "fixture_on": "2025-11-04",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/11/BreakwaveTankersNovember42025Report.pdf",
    "fixture_usd_t": 27.25,
@@ -838,6 +878,7 @@
    "settlement_estimate_usd_t": 27.555
   },
   "2025-12": {
+   "ended": true,
    "fixture_on": "2025-12-02",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/BreakwaveTankersDecember22025Report.pdf",
    "fixture_usd_t": 28.03,
@@ -845,6 +886,7 @@
    "settlement_estimate_usd_t": 27.55
   },
   "2026-01": {
+   "ended": true,
    "fixture_on": "2026-01-13",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary132026Report.pdf",
    "fixture_usd_t": 15.71,
@@ -852,6 +894,7 @@
    "settlement_estimate_usd_t": 18.31
   },
   "2026-02": {
+   "ended": true,
    "fixture_on": "2026-02-10",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/BreakwaveTankersFebruary102026Report.pdf",
    "fixture_usd_t": 28.1,
@@ -859,6 +902,7 @@
    "settlement_estimate_usd_t": 31.17
   },
   "2026-03": {
+   "ended": true,
    "fixture_on": "2026-03-10",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/BreakwaveTankersMarch102026Report.pdf",
    "fixture_usd_t": 94.31,
@@ -866,6 +910,7 @@
    "settlement_estimate_usd_t": 87.63
   },
   "2026-04": {
+   "ended": true,
    "fixture_on": "2026-04-07",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf",
    "fixture_usd_t": 72.88,
@@ -873,6 +918,7 @@
    "settlement_estimate_usd_t": 79.665
   },
   "2026-05": {
+   "ended": true,
    "fixture_on": "2026-05-05",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/05/BreakwaveTankersMay52026Report.pdf",
    "fixture_usd_t": 81.85,
@@ -880,6 +926,7 @@
    "settlement_estimate_usd_t": 86.145
   },
   "2026-06": {
+   "ended": true,
    "fixture_on": "2026-06-30",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf",
    "fixture_usd_t": 59.62,
@@ -887,6 +934,7 @@
    "settlement_estimate_usd_t": 59.62
   },
   "2026-08": {
+   "ended": true,
    "fixture_on": "2026-08-11",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/08/BreakwaveTankersAugust112026Report.pdf",
    "fixture_usd_t": 99.03,
@@ -894,6 +942,7 @@
    "settlement_estimate_usd_t": 99.03
   },
   "2026-09": {
+   "ended": true,
    "fixture_on": "2026-09-08",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
    "fixture_usd_t": 136.98,
@@ -901,6 +950,7 @@
    "settlement_estimate_usd_t": 186.215
   },
   "2026-10": {
+   "ended": true,
    "fixture_on": "2026-10-06",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/BreakwaveTankersOctober62026Report.pdf",
    "fixture_usd_t": 243.15,
@@ -908,11 +958,12 @@
    "settlement_estimate_usd_t": 252.625
   },
   "2026-11": {
+   "ended": false,
    "fixture_on": "2026-11-03",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember32026Report.pdf",
    "fixture_usd_t": 256.16,
    "prints": 1,
-   "settlement_estimate_usd_t": 256.16
+   "settlement_estimate_usd_t": null
   }
  },
  "events": [
@@ -969,282 +1020,329 @@
  "monthly": {
   "2023-01": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 48.1
   },
   "2023-02": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 43.33
   },
   "2023-03": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 89.64
   },
   "2023-04": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 64.87
   },
   "2023-05": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 46.68
   },
   "2023-06": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 59.03
   },
   "2023-07": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 52.23
   },
   "2023-08": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 46.64
   },
   "2023-09": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 42.75
   },
   "2023-10": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 50.51
   },
   "2023-11": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 69.96
   },
   "2023-12": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 62.97
   },
   "2024-01": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 62.55
   },
   "2024-02": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 70.25
   },
   "2024-03": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 68.72
   },
   "2024-04": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 61.84
   },
   "2024-05": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 67.22
   },
   "2024-06": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 51.11
   },
   "2024-07": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 50.17
   },
   "2024-08": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 49.87
   },
   "2024-09": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 54.01
   },
   "2024-10": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 57.35
   },
   "2024-11": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 50.66
   },
   "2024-12": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 40.67
   },
   "2025-01": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 59.61
   },
   "2025-02": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 62.51
   },
   "2025-03": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 58.34
   },
   "2025-04": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 60.76
   },
   "2025-05": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 60.83
   },
   "2025-06": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 54.81
   },
   "2025-07": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 10.48,
    "weeks": 4,
    "ws_points": 49.04
   },
   "2025-08": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 12.374,
    "weeks": 5,
    "ws_points": 57.9
   },
   "2025-09": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 19.37,
    "weeks": 4,
    "ws_points": 90.64
   },
   "2025-10": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 19.699,
    "weeks": 5,
    "ws_points": 92.18
   },
   "2025-11": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 27.049,
    "weeks": 4,
    "ws_points": 126.57
   },
   "2025-12": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": 25.917,
    "weeks": 3,
    "ws_points": 121.27
   },
   "2026-01": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 101.86
   },
   "2026-02": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 162.53
   },
   "2026-03": {
    "flagged_weeks": 4,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 400.53
   },
   "2026-04": {
    "flagged_weeks": 3,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 456.83
   },
   "2026-05": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 421.75
   },
   "2026-06": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 393.47
   },
   "2026-07": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 364.4
   },
   "2026-08": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 3,
    "ws_points": 556.19
   },
   "2026-09": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 4,
    "ws_points": 948.96
   },
   "2026-10": {
    "flagged_weeks": 0,
+   "month_to_date": false,
    "usd_t": null,
    "weeks": 5,
    "ws_points": 1243.13
   },
   "2026-11": {
    "flagged_weeks": 0,
+   "month_to_date": true,
    "usd_t": null,
    "weeks": 2,
    "ws_points": 1117.51
@@ -1285,32 +1383,35 @@
  "statistics": {
   "by_horizon": [
    {
-    "effectiveness_k1": -0.19497732595544348,
+    "effectiveness_k1": null,
     "first": "2023-07",
     "horizon_months": 1,
     "last": "2026-10",
     "mean_error_usd_t": 2.253256410256409,
     "n": 13,
+    "n_effectiveness": 11,
     "rmse_usd_t": 4.70816533578206,
     "share_positive": 0.7692307692307693
    },
    {
-    "effectiveness_k1": 0.9942479309664981,
+    "effectiveness_k1": null,
     "first": "2023-08",
     "horizon_months": 2,
-    "last": "2026-11",
-    "mean_error_usd_t": 11.40064285714286,
-    "n": 14,
-    "rmse_usd_t": 21.200731963442077,
-    "share_positive": 0.8571428571428571
+    "last": "2026-08",
+    "mean_error_usd_t": 8.443692307692308,
+    "n": 13,
+    "n_effectiveness": 7,
+    "rmse_usd_t": 17.11605009250764,
+    "share_positive": 0.8461538461538461
    },
    {
-    "effectiveness_k1": 0.8205355213106346,
+    "effectiveness_k1": null,
     "first": "2023-09",
     "horizon_months": 3,
     "last": "2026-09",
     "mean_error_usd_t": 19.145461538461536,
     "n": 13,
+    "n_effectiveness": 8,
     "rmse_usd_t": 45.395797078414816,
     "share_positive": 0.7692307692307693
    }
@@ -1318,17 +1419,21 @@
   "counts": [
    {
     "horizon_months": 1,
-    "n": 13
+    "n": 13,
+    "n_two_prints": 11
    },
    {
     "horizon_months": 2,
-    "n": 14
+    "n": 13,
+    "n_two_prints": 7
    },
    {
     "horizon_months": 3,
-    "n": 13
+    "n": 13,
+    "n_two_prints": 8
    }
   ],
+  "min_prints_for_residual": 2,
   "rows": [
    {
     "as_of": "2023-06-30",
@@ -1338,6 +1443,7 @@
     "horizon_months": 1,
     "paper_move": -1.700000000000001,
     "physical": 12.7,
+    "prints": 2,
     "settlement": 12.7,
     "unhedged": -1.700000000000001
    },
@@ -1349,6 +1455,7 @@
     "horizon_months": 2,
     "paper_move": -1.83,
     "physical": 11.83,
+    "prints": 1,
     "settlement": 11.83,
     "unhedged": -1.83
    },
@@ -1360,6 +1467,7 @@
     "horizon_months": 3,
     "paper_move": -4.59,
     "physical": 9.13,
+    "prints": 1,
     "settlement": 9.13,
     "unhedged": -4.59
    },
@@ -1371,6 +1479,7 @@
     "horizon_months": 1,
     "paper_move": 0.9400000000000013,
     "physical": 12.12,
+    "prints": 3,
     "settlement": 13.63,
     "unhedged": -0.5700000000000003
    },
@@ -1382,6 +1491,7 @@
     "horizon_months": 2,
     "paper_move": 2.205,
     "physical": 16.39,
+    "prints": 2,
     "settlement": 16.305,
     "unhedged": 2.290000000000001
    },
@@ -1393,6 +1503,7 @@
     "horizon_months": 3,
     "paper_move": 0.9499999999999993,
     "physical": 16.0,
+    "prints": 1,
     "settlement": 16.0,
     "unhedged": 0.9499999999999993
    },
@@ -1404,6 +1515,7 @@
     "horizon_months": 1,
     "paper_move": 4.48,
     "physical": 17.18,
+    "prints": 1,
     "settlement": 17.18,
     "unhedged": 4.48
    },
@@ -1415,6 +1527,7 @@
     "horizon_months": 2,
     "paper_move": 3.5379999999999985,
     "physical": 16.73,
+    "prints": 2,
     "settlement": 16.165,
     "unhedged": 4.103
    },
@@ -1426,6 +1539,7 @@
     "horizon_months": 3,
     "paper_move": 4.007,
     "physical": 16.88,
+    "prints": 2,
     "settlement": 16.59,
     "unhedged": 4.296999999999999
    },
@@ -1437,6 +1551,7 @@
     "horizon_months": 1,
     "paper_move": 0.8300000000000001,
     "physical": 15.87,
+    "prints": 2,
     "settlement": 15.18,
     "unhedged": 1.5199999999999996
    },
@@ -1448,6 +1563,7 @@
     "horizon_months": 2,
     "paper_move": 2.244999999999999,
     "physical": 16.24,
+    "prints": 1,
     "settlement": 16.24,
     "unhedged": 2.244999999999999
    },
@@ -1459,6 +1575,7 @@
     "horizon_months": 3,
     "paper_move": 0.5800000000000001,
     "physical": 14.05,
+    "prints": 1,
     "settlement": 14.05,
     "unhedged": 0.5800000000000001
    },
@@ -1470,6 +1587,7 @@
     "horizon_months": 1,
     "paper_move": 0.6013333333333346,
     "physical": 12.1,
+    "prints": 3,
     "settlement": 12.293333333333335,
     "unhedged": 0.4079999999999995
    },
@@ -1481,6 +1599,7 @@
     "horizon_months": 2,
     "paper_move": 0.16000000000000014,
     "physical": 11.24,
+    "prints": 2,
     "settlement": 12.01,
     "unhedged": -0.6099999999999994
    },
@@ -1492,6 +1611,7 @@
     "horizon_months": 3,
     "paper_move": 0.9700000000000006,
     "physical": 12.08,
+    "prints": 2,
     "settlement": 13.42,
     "unhedged": -0.3699999999999992
    },
@@ -1503,6 +1623,7 @@
     "horizon_months": 1,
     "paper_move": 1.6170000000000009,
     "physical": 14.56,
+    "prints": 2,
     "settlement": 14.275,
     "unhedged": 1.902000000000001
    },
@@ -1514,6 +1635,7 @@
     "horizon_months": 2,
     "paper_move": -1.8949999999999996,
     "physical": 12.35,
+    "prints": 1,
     "settlement": 12.35,
     "unhedged": -1.8949999999999996
    },
@@ -1525,6 +1647,7 @@
     "horizon_months": 3,
     "paper_move": -6.2879999999999985,
     "physical": 8.63,
+    "prints": 1,
     "settlement": 8.63,
     "unhedged": -6.2879999999999985
    },
@@ -1536,6 +1659,7 @@
     "horizon_months": 1,
     "paper_move": 1.2360000000000007,
     "physical": 12.88,
+    "prints": 2,
     "settlement": 11.925,
     "unhedged": 2.1910000000000007
    },
@@ -1547,6 +1671,7 @@
     "horizon_months": 2,
     "paper_move": 1.5899999999999999,
     "physical": 13.69,
+    "prints": 2,
     "settlement": 13.19,
     "unhedged": 2.09
    },
@@ -1558,6 +1683,7 @@
     "horizon_months": 3,
     "paper_move": 0.22100000000000186,
     "physical": 12.26,
+    "prints": 2,
     "settlement": 12.405000000000001,
     "unhedged": 0.07600000000000051
    },
@@ -1569,6 +1695,7 @@
     "horizon_months": 1,
     "paper_move": -0.03999999999999915,
     "physical": 12.13,
+    "prints": 2,
     "settlement": 13.120000000000001,
     "unhedged": -1.0299999999999994
    },
@@ -1580,6 +1707,7 @@
     "horizon_months": 2,
     "paper_move": 1.4000000000000004,
     "physical": 14.24,
+    "prints": 1,
     "settlement": 14.24,
     "unhedged": 1.4000000000000004
    },
@@ -1591,6 +1719,7 @@
     "horizon_months": 3,
     "paper_move": -0.1379999999999999,
     "physical": 10.5,
+    "prints": 2,
     "settlement": 12.295,
     "unhedged": -1.9329999999999998
    },
@@ -1602,6 +1731,7 @@
     "horizon_months": 1,
     "paper_move": -1.0280000000000005,
     "physical": 9.82,
+    "prints": 1,
     "settlement": 9.82,
     "unhedged": -1.0280000000000005
    },
@@ -1613,6 +1743,7 @@
     "horizon_months": 2,
     "paper_move": 1.251999999999999,
     "physical": 12.28,
+    "prints": 1,
     "settlement": 12.28,
     "unhedged": 1.251999999999999
    },
@@ -1624,6 +1755,7 @@
     "horizon_months": 3,
     "paper_move": 7.550000000000001,
     "physical": 16.51,
+    "prints": 2,
     "settlement": 19.51,
     "unhedged": 4.550000000000001
    },
@@ -1635,6 +1767,7 @@
     "horizon_months": 1,
     "paper_move": 1.2980000000000018,
     "physical": 16.69,
+    "prints": 2,
     "settlement": 18.71,
     "unhedged": -0.7219999999999978
    },
@@ -1646,6 +1779,7 @@
     "horizon_months": 2,
     "paper_move": 11.27,
     "physical": 27.25,
+    "prints": 2,
     "settlement": 27.555,
     "unhedged": 10.965
    },
@@ -1657,6 +1791,7 @@
     "horizon_months": 3,
     "paper_move": 11.503,
     "physical": 28.03,
+    "prints": 2,
     "settlement": 27.55,
     "unhedged": 11.983
    },
@@ -1668,6 +1803,7 @@
     "horizon_months": 1,
     "paper_move": 4.054000000000002,
     "physical": 15.71,
+    "prints": 2,
     "settlement": 18.310000000000002,
     "unhedged": 1.4540000000000006
    },
@@ -1679,6 +1815,7 @@
     "horizon_months": 2,
     "paper_move": 16.17,
     "physical": 28.1,
+    "prints": 2,
     "settlement": 31.17,
     "unhedged": 13.100000000000001
    },
@@ -1690,6 +1827,7 @@
     "horizon_months": 3,
     "paper_move": 72.586,
     "physical": 94.31,
+    "prints": 2,
     "settlement": 87.63,
     "unhedged": 79.266
    },
@@ -1701,6 +1839,7 @@
     "horizon_months": 1,
     "paper_move": 1.5959999999999894,
     "physical": 72.88,
+    "prints": 2,
     "settlement": 79.66499999999999,
     "unhedged": -5.189000000000007
    },
@@ -1712,6 +1851,7 @@
     "horizon_months": 2,
     "paper_move": 18.509,
     "physical": 81.85,
+    "prints": 2,
     "settlement": 86.145,
     "unhedged": 14.213999999999999
    },
@@ -1723,6 +1863,7 @@
     "horizon_months": 3,
     "paper_move": 16.717,
     "physical": 59.62,
+    "prints": 1,
     "settlement": 59.62,
     "unhedged": 16.717
    },
@@ -1734,6 +1875,7 @@
     "horizon_months": 2,
     "paper_move": 55.154,
     "physical": 99.03,
+    "prints": 1,
     "settlement": 99.03,
     "unhedged": 55.154
    },
@@ -1745,6 +1887,7 @@
     "horizon_months": 3,
     "paper_move": 144.82299999999998,
     "physical": 136.98,
+    "prints": 2,
     "settlement": 186.21499999999997,
     "unhedged": 95.588
    },
@@ -1756,50 +1899,43 @@
     "horizon_months": 1,
     "paper_move": 15.407999999999987,
     "physical": 243.15,
+    "prints": 2,
     "settlement": 252.625,
     "unhedged": 5.932999999999993
-   },
-   {
-    "as_of": "2026-09-30",
-    "contract": "2026-11",
-    "error": 49.84100000000004,
-    "f0": 206.319,
-    "horizon_months": 2,
-    "paper_move": 49.84100000000004,
-    "physical": 256.16,
-    "settlement": 256.16,
-    "unhedged": 49.84100000000004
    }
   ],
   "threshold_months": 12,
   "without_thin_weeks": [
    {
-    "effectiveness_k1": -0.44017305813895713,
+    "effectiveness_k1": null,
     "first": "2023-07",
     "horizon_months": 1,
     "last": "2026-10",
     "mean_error_usd_t": 2.3080277777777773,
     "n": 12,
+    "n_effectiveness": 10,
     "rmse_usd_t": 4.878707605313944,
     "share_positive": 0.75
    },
    {
-    "effectiveness_k1": 0.9942479309664981,
+    "effectiveness_k1": null,
     "first": "2023-08",
     "horizon_months": 2,
-    "last": "2026-11",
-    "mean_error_usd_t": 11.40064285714286,
-    "n": 14,
-    "rmse_usd_t": 21.200731963442077,
-    "share_positive": 0.8571428571428571
+    "last": "2026-08",
+    "mean_error_usd_t": 8.443692307692308,
+    "n": 13,
+    "n_effectiveness": 7,
+    "rmse_usd_t": 17.11605009250764,
+    "share_positive": 0.8461538461538461
    },
    {
-    "effectiveness_k1": 0.74048024699,
+    "effectiveness_k1": null,
     "first": "2023-09",
     "horizon_months": 3,
     "last": "2026-09",
     "mean_error_usd_t": 14.692083333333331,
     "n": 12,
+    "n_effectiveness": 7,
     "rmse_usd_t": 42.34913586780726,
     "share_positive": 0.75
    }

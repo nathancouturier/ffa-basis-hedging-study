@@ -349,12 +349,52 @@ def test_td3c_statistics_need_twelve_contract_months():
     from ffabasis import td3c
 
     strips = [{"as_of": "2025-09-30", "months": [{"month": "2025-10", "usd_t": 17.0}]}]
-    months = {"2025-10": {"fixture_usd_t": 16.7, "settlement_estimate_usd_t": 18.7}}
+    months = {"2025-10": {"fixture_usd_t": 16.7, "settlement_estimate_usd_t": 18.7, "prints": 2}}
     out = td3c.statistics(strips, months)
     assert len(out["rows"]) == 1
     assert out["by_horizon"] == []
-    assert out["counts"][0] == {"horizon_months": 1, "n": 1}
+    assert out["counts"][0] == {"horizon_months": 1, "n": 1, "n_two_prints": 1}
     assert out["threshold_months"] == 12
+
+
+def test_td3c_month_still_running_has_no_settlement():
+    from ffabasis import td3c
+
+    prints = [
+        {"report_date": "2026-10-06", "td3c_usd_t": 243.15},
+        {"report_date": "2026-10-20", "td3c_usd_t": 262.10},
+        {"report_date": "2026-11-03", "td3c_usd_t": 256.16},
+    ]
+    months = td3c.dollar_months(prints, "2026-11-13")
+    assert months["2026-10"]["settlement_estimate_usd_t"] == pytest.approx((243.15 + 262.10) / 2)
+    assert months["2026-10"]["ended"] is True
+    assert months["2026-11"]["settlement_estimate_usd_t"] is None
+    assert months["2026-11"]["fixture_usd_t"] == 256.16
+    strips = [{"as_of": "2026-09-30", "months": [{"month": "2026-11", "usd_t": 206.3}]}]
+    assert td3c.statistics(strips, months)["rows"] == []
+
+
+def test_td3c_single_print_month_stays_out_of_the_variance_removed():
+    from ffabasis import td3c
+
+    # Twelve months at one horizon, five with a single print: the error statistics use all twelve, the variance a
+    # hedge removes only months with two prints (seven, under the threshold), since one print is its own settlement.
+    strips, months = [], {}
+    for i in range(12):
+        month = f"2024-{i + 1:02d}"
+        mark_on = "2023-12-28" if i == 0 else f"2024-{i:02d}-28"
+        strips.append({"as_of": mark_on, "months": [{"month": month, "usd_t": 15.0}]})
+        single = i < 5
+        months[month] = {
+            "fixture_usd_t": 14.0 + i,
+            "settlement_estimate_usd_t": 14.0 + i if single else 15.0 + i,
+            "prints": 1 if single else 2,
+        }
+    out = td3c.statistics(strips, months)
+    row = out["by_horizon"][0]
+    assert row["n"] == 12 and row["n_effectiveness"] == 7
+    assert row["effectiveness_k1"] is None
+    assert out["counts"][0] == {"horizon_months": 1, "n": 12, "n_two_prints": 7}
 
 
 def test_naive_forecast_is_compared_on_the_rows_that_have_a_spot():

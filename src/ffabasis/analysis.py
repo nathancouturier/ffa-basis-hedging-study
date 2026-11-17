@@ -19,8 +19,8 @@ from . import engine, stats
 
 HORIZONS = (1, 2, 3)
 WEEKS_PER_MONTH = 52.0 / 12.0
-#: An incomplete month's settlement is estimated only from at least four observed days with one in
-#: the first ten and one in the last ten calendar days of the month.
+#: An incomplete month's settlement is estimated only from at least four observed days, one on or before
+#: the 10th and one on or after the 19th of the month.
 MIN_ESTIMATE_DAYS = 4
 
 
@@ -36,7 +36,7 @@ def settlements(panel: dict[str, Any]) -> dict[str, dict[str, Any]]:
     published: the month's average as Himalaya Shipping published it (SEC 6-K exhibits), used where the daily
         series is incomplete; checked to the dollar against every complete month (data/AUDIT.md).
     estimated: the average of the days observed in an incomplete month with no published average, kept only
-        when at least four days are observed with one in the first ten and one in the last ten days.
+        when at least four days are observed, one on or before the 10th and one on or after the 19th.
     value(basket): the 180,000 t value, plus 3,503 for the 182,000 t basket from January 2026.
     """
     published = {row["month"]: row for row in panel.get("published_5tc", [])}

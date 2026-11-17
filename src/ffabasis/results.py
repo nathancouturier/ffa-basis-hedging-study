@@ -159,9 +159,10 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
     bw = panel.get("breakwave", [])
     pairs = td3c.implied_flat_rates(weekly, bw)
     flat = td3c.flat_rate_by_period(pairs)
-    monthly = td3c.monthly_estimates(weekly, flat)
     strips = td3c.quarter_end_strips(panel["sec_marks"])
-    dollars = td3c.dollar_months(bw)
+    td3c_as_of = td3c.data_date(weekly, bw, strips)
+    monthly = td3c.monthly_estimates(weekly, flat, td3c_as_of)
+    dollars = td3c.dollar_months(bw, td3c_as_of)
 
     return {
         "settlements": settle,
@@ -193,6 +194,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
         "ederington": hedge.ederington(panel, curves),
         "robustness": robustness,
         "td3c": {
+            "as_of": td3c_as_of,
             "weekly": weekly,
             "breakwave": bw,
             "flat_pairs": pairs,

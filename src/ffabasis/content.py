@@ -764,7 +764,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
     }
     return {
         "artifact": "td3c",
-        "as_of": as_of,
+        "as_of": t.get("as_of") or as_of,
         "weekly": weekly,
         "breakwave": [
             {
@@ -782,6 +782,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
                 "usd_t": None if v["usd_t"] is None else round(v["usd_t"], 3),
                 "weeks": v["weeks"],
                 "flagged_weeks": v["flagged_weeks"],
+                "month_to_date": bool(v.get("month_to_date")),
             }
             for m, v in t["monthly"].items()
         },
@@ -795,7 +796,8 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             | {
                 "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
                 "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an "
-                "approximation of the ICE TDL settlement, which averages every Baltic publication day",
+                "approximation of the ICE TDL settlement, which averages every Baltic publication day; a month "
+                "with one print settles at its own fixture, so its paper exactly offsets its physical side",
                 "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / "
                 "(contracts x 1,000 t)",
             }
@@ -807,6 +809,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             "threshold_months": t["statistics"]["threshold_months"],
             "rows": t["statistics"]["rows"],
             "without_thin_weeks": t["statistics_without_thin_weeks"]["by_horizon"],
+            "min_prints_for_residual": t["statistics"]["min_prints_for_residual"],
         },
         "breakwave_statement": td3c.BREAKWAVE_STATEMENT,
         "statement_check": t["statement_check"],
