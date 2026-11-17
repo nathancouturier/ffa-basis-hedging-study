@@ -552,7 +552,9 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
             "title": "TD3C in dollars a tonne is approximate",
             "text": "The Baltic's weekly reports give TD3C in Worldscale. Flat rates are licensed and never stated; "
             "dated public pairs do not imply a consistent one in 2026, so 2026 stays in Worldscale and the dollar "
-            "case studies use Breakwave's bi-weekly prints, settled at the average of one or two prints a month.",
+            "case studies use Breakwave's bi-weekly prints, settled at the average of one or two prints a month. A "
+            "month with one print settles at its own fixture, so the share of variance a TD3C hedge removes is not "
+            "computed (too few months have two prints); the forward errors are, labelled approximate.",
         },
         {
             "title": "The published hedging studies could not be obtained",

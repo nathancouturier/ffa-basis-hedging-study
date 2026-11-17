@@ -174,7 +174,7 @@ def main() -> int:
         f = default_fetcher(ROOT)
         budget = Budget(args.budget)
         wanted = {j for j in args.only.split(",") if j} or {name for name, _ in JOBS}
-        if "SEC_USER_AGENT" not in os.environ:
+        if not os.environ.get("SEC_USER_AGENT", "").strip():  # unset, or an empty repository variable in CI
             wanted.discard("sec")
             status["sec"] = "skipped: SEC_USER_AGENT is not set"
         for name, _what in JOBS:

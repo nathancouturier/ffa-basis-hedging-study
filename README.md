@@ -51,8 +51,9 @@ Read this part first.
   reads. Worldscale flat rates are licensed and never stated here; the dated public pairs that would imply one do
   not agree in 2026 (prints four days apart in a market that moved by a fifth in a week), so 2026 stays in
   Worldscale and the dollar case studies and statistics use Breakwave's bi-weekly dollar prints, a month settled
-  at the average of one or two prints. Weeks in which the Baltic wrote that its panellists had difficulty
-  assessing Gulf loadings are marked.
+  at the average of one or two prints. A month with one print settles at its own fixture, so the share of variance
+  a TD3C hedge removes is not computed; the forward errors are, labelled approximate. Weeks in which the Baltic
+  wrote that its panellists had difficulty assessing Gulf loadings are marked.
 - **The published hedging studies could not be obtained.** Their publishers' and repositories' sites could not be
   reached when the data were gathered, so no published result (Ederington 1979; Kavussanos and Nomikos 2000;
   Alizadeh and Nomikos 2009) is quoted; Ederington's measure is reported for the reader to set beside them.
@@ -196,6 +197,23 @@ source, every host that could not be reached and what it would have added.
 | TD3C in USD a tonne, futures index | Breakwave Advisors tanker reports via Hellenic Shipping News | cited prints in `data/td3c.json` |
 | Conventions | Baltic Guide to Market Benchmarks v8.8 and v7.09, EEX release 047a, ICE TDL | rules with pages in `docs/methodology.md` |
 | Voyage engine | voyage-tce-model at commit 0be3b7eb, vendored unmodified | `vendor/voyage_tce/` |
+
+## Limitations
+
+Beyond the list at the top, which the site's Method view repeats with the figures of the latest build:
+
+- **The sample is short and the intervals are wide.** About three years of weekly fixtures with exact
+  settlements; the out-of-sample hedge ratio needs 52 settled fixtures before its first estimate, so it is
+  measured on the later part of the sample only, and is compared with one for one on those same fixtures.
+- **Size basis is a constant in 2026.** The Baltic derives the 180,000 t basket from the 182,000 t one at a fixed
+  USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a known offset, not a risk; there is no
+  independent 180,000 t assessment to measure it against.
+- **Quarter proxies.** When a curve skips a month, the month takes its quarter's price, flagged; results are shown
+  with and without them.
+- **Ederington's measure leans on 2026.** It needs the same tenor on two Mondays a week apart and a spot print on
+  both days; most pairs before 2026 lack the Monday spot, so the sample is small (the pair accounting is in
+  `data/method.json`).
+- **TD3C weeks the Baltic found hard to assess are marked, not removed.** Results are given with and without them.
 
 ## Layout
 
