@@ -270,7 +270,11 @@ function render(section, ctx) {
       steps,
       x: { title: usdUnit ? "USD" : unitLabel, format: (v) => compactMoney(v) },
       summary: `Locked ${amount(tot.locked_usd)}; cargo against the mark ${money(tot.physical_vs_locked_usd)}; paper ${money(tot.paper_usd)}; total ${amount(tot.total_usd)}.`,
-      source: h("span", {}, "Source: ", c.mark_url ? h("a", { href: c.mark_url }, `BWET filing of ${dateLong(c.as_of)}`) : "BWET filing", months[0]?.fixture_url ? h("span", {}, "; ", h("a", { href: months[0].fixture_url }, `Breakwave report of ${dateLong(months[0].fixture_on)}`)) : null, `; the study's td3c_outcome. Documents ${retrievedOf(manifest, "SEC")} and ${retrievedOf(manifest, "Breakwave")}.`),
+      source: h("span", {}, "Source: ", c.mark_url ? h("a", { href: c.mark_url }, `BWET filing of ${dateLong(c.as_of)}`) : "BWET filing", months[0]?.fixture_url ? h("span", {}, "; ", h("a", { href: months[0].fixture_url }, `Breakwave report of ${dateLong(months[0].fixture_on)}`)) : null, `; computed by the study's engine (td3c_outcome). ${(() => {
+        const sec = retrievedOf(manifest, "SEC");
+        const bw = retrievedOf(manifest, "Breakwave");
+        return sec === bw ? `Both documents ${sec}.` : `Filing ${sec}; report ${bw}.`;
+      })()}`),
     });
     box.append(table({
       caption: "Case by month",
