@@ -239,6 +239,8 @@ a:hover {
 main {
   display: block;
   padding: var(--s6) 0 var(--s8);
+  /* The views render after their data arrive: the footer starts below the fold so nothing visible shifts. */
+  min-height: 100vh;
 }
 
 main:focus {

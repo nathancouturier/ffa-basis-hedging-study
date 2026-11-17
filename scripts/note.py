@@ -31,6 +31,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Image, KeepTogether, Paragraph, SimpleDocTemplate, Spacer
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from ffabasis.prose import five_findings
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "FFA-Basis-Hedging-Study-Research-Note.pdf"
 LIB = Path("/usr/share/fonts/truetype/liberation")
@@ -240,66 +243,6 @@ def td3c_chart(td3c: dict) -> Image:
 
 
 # ------------------------------------------------------------------ the note
-
-
-def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
-    """The answer in five sentences, every figure read from the artifacts."""
-    h = ov["headline"]
-    cells = {(c["voyage"], c["horizon_months"]): c for c in ov["effectiveness"]}
-    trip, c3 = cells.get(("5TC trip", 1), {}), cells.get(("C3", 1), {})
-    ci = h["effectiveness_k1_ci"] or {}
-    share = h["residual_variance_share"]
-    b1 = next((b for b in roll["bias"] if b and b["horizon_months"] == 1), None)
-    fa = curve["shares"]["front_vs_spot"]["all"]
-    q1 = curve["q1_discount"]
-    facts = {f["key"]: f for f in ov["facts"]}
-    peak = facts.get("td3c_peak", {})
-    before = [w for w in td3c["weekly"] if w["week"] < "2026-03-02"]
-    kstar, same = h.get("effectiveness_kstar_oos"), h.get("effectiveness_k1_same_rows")
-    out = [
-        f"A 5TC hedge placed one month ahead removed {pct(h['effectiveness_k1'])} of the variance of a C5 voyage's "
-        f"earnings against the forward (90 percent interval {pct(ci.get('low'))} to {pct(ci.get('high'))}; "
-        f"{h['n']} weekly fixtures, {day(h['first_fixture'])} to {day(h['last_fixture'])}), "
-        f"{pct(trip.get('effectiveness_k1'))} for a trip at the day's 5TC and {pct(c3.get('effectiveness_k1'))} "
-        "for a C3 voyage."
-        + (
-            f" A ratio estimated only from past fixtures removed {pct(kstar)} against {pct(same)} at one for one on "
-            f"the same {h['n_oos']} fixtures."
-            if kstar is not None and same is not None
-            else ""
-        ),
-        f"What the hedge leaves is route and timing basis: route basis carries {pct(share['route'], 0)} of the "
-        f"variance of the hedged C5 result and timing basis {pct(share['timing'], 0)}. Size basis carries "
-        f"{pct(abs(share['size']), 0)}: from 2 January 2026 the Baltic derives the 180,000 t basket from the "
-        "182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a "
-        "constant, not a risk.",
-    ]
-    if b1:
-        lo, hi = b1["mean_ci"]["low"], b1["mean_ci"]["high"]
-        zero = lo is not None and lo <= 0 <= hi
-        above = b1["mean_usd_day"] > 0
-        out.append(
-            f"The 5TC settled on average USD {usd(abs(b1['mean_usd_day']))} a day "
-            f"{'above' if above else 'below'} the FFA price one month before expiry "
-            f"({b1['n']} contracts, {month_name(b1['first'])} to {month_name(b1['last'])}; 90 percent interval "
-            f"{signed(lo)} to {signed(hi)}): a rolling {'charterer earned' if above else 'owner earned'} "
-            f"that gap and a rolling {'owner gave it up' if above else 'charterer paid it'}"
-            f"{', though the interval includes zero' if zero else ''}."
-        )
-    out.append(
-        f"The front month stood above the same day's spot in {pct(fa['contango'])} of {fa['n']} weekly curves, "
-        f"and the next year's first quarter priced below the fourth quarter before it in {pct(q1['share_below'], 0)} "
-        f"of the {q1['n']} curves that printed both, {pct(abs(q1['mean_pct']))} lower on average."
-    )
-    if before and peak:
-        out.append(
-            f"TD3C went from WS{before[-1]['ws_points']:,.2f} in the week to {day(before[-1]['week'])}, the last "
-            f"before the Strait of Hormuz closed, to WS{peak['ws_points']:,.2f} and a round-trip TCE of USD "
-            f"{usd(peak['tce_usd_day'])} a day in the week to {day(peak['week'])}. An owner short the quarter-end "
-            "marks gave up that windfall on paper and realised close to what the marks had locked, less the timing "
-            "basis of each month (Table 5)."
-        )
-    return out
 
 
 def build() -> list:
@@ -682,6 +625,42 @@ def build() -> list:
             ]
         )
     )
+
+    if st["by_horizon"]:
+        stats_rows = [
+            [
+                f"{b['horizon_months']} month{'s' if b['horizon_months'] > 1 else ''}",
+                str(b["n"]),
+                f"{b['first']} to {b['last']}",
+                f"{b['mean_error_usd_t']:+.2f}",
+                f"{b['rmse_usd_t']:.2f}",
+                pct(b["share_positive"], 0),
+                pct(b["effectiveness_k1"]),
+            ]
+            for b in st["by_horizon"]
+        ]
+        thin_free = {b["horizon_months"]: b for b in st.get("without_thin_weeks", [])}
+        s.append(
+            KeepTogether(
+                [
+                    Paragraph(
+                        "<b>Table 6.</b> TD3C, approximate: BWET's quarter-end mark for each month 1, 2 or 3 months "
+                        "ahead against the month's settlement estimate (the average of Breakwave's dollar prints), "
+                        "USD a tonne, and the share of the variance of a one-cargo hedge's surprise removed at one "
+                        "for one. The closure months dominate every figure; without the thin-market months the "
+                        "one-month figure is "
+                        + (pct(thin_free[1]["effectiveness_k1"]) if 1 in thin_free else "n/a")
+                        + ".",
+                        small,
+                    ),
+                    table_png(
+                        ["Horizon", "Contracts", "From and to", "Mean error", "RMSE", "Positive", "Variance removed"],
+                        stats_rows,
+                        numeric={1, 3, 4, 5, 6},
+                    ),
+                ]
+            )
+        )
 
     s.append(Paragraph("<b>Validation and limits</b>", head))
     val = method["validation"]

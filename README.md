@@ -28,17 +28,20 @@ Read this part first.
   such.
 - **The daily 5TC is public in full only from January 2026.** Before that, the republished daily reports that the
   build environment can reach cover part of the days. A month's settlement is the study's own average only when
-  every publication day is printed in public (January to October 2026, except April, and July 2023); otherwise it
-  is the monthly average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every
-  complete month to within a dollar; months before May 2023 have only partial averages and enter the robustness
-  checks alone. The headline hedge results therefore start in 2023.
-- **The forward curve is one broker's weekly assessment.** Banchero Costa's Monday Capesize FFA assessments, as
-  Hellenic Shipping News republishes them, from January 2021 (the issues of 2020 are not on that site). The next
-  issue's previous-week column is a re-assessment that differs from the first print by a median of about 3
-  percent; the study uses first prints and shows the latest as a sensitivity.
-- **Some reports were read by OCR.** Several issues were uploaded with their tables in fonts that cannot be read
-  as text. Those tables were read by OCR, and a row is kept only if it reproduces its own printed week-on-week
-  change (or, for bunkers, the printed spread between grades).
+  every publication day is printed in public (July 2023 and January to October 2026); otherwise it is the monthly
+  average Himalaya Shipping published in its SEC filings (May 2023 onwards), which agrees with every complete month
+  to within a dollar; months before May 2023 have only partial averages and enter the robustness checks alone.
+- **The forward curve is one broker's weekly assessment, and only from September 2023.** Banchero Costa's Monday
+  Capesize FFA assessments, as Hellenic Shipping News republishes them. Partway through its archive that site began
+  answering the build's requests with a browser challenge, which the study does not get around: the curve is
+  weekly from September 2023 to November 2026, with three dated curves before it (January and July 2021, July
+  2022). The hedged fixtures therefore start in October 2023, about three years of weekly fixtures, and the
+  intervals are wide. The next issue's previous-week column is a re-assessment that differs from the first print
+  by a median of about 3 percent; the study uses first prints and shows the latest as a sensitivity.
+- **Some reports were read by OCR.** More than half of the issues read have at least one table in fonts that
+  cannot be read as text. Those tables were read by OCR, and a row is kept only if it reproduces its own printed
+  week-on-week change (or, for bunkers, the printed spread between grades). Pages that repeat the previous
+  issue's figures under new dates are left out.
 - **Voyage earnings are estimates, not fixtures.** C3 and C5 TCEs come from the voyage engine with the Baltic's
   standard ship of the date and that week's Singapore bunkers; port charges and loading time at the port's scale
   have no public figure and are left out, so the level of the route basis is overstated while its variability,
@@ -47,8 +50,9 @@ Read this part first.
 - **TD3C in dollars a tonne is approximate.** The Baltic publishes TD3C weekly in Worldscale in the reports the study
   reads. Worldscale flat rates are licensed and never stated here; the dated public pairs that would imply one do
   not agree in 2026 (prints four days apart in a market that moved by a fifth in a week), so 2026 stays in
-  Worldscale and the dollar case studies use Breakwave's bi-weekly dollar prints. Weeks in which the Baltic wrote
-  that its panellists had difficulty assessing Gulf loadings are marked.
+  Worldscale and the dollar case studies and statistics use Breakwave's bi-weekly dollar prints, a month settled
+  at the average of one or two prints. Weeks in which the Baltic wrote that its panellists had difficulty
+  assessing Gulf loadings are marked.
 - **The literature could not be opened.** Publishers' and repositories' hosts are refused by the build
   environment, so no published result (Ederington 1979; Kavussanos and Nomikos 2000; Alizadeh and Nomikos 2009) is
   compared; Ederington's measure is reported for the reader to set beside them.
@@ -58,12 +62,19 @@ Read this part first.
 ## The finding
 
 <!-- finding:start -->
+**Data to 8 November 2026.**
+
+1. A 5TC hedge placed one month ahead removed 41.6% of the variance of a C5 voyage's earnings against the forward (90 percent interval 34.1% to 52.4%; 130 weekly fixtures, 20 October 2023 to 2 October 2026), 63.2% for a trip at the day's 5TC and 16.5% for a C3 voyage. A ratio estimated only from past fixtures removed 35.3% against 36.2% at one for one on the same 72 fixtures.
+2. What the hedge leaves is route and timing basis: route basis carries 55% of the variance of the hedged C5 result and timing basis 46%. Size basis carries 0%: from 2 January 2026 the Baltic derives the 180,000 t basket from the 182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a constant, not a risk.
+3. The 5TC settled on average USD 1,902 a day above the FFA price one month before expiry (35 contracts, October 2023 to October 2026; 90 percent interval +425 to +3,645): a rolling charterer earned that gap and a rolling owner gave it up.
+4. The front month stood above the same day's spot in 50.7% of 142 weekly curves, and the next year's first quarter priced below the fourth quarter before it in 100% of the 66 curves that printed both, 38.6% lower on average.
+5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and realised 96%, 102%, 94% and 42% of what the marks of 30 September 2025 to 30 June 2026 locked (approximate, from Breakwave's dollar prints); the 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.21: timing basis inside the month.
 <!-- finding:end -->
 
 ## What it does
 
-- **A panel built from public documents.** Every Banchero Costa weekly report Hellenic Shipping News holds since
-  2021 (curves, Friday spot, C3, C5 and bunkers), every Baltic weekly tanker and bulk report since 2023 and 2021,
+- **A panel built from public documents.** The Banchero Costa weekly reports Hellenic Shipping News served to
+  the build (curves, Friday spot, C3, C5 and bunkers), every Baltic weekly tanker and bulk report since 2023 and 2021,
   every Amplify Commodity Trust 10-Q and 10-K since 2018 (BDRY and BWET quarter-end FFA marks), Himalaya
   Shipping's monthly 5TC averages, Breakwave's tanker reports, and the daily 5TC from handybulk.com and Reuters as
   republished. A fetcher reads each host's robots.txt, waits between requests, and records every document's URL,
@@ -81,8 +92,10 @@ Read this part first.
   one and at a minimum variance ratio estimated only on outcomes known at the time; variance and 5 percent CVaR
   reductions; the residual split into timing, route and size basis; robustness by year, by print, by settlement
   quality, by basket and with or without quarter proxies; Ederington's regression.
-- **TD3C through the closure.** The weekly record with TD34 beside it, Amplify's quarter-end strips, and case
-  studies with a waterfall for hedges placed at the September 2025, December 2025, March 2026 and June 2026 marks.
+- **TD3C through the closure.** The weekly record with TD34 beside it, Amplify's quarter-end strips, case studies
+  with a waterfall for hedges placed at the September 2025, December 2025, March 2026 and June 2026 marks,
+  Breakwave's 7 April 2026 call of third-quarter futures at nearly half the index set against what the quarter
+  settled at, and the quarter-end marks against settlement from July 2023 (approximate).
 - **A calculator that is the engine.** `src/engine.js` mirrors `src/ffabasis/engine.py` and is held to it within
   1e-9 on 533 generated cases (`tools/validate-engine.mjs`).
 

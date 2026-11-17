@@ -1241,6 +1241,37 @@
   }
  },
  "sources_line": "Baltic Exchange weekly tanker reports; Breakwave Advisors tanker reports (via Hellenic Shipping News); Amplify Commodity Trust filings (SEC); EIA. Retrieved to 2026-11-17.",
+ "statement_check": {
+  "date": "2026-04-07",
+  "discount": 0.5,
+  "implied_q3_usd_t": 36.44,
+  "index_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf",
+  "index_usd_t": 72.88,
+  "marks_as_of": "2026-03-31",
+  "marks_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
+  "months": [
+   {
+    "mark_usd_t": 30.551,
+    "month": "2026-07",
+    "prints": 0,
+    "settlement_estimate_usd_t": null
+   },
+   {
+    "mark_usd_t": 26.872,
+    "month": "2026-08",
+    "prints": 1,
+    "settlement_estimate_usd_t": 99.03
+   },
+   {
+    "mark_usd_t": 26.816,
+    "month": "2026-09",
+    "prints": 2,
+    "settlement_estimate_usd_t": 186.21499999999997
+   }
+  ],
+  "settled_mean_usd_t": 142.6225,
+  "settled_months": 2
+ },
  "statistics": {
   "by_horizon": [
    {

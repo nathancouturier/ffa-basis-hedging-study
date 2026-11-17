@@ -32,6 +32,11 @@ the year to 30 June 2026).
   while the others moved about 2 percent, is one).
 - **SEC check.** Each curve within three days of a quarter-end BDRY mark is compared with it on the 180,000 t
   basket; gaps over 10 percent are flagged. Flags never change a value.
+- **Repeated pages.** A page whose every tenor shared with the issue before it (at least three) carries the
+  identical figure was not updated: Banchero Costa reprinted the previous assessment under new dates (weeks 28 and
+  29 of 2025 repeat the curve of 30 June 2025, whose printed premium matches that day's spot). Such a curve is
+  flagged and not used, and its previous-week column is not taken as a reprint (`panel.py`). A Breakwave report
+  whose side panel repeats the previous report's figures is left out the same way.
 - **Baskets.** Before 2 January 2026 every curve and spot print is on 180,000 t. In 2026 a curve is on the basket
   its page labels ("CAPESIZE (182k)") or, unlabelled, the basket its premium column implies (the front month over
   the same day's spot on each basket). A spot print's basket is read from the BCI printed beside it (BCI = 0.11026 x
@@ -46,8 +51,11 @@ the year to 30 June 2026).
   Shipping published in its SEC filings ("published"); otherwise, for the robustness that admits all months only,
   the average of the days observed when at least four days span the month ("estimated").
 - **OCR.** Some reports were uploaded with tables in fonts that have no Unicode map. Those tables are read by OCR
-  (Tesseract 5 at four times page size) and each row is kept only if it reproduces its own printed week-on-week
-  change, or, for bunkers, the printed spread between grades.
+  (Tesseract 5 at four times page size, a second reading with a white margin when the first gives no table). The
+  text is normalised before it is parsed (long dashes, lone noise glyphs, a hyphenless date, a quarter label read
+  as "Qi25", a month label whose first letter the page itself clips, restored from its unique last two letters),
+  the tenors have to come in calendar order, and each row is kept only if it reproduces its own printed
+  week-on-week change, or, for bunkers, the printed spread between grades.
 
 ## 3. Analysis rules
 
@@ -63,6 +71,8 @@ the year to 30 June 2026).
   Roll cost of a rolling long = price paid - settlement, by contract year, in USD a day, percent and per
   ship-year (times 365). The front quarter: bought on the last curve of the month before it starts, held to the
   average of its three monthly settlements.
+  The comparison with the naive forecast is made on the contracts that have a spot print on the pricing date, the
+  FFA's RMSE recomputed on the same contracts.
 - **Hedge effectiveness.** See `hedge.py`: weekly fixtures; the 5TC trip (the C5 voyage's days at the day's 5TC),
   C3 and C5 voyages priced by the vendored engine; hedges placed 1, 2 or 3 months before on the latest curve (no
   older than 14 days); U = gross TCE - F0, X = S - F0; effectiveness = 1 - Var(U - kX) / Var(U) at k = 1 and at k*
@@ -78,7 +88,11 @@ the year to 30 June 2026).
   nearest earlier assessment, the gap kept) and used for a period only if the pairs agree (interquartile range
   within 2 percent of the median, at least four pairs; 2025 split at 1 July for the Ras Tanura port cost change).
   Case studies hedge one 270,000 t cargo a month at Amplify's quarter-end TD3C marks, the cargo fixed at the month's
-  first Breakwave print and the paper settled at the average of the month's prints (approximate).
+  first Breakwave print and the paper settled at the average of the month's prints (approximate). Breakwave's
+  statement of 7 April 2026 (third-quarter futures nearly 50 percent below the index) is set against the BWET
+  marks of the quarter end before it and against each third-quarter month's settlement estimate. Item 3's
+  statistics for TD3C are reported only where at least 12 contract months have a mark and a settlement estimate
+  at the same horizon.
 
 ## 4. What changed while building, and why
 
@@ -89,3 +103,8 @@ the year to 30 June 2026).
   differs by a median of 3.1 percent, so the flag threshold is 10 percent and both prints feed the sensitivity.
 - TD3C dollars: the flat-rate test fails for 2026 (dollar and Worldscale prints are four days apart in a market
   that moved by a fifth in a week), so 2026 stays in Worldscale and the dollar cases use Breakwave's prints.
+- Repeated pages: not foreseen; found when the 2025 issues read by OCR gave identical curves on different dates.
+  The rule above was written before the results were recomputed.
+- Late 2023 and early 2024 issues print the spot table's dates on the line after the table's name; the parser
+  read them from the name's line and dropped those issues whole until the dates were read from the table's first
+  "Unit dd-Mon dd-Mon".

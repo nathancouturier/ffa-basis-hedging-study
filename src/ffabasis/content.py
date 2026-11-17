@@ -478,10 +478,18 @@ def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def long_date(iso: str | None) -> str:
+    """2023-10-20 as "20 October 2023"."""
+    if not iso:
+        return "n/a"
+    d = dt.date.fromisoformat(iso)
+    return f"{d.day} {MONTH_NAMES[d.month - 1]} {d.year}"
+
+
 def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, str]]:
     """What the study cannot do, with the coverage figures that bound it (the README states the same)."""
     hedge = [r for r in results["hedge_rows"] if r["voyage"] == "C5" and r["horizon_months"] == 1]
-    first = min((r["fixture"] for r in hedge), default=None)
+    first = long_date(min((r["fixture"] for r in hedge), default=None))
     return [
         {
             "title": "A hedging study, not a forecast or a strategy",
@@ -498,7 +506,8 @@ def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, 
         {
             "title": "The forward curve is one broker's weekly assessment",
             "text": f"Banchero Costa's Monday Capesize FFA assessments as Hellenic Shipping News republishes them, "
-            f"{cov['first_ffa_week']} to {cov['last_ffa_week']}, with gaps where issues were not reachable. The "
+            f"{long_date(cov['first_ffa_week'])} to {long_date(cov['last_ffa_week'])}, with gaps where issues were "
+            "not reachable. The "
             "next issue's previous-week column is a re-assessment; the study uses first prints and shows the latest "
             "as a sensitivity.",
         },

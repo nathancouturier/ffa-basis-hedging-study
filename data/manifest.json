@@ -14,7 +14,7 @@
   {
    "description": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
    "file": "forecast_errors.csv",
-   "rows": 92
+   "rows": 104
   },
   {
    "description": "Effectiveness by voyage and horizon: k = 1 with its interval, k* out of sample, CVaR, residual shares",
@@ -24,7 +24,7 @@
   {
    "description": "Every fixture's surprise, paper move and basis components, USD a day (no price levels)",
    "file": "hedge_outcomes.csv",
-   "rows": 776
+   "rows": 991
   },
   {
    "description": "Monthly 5TC settlement averages with their status and both baskets in 2026",
