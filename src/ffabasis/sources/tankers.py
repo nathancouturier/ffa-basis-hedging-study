@@ -219,7 +219,8 @@ def parse(text: str, posted: dt.date) -> dict[str, Any] | None:
         if transits
         else None
     )
-    notes = list(dict.fromkeys(assessment + transits + able))
+    # The paragraph opens with its heading ("VLCC "), which the first quoted sentence would otherwise carry.
+    notes = list(dict.fromkeys(re.sub(r"^VLCCs?\s+", "", n) for n in assessment + transits + able))
     if notes:
         row["assessment_note"] = " ".join(notes)[:600]
     return row

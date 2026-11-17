@@ -313,14 +313,25 @@ def dollar_months(breakwave: list[dict[str, Any]], as_of: str) -> dict[str, dict
             # rounded once here, so every table that shows it formats the same number
             "settlement_estimate_usd_t": round(float(np.mean([r["td3c_usd_t"] for r in rows])), 6) if ended else None,
             "prints": len(rows),
+            "print_dates": [r["report_date"] for r in rows],
             "ended": ended,
         }
     return out
 
 
-def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def week_ending(day: str) -> str:
+    """The Friday that ends the Baltic week a date falls in (a Tuesday print belongs to the week ending that Friday)."""
+    d = dt.date.fromisoformat(day)
+    return (d + dt.timedelta(days=(4 - d.weekday()) % 7)).isoformat()
+
+
+def cases(
+    strips: list[dict[str, Any]], months: dict[str, dict[str, Any]], marked_weeks: frozenset[str] = frozenset()
+) -> list[dict[str, Any]]:
     """An owner's quarter hedged at each case date's marks: one 270,000 t cargo a month fixed at the month's first
-    Breakwave print, the paper settled at the month's average print (approximate)."""
+    Breakwave print, the paper settled at the month's average print (approximate). A month whose prints fall in
+    weeks the Baltic's reports mark (assessment theoretical or hard, transits blocked) says so, and each case also
+    gives its total without those months."""
     out = []
     for date in CASE_DATES:
         strip = next((s for s in strips if s["as_of"] == date), None)
@@ -341,6 +352,7 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
                 prints=info["prints"],
                 fixture_url=info["fixture_url"],
                 single_print=info["prints"] < MIN_PRINTS_FOR_RESIDUAL,
+                prints_in_marked_weeks=[d for d in info.get("print_dates", []) if week_ending(d) in marked_weeks],
             )
         # A month with one print settles at its own fixture, so it realises what it locked by construction: the
         # totals over the months with two prints are what the case can measure.
@@ -349,6 +361,9 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
         result["total_two_prints"] = {k: sum(r[k] for r in measured) for k in keys} if measured else None
         result["months_two_prints"] = [r["month"] for r in measured]
         result["months_without_print"] = [m["month"] for m in quarter_months if m["month"] not in months]
+        clean = [r for r in result["months"] if not r["prints_in_marked_weeks"]]
+        result["months_with_marked_prints"] = [r["month"] for r in result["months"] if r["prints_in_marked_weeks"]]
+        result["total_without_marked"] = {k: sum(r[k] for r in clean) for k in keys} if clean else None
         result["mark_url"] = strip["months"][0]["url"]
         out.append(result)
     return out

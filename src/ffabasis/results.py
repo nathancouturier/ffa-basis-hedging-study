@@ -204,7 +204,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
             "monthly": monthly,
             "strips": strips,
             "dollar_months": dollars,
-            "cases": td3c.cases(strips, dollars),
+            "cases": td3c.cases(strips, dollars, frozenset(w for w, row in weekly.items() if row.get("thin_market"))),
             "statement_check": td3c.statement_check(strips, bw, dollars),
             "statistics": td3c.statistics(strips, dollars),
             "statistics_without_thin_weeks": td3c.statistics(
