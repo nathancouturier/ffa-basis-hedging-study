@@ -88,7 +88,10 @@ def month_name(period: str) -> str:
 
 
 def pct(x: float | None, places: int = 1) -> str:
-    return "n/a" if x is None else f"{100 * x:.{places}f}%"
+    if x is None:
+        return "n/a"
+    text = f"{100 * x:.{places}f}%"
+    return text[1:] if text.startswith("-") and float(text[1:-1]) == 0 else text
 
 
 def usd(x: float | None) -> str:
@@ -174,7 +177,7 @@ def style_axes(ax, grid_axis: str = "y") -> None:
 def effectiveness_chart(cells: list[dict]) -> Image:
     """One row per voyage and horizon: k = 1 with its interval (FFA colour), k* out of sample (ink diamond)."""
     rows = [c for v in ("5TC trip", "C3", "C5") for c in cells if c["voyage"] == v]
-    fig, ax = plt.subplots(figsize=(6.3, 2.6))
+    fig, ax = plt.subplots(figsize=(6.3, 2.35))
     labels = []
     for i, c in enumerate(rows):
         y = len(rows) - i
@@ -185,13 +188,16 @@ def effectiveness_chart(cells: list[dict]) -> Image:
         ax.plot([100 * c["effectiveness_k1"]], [y], "o", ms=4.8, color=C["ffa"])
         if c.get("effectiveness_kstar_oos") is not None:
             ax.plot([100 * c["effectiveness_kstar_oos"]], [y], "D", ms=4.2, mfc="white", mec=INK, mew=1.0)
+        if c.get("effectiveness_k1_same_rows") is not None:
+            ax.plot([100 * c["effectiveness_k1_same_rows"]], [y], "o", ms=3.4, mfc="white", mec=INK, mew=0.9)
         labels.append((y, f"{c['voyage']}, {c['horizon_months']} month{'s' if c['horizon_months'] > 1 else ''}"))
     ax.axvline(0, color=AXIS, lw=0.8)
     ax.set_yticks([y for y, _ in labels], [t for _, t in labels])
     ax.set_xlabel("Variance of the earnings surprise removed, percent", fontsize=8, color=MUTED)
     ax.plot([], [], "o", color=C["ffa"], label="Hedge ratio 1:1, with its 90 percent interval")
     ax.plot([], [], "D", mfc="white", mec=INK, label="Minimum variance ratio from past fixtures only")
-    ax.legend(frameon=False, fontsize=7.5, ncol=2, loc="lower center", bbox_to_anchor=(0.45, 1.0))
+    ax.plot([], [], "o", ms=3.4, mfc="white", mec=INK, label="1:1 on those same later fixtures")
+    ax.legend(frameon=False, fontsize=7, ncol=3, loc="lower center", bbox_to_anchor=(0.45, 1.0))
     style_axes(ax, "x")
     return chart(fig)
 
@@ -199,7 +205,7 @@ def effectiveness_chart(cells: list[dict]) -> Image:
 def contango_chart(curve: dict) -> Image:
     rows = curve["shares"]["front_vs_spot_by_year"]
     years = sorted(rows)
-    fig, ax = plt.subplots(figsize=(6.3, 1.55))
+    fig, ax = plt.subplots(figsize=(6.3, 1.4))
     vals = [100 * rows[y]["contango"] for y in years]
     ax.bar(years, vals, color=C["contango"], width=0.55)
     for y, v, n in zip(years, vals, [rows[y]["n"] for y in years], strict=True):
@@ -212,7 +218,7 @@ def contango_chart(curve: dict) -> Image:
 
 def td3c_chart(td3c: dict) -> Image:
     weeks = [w for w in td3c["weekly"] if w["week"] >= "2025-07-01"]
-    fig, ax = plt.subplots(figsize=(6.3, 1.95))
+    fig, ax = plt.subplots(figsize=(6.3, 1.75))
     xs = [dt.date.fromisoformat(w["week"]) for w in weeks]
     for w in weeks:
         if w["thin_market"]:
@@ -236,7 +242,7 @@ def td3c_chart(td3c: dict) -> Image:
             when + dt.timedelta(days=4), ax.get_ylim()[1] * 0.9, f"Hormuz closed, {day(closed['date'])}", fontsize=7
         )
     ax.set_ylabel("Worldscale points", fontsize=8, color=MUTED)
-    ax.fill_between([], [], color=C.get("none", GRID), label="Thin market (Baltic wording)")
+    ax.fill_between([], [], color=C.get("none", GRID), label="Marked week")
     ax.legend(frameon=False, fontsize=7.2, loc="upper left")
     style_axes(ax)
     return chart(fig)
@@ -298,7 +304,9 @@ def build() -> list:
                     "variance of the earnings surprise (gross TCE less the FFA strip, USD a day) removed, by voyage "
                     "and by how far ahead of the fixture the hedge was placed; 90 percent moving block bootstrap "
                     "intervals (block of the horizon in weeks plus four, 2,000 resamples, fixed seed). Curves and "
-                    "settlements on the 180,000 t basket before 2 January 2026 and the 182,000 t basket from then.",
+                    "settlements on the 180,000 t basket before 2 January 2026 and the 182,000 t basket from then. "
+                    "The minimum variance ratio needs 52 settled fixtures first, so it is measured on the later "
+                    "fixtures only, beside 1:1 on those same fixtures (the ring).",
                     small,
                 ),
                 effectiveness_chart(ov["effectiveness"]),
@@ -564,6 +572,39 @@ def build() -> list:
         )
     )
 
+    s.append(Paragraph("<b>Validation and limits</b>", head))
+    val = method["validation"]
+    ok = sum(1 for r in val if r["ok"])
+    s.append(
+        Paragraph(
+            f"{ok} of {len(val)} validation anchors reproduce: the SEC marks to the cent, Banchero Costa's printed "
+            "curves to the dollar, the USD 3,503 basket gap on 3 and 29 July 2026, the Baltic's weekly TD3C prints, "
+            "Breakwave's prints, the vendored engine within 1e-9 of its own published results and every complete "
+            "month against Himalaya Shipping's published average.",
+            body,
+        )
+    )
+    s.append(
+        Paragraph(
+            " ".join(
+                f"<i>{x['title']}.</i> {x['text']}"
+                for x in method.get("limitations", [])
+                if x["title"].startswith(("The forward curve", "Voyage earnings", "The literature"))
+            ),
+            body,
+        )
+    )
+    s.append(
+        Paragraph(
+            f"Sources retrieved to {retrieved}: Banchero Costa weekly reports and Breakwave Advisors tanker reports "
+            "(via Hellenic Shipping News), the Baltic Exchange's weekly reports and Guide to Market Benchmarks, "
+            "handybulk.com, Reuters' daily reports as republished, the SEC filings of Amplify Commodity Trust and "
+            "Himalaya Shipping, EEX and ICE contract specifications, EIA. Every figure is traceable in the "
+            "repository (data/AUDIT.md, data/method.json, docs/methodology.md).",
+            small,
+        )
+    )
+
     s.append(Paragraph("<b>TD3C through the 2026 closure</b>", head))
     thin = [w["week"] for w in td3c["weekly"] if w["thin_market"]]
     flat = td3c["flat_rate_test"]
@@ -573,11 +614,15 @@ def build() -> list:
             "that report calls its Gulf assessment theoretical or hard for its panellists, or says transits through "
             f"the Strait were extremely limited or blocked ({', '.join(day(w) for w in thin)}). A Worldscale print "
             "becomes dollars a tonne only through a flat rate implied by dated public pairs, and only where the pairs "
-            "agree: "
-            + "; ".join(
-                f"{k} {'agrees' if v['consistent'] else 'does not'} (spread {pct(v['dispersion'])} of the median, "
-                f"{v['n']} pairs)"
-                for k, v in flat.items()
+            "agree (interquartile spread within 2 percent of the median): "
+            + (
+                "only "
+                + ", ".join(f"{k} ({pct(v['dispersion'])}, {v['n']} pairs)" for k, v in flat.items() if v["consistent"])
+                + " does; the others spread "
+                + f"{pct(min(v['dispersion'] for v in flat.values() if not v['consistent']))} to "
+                + f"{pct(max(v['dispersion'] for v in flat.values() if not v['consistent']))}"
+                if any(v["consistent"] for v in flat.values()) and not all(v["consistent"] for v in flat.values())
+                else "; ".join(f"{k} {'agrees' if v['consistent'] else 'does not'}" for k, v in flat.items())
             )
             + ". Every pair sets a dollar print against a Worldscale print four days earlier, in a market that moves "
             "in four days; the study keeps Worldscale, and the dollar case studies use Breakwave's own dollar prints: one cargo "
@@ -592,7 +637,8 @@ def build() -> list:
                 Paragraph(
                     "<b>Figure 3.</b> TD3C through the closure of the Strait of Hormuz, with TD34, the trial route "
                     "loading outside the Gulf. Weekly Worldscale points; shaded weeks are the marked ones: the Baltic "
-                    "called its Gulf assessment theoretical or hard, or transits through the Strait all but stopped.",
+                    "called its Gulf assessment theoretical or hard, or reported transits through the Strait extremely limited or "
+                    "blocked.",
                     small,
                 ),
                 td3c_chart(td3c),
@@ -657,7 +703,7 @@ def build() -> list:
         no_eff = all(b.get("effectiveness_k1") is None for b in st["by_horizon"])
         eff_text = (
             "The variance a hedge removes is not computed: a month with one dollar print settles at its own fixture "
-            "(a residual of zero by construction), and the months with two prints, in brackets, are fewer than "
+            "(a residual of zero by construction), and the months with two prints or more, in brackets, are fewer than "
             f"{st['threshold_months']} at every horizon."
             if no_eff
             else "The last column is the share of the variance of a one-cargo hedge's surprise removed at one for one, "
@@ -687,33 +733,6 @@ def build() -> list:
             )
         )
 
-    s.append(Paragraph("<b>Validation and limits</b>", head))
-    val = method["validation"]
-    ok = sum(1 for r in val if r["ok"])
-    s.append(
-        Paragraph(
-            f"{ok} of {len(val)} validation anchors reproduce: the SEC marks to the cent, Banchero Costa's printed "
-            "curves to the dollar, the USD 3,503 basket gap on 3 and 29 July 2026, the Baltic's weekly TD3C prints, "
-            "Breakwave's prints, the vendored engine within 1e-9 of its own published results and every complete "
-            "month against Himalaya Shipping's published average. "
-            + " ".join(
-                f"<i>{x['title']}.</i> {x['text']}"
-                for x in method.get("limitations", [])
-                if x["title"].startswith(("The forward curve", "Voyage earnings", "The literature"))
-            ),
-            body,
-        )
-    )
-    s.append(
-        Paragraph(
-            f"Sources retrieved to {retrieved}: Banchero Costa weekly reports and Breakwave Advisors tanker reports "
-            "(via Hellenic Shipping News), the Baltic Exchange's weekly reports and Guide to Market Benchmarks, "
-            "handybulk.com, Reuters' daily reports as republished, the SEC filings of Amplify Commodity Trust and "
-            "Himalaya Shipping, EEX and ICE contract specifications, EIA. Every figure is traceable in the "
-            "repository (data/AUDIT.md, data/method.json, docs/methodology.md).",
-            small,
-        )
-    )
     return s
 
 

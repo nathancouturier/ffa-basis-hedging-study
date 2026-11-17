@@ -57,7 +57,7 @@ Read this part first.
   prints, a month settled at the average of its one to three prints. A month with one print settles at its own
   fixture, so the share of variance a TD3C hedge removes is not computed; the forward errors are, labelled
   approximate. Weeks in which the Baltic called its Gulf assessment theoretical or hard, or reported transits
-  through the Strait all but stopped, are marked.
+  through the Strait extremely limited or blocked, are marked.
 - **The published hedging studies could not be obtained.** Their publishers' and repositories' sites could not be
   reached when the data were gathered, so no published result (Ederington 1979; Kavussanos and Nomikos 2000;
   Alizadeh and Nomikos 2009) is quoted; Ederington's measure is reported for the reader to set beside them.
@@ -70,11 +70,11 @@ Read this part first.
 <!-- finding:start -->
 **Data to 8 November 2026.**
 
-1. A 5TC hedge placed one month ahead removed 44.1% of the variance of a C5 voyage's earnings against the forward (90 percent interval 33.5% to 52.5%; 154 weekly fixtures, 5 May 2023 to 2 October 2026), 64.9% for a trip at the day's 5TC and 15.9% for a C3 voyage. A ratio estimated only from past fixtures removed 39.6% against 39.8% at one for one on the same 93 fixtures.
+1. A 5TC hedge placed one month ahead removed 44.1% of the variance of a C5 voyage's earnings against the forward (90 percent interval 33.5% to 52.5%; 154 weekly fixtures, 5 May 2023 to 2 October 2026), 64.9% for a trip at the day's 5TC and 15.9% for a C3 voyage (132 fixtures to 14 August 2026; 90 percent interval -20.4% to 38.8%, which includes zero). A ratio estimated only from past fixtures removed 39.6% against 39.8% at one for one on the same 93 fixtures.
 2. What the hedge leaves is route and timing basis: route basis carries 55% of the variance of the hedged C5 result and timing basis 45%. Size basis carries 0%: from 2 January 2026 the Baltic derives the 180,000 t basket from the 182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a constant, not a risk.
 3. The 5TC settled on average USD 1,103 a day above the FFA price one month before expiry (42 contracts, May 2023 to October 2026, each on the basket its curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval -252 to +2,768): a rolling charterer earned that gap and a rolling owner gave it up, though the interval includes zero.
 4. The front month stood above the spot (of the curve's day, or the Friday before) in 52.7% of 182 weekly curves, and the next year's first quarter priced below the fourth quarter before it in 100% of the 93 curves that printed both, 39.6% lower on average.
-5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper: on the months with two of Breakwave's dollar prints (a month with one settles at its own fixture), it realised 96%, 102%, 92% and -19% of what the marks of 30 September 2025 to 30 June 2026 locked (approximate; July 2026 had no dollar print); the 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.22: timing basis inside the month.
+5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and realised 96%, 102%, 94% and 42% of what the marks of 30 September 2025 to 30 June 2026 locked, approximate figures from Breakwave's dollar prints. A month with one print settles at its own fixture; on the months with two prints or more, the 31 March 2026 marks realised 92% on April 2026 and May 2026 and the 30 June 2026 marks realised -19% on September 2026. July 2026 had no dollar print. The 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.22: timing basis inside the month.
 <!-- finding:end -->
 
 ## What it does

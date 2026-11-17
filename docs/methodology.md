@@ -105,8 +105,9 @@ the year to 30 June 2026).
   measure though not a variance); the residual's variance split into route, timing and size basis by
   Cov(part, residual) / Var(residual). For a 2026 voyage hedged on a 2025 curve (180,000 t), the surprise includes
   the fixed USD 3,503 between the ship's basket and the paper's: size basis, a constant. Taking it out of the
-  surprise lowers the three-month effectiveness by one to five points (C3 most) and leaves the others nearly
-  unchanged.
+  surprise lowers the three-month effectiveness by 0.6 to 2.8 points (C3 most) and moves the shorter horizons by
+  less than one point (computed from data/downloads/hedge_outcomes.csv, size column, in the build of 17 November
+  2026).
 - **Basis bands in the lab.** The 5th to 95th percentiles of the residual at k = 1 by voyage and horizon, with the
   route basis's mean removed: its level is overstated by the costs the voyage TCEs leave out, its spread is not.
 - **Ederington.** Monday to Monday changes of the spot and of the next month's FFA on the same basket, regressed;
@@ -178,5 +179,6 @@ the year to 30 June 2026).
   until it read a Worldscale-only print.
 - Daily 5TC: handybulk's March 2024 page carries the report of 4 March 2025 under "5-March-2024", and its
   December 2025 page dates the first week a day late. The pool took handybulk first by fixed priority; it now
-  votes by agreement, which restores the Reuters and Banchero Costa values (Ederington's R squared moves from 0.23
-  to 0.42 on the corrected March 2024 days; other results move by a few tenths of a point at most).
+  votes by agreement, which restores the Reuters and Banchero Costa values (with the corrected March 2024 days,
+  Ederington's R squared moved from 0.23 to 0.42 on the sample of that build; other results moved by a few tenths
+  of a point at most).

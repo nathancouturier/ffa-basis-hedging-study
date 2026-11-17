@@ -37,6 +37,7 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict, method: dict | 
     h = ov["headline"]
     cells = {(c["voyage"], c["horizon_months"]): c for c in ov["effectiveness"]}
     trip, c3 = cells.get(("5TC trip", 1), {}), cells.get(("C3", 1), {})
+    c3_ci = c3.get("effectiveness_k1_ci") or {}
     ci = h["effectiveness_k1_ci"] or {}
     share = h["residual_variance_share"]
     b1 = next((b for b in roll["bias"] if b and b["horizon_months"] == 1), None)
@@ -51,7 +52,10 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict, method: dict | 
         f"earnings against the forward (90 percent interval {pct(ci.get('low'))} to {pct(ci.get('high'))}; "
         f"{h['n']} weekly fixtures, {day(h['first_fixture'])} to {day(h['last_fixture'])}), "
         f"{pct(trip.get('effectiveness_k1'))} for a trip at the day's 5TC and {pct(c3.get('effectiveness_k1'))} "
-        "for a C3 voyage."
+        f"for a C3 voyage ({c3.get('n')} fixtures to {day(c3.get('last_fixture'))}; 90 percent interval "
+        f"{pct(c3_ci.get('low'))} to {pct(c3_ci.get('high'))}"
+        + (", which includes zero" if (c3_ci.get("low") or 0) <= 0 else "")
+        + ")."
         + (
             f" A ratio estimated only from past fixtures removed {pct(kstar)} against {pct(same)} at one for one on "
             f"the same {h['n_oos']} fixtures."
@@ -112,34 +116,47 @@ def print_sensitivity(method: dict | None, headline: float) -> str:
 
 
 def td3c_cases_sentence(td3c: dict) -> str:
-    """What the owner's quarter-end hedges realised against what they locked, on the months a case can measure.
+    """What the owner's quarter-end hedges realised against what they locked, as the cases and Table 5 show them,
+    then the share on the months a case can measure where it differs, and why the worst fell short.
 
-    A month with one Breakwave print settles at its own fixture and so realises what it locked by construction;
-    the shares count the months with two prints only, and say which months had no print at all.
+    A month with one Breakwave print settles at its own fixture and so realises what it locked by construction.
     """
-    cases = [c for c in td3c.get("cases", []) if (c.get("total_two_prints") or {}).get("locked_usd", 0) > 0]
+    cases = [c for c in td3c.get("cases", []) if c["total"]["locked_usd"] > 0]
     if not cases:
         return ""
-    shares = [c["total_two_prints"]["total_usd"] / c["total_two_prints"]["locked_usd"] for c in cases]
-    missing = sorted({m for c in cases for m in c.get("months_without_print", [])})
+    shares = [c["total"]["total_usd"] / c["total"]["locked_usd"] for c in cases]
     text = (
-        " An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper: on the "
-        "months with two of Breakwave's dollar prints (a month with one settles at its own fixture), it realised "
-        f"{', '.join(pct(x, 0) for x in shares[:-1])} and {pct(shares[-1], 0)} of what the marks of "
-        f"{day(cases[0]['as_of'])} to {day(cases[-1]['as_of'])} locked (approximate"
-        + (f"; {' and '.join(month_name(m) for m in missing)} had no dollar print" if missing else "")
-        + ")"
+        " An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and "
+        f"realised {', '.join(pct(x, 0) for x in shares[:-1])} and {pct(shares[-1], 0)} of what the marks of "
+        f"{day(cases[0]['as_of'])} to {day(cases[-1]['as_of'])} locked, approximate figures from Breakwave's dollar "
+        "prints."
     )
+    measured = []
+    for c in cases:
+        t2 = c.get("total_two_prints") or {}
+        if t2.get("locked_usd") and len(c.get("months_two_prints", [])) < len(c["months"]):
+            months = " and ".join(month_name(m) for m in c["months_two_prints"])
+            share2 = pct(t2["total_usd"] / t2["locked_usd"], 0)
+            measured.append(f"the {day(c['as_of'])} marks realised {share2} on {months}")
+    if measured:
+        text += (
+            " A month with one print settles at its own fixture; on the months with two prints or more, "
+            + " and ".join(measured)
+            + "."
+        )
+    missing = sorted({m for c in cases for m in c.get("months_without_print", [])})
+    if missing:
+        text += f" {' and '.join(month_name(m) for m in missing)} had no dollar print."
     worst = min(range(len(cases)), key=lambda i: shares[i])
     if shares[worst] < 0.9:
-        rows = [m for m in cases[worst]["months"] if not m.get("single_print")]
+        rows = [m for m in cases[worst]["months"] if not m.get("single_print")] or cases[worst]["months"]
         month = max(rows, key=lambda m: m["settlement"] - m["physical"])
         text += (
-            f"; the {day(cases[worst]['as_of'])} hedge fell short because {month_name(month['month'])}'s cargo was "
+            f" The {day(cases[worst]['as_of'])} hedge fell short because {month_name(month['month'])}'s cargo was "
             f"fixed at the month's first print, USD {month['physical']:,.2f} a tonne, while the paper settled near "
-            f"USD {money2(month['settlement'])}: timing basis inside the month"
+            f"USD {money2(month['settlement'])}: timing basis inside the month."
         )
-    return text + "."
+    return text
 
 
 def money2(x: float) -> str:

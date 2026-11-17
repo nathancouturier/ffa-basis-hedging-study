@@ -852,7 +852,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             c
             | {
                 "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
-                "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an "
+                "settlement_source": "The average of the month's Breakwave TD3C prints, one to three a month: an "
                 "approximation of the ICE TDL settlement, which averages every Baltic publication day; a month "
                 "with one print settles at its own fixture, so its paper exactly offsets its physical side",
                 "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / "
