@@ -165,6 +165,7 @@ def compute(panel: dict[str, Any]) -> dict[str, Any]:
             "strips": strips,
             "dollar_months": dollars,
             "cases": td3c.cases(strips, dollars),
+            "statement_check": td3c.statement_check(strips, bw, dollars),
             "statistics": td3c.statistics(strips, dollars),
             "statistics_without_thin_weeks": td3c.statistics(
                 strips, dollars, exclude={w[:7] for w, row in weekly.items() if row.get("thin_market")}

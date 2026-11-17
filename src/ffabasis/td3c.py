@@ -196,6 +196,51 @@ BREAKWAVE_STATEMENT = {
 }
 
 
+#: The statement's "nearly 50% discount", taken at its round figure.
+STATEMENT_DISCOUNT = 0.50
+
+
+def statement_check(
+    strips: list[dict[str, Any]], breakwave: list[dict[str, Any]], months: dict[str, dict[str, Any]]
+) -> dict[str, Any] | None:
+    """Breakwave's 7 April 2026 statement against what the third quarter settled at.
+
+    The index is that report's TD3C print; the quarter's futures at the stated discount; beside them, the
+    BWET marks of the quarter end before the statement and each month's settlement estimate from Breakwave's
+    later prints (approximate: one or two prints a month; a month with no print has none).
+    """
+    report = next((b for b in breakwave if b["report_date"] == BREAKWAVE_STATEMENT["date"]), None)
+    if report is None or report.get("td3c_usd_t") is None:
+        return None
+    marks = max((s for s in strips if s["as_of"] < BREAKWAVE_STATEMENT["date"]), key=lambda s: s["as_of"], default=None)
+    quarter = engine.quarter_months("2026-Q3")
+    rows = []
+    for month in quarter:
+        mark = next((m["usd_t"] for m in (marks or {}).get("months", []) if m["month"] == month), None)
+        info = months.get(month) or {}
+        rows.append(
+            {
+                "month": month,
+                "mark_usd_t": mark,
+                "settlement_estimate_usd_t": info.get("settlement_estimate_usd_t"),
+                "prints": info.get("prints", 0),
+            }
+        )
+    settled = [r["settlement_estimate_usd_t"] for r in rows if r["settlement_estimate_usd_t"] is not None]
+    return {
+        "date": BREAKWAVE_STATEMENT["date"],
+        "index_usd_t": report["td3c_usd_t"],
+        "index_url": report.get("url"),
+        "discount": STATEMENT_DISCOUNT,
+        "implied_q3_usd_t": report["td3c_usd_t"] * (1.0 - STATEMENT_DISCOUNT),
+        "marks_as_of": marks["as_of"] if marks else None,
+        "marks_url": marks["months"][0]["url"] if marks and marks["months"] else None,
+        "months": rows,
+        "settled_mean_usd_t": sum(settled) / len(settled) if settled else None,
+        "settled_months": len(settled),
+    }
+
+
 def dollar_months(breakwave: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Each month's TD3C in USD a tonne from Breakwave's prints: the first print (the fixture) and their average.
 

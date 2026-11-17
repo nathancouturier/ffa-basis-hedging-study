@@ -713,6 +713,7 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             "without_thin_weeks": t["statistics_without_thin_weeks"]["by_horizon"],
         },
         "breakwave_statement": td3c.BREAKWAVE_STATEMENT,
+        "statement_check": t["statement_check"],
         "events": [
             {
                 "date": "2026-03-02",

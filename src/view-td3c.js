@@ -4,7 +4,7 @@
 
 import { h, clear, takeaway, table, note, defs, segmented } from "./dom.js";
 import { lineChart, waterfallChart, monthMid, dayMs, empty } from "./charts.js";
-import { num, signed, usdDay, usdT, ws, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, tenorLabel, plural, listJoin, isNum, tonnes, addDays } from "./format.js";
+import { num, pct, signed, usdDay, usdT, ws, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, tenorLabel, plural, listJoin, isNum, tonnes, addDays } from "./format.js";
 import { wire, retrievedTo, retrievedOf, downloadLine, stripSummary } from "./view-kit.js";
 
 const SHAPE = Object.freeze({
@@ -161,6 +161,28 @@ function render(section, ctx) {
         });
         if (statement) {
           body.append(h("blockquote", { class: "note" }, `"${statement.text}" `, h("a", { href: statement.url }, `Breakwave Advisors, ${dateLong(statement.date)}`), "."));
+        }
+        const check = td3c.statement_check;
+        if (statement && check) {
+          const settled = check.months.filter((r) => isNum(r.settlement_estimate_usd_t));
+          const missing = check.months.filter((r) => !isNum(r.settlement_estimate_usd_t));
+          body.append(h("p", {},
+            `Against what the quarter settled at: Breakwave's report of ${dateLong(check.date)} put TD3C at ${usdT(check.index_usd_t)}, so third-quarter futures at the stated discount (${pct(check.discount, 0)}) stood near ${usdT(check.implied_q3_usd_t)}, and BWET's marks of ${dateLong(check.marks_as_of)} priced the quarter's months at ${listJoin(check.months.filter((r) => isNum(r.mark_usd_t)).map((r) => `${usdT(r.mark_usd_t)} (${monthLong(r.month)})`))}. `,
+            settled.length
+              ? `The months with a later dollar print settled, approximately, at ${listJoin(settled.map((r) => `${usdT(r.settlement_estimate_usd_t)} (${monthLong(r.month)}, ${plural(r.prints, "print", "prints")})`))}${missing.length ? `; ${listJoin(missing.map((r) => monthLong(r.month)))} has no dollar print` : ""}.`
+              : "No month of the quarter has a later dollar print yet.",
+          ));
+          body.append(table({
+            caption: `Breakwave's statement of ${dateLong(check.date)} against the third quarter's settlement, USD a tonne`,
+            columns: [
+              { label: "Month", format: (r) => monthLong(r.month) },
+              { label: `BWET mark, ${dateShort(check.marks_as_of)}`, num: true, format: (r) => (isNum(r.mark_usd_t) ? num(r.mark_usd_t, 2) : "") },
+              { label: "Implied by the statement", num: true, format: () => num(check.implied_q3_usd_t, 2) },
+              { label: "Settlement estimate", num: true, format: (r) => (isNum(r.settlement_estimate_usd_t) ? num(r.settlement_estimate_usd_t, 2) : "no print") },
+              { label: "Prints", num: true, format: (r) => num(r.prints) },
+            ],
+            rows: check.months,
+          }));
         }
         if (bw.length) {
           body.append(table({

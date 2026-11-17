@@ -142,12 +142,20 @@ def table_png(header: list[str], rows: list[list[str]], numeric: set[int] | None
 
 
 def chart(fig) -> Image:
+    """The figure as a PNG at its cropped size (bbox_inches="tight" changes it), so it is never stretched."""
+    from PIL import Image as Pil
+
     buf = io.BytesIO()
     fig.savefig(buf, format="png", dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     buf.seek(0)
-    w, h = fig.get_size_inches()
-    return Image(buf, width=w * inch, height=h * inch)
+    width_px, height_px = Pil.open(buf).size
+    buf.seek(0)
+    width, height = width_px / DPI * inch, height_px / DPI * inch
+    frame = A4[0] - 4.0 * cm
+    if width > frame:
+        width, height = frame, height * frame / width
+    return Image(buf, width=width, height=height)
 
 
 def style_axes(ax, grid_axis: str = "y") -> None:
@@ -261,9 +269,10 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
             else ""
         ),
         f"What the hedge leaves is route and timing basis: route basis carries {pct(share['route'], 0)} of the "
-        f"variance of the hedged C5 result and timing basis {pct(share['timing'], 0)}; size basis carries none, "
-        "because from 2 January 2026 the Baltic derives the 180,000 t basket from the 182,000 t one at a fixed "
-        "USD 3,503 a day.",
+        f"variance of the hedged C5 result and timing basis {pct(share['timing'], 0)}. Size basis carries "
+        f"{pct(abs(share['size']), 0)}: from 2 January 2026 the Baltic derives the 180,000 t basket from the "
+        "182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a "
+        "constant, not a risk.",
     ]
     if b1:
         lo, hi = b1["mean_ci"]["low"], b1["mean_ci"]["high"]
@@ -306,7 +315,13 @@ def build() -> list:
     )
     bullet = ParagraphStyle("bullet", parent=body, leftIndent=12, bulletIndent=0, spaceAfter=3)
     head = ParagraphStyle(
-        "head", fontName="LiberationSerif-Bold", fontSize=11.5, leading=14, spaceBefore=8, spaceAfter=4
+        "head",
+        fontName="LiberationSerif-Bold",
+        fontSize=11.5,
+        leading=14,
+        spaceBefore=8,
+        spaceAfter=4,
+        keepWithNext=1,
     )
     title = ParagraphStyle("title", fontName="LiberationSerif-Bold", fontSize=17, leading=21, spaceAfter=4)
     small = ParagraphStyle("small", parent=body, fontSize=8.5, leading=11, alignment=0)
@@ -394,6 +409,7 @@ def build() -> list:
             pct(r["cvar_reduction_k1"]),
             pct(r["residual_variance_share"]["route"], 0),
             pct(r["residual_variance_share"]["timing"], 0),
+            pct(r["residual_variance_share"]["size"], 0),
         ]
         for r in ov["effectiveness"]
     ]
@@ -403,13 +419,26 @@ def build() -> list:
                 Paragraph(
                     "<b>Table 1.</b> Hedge effectiveness by voyage and horizon. k* out of sample against k = 1 on "
                     "the same fixtures (their number in brackets). CVaR: the reduction in the 5 percent expected "
-                    "shortfall of the surprise at k = 1. Route and timing: shares of the hedged residual's variance.",
+                    "shortfall of the surprise at k = 1. Route, timing and size: shares of the hedged residual's "
+                    "variance (size basis is a constant USD 3,503 a day where a hedge on the 180,000 t curve covers "
+                    "a voyage on the 182,000 t ship from 2026, so its share is small and can be negative).",
                     small,
                 ),
                 table_png(
-                    ["Voyage", "Horizon", "Fixtures", "k = 1", "90% interval", "k* / k = 1", "CVaR", "Route", "Timing"],
+                    [
+                        "Voyage",
+                        "Horizon",
+                        "Fixtures",
+                        "k = 1",
+                        "90% interval",
+                        "k* / k = 1",
+                        "CVaR",
+                        "Route",
+                        "Timing",
+                        "Size",
+                    ],
                     rows,
-                    numeric={2, 3, 5, 6, 7, 8},
+                    numeric={2, 3, 5, 6, 7, 8, 9},
                 ),
             ]
         )
@@ -550,7 +579,6 @@ def build() -> list:
         )
     )
 
-    s.append(Paragraph("<b>Robustness</b>", head))
     rob_rows = []
     for v in method["robustness"]:
         cells = {(x["voyage"], x["horizon_months"]): x for x in v["hedge"]}
@@ -568,6 +596,7 @@ def build() -> list:
     s.append(
         KeepTogether(
             [
+                Paragraph("<b>Robustness</b>", head),
                 Paragraph(
                     "<b>Table 4.</b> The headline under each pre-registered variant: one-month effectiveness at k = 1 "
                     "for C5 and the 5TC trip, and the one-month mean forecast error in USD a day (observations in "

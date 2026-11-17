@@ -201,6 +201,7 @@ export function monthShort(key) {
 
 /** Broker style: Dec-26, Q1 27. */
 export function tenorLabel(key) {
+  if (typeof key !== "string") return "";
   if (key.includes("-Q")) return `Q${key.slice(-1)} ${key.slice(2, 4)}`;
   const [y, m] = key.split("-").map(Number);
   return `${MONTHS_SHORT[m - 1]}-${String(y).slice(2)}`;

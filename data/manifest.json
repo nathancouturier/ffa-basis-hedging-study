@@ -13,37 +13,37 @@
  "downloads": [
   {
    "description": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
-   "file": "data/downloads/forecast_errors.csv",
+   "file": "forecast_errors.csv",
    "rows": 92
   },
   {
    "description": "Effectiveness by voyage and horizon: k = 1 with its interval, k* out of sample, CVaR, residual shares",
-   "file": "data/downloads/hedge_effectiveness.csv",
+   "file": "hedge_effectiveness.csv",
    "rows": 9
   },
   {
    "description": "Every fixture's surprise, paper move and basis components, USD a day (no price levels)",
-   "file": "data/downloads/hedge_outcomes.csv",
+   "file": "hedge_outcomes.csv",
    "rows": 776
   },
   {
    "description": "Monthly 5TC settlement averages with their status and both baskets in 2026",
-   "file": "data/downloads/monthly_settlements_5tc.csv",
+   "file": "monthly_settlements_5tc.csv",
    "rows": 74
   },
   {
    "description": "Roll cost of a rolling one-month and front-quarter long by year",
-   "file": "data/downloads/roll_cost_by_year.csv",
+   "file": "roll_cost_by_year.csv",
    "rows": 8
   },
   {
    "description": "Every BDRY and BWET freight future at each quarter end, from the SEC filings",
-   "file": "data/downloads/sec_freight_futures_marks.csv",
+   "file": "sec_freight_futures_marks.csv",
    "rows": 150
   },
   {
    "description": "The Baltic's weekly TD3C and TD34 prints, each with its report's link",
-   "file": "data/downloads/td3c_weekly_prints.csv",
+   "file": "td3c_weekly_prints.csv",
    "rows": 188
   }
  ],

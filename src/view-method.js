@@ -7,6 +7,13 @@ import { num, numTrim, pct, signed, signedPct, dateLong, dateShort, monthShort, 
 import { exists } from "./data.js";
 import { wire, csvLink } from "./view-kit.js";
 
+const FLAG_RULES = Object.freeze({
+  reprint: "Re-printed differently next week",
+  one_week_move: "One-week move out of line",
+  repeated_page: "Page repeats the previous issue",
+  second_first_print: "Date printed twice",
+});
+
 const NOTE_PDF = "FFA-Basis-Hedging-Study-Research-Note.pdf";
 const CITE_EDERINGTON = "Ederington, 1979, Journal of Finance";
 const RELATED = [
@@ -279,12 +286,24 @@ function render(section, ctx) {
           limit: 16,
           columns: [
             { label: "Curve", format: (f) => dateShort(f.curve) },
-            { label: "Tenor", format: (f) => tenorLabel(f.period) },
-            { label: "Rule", format: (f) => (f.rule === "reprint" ? "Re-printed differently next week" : f.rule === "one_week_move" ? "One-week move out of line" : f.rule) },
-            { label: "Detail", format: (f) => (f.rule === "reprint" ? `${num(f.first)} first, ${num(f.reprint)} in ${f.issue} (${pct(f.gap)})` : f.rule === "one_week_move" ? `${signed(f.move_pct, 1)}% against ${signed(f.median_other_pct, 1)}% for the other tenors` : "") },
+            { label: "Tenor", format: (f) => (f.period ? tenorLabel(f.period) : "Every tenor") },
+            { label: "Rule", format: (f) => FLAG_RULES[f.rule] || f.rule },
+            {
+              label: "Detail",
+              format: (f) =>
+                f.rule === "reprint"
+                  ? `${num(f.first)} first, ${num(f.reprint)} in ${f.issue} (${pct(f.gap)})`
+                  : f.rule === "one_week_move"
+                    ? `${signed(f.move_pct, 1)}% against ${signed(f.median_other_pct, 1)}% for the other tenors`
+                    : f.rule === "repeated_page"
+                      ? `${f.issue} prints the figures of ${dateShort(f.same_as)} again; the curve is not used`
+                      : f.rule === "second_first_print"
+                        ? `${f.issue} prints the same date again; the first issue's print is kept`
+                        : "",
+            },
           ],
           rows: flags,
-          note: "Rule: the study keeps the first print; re-prints beyond the study's tolerance and one-week moves out of line with the other tenors are flagged and reported, never silently replaced.",
+          note: "Rule: the study keeps the first print; re-prints beyond the study's tolerance and one-week moves out of line with the other tenors are flagged and reported, never silently replaced. A page that repeats the previous issue's figures under new dates is not an assessment of those dates and is not used.",
         }));
         const sec = method.qc?.sec_check || [];
         if (sec.length) {

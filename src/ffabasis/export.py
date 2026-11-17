@@ -490,7 +490,7 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
     manifest = dict(extra["manifest"])
     manifest["downloads"] = [
         {
-            "file": f"data/downloads/{path.name}",
+            "file": path.name,
             "description": DOWNLOADS.get(path.stem, ""),
             "rows": max(0, len(path.read_text(encoding="utf-8").splitlines()) - 1),
         }
