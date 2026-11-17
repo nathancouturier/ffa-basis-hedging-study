@@ -241,11 +241,19 @@ def cases(strips: list[dict[str, Any]], months: dict[str, dict[str, Any]]) -> li
     return out
 
 
+#: Item 3's statistics for TD3C only with at least this many contract months at one horizon (pre-registered).
+MIN_STATISTICS_MONTHS = 12
+
+
 def statistics(
     strips: list[dict[str, Any]], months: dict[str, dict[str, Any]], exclude: set[str] | None = None
 ) -> dict[str, Any]:
     """Item 3 for TD3C, approximate: each quarter-end mark of month M at horizon h (months from the mark's month),
-    the error S - F and the hedge of the month's cargo fixed at its first print."""
+    the error S - F and the hedge of the month's cargo fixed at its first print.
+
+    The rows are always returned; the statistics by horizon only where at least MIN_STATISTICS_MONTHS contract
+    months have a mark and a settlement estimate at that horizon, the threshold set before the data were seen.
+    """
     rows = []
     for strip in strips:
         for m in strip["months"]:
@@ -267,12 +275,18 @@ def statistics(
                     "paper_move": s - f0,
                 }
             )
-    out: dict[str, Any] = {"rows": rows, "by_horizon": []}
+    out: dict[str, Any] = {
+        "rows": rows,
+        "by_horizon": [],
+        "counts": [],
+        "threshold_months": MIN_STATISTICS_MONTHS,
+    }
     from . import stats
 
     for h in (1, 2, 3):
         sel = [r for r in rows if r["horizon_months"] == h]
-        if len(sel) < 3:
+        out["counts"].append({"horizon_months": h, "n": len(sel)})
+        if len(sel) < MIN_STATISTICS_MONTHS:
             continue
         u = [r["unhedged"] for r in sel]
         x = [r["paper_move"] for r in sel]
@@ -283,9 +297,7 @@ def statistics(
                 "mean_error_usd_t": stats.mean([r["error"] for r in sel]),
                 "rmse_usd_t": stats.rmse([r["error"] for r in sel]),
                 "share_positive": stats.share_positive([r["error"] for r in sel]),
-                "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)])
-                if len(sel) >= 4
-                else None,
+                "effectiveness_k1": stats.effectiveness(u, [a - b for a, b in zip(u, x, strict=True)]),
                 "first": sel[0]["contract"],
                 "last": sel[-1]["contract"],
             }

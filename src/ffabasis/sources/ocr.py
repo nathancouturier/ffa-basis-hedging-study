@@ -17,15 +17,26 @@ import tempfile
 from pathlib import Path
 
 import pypdfium2 as pdfium
+from PIL import ImageOps
 
 SCALE = 4
 ENGINE = "tesseract"
 
 
 def page_text(
-    pdf_path: Path, page_index: int, left: float = 0.0, right: float = 1.0, top: float = 0.0, bottom: float = 1.0
+    pdf_path: Path,
+    page_index: int,
+    left: float = 0.0,
+    right: float = 1.0,
+    top: float = 0.0,
+    bottom: float = 1.0,
+    margin: int = 0,
 ) -> str:
-    """Tesseract's text of a region of one page (fractions of the page's width and height)."""
+    """Tesseract's text of a region of one page (fractions of the page's width and height).
+
+    margin adds a white border of that many pixels: Tesseract tends to drop a glyph that touches the
+    image's edge ("ul-25" for "Jul-25" where a table starts at the page's margin).
+    """
     document = pdfium.PdfDocument(str(pdf_path))
     try:
         image = document[page_index].render(scale=SCALE).to_pil()
@@ -33,6 +44,8 @@ def page_text(
         document.close()
     width, height = image.size
     crop = image.crop((int(left * width), int(top * height), int(right * width), int(bottom * height)))
+    if margin:
+        crop = ImageOps.expand(crop.convert("RGB"), border=margin, fill="white")
     with tempfile.TemporaryDirectory() as folder:
         png = Path(folder) / "page.png"
         crop.save(png)

@@ -143,6 +143,7 @@ def test_hedge_summary_matches_a_hand_computation():
                 "size_basis": 0.0,
                 "last_month": "2026-01",
                 "hedged_on": "2025-12-01",
+                "curve_basket_t": 182000,
             }
         )
     s = hedge.summarise(rows, 1)
@@ -150,6 +151,7 @@ def test_hedge_summary_matches_a_hand_computation():
     h = [r["unhedged"] - r["paper_move"] for r in sorted(rows, key=lambda r: r["fixture"])]
     assert s["effectiveness_k1"] == pytest.approx(1 - stats.variance(h) / stats.variance(u))
     assert s["residual_variance_share"]["timing"] == pytest.approx(1.0)
+    assert s["curve_baskets"] == {"180000": 0, "182000": 12}
 
 
 def test_out_of_sample_ratio_uses_only_settled_outcomes():
@@ -266,3 +268,101 @@ def test_2026_curves_are_on_the_182_basket_and_earlier_ones_on_180():
         if curve.get("tenors"):
             expected = 182000 if date >= engine.BASKET_182_FROM else 180000
             assert curve["basket_t"] == expected, (date, curve.get("basket_how"))
+
+
+def test_ocr_normalizer_restores_clipped_labels_and_drops_noise():
+    from ffabasis.sources import bancosta
+
+    text = "\n".join(
+        [
+            "CAPESIZE Unit 28Jul = 21-Jul = W-o-W Premium",
+            "ul-25 usd/day 22,004 21,846 = 40.7% -29.7%",
+            "\\ug-25 usdiday 24,229 23,854 +1.6% -22.6%",
+            "Jec-25 usd/day 22,075. 21,883. 40.9% -29.5%",
+            "126 usd/day 14,633 14,683 0.3% 53.2%",
+            "12 26 usd/day 19,229 19,254 0.1% -38.6%",
+            "Qi25 usd/day 11,768 12,436 5.4% -12.1%",
+        ]
+    )
+    lines = [" ".join(line.split()) for line in bancosta.normalize_ocr(text).splitlines()]
+    assert lines[0].startswith("CAPESIZE Unit 28-Jul 21-Jul")
+    assert lines[1] == "Jul-25 usd/day 22,004 21,846 40.7% -29.7%"
+    assert lines[2].startswith("Aug-25 usd/day 24,229")
+    assert lines[3].startswith("Dec-25 usd/day 22,075 21,883 ")
+    assert lines[4].startswith("Q1 26 usd/day")
+    assert lines[5].startswith("Q2 26 usd/day")
+    assert lines[6].startswith("Q1 25 usd/day")
+
+
+def test_a_page_repeating_the_previous_figures_is_not_used():
+    def issue(week, current, previous_on, values):
+        return {
+            "year": 2025,
+            "week": week,
+            "url": f"u{week}",
+            "ffa": {
+                "assessed_on": current,
+                "previous_on": previous_on,
+                "method": "text",
+                "tenors": [
+                    {
+                        "period": p,
+                        "kind": "month",
+                        "label": p,
+                        "current": v,
+                        "previous": v,
+                        "wow_printed": "0.0%",
+                        "premium_printed": "0.0%",
+                    }
+                    for p, v in values.items()
+                ],
+            },
+        }
+
+    first = {"2025-07": 16317.0, "2025-08": 16842.0, "2025-09": 19179.0}
+    curves = panel.curves(
+        [
+            issue(26, "2025-06-30", "2025-06-23", first),
+            issue(28, "2025-07-14", "2025-07-07", first),
+            issue(30, "2025-07-28", "2025-07-21", {"2025-07": 22004.0, "2025-08": 24229.0, "2025-09": 24213.0}),
+        ]
+    )
+    assert curves["2025-06-30"]["tenors"]
+    assert curves["2025-07-14"]["tenors"] == {}
+    assert curves["2025-07-14"]["flags"][0]["rule"] == "repeated_page"
+    assert curves["2025-07-28"]["tenors"]
+    # The repeated page's previous-week column is not recorded as a reprint of 7 July.
+    assert "2025-07-07" not in curves
+
+
+def test_td3c_statistics_need_twelve_contract_months():
+    from ffabasis import td3c
+
+    strips = [{"as_of": "2025-09-30", "months": [{"month": "2025-10", "usd_t": 17.0}]}]
+    months = {"2025-10": {"fixture_usd_t": 16.7, "settlement_estimate_usd_t": 18.7}}
+    out = td3c.statistics(strips, months)
+    assert len(out["rows"]) == 1
+    assert out["by_horizon"] == []
+    assert out["counts"][0] == {"horizon_months": 1, "n": 1}
+    assert out["threshold_months"] == 12
+
+
+def test_naive_forecast_is_compared_on_the_rows_that_have_a_spot():
+    from ffabasis import analysis
+
+    rows = [
+        {
+            "horizon_months": 1,
+            "contract": f"2025-{m:02d}",
+            "error_usd_day": e,
+            "error_pct": e / 20000.0,
+            "naive_error_usd_day": n,
+        }
+        for m, (e, n) in enumerate([(1000.0, 2000.0), (-500.0, None), (300.0, -900.0), (-200.0, 400.0)], 1)
+    ]
+    s = analysis.error_summary(rows, 1)
+    assert s["n"] == 4 and s["n_naive"] == 3
+    assert s["rmse_ffa_paired_usd_day"] == pytest.approx((sum(e * e for e in (1000.0, 300.0, -200.0)) / 3) ** 0.5)
+    assert s["rmse_ratio_ffa_to_naive"] == pytest.approx(
+        s["rmse_ffa_paired_usd_day"] / (sum(n * n for n in (2000.0, -900.0, 400.0)) / 3) ** 0.5
+    )

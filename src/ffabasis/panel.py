@@ -18,6 +18,11 @@ Pre-registered rules (docs/methodology.md):
 * One-week move. A tenor whose week-on-week change differs from the median
   change of the curve's other tenors by more than 15 percentage points is
   flagged (the Q2 23 contract of 11 July 2022: -25.7 percent against about -2).
+* Repeated page. A page whose every tenor shared with the issue before it (at
+  least three) carries the identical figure was not updated: Banchero Costa
+  reprinted the previous assessment under new dates (weeks 28 and 29 of 2025
+  repeat 30 June 2025, whose printed premium matches that day's spot). Such a
+  curve is flagged and not used, and its previous-week column is not a reprint.
 * Flags never change a value. The analysis reports its results on first
   prints and, as a sensitivity, with flagged prints replaced by the reprint
   where one exists.
@@ -42,6 +47,8 @@ REPRINT_TOLERANCE = 0.10
 SEC_TOLERANCE = 0.10
 MOVE_TOLERANCE_PP = 15.0
 SEC_WINDOW_DAYS = 3
+#: A page is a repeat of the one before when at least this many shared tenors carry identical figures.
+REPEAT_MIN_TENORS = 3
 
 
 def issue_key(year: int, week: int) -> str:
@@ -53,6 +60,8 @@ def parse_all(raw_dir: Path, manifest: dict[str, dict[str, Any]], cache_path: Pa
     cache: dict[str, Any] = {}
     if cache_path.exists():
         cache = json.loads(cache_path.read_text(encoding="utf-8"))
+        # Entries of an older parser version are dropped: the cache only ever holds what this code reads.
+        cache = {k: v for k, v in cache.items() if k.endswith(f":v{bancosta.PARSER_VERSION}")}
     issues = []
     for entry in manifest.values():
         if not re.search(r"(?i)bancosta[-_ ]weekly", entry["url"]) or not entry["url"].lower().endswith(".pdf"):
@@ -61,13 +70,14 @@ def parse_all(raw_dir: Path, manifest: dict[str, dict[str, Any]], cache_path: Pa
         if not path.exists():
             continue
         digest = entry["sha256"]
-        if digest not in cache:
+        key = f"{digest}:v{bancosta.PARSER_VERSION}"
+        if key not in cache:
             try:
                 parsed = bancosta.parse_issue(path)
             except Exception as error:  # a broken file is reported, never silently dropped
                 parsed = {"error": str(error)}
-            cache[digest] = parsed
-        parsed = dict(cache[digest])
+            cache[key] = parsed
+        parsed = dict(cache[key])
         parsed.update(url=entry["url"], sha256=digest, retrieved_at=entry["retrieved_at"])
         issues.append(parsed)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
@@ -95,6 +105,7 @@ def choose_issues(issues: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], l
 def curves(chosen: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Every dated Capesize curve: first print, reprint and the flags of the rules above."""
     out: dict[str, dict[str, Any]] = {}
+    last: tuple[str, dict[str, float]] | None = None
     for issue in chosen:
         ffa = issue.get("ffa")
         if not ffa:
@@ -113,6 +124,20 @@ def curves(chosen: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             if t["current"] is not None and (not ocr or _wow_consistent(t))
         }
         record = out.setdefault(date, {"assessed_on": date, "tenors": {}, "flags": []})
+        printed = {p: v["usd_day"] for p, v in tenors.items()}
+        repeated_from = None
+        if last is not None and last[0] != date:
+            shared = [p for p in printed if p in last[1]]
+            if len(shared) >= REPEAT_MIN_TENORS and all(printed[p] == last[1][p] for p in shared):
+                repeated_from = last[0]
+        if printed:
+            last = (date, printed)
+        if repeated_from is not None:
+            record["flags"].append(
+                {"rule": "repeated_page", "issue": issue_key(issue["year"], issue["week"]), "same_as": repeated_from}
+            )
+            record["repeated_page"] = {"issue": issue_key(issue["year"], issue["week"]), "url": issue["url"]}
+            continue
         if record["tenors"]:
             record["flags"].append({"rule": "second_first_print", "issue": issue_key(issue["year"], issue["week"])})
             continue

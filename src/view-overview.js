@@ -4,7 +4,7 @@
 import { h, takeaway, table, note, defs } from "./dom.js";
 import { forestChart, lineChart } from "./charts.js";
 import { pct, shareOf, usdDay, num, numTrim, dateLong, dateShort, ws, horizonLabel, listJoin, signed, isNum, capitalise, plural } from "./format.js";
-import { wire, basketForWindow, basketRule, sourceLine, csvLink, sectionHead } from "./view-kit.js";
+import { wire, basketForWindow, basketRule, sourceLine, downloadLine, sectionHead, retrievedOf } from "./view-kit.js";
 
 const VOYAGES = ["5TC trip", "C3", "C5"];
 const SHAPE = Object.freeze({ rolesHeight: 200 }); // literal: px, height of the small owner and charterer chart
@@ -172,7 +172,7 @@ function render(section, ctx) {
         { cls: "charterer", points: pts(-1), dots: true },
       ],
       summary: `An owner short one FFA day gains a dollar for every dollar the settlement falls below the price and loses the same when it rises; a charterer long the same day mirrors it. At one standard deviation of the surprise (${usdDay(sd)}) one side gains USD ${num(sd)} per FFA day and the other loses it.`,
-      source: "Source: the payoff of an FFA settled against the monthly average of the Baltic assessments (EEX Capesize 5TC futures, one day a lot).",
+      source: `Source: the payoff of an FFA settled against the monthly average of the Baltic assessments (EEX Capesize 5TC futures, one day a lot; contract specification ${retrievedOf(ctx.data.manifest, "EEX")}).`,
     });
   }
 
@@ -255,7 +255,7 @@ function render(section, ctx) {
               ? `Shares are each part's variance plus its covariances with the other parts, so a part can carry a small negative share. Size basis has no variance from ${dateLong(rule.from)}, where the ${num(rule.before)} t basket is the ${num(rule.after)} t one less a fixed differential.`
               : "Shares are each part's variance plus its covariances with the other parts, so a part can carry a small negative share.",
           }));
-          body.append(h("p", {}, "Download: ", csvLink("hedge_effectiveness.csv"), ", ", csvLink("hedge_outcomes.csv"), " (every fixture's surprise and basis parts, no levels)."));
+          body.append(downloadLine([{ file: "hedge_effectiveness.csv" }, { file: "hedge_outcomes.csv", what: "every fixture's surprise and basis parts, no levels" }]));
         },
       },
     ],
@@ -267,6 +267,6 @@ function render(section, ctx) {
 export default {
   id: "overview",
   name: "Overview",
-  needs: ["overview", "engine", "method"],
+  needs: ["overview", "engine", "method", "manifest"],
   render,
 };

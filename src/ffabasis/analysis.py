@@ -400,10 +400,14 @@ def error_summary(rows: list[dict[str, Any]], h: int | None = None) -> dict[str,
         "first": sel[0].get("contract"),
         "last": sel[-1].get("contract"),
     }
-    naive = [r["naive_error_usd_day"] for r in sel if r.get("naive_error_usd_day") is not None]
-    if len(naive) == len(sel):
-        out["rmse_naive_usd_day"] = stats.rmse(naive)
-        out["rmse_ratio_ffa_to_naive"] = out["rmse_usd_day"] / out["rmse_naive_usd_day"]
+    # The naive forecast (the spot on the pricing date) is compared on the rows that have that spot print,
+    # the FFA's RMSE recomputed on the same rows so the ratio compares like with like.
+    paired = [r for r in sel if r.get("naive_error_usd_day") is not None]
+    if len(paired) >= 3:
+        out["n_naive"] = len(paired)
+        out["rmse_naive_usd_day"] = stats.rmse([r["naive_error_usd_day"] for r in paired])
+        out["rmse_ffa_paired_usd_day"] = stats.rmse([r["error_usd_day"] for r in paired])
+        out["rmse_ratio_ffa_to_naive"] = out["rmse_ffa_paired_usd_day"] / out["rmse_naive_usd_day"]
     return out
 
 

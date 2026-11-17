@@ -236,7 +236,29 @@ def breakwave_prints(root: Path, manifest: dict[str, dict[str, Any]]) -> list[di
         if row:
             row["url"] = entry["url"]
             rows.setdefault(row["report_date"], row)
-    return [rows[d] for d in sorted(rows)]
+    ordered = [rows[d] for d in sorted(rows)]
+    return [
+        r
+        for prev, r in zip([None, *ordered], ordered, strict=False)
+        if not (prev and (prev["btfi_points"], prev["td3c_usd_t"]) == (r["btfi_points"], r["td3c_usd_t"]))
+    ]
+
+
+def breakwave_repeats(prints: list[dict[str, Any]], root: Path, manifest: dict[str, dict[str, Any]]) -> list[str]:
+    """Reports whose side panel repeats the previous report's figures (not updated): left out of the prints."""
+    kept = {r["report_date"] for r in prints}
+    every = {}
+    for entry in manifest.values():
+        if "BreakwaveTankers" in entry["url"] and entry["url"].lower().endswith(".pdf"):
+            path = root / "data" / "raw" / entry["path"]
+            if path.exists():
+                try:
+                    row = breakwave.parse(path)
+                except Exception:  # counted with the damaged files
+                    row = None
+                if row:
+                    every.setdefault(row["report_date"], entry["url"])
+    return [every[d] for d in sorted(every) if d not in kept]
 
 
 # ---------------------------------------------------------------------------
@@ -306,7 +328,8 @@ def build(root: Path) -> dict[str, Any]:
         "sec_marks": marks,
         "published_5tc": published_5tc,
         "td3c_weekly": td3c_weekly(root, manifest),
-        "breakwave": breakwave_prints(root, manifest),
+        "breakwave": (bw := breakwave_prints(root, manifest)),
+        "breakwave_repeats": breakwave_repeats(bw, root, manifest),
         "calendar_note": calendar.__doc__.strip().splitlines()[0],
     }
 

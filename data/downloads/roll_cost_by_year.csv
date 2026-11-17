@@ -1,7 +1,9 @@
 strategy,year,n,roll_cost_usd_day,roll_cost_pct,ship_year_usd
-one-month long,2024,3,2187.0,0.1087,798377.0
-one-month long,2025,12,-1614.0,-0.0414,-588928.0
-one-month long,2026,10,-2151.0,-0.0436,-784951.0
-front-quarter long,2024,1,11696.0,0.6574,4269162.0
-front-quarter long,2025,3,-1407.0,-0.0611,-513677.0
-front-quarter long,2026,2,-6521.0,-0.1958,-2380296.0
+one-month long,2023,1,-6486.0,-0.2538,-2367390.0
+one-month long,2024,9,1029.0,0.0523,375666.0
+one-month long,2025,11,-901.0,-0.0106,-328799.0
+one-month long,2026,10,-2151.0,-0.0436,-784946.0
+front-quarter long,2023,1,-11112.0,-0.3837,-4056002.0
+front-quarter long,2024,4,1385.0,0.1047,505616.0
+front-quarter long,2025,3,-1273.0,-0.0566,-464767.0
+front-quarter long,2026,2,-6521.0,-0.1958,-2380286.0

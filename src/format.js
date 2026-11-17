@@ -38,7 +38,7 @@ export function num(v, dp = 0) {
   return v < 0 && !zero ? MINUS + s : s;
 }
 
-/** Up to `maxDp` decimals, trailing zeros dropped: 5 -> "5", 3.75 -> "3.75". */
+/** Up to `maxDp` decimals, trailing zeros dropped: 5 -> "5", 2.50 -> "2.5". */
 export function numTrim(v, maxDp = 2) {
   if (!isNum(v)) return "n/a";
   for (let dp = 0; dp <= maxDp; dp += 1) {

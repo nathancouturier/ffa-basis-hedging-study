@@ -248,8 +248,8 @@
    "page": 16,
    "reprints": [],
    "source": "Banchero Costa weekly market report 2026-W45, Dry bulk FFA assessments (Capesize)",
-   "spot_on": null,
-   "spot_usd_day": null,
+   "spot_on": "2026-11-06",
+   "spot_usd_day": 39395.0,
    "tenors": [
     {
      "kind": "month",
@@ -310,23 +310,23 @@
   }
  ],
  "q1_discount": {
-  "mean_pct": -0.3432,
-  "n": 38,
+  "mean_pct": -0.3585,
+  "n": 53,
   "share_below": 1.0
  },
  "shares": {
   "front_spread": {
    "all": {
-    "backwardation": 0.4065934065934066,
-    "contango": 0.5934065934065934,
-    "n": 91
+    "backwardation": 0.4083333333333333,
+    "contango": 0.5916666666666667,
+    "n": 120
    }
   },
   "front_spread_by_month": {
    "1": {
     "backwardation": 1.0,
     "contango": 0.0,
-    "n": 5
+    "n": 7
    },
    "10": {
     "backwardation": 0.2727272727272727,
@@ -341,47 +341,47 @@
    "12": {
     "backwardation": 1.0,
     "contango": 0.0,
-    "n": 6
+    "n": 8
    },
    "2": {
     "backwardation": 0.0,
     "contango": 1.0,
-    "n": 6
+    "n": 7
    },
    "3": {
-    "backwardation": 0.2,
-    "contango": 0.8,
-    "n": 10
+    "backwardation": 0.18181818181818182,
+    "contango": 0.8181818181818182,
+    "n": 11
    },
    "4": {
     "backwardation": 0.0,
     "contango": 1.0,
-    "n": 4
+    "n": 8
    },
    "5": {
-    "backwardation": 0.42857142857142855,
-    "contango": 0.5714285714285714,
-    "n": 7
+    "backwardation": 0.2727272727272727,
+    "contango": 0.7272727272727273,
+    "n": 11
    },
    "6": {
-    "backwardation": 0.8333333333333334,
-    "contango": 0.16666666666666666,
-    "n": 6
+    "backwardation": 0.6923076923076923,
+    "contango": 0.3076923076923077,
+    "n": 13
    },
    "7": {
-    "backwardation": 0.5714285714285714,
-    "contango": 0.42857142857142855,
-    "n": 7
+    "backwardation": 0.7272727272727273,
+    "contango": 0.2727272727272727,
+    "n": 11
    },
    "8": {
-    "backwardation": 0.14285714285714285,
-    "contango": 0.8571428571428571,
-    "n": 7
+    "backwardation": 0.1,
+    "contango": 0.9,
+    "n": 10
    },
    "9": {
-    "backwardation": 0.35714285714285715,
-    "contango": 0.6428571428571429,
-    "n": 14
+    "backwardation": 0.3333333333333333,
+    "contango": 0.6666666666666666,
+    "n": 15
    }
   },
   "front_spread_by_year": {
@@ -395,15 +395,20 @@
     "contango": 1.0,
     "n": 1
    },
+   "2023": {
+    "backwardation": 0.6666666666666666,
+    "contango": 0.3333333333333333,
+    "n": 3
+   },
    "2024": {
-    "backwardation": 0.4666666666666667,
-    "contango": 0.5333333333333333,
-    "n": 15
+    "backwardation": 0.4,
+    "contango": 0.6,
+    "n": 35
    },
    "2025": {
-    "backwardation": 0.3333333333333333,
-    "contango": 0.6666666666666666,
-    "n": 33
+    "backwardation": 0.358974358974359,
+    "contango": 0.6410256410256411,
+    "n": 39
    },
    "2026": {
     "backwardation": 0.45,
@@ -413,71 +418,71 @@
   },
   "front_vs_spot": {
    "all": {
-    "backwardation": 0.4835164835164835,
-    "contango": 0.5164835164835165,
-    "n": 91
+    "backwardation": 0.4666666666666667,
+    "contango": 0.5333333333333333,
+    "n": 120
    }
   },
   "front_vs_spot_by_month": {
    "1": {
-    "backwardation": 0.6,
-    "contango": 0.4,
-    "n": 5
+    "backwardation": 0.7142857142857143,
+    "contango": 0.2857142857142857,
+    "n": 7
    },
    "10": {
-    "backwardation": 0.2727272727272727,
-    "contango": 0.7272727272727273,
-    "n": 11
-   },
-   "11": {
-    "backwardation": 0.75,
-    "contango": 0.25,
-    "n": 8
-   },
-   "12": {
-    "backwardation": 0.6666666666666666,
-    "contango": 0.3333333333333333,
-    "n": 6
-   },
-   "2": {
-    "backwardation": 0.5,
-    "contango": 0.5,
-    "n": 6
-   },
-   "3": {
-    "backwardation": 0.5,
-    "contango": 0.5,
+    "backwardation": 0.2,
+    "contango": 0.8,
     "n": 10
    },
-   "4": {
-    "backwardation": 0.75,
-    "contango": 0.25,
-    "n": 4
+   "11": {
+    "backwardation": 0.6666666666666666,
+    "contango": 0.3333333333333333,
+    "n": 9
    },
-   "5": {
+   "12": {
+    "backwardation": 0.625,
+    "contango": 0.375,
+    "n": 8
+   },
+   "2": {
     "backwardation": 0.42857142857142855,
     "contango": 0.5714285714285714,
     "n": 7
    },
-   "6": {
+   "3": {
+    "backwardation": 0.45454545454545453,
+    "contango": 0.5454545454545454,
+    "n": 11
+   },
+   "4": {
     "backwardation": 0.5,
     "contango": 0.5,
-    "n": 6
+    "n": 8
+   },
+   "5": {
+    "backwardation": 0.36363636363636365,
+    "contango": 0.6363636363636364,
+    "n": 11
+   },
+   "6": {
+    "backwardation": 0.46153846153846156,
+    "contango": 0.5384615384615384,
+    "n": 13
    },
    "7": {
-    "backwardation": 0.5714285714285714,
-    "contango": 0.42857142857142855,
-    "n": 7
+    "backwardation": 0.6363636363636364,
+    "contango": 0.36363636363636365,
+    "n": 11
    },
    "8": {
-    "backwardation": 0.2857142857142857,
-    "contango": 0.7142857142857143,
-    "n": 7
+    "backwardation": 0.3,
+    "contango": 0.7,
+    "n": 10
    },
    "9": {
-    "backwardation": 0.35714285714285715,
-    "contango": 0.6428571428571429,
-    "n": 14
+    "backwardation": 0.4,
+    "contango": 0.6,
+    "n": 15
    }
   },
   "front_vs_spot_by_year": {
@@ -491,90 +496,95 @@
     "contango": 1.0,
     "n": 1
    },
+   "2023": {
+    "backwardation": 0.6666666666666666,
+    "contango": 0.3333333333333333,
+    "n": 3
+   },
    "2024": {
-    "backwardation": 0.375,
-    "contango": 0.625,
-    "n": 16
+    "backwardation": 0.3888888888888889,
+    "contango": 0.6111111111111112,
+    "n": 36
    },
    "2025": {
-    "backwardation": 0.5757575757575758,
-    "contango": 0.42424242424242425,
-    "n": 33
+    "backwardation": 0.5526315789473685,
+    "contango": 0.4473684210526316,
+    "n": 38
    },
    "2026": {
-    "backwardation": 0.4358974358974359,
-    "contango": 0.5641025641025641,
-    "n": 39
+    "backwardation": 0.425,
+    "contango": 0.575,
+    "n": 40
    }
   },
   "month_spreads": {
    "all": {
-    "backwardation": 0.5,
-    "contango": 0.5,
-    "n": 286
+    "backwardation": 0.48787061994609165,
+    "contango": 0.5121293800539084,
+    "n": 371
    }
   },
   "quarter_spreads": {
    "all": {
-    "backwardation": 0.4430379746835443,
-    "contango": 0.5569620253164557,
-    "n": 158
+    "backwardation": 0.3776824034334764,
+    "contango": 0.6223175965665236,
+    "n": 233
    }
   }
  },
  "slope_by_spot": [
   {
    "contango_share": 1.0,
-   "mean_slope_pct": 1.3283,
-   "n": 4,
+   "mean_slope_pct": 1.3665,
+   "n": 5,
    "spot_from": 5000.0,
    "spot_to": 10000.0
   },
   {
-   "contango_share": 1.0,
-   "mean_slope_pct": 0.4326,
-   "n": 4,
+   "contango_share": 0.6667,
+   "mean_slope_pct": 0.2949,
+   "n": 6,
    "spot_from": 10000.0,
    "spot_to": 15000.0
   },
   {
-   "contango_share": 0.7273,
-   "mean_slope_pct": 0.0117,
-   "n": 11,
+   "contango_share": 0.6667,
+   "mean_slope_pct": 0.0527,
+   "n": 15,
    "spot_from": 15000.0,
    "spot_to": 20000.0
   },
   {
-   "contango_share": 0.3571,
-   "mean_slope_pct": -0.083,
-   "n": 14,
+   "contango_share": 0.5556,
+   "mean_slope_pct": -0.006,
+   "n": 27,
    "spot_from": 20000.0,
    "spot_to": 25000.0
   },
   {
-   "contango_share": 0.5238,
-   "mean_slope_pct": -0.0226,
-   "n": 21,
+   "contango_share": 0.5556,
+   "mean_slope_pct": -0.0225,
+   "n": 27,
    "spot_from": 25000.0,
    "spot_to": 30000.0
   },
   {
-   "contango_share": 0.375,
-   "mean_slope_pct": -0.1561,
-   "n": 8,
+   "contango_share": 0.2,
+   "mean_slope_pct": -0.2267,
+   "n": 10,
    "spot_from": 30000.0,
    "spot_to": 35000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.144,
-   "n": 10,
+   "mean_slope_pct": -0.1661,
+   "n": 13,
    "spot_from": 35000.0,
    "spot_to": 40000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.2216,
+   "mean_slope_pct": -0.2346,
    "n": 9,
    "spot_from": 40000.0,
    "spot_to": 45000.0
@@ -624,6 +634,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390023079811/f10k2023_etfmanag1.htm",
      "usd_t": 13.72
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "contango"
    ]
   },
   {
@@ -647,6 +661,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390023086962/f10q0923_etfmanagers1.htm",
      "usd_t": 15.05
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -670,6 +688,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024015372/f10q1223_amplifycommod.htm",
      "usd_t": 12.583
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -693,6 +715,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024045347/ea0205741-10q_amplify.htm",
      "usd_t": 13.47
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -716,6 +742,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024082617/ea0214601-10k_amplify.htm",
      "usd_t": 12.45
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -739,6 +769,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024098370/ea0220480-10q_amplify.htm",
      "usd_t": 14.918
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -762,6 +796,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025014137/ea0231107-10q_amplify.htm",
      "usd_t": 12.184
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -785,6 +823,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025043979/ea0241273-10q_amplify.htm",
      "usd_t": 12.433
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -808,6 +850,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025092470/ea0256815-10k_amplify.htm",
      "usd_t": 11.96
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -831,6 +877,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
      "usd_t": 16.047
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -854,6 +904,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026015020/ea0276065-10q_amplify.htm",
      "usd_t": 15.044
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -895,6 +949,13 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
      "usd_t": 26.816
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation",
+    "backwardation",
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -918,6 +979,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
      "usd_t": 41.392
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -941,6 +1006,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026119638/ea0310670-10q_amplify.htm",
      "usd_t": 179.132
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   }
  ],
@@ -960,6 +1029,144 @@
   {
    "basket_t": 180000,
    "date": "2022-07-11",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2023-09-28",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2023-12-11",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2023-12-18",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-03-11",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-03-25",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-04-08",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-04-15",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-04-22",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-04-29",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-05-06",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-05-13",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-05-20",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-05-27",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-06-03",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-06-10",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-06-17",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-06-24",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-07-01",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-07-08",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-07-15",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-07-29",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-08-05",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2024-08-12",
    "front_spread": "contango",
    "front_vs_spot": "contango"
   },
@@ -1067,6 +1274,18 @@
   },
   {
    "basket_t": 180000,
+   "date": "2025-01-13",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2025-01-20",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
    "date": "2025-01-27",
    "front_spread": "backwardation",
    "front_vs_spot": "contango"
@@ -1074,6 +1293,12 @@
   {
    "basket_t": 180000,
    "date": "2025-02-03",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2025-02-10",
    "front_spread": "contango",
    "front_vs_spot": "contango"
   },
@@ -1104,12 +1329,6 @@
   {
    "basket_t": 180000,
    "date": "2025-03-17",
-   "front_spread": "backwardation",
-   "front_vs_spot": "backwardation"
-  },
-  {
-   "basket_t": 180000,
-   "date": "2025-03-24",
    "front_spread": "backwardation",
    "front_vs_spot": "backwardation"
   },
@@ -1151,21 +1370,39 @@
   },
   {
    "basket_t": 180000,
+   "date": "2025-06-02",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
    "date": "2025-06-16",
    "front_spread": "backwardation",
    "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,
-   "date": "2025-07-14",
+   "date": "2025-06-23",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2025-06-30",
    "front_spread": "contango",
    "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,
-   "date": "2025-08-11",
-   "front_spread": null,
-   "front_vs_spot": null
+   "date": "2025-07-28",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2025-08-04",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,
@@ -1219,7 +1456,7 @@
    "basket_t": 180000,
    "date": "2025-10-20",
    "front_spread": "contango",
-   "front_vs_spot": "backwardation"
+   "front_vs_spot": null
   },
   {
    "basket_t": 180000,
@@ -1501,7 +1738,7 @@
    "basket_t": 182000,
    "date": "2026-11-08",
    "front_spread": "contango",
-   "front_vs_spot": null
+   "front_vs_spot": "contango"
   }
  ]
 }

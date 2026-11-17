@@ -222,6 +222,8 @@ def summarise(rows: list[dict[str, Any]], horizon: int) -> dict[str, Any] | None
         "cvar_unhedged_usd_day": stats.cvar(u),
         "cvar_hedged_usd_day": stats.cvar(h1),
         "block_weeks": block,
+        "curve_baskets": {str(b): sum(1 for r in sel if r["curve_basket_t"] == b) for b in (180000, 182000)},
+        "k_window_min_fixtures": MIN_WINDOW,
     }
     out["cvar_reduction_k1"] = (
         1.0 - out["cvar_hedged_usd_day"] / out["cvar_unhedged_usd_day"] if out["cvar_unhedged_usd_day"] > 0 else None

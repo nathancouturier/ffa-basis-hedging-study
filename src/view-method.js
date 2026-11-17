@@ -11,7 +11,7 @@ const NOTE_PDF = "FFA-Basis-Hedging-Study-Research-Note.pdf";
 const CITE_EDERINGTON = "Ederington, 1979, Journal of Finance";
 const RELATED = [
   { href: "https://nathancouturier.github.io/voyage-tce-model/", text: "Voyage TCE model", what: "The voyage engine this study vendors: C3 and C5 voyages costed into a time charter equivalent, and set against the 5TC curve on single dates." },
-  { href: "https://nathancouturier.github.io/baltic-freight-routes/", text: "Baltic freight routes", what: "A map of the Baltic Exchange's dry and tanker routes, C3, C5 and TD3C among them." },
+  { href: "https://nathancouturier.github.io/baltic-freight-routes/", text: "Baltic freight routes", what: "A map of the Baltic Exchange's freight routes." },
 ];
 const DOWNLOADS = [
   { file: "hedge_effectiveness.csv", what: "Hedge effectiveness by voyage and horizon: intervals, the out-of-sample ratio, standard deviations, tail risk and the residual split." },
@@ -89,7 +89,7 @@ function render(section, ctx) {
   further.append(noteItem);
   exists(NOTE_PDF).then((found) => {
     clear(noteItem);
-    if (found) noteItem.append(h("a", { href: NOTE_PDF }, "Research note (PDF)"), h("span", { class: "what" }, "The study in a few pages: question, data, conventions, results and limitations."));
+    if (found) noteItem.append(h("a", { href: NOTE_PDF }, "Research note (PDF)"), h("span", { class: "what" }, "The study as a short research note."));
     else noteItem.append(h("span", {}, "Research note (PDF)"), h("span", { class: "what" }, "Not in this build of the site; the pipeline writes it to the repository's root."));
   });
   for (const r of RELATED) further.append(h("li", {}, h("a", { href: r.href }, r.text), h("span", { class: "what" }, r.what)));
@@ -203,7 +203,7 @@ function render(section, ctx) {
       render(body) {
         body.append(defs([
           { term: "FFA curves", desc: `${num(cov.issues_read)} Banchero Costa issues read (${num(cov.ocr_issues)} by OCR), weekly curves from ${dateLong(cov.first_ffa_week)} to ${dateLong(cov.last_ffa_week)}: ${Object.entries(cov.ffa_weeks_by_year || {}).map(([y, n]) => `${y} ${n}`).join(", ")}.` },
-          { term: "Daily 5TC", desc: `${num(cov.daily_days)} days of prints; exact monthly settlements: ${num(cov.complete_months_180)} on the first basket, ${num(cov.complete_months_182)} on the second (complete or published).` },
+          { term: "Daily 5TC", desc: `${num(cov.daily_days)} days of prints; exact monthly settlements (complete or published): ${num(cov.exact_months_180)}, of which ${num(cov.exact_months_182)} on both baskets; complete from the study's own daily series: ${num(cov.complete_months_180)} (${cov.complete_months}).` },
           { term: "SEC marks", desc: `${num(cov.sec_quarter_ends_bdry)} BDRY and ${num(cov.sec_quarter_ends_bwet)} BWET quarter ends.` },
           { term: "TD3C", desc: `${num(cov.td3c_weekly)} weekly prints from ${dateLong(cov.td3c_weekly_first)} to ${dateLong(cov.td3c_weekly_last)}; ${num(cov.breakwave_reports)} Breakwave reports.` },
         ]));
@@ -325,8 +325,12 @@ function render(section, ctx) {
     render(body) {
       const list = Array.isArray(manifest.downloads) && manifest.downloads.length ? manifest.downloads.map((d) => ({ file: d.file, what: d.description || "" })) : DOWNLOADS;
       const ul = h("ul", { class: "link-list" });
-      for (const d of list) ul.append(h("li", {}, csvLink(d.file), h("span", { class: "what" }, d.what)));
-      body.append(ul, h("p", { class: "table-note" }, "Derived results only: no daily index series and no weekly FFA panel, as the data policy sets out."));
+      body.append(ul, h("p", { class: "table-note" }, "Derived results only: no daily index series and no weekly FFA panel, as the data policy sets out. A file this build has not written is not listed."));
+      Promise.all(list.map((d) => exists(`data/downloads/${d.file}`))).then((found) => {
+        list.forEach((d, i) => {
+          if (found[i]) ul.append(h("li", {}, csvLink(d.file), h("span", { class: "what" }, d.what)));
+        });
+      });
     },
   });
   const w = wire(ctx, "method", { sections, label: "Sections of this view" });

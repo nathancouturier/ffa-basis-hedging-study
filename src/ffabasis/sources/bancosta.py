@@ -59,6 +59,7 @@ CELL = r"(-?[\d,]+(?:\.\d+)?|-|n/a|N/A)"
 
 HEADER_RE = re.compile(r"Week\s+(\d{1,2})\s*/\s*(\d{4})\s*\(([^)]*)\)")
 DATE_PAIR_RE = re.compile(r"(\d{1,2})-([A-Z][a-z]{2})\s+(\d{1,2})-([A-Z][a-z]{2})")
+HEADER_DATES_RE = re.compile(r"Unit\s+\d{1,2}-[A-Z][a-z]{2}\s+\d{1,2}-[A-Z][a-z]{2}")
 SPOT_ROWS = {
     "bci_tc_avg": re.compile(
         r"^BCI\s*(?:182\s*)?TC\s*Average\s+usd/day\s+" + CELL + r"\s+" + CELL + r"(?:\s+([+-]?[\d.]+%))?", re.M
@@ -80,8 +81,51 @@ TENOR_RE = re.compile(
 )
 #: Unanchored and tolerant of OCR noise ("usdit", "481.3."): a hub name, its unit, then two figures.
 BUNKER_ROW_RE = re.compile(
-    r"(Ro\S{0,3}erdam|Fujairah|Singapore)\s+usd\S?t\s+(-?[\d,]+(?:\.\d+)?)\.?\s+(-?[\d,]+(?:\.\d+)?)", re.M
+    r"(Ro\S{0,3}erdam|Fujair\S{0,2}|Singapore)\s+usd\S?t\s+(-?[\d,]+(?:\.\d+)?)\.?\s+(-?[\d,]+(?:\.\d+)?)", re.M
 )
+
+#: Bumped whenever parsing changes, so the parse cache (keyed by file hash and this) is rebuilt.
+PARSER_VERSION = 3
+
+#: A month label whose first letter the page itself clips (week 30 of 2025 prints "ul-25", "\\ug-25"):
+#: the last two letters name the month uniquely.
+CLIPPED_MONTHS = {
+    m[1:].lower(): m for m in ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+}
+
+
+def normalize_ocr(text: str) -> str:
+    """Undo OCR's usual misreadings of these tables before the patterns read them.
+
+    Long dashes become hyphens; lone noise glyphs between cells ("=", "|", a "+" on its own) go; a dot after a figure goes
+    ("22,075."); a date without its hyphen gets it ("28Jul"); quarter labels read as "Qi25", "Q125" or, with
+    the page clipping the "Q", "126" and "12 26" become "Q1 25", "Q1 26", "Q2 26"; month labels with a clipped
+    first letter are restored from their last two letters. Every figure read this way still has to reproduce
+    its printed week-on-week change (ffabasis.panel), and the tenors have to come in calendar order.
+    """
+    text = text.replace("\u2014", "-").replace("\u2013", "-")
+    text = re.sub(r"-{2,}", "-", text)
+    text = re.sub(r"(?<=\s)[=|_~+\u00ab\u00bb]+(?=\s)", " ", text)
+    text = re.sub(r"(\d)\.(?=\s)", r"\1", text)
+    text = re.sub(r"\b(\d{1,2})([A-Z][a-z]{2})\b", r"\1-\2", text)
+    text = re.sub(r"\busd\S?day\b", "usd/day", text)
+    text = re.sub(r"(?m)^Q[iIl|!]\s?(\d{2})(?=\s+usd/day)", r"Q1 \1", text)
+    text = re.sub(r"(?m)^(?:Q|\S)?([1-4])\s?(\d{2})(?=\s+usd/day)", r"Q\1 \2", text)
+
+    def month(match: re.Match[str]) -> str:
+        name = CLIPPED_MONTHS.get(match.group(1).lower())
+        return f"{name}-{match.group(2)}" if name else match.group(0)
+
+    return re.sub(r"(?m)^\S?([A-Za-z]{2})-(\d{2})(?=\s+usd/day)", month, text)
+
+
+def in_calendar_order(tenors: list[dict[str, Any]]) -> bool:
+    """Months, then quarters, each strictly later than the one before, as the page prints them."""
+    for kind in ("month", "quarter", "calendar"):
+        periods = [t["period"] for t in tenors if t["kind"] == kind]
+        if periods != sorted(set(periods)):
+            return False
+    return True
 
 
 def number(text: str | None) -> float | None:
@@ -150,6 +194,12 @@ def _date_pair(line: str, near: dt.date) -> tuple[str, str]:
     return first.isoformat(), second.isoformat()
 
 
+def _header_dates(block: str, near: dt.date) -> tuple[str, str]:
+    """The table's two column dates: the first "Unit dd-Mon dd-Mon" in it (on the name's line or the next)."""
+    found = HEADER_DATES_RE.search(block)
+    return _date_pair(found.group(0) if found else block.splitlines()[0], near)
+
+
 def _block(text: str, start_pattern: str, end_patterns: tuple[str, ...]) -> str | None:
     start = re.search(start_pattern, text)
     if not start:
@@ -167,7 +217,7 @@ def parse_spot(text: str, near: dt.date) -> dict[str, Any] | None:
     block = _block(text, r"CAPESIZE\s+Unit\s+\d{1,2}-[A-Z][a-z]{2}", (r"\n1-YR TC|Newcastlemax|PANAMAX",))
     if block is None or "BCI" not in block:
         return None
-    current, previous = _date_pair(block.splitlines()[0], near)
+    current, previous = _header_dates(block, near)
     labelled_182 = re.search(r"BCI\s*182\s*TC\s*Average", block) is not None
     out: dict[str, Any] = {
         "assessed_on": current,
@@ -215,10 +265,18 @@ def parse_ffa(text: str, near: dt.date) -> dict[str, Any] | None:
 
 
 def parse_bunkers(text: str, near: dt.date) -> dict[str, Any] | None:
-    block = _block(text, r"BUNKER[^\n]*?Unit\s+\d{1,2}-[A-Z][a-z]{2}", (r"OIL\s*&\s*GAS\s+Unit",))
+    start = re.search(r"BUNKERS?\b[^\n]*?Unit\s+\d{1,2}-[A-Z][a-z]{2}", text) or re.search(r"BUNKERS?\b", text)
+    if not start:
+        return None
+    # The header's dates follow the name, or, where OCR moved them, stand on the line just before it.
+    before = text.rfind("\n", 0, max(0, text.rfind("\n", 0, start.start())))
+    dates = HEADER_DATES_RE.search(text, max(0, before), start.end() + 200)
+    if not dates:
+        return None
+    block = _block(text[start.start() :], r"BUNKERS?\b", (r"OIL\s*&\s*GAS\s+Unit",))
     if block is None:
         return None
-    current, previous = _date_pair(block.splitlines()[0], near)
+    current, previous = _date_pair(dates.group(0), near)
     rows = [(m.group(1), number(m.group(2)), number(m.group(3))) for m in BUNKER_ROW_RE.finditer(block)]
     hubs = ("rotterdam", "fujairah", "singapore")
     grades = ("ifo380", "vlsfo", "lsmgo", "spread")
@@ -265,19 +323,26 @@ def parse_issue(path: Path) -> dict[str, Any]:
     header = parse_header(texts[0])
     near = anchor_day(header["year"], header["week"], header["range_text"])
     issue: dict[str, Any] = dict(header, near=near.isoformat(), pages=len(texts), spot=None, ffa=None, bunkers=None)
+    readers = (
+        ("spot", lambda text: re.search(r"BCI\s*(?:182\s*)?TC\s*Average", text), parse_spot),
+        ("ffa", lambda text: "FFA" in text.upper() and "ASSESSMENTS" in text.upper(), parse_ffa),
+        (
+            "bunkers",
+            lambda text: re.search(r"BUNKERS?\b[^\n]*\n?[^\n]*?Unit\s+\d{1,2}-[A-Z][a-z]{2}", text),
+            parse_bunkers,
+        ),
+    )
     for index, text in enumerate(texts):
-        if issue["spot"] is None and re.search(r"BCI\s*(?:182\s*)?TC\s*Average", text):
-            issue["spot"] = parse_spot(text, near)
-            if issue["spot"] is not None:
-                issue["spot"]["page"] = index + 1
-        if issue["ffa"] is None and "FFA" in text.upper() and "ASSESSMENTS" in text.upper():
-            issue["ffa"] = parse_ffa(text, near)
-            if issue["ffa"] is not None:
-                issue["ffa"]["page"] = index + 1
-        if issue["bunkers"] is None and re.search(r"BUNKER[^\n]*?Unit\s+\d{1,2}-[A-Z][a-z]{2}", text):
-            issue["bunkers"] = parse_bunkers(text, near)
-            if issue["bunkers"] is not None:
-                issue["bunkers"]["page"] = index + 1
+        for key, wanted, reader in readers:
+            if issue[key] is not None or not wanted(text):
+                continue
+            try:
+                issue[key] = reader(text, near)
+            except ValueError as error:  # one table that cannot be read never loses the others
+                issue.setdefault("errors", []).append(f"{key}, page {index + 1}: {error}")
+                continue
+            if issue[key] is not None:
+                issue[key]["page"] = index + 1
     if any(issue[k] is None for k in ("spot", "ffa", "bunkers")):
         _ocr_fallback(path, texts, near, issue)
     return issue
@@ -294,17 +359,19 @@ def _ocr_fallback(path: Path, texts: list[str], near: dt.date, issue: dict[str, 
     if issue["ffa"] is None:
         for index, text in enumerate(texts):
             if "FFA ASSESSMENTS" in text.upper():
-                body = ocr.page_text(path, index, right=0.6)
-                parsed = parse_ffa("DRY BULK FFA ASSESSMENTS\n" + body, near)
-                if parsed is not None:
-                    parsed.update(page=index + 1, method="ocr")
-                    issue["ffa"] = parsed
-                    issue["ocr"].append("ffa")
+                for margin in (0, 48):
+                    body = normalize_ocr(ocr.page_text(path, index, right=0.6, margin=margin))
+                    parsed = parse_ffa("DRY BULK FFA ASSESSMENTS\n" + body, near)
+                    if parsed is not None and in_calendar_order(parsed["tenors"]):
+                        parsed.update(page=index + 1, method="ocr")
+                        issue["ffa"] = parsed
+                        issue["ocr"].append("ffa")
+                        break
                 break
     if issue["spot"] is None:
         for index, text in enumerate(texts[:9]):
             if "CAPESIZE" in text.upper() and index >= 2:
-                body = ocr.page_text(path, index, right=0.62, top=0.4)
+                body = normalize_ocr(ocr.page_text(path, index, right=0.62, top=0.4))
                 parsed = parse_spot(body, near)
                 if parsed is not None:
                     # An OCR row is kept only when it reproduces its own week-on-week change.
@@ -318,7 +385,7 @@ def _ocr_fallback(path: Path, texts: list[str], near: dt.date, issue: dict[str, 
     if issue["bunkers"] is None:
         for index, text in enumerate(texts):
             if "COMMODITY PRICES" in text.upper():
-                body = ocr.page_text(path, index, right=0.62, bottom=0.55)
+                body = normalize_ocr(ocr.page_text(path, index, right=0.62, bottom=0.55))
                 parsed = parse_bunkers(body, near)
                 if parsed is not None:
                     parsed.update(page=index + 1, method="ocr")

@@ -9,7 +9,7 @@ import { configure, month_days, hedge_lots, strip_price, outcome, td3c_outcome, 
 import { h, clear, takeaway, setTakeaway, table, note, defs, segmented, nextId } from "./dom.js";
 import { lineChart, waterfallChart, monthMid, empty } from "./charts.js";
 import { num, numTrim, pct, signedPct, signed, usdDay, usdT, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, monthShort, tenorLabel, plural, listJoin, isNum, capitalise, horizonLabel, daysBetween, tonnes } from "./format.js";
-import { wire, openIds, csvLink, basketForWindow } from "./view-kit.js";
+import { wire, openIds, downloadLine, basketForWindow, retrievedOf } from "./view-kit.js";
 
 const LAB = Object.freeze({
   scenarios: [-0.5, -0.25, 0, 0.25, 0.5],
@@ -39,7 +39,7 @@ function sameDayNextMonth(iso) {
 }
 
 function render(section, ctx) {
-  const { lab, engine, overview } = ctx.data;
+  const { lab, engine, overview, manifest } = ctx.data;
   configure(engine.constants);
   const C = engine.constants;
   const curve = lab.curve;
@@ -404,7 +404,6 @@ function render(section, ctx) {
     const xs = pts.map((p) => monthMid(p.month));
     const pad = (Math.max(...xs) - Math.min(...xs)) / Math.max(2, pts.length) || 1;
     lineChart(paperChart, {
-      level: 3,
       title: m.ok ? `F0, the strip price, is ${usdDay(m.f0)}` : "The months to hedge",
       subtitle: "Price of each month of the voyage, USD a day; F0 weights them by the voyage's days in each.",
       legend: [
@@ -418,7 +417,7 @@ function render(section, ctx) {
       series,
       refs: m.ok ? [{ y: m.f0, label: `F0 ${num(m.f0)}` }] : [],
       summary: `${m.priced.map((p) => `${monthShort(p.month)} ${isNum(p.value) ? num(p.value) : "no price"} (${p.source === "user" ? "your figure" : p.source === "quarter" ? "quarter proxy" : p.source === "month" ? "printed" : "missing"})`).join(", ")}${m.ok ? `; F0 ${num(m.f0)} USD a day` : ""}.`,
-      source: `Source: ${curve.source}, ${dateLong(curve.date)}.`,
+      source: `Source: ${curve.source}, ${dateLong(curve.date)}, ${retrievedOf(manifest, "Banchero")}.`,
     });
   }
 
@@ -468,7 +467,7 @@ function render(section, ctx) {
       return `${who} hedging a TD3C cargo loading in ${monthLong(state.start.slice(0, 7))} at the ${dateLong(strip.as_of)} marks locks ${usdT(m.f0)}, ${usdBig(Math.abs(m.base.locked_usd))} for ${tonnes(state.tonnes)}.`;
     }
     const b = bandsFor(state.voyage, horizon());
-    let s = `${who} hedging a ${v.label} voyage from ${dateLong(state.start)} locks ${usdDay(m.f0)}`;
+    let s = `${who} hedging a ${v.label} voyage from ${dateLong(state.start)} locks ${usdDay(m.f0)} (${num(curve.basket_t)} t basket)`;
     if (b) s += `; past ${v.label} hedges placed ${horizonLabel(horizon())} ahead ended ${signed(b.p05)} to ${signed(b.p95)} USD a day from what they locked (5th to 95th percentile).`;
     else s += ".";
     return s;
@@ -505,7 +504,7 @@ function render(section, ctx) {
     const unitDay = isTd3c() ? usdT(m.f0) : usdDay(m.f0);
     const keep = isTd3c() ? null : 1 - commission / C.PERCENT;
     const items = [
-      { label: isTd3c() ? "F0, the loading month's price" : "F0, the day-weighted strip (gross)", value: unitDay },
+      { label: isTd3c() ? "F0, the loading month's price" : `F0, the day-weighted strip (gross, ${num(curve.basket_t)} t basket)`, value: unitDay },
       { label: isTd3c() ? `Locked for ${tonnes(state.tonnes)}` : `Locked over ${num(state.days, 3)} days, net of ${numTrim(commission)} percent commission`, value: usdBig(Math.abs(m.base.locked_usd)) },
       { label: isTd3c() ? "Paper" : "Paper, one day a lot", value: isTd3c() ? `${state.role === "owner" ? "Sell" : "Buy"} ${num(m.base.lots, 0)} lots` : `${state.role === "owner" ? "Sell" : "Buy"} ${num(m.base.size_days, 2)} days` },
     ];
@@ -579,7 +578,7 @@ function render(section, ctx) {
       vlines,
       mode: "x",
       summary: `F0 ${fmtS(m.f0)}. ${LAB.scenarios.map((x) => { const sv = m.f0 * (1 + x); const o = m.at(sv); return `At ${x === 0 ? "F0" : signedPct(x, 0)} (${fmtS(sv)}): paper ${signedUsdBig(o.paper_usd)}, total ${signedUsdBig(o.total_usd)}`; }).join("; ")}.${b ? ` With the historical basis (${state.voyage}, ${horizonLabel(horizon())}), the total at F0 runs from ${signedUsdBig(m.at(m.f0, b.p05).total_usd)} to ${signedUsdBig(m.at(m.f0, b.p95).total_usd)} (5th to 95th percentile).` : ""}`,
-      source: isTd3c() ? `Source: engine.js td3c_outcome on BWET's marks of ${dateLong(strip.as_of)}.` : `Source: engine.js outcome on ${curve.source}, ${dateLong(curve.date)}${b ? "; basis bands from lab.json (the study's hedge outcomes)" : ""}.`,
+      source: isTd3c() ? `Source: engine.js td3c_outcome on BWET's marks of ${dateLong(strip.as_of)} (SEC EDGAR, ${retrievedOf(manifest, "SEC")}).` : `Source: engine.js outcome on ${curve.source}, ${dateLong(curve.date)} (${retrievedOf(manifest, "Banchero")})${b ? "; basis bands from lab.json (the study's hedge outcomes)" : ""}.`,
     });
   }
 
@@ -680,7 +679,7 @@ function render(section, ctx) {
         columns: [
           { label: "Show", format: (r) => { const i = rows.indexOf(r); const btn = h("button", { type: "button", class: "btn", "aria-pressed": String(i === state.historyIdx) }, dateShort(r.fixture)); btn.addEventListener("click", () => { state.historyIdx = i; drawTable(); drawWaterfall(); }); return btn; } },
           { label: "Hedged on", format: (r) => dateShort(r.hedged_on) },
-          { label: "Months", format: (r) => h("span", {}, r.months.map((mm, i) => h("span", { class: "nowrap" }, `${tenorLabel(mm)}${i < r.months.length - 1 ? "," : ""}`)).flatMap((n, i) => (i ? [" ", n] : [n]))) },
+          { label: "Months", format: (r) => h("span", { class: "wrap-ok" }, r.months.map((mm, i) => h("span", { class: "nowrap" }, `${tenorLabel(mm)}${i < r.months.length - 1 ? "," : ""}`)).flatMap((n, i) => (i ? [" ", n] : [n]))) },
           { label: "Unhedged surprise", num: true, format: (r) => signed(sign * r.unhedged_usd_day) },
           { label: "Paper", num: true, format: (r) => signed(-sign * r.paper_move_usd_day) },
           { label: "Residual", num: true, format: (r) => signed(sign * r.residual_usd_day) },
@@ -720,7 +719,7 @@ function render(section, ctx) {
         steps,
         x: { title: "USD a day", format: (v) => signed(v) },
         summary: `The voyage came in ${signed(sign * r.unhedged_usd_day)} USD a day against F0, the paper added ${signed(-sign * r.paper_move_usd_day)}, leaving ${signed(sign * r.residual_usd_day)}: timing ${signed(sign * r.timing_usd_day)}, route ${signed(sign * r.route_usd_day)}, size ${signed(sign * r.size_usd_day)}.`,
-        source: "Source: lab.json history (the study's hedge outcomes; surprises and basis parts, no levels).",
+        source: `Source: lab.json history (the study's hedge outcomes; surprises and basis parts, no levels), from data ${retrievedOf(manifest, "Banchero")}.`,
       });
     }
     drawTable();
@@ -788,7 +787,7 @@ function render(section, ctx) {
             ],
             rows: curve?.tenors || [],
           }));
-          body.append(h("p", {}, "Download: ", csvLink("hedge_outcomes.csv"), " (every historical setup)."));
+          body.append(downloadLine([{ file: "hedge_outcomes.csv", what: "every historical setup" }]));
         },
       },
     ],
@@ -843,6 +842,6 @@ function render(section, ctx) {
 export default {
   id: "lab",
   name: "Hedge lab",
-  needs: ["lab", "engine", "overview"],
+  needs: ["lab", "engine", "overview", "manifest"],
   render,
 };

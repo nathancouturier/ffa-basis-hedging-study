@@ -4,7 +4,7 @@
 import { h, takeaway, table, note, defs } from "./dom.js";
 import { stripChart, hbarChart, empty } from "./charts.js";
 import { pct, shareOf, num, signed, signedPct, usdDay, dateLong, dateShort, monthLong, monthShort, plural, listJoin, isNum, capitalise, horizonLabel, signedUsdBig } from "./format.js";
-import { wire, sourceLine, csvLink, basketRule } from "./view-kit.js";
+import { wire, sourceLine, downloadLine, basketRule } from "./view-kit.js";
 
 function horizonName(hm) {
   return typeof hm === "number" ? (hm === 1 ? "1 month" : `${hm} months`) : capitalise(String(hm));
@@ -43,6 +43,13 @@ function basketCounts(errors) {
   for (const e of errors) if (isNum(e.basket_t)) counts.set(e.basket_t, (counts.get(e.basket_t) || 0) + 1);
   const parts = [...counts.entries()].sort((x, y) => x[0] - y[0]).map(([t, n]) => `${plural(n, "error", "errors")} on the ${num(t)} t basket`);
   return parts.length ? listJoin(parts) : "";
+}
+
+function signNote(rows) {
+  const pos = rows.filter((r) => r.roll_cost_usd_day > 0).length;
+  const neg = rows.filter((r) => r.roll_cost_usd_day < 0).length;
+  if (pos && neg) return `the long paid in ${plural(pos, "strategy-year", "strategy-years")} and earned in ${plural(neg, "strategy-year", "strategy-years")}`;
+  return `the sign is the same in all ${plural(rows.length, "strategy-year", "strategy-years")} so far, on samples this small`;
 }
 
 function render(section, ctx) {
@@ -86,7 +93,7 @@ function render(section, ctx) {
     const title = `Mean error ${listJoin(bias.map((b) => signed(b.mean_usd_day)))} USD a day at ${listJoin(bias.map((b) => String(b.horizon_months)))} months${ratios.length ? `; the FFA's RMSE was ${listJoin(ratios.map((b) => num(b.rmse_ratio_ffa_to_naive, 2)))} of spot's as a forecast${allBetter ? ", better at every horizon" : ""}` : ""}`;
     stripChart(key, {
       title,
-      subtitle: "Error = settlement minus the FFA price paid that many months before expiry, USD a day, one dot per contract month; the black bar is the mean with its 90 percent interval (moving block bootstrap). Positive: the contract settled above its price.",
+      subtitle: `Error = settlement minus the FFA price paid that many months before expiry, USD a day, one dot per contract month; the black bar is the mean with its 90 percent interval (moving block bootstrap). Positive: the contract settled above its price. Each contract on the basket its curve was printed on: ${basketCounts(errors) || "as printed"}.`,
       legend: [
         { label: "Settled on the study's complete daily series", cls: "ffa", kind: "dot" },
         { label: "Settled at Himalaya Shipping's published average", cls: "ffa", kind: "hollow" },
@@ -138,7 +145,7 @@ function render(section, ctx) {
         body.append(box);
         hbarChart(box, {
           title: parts.length ? `A charterer rolling one-month longs ${parts.join(" and ")}` : "Roll cost by year",
-          subtitle: "Roll cost = price paid minus settlement, averaged over the year's contracts, USD a day. The percent of settlement, the cost per ship-year and the number of contracts are in each bar's details and in the Data section.",
+          subtitle: `Roll cost = price paid minus settlement, averaged over the year's contracts, USD a day, each contract on the basket its curve was printed on (${basketCounts(errors.filter((e) => e.horizon_months === 1)) || "as printed"} at one month). The percent of settlement, the cost per ship-year and the number of contracts are in the table below.`,
           legend: [
             { label: "The long (charterer) pays, the short (owner) earns", cls: "charterer", kind: "rect" },
             { label: "The short (owner) pays, the long (charterer) earns", cls: "owner", kind: "rect" },
@@ -149,10 +156,26 @@ function render(section, ctx) {
           summary: [...(roll.roll_1m || []).map((r) => ["Rolling one-month long", r]), ...(roll.roll_quarter || []).map((r) => ["Rolling front-quarter long", r])].map(([g, r]) => `${g}, ${r.year}: ${signed(r.roll_cost_usd_day)} USD a day (${signedPct(r.roll_cost_pct)} of settlement, ${plural(r.n, "contract", "contracts")})`).join("; ") + ". A positive cost is paid by the rolling long and earned by the short.",
           source: sourceLine(roll, "Banchero Costa weekly FFA assessments; monthly 5TC settlements."),
         });
+        const costRows = [...(roll.roll_1m || []).map((r) => ({ ...r, strategy: "Rolling one-month long" })), ...(roll.roll_quarter || []).map((r) => ({ ...r, strategy: "Rolling front-quarter long" }))];
+        body.append(table({
+          caption: "Roll cost by year",
+          columns: [
+            { label: "Strategy", format: (r) => r.strategy },
+            { label: "Year", format: (r) => String(r.year) },
+            { label: "Contracts", num: true, format: (r) => num(r.n) },
+            { label: "USD a day", num: true, format: (r) => signed(r.roll_cost_usd_day) },
+            { label: "% of settlement", num: true, format: (r) => signedPct(r.roll_cost_pct) },
+            { label: "USD a ship-year", num: true, format: (r) => signed(r.ship_year_usd) },
+            { label: "Who pays", format: (r) => (r.roll_cost_usd_day > 0 ? "Charterer (long)" : r.roll_cost_usd_day < 0 ? "Owner (short)" : "Neither") },
+            { label: "Settlements", format: (r) => (r.statuses?.length ? listJoin(r.statuses) : "") },
+          ],
+          rows: costRows,
+          note: "A ship-year is the daily cost over a year of days.",
+        }));
         body.append(h("div", { class: "prose" },
           h("h3", {}, "Who pays the roll"),
           h("p", {}, "Error is the settlement minus the price paid. A hedger who buys the contract ahead of expiry, holds it to settlement and repeats (a charterer covering future hire) pays the roll cost when the curve sat above where the months settled; the owner who sells the same paper earns it. When the curve sat below the settlement, the long earns and the short pays."),
-          h("p", {}, "Roll cost is the price paid minus the settlement, so a positive figure is a cost to the long. A ship-year is that cost a day over a year of days. These are costs and premiums a hedger faces, not returns to chase: the sign changes from year to year, and the intervals in the key chart show how wide the uncertainty is.")));
+          h("p", {}, `Roll cost is the price paid minus the settlement, so a positive figure is a cost to the long. A ship-year is that cost a day over a year of days. These are costs and premiums a hedger faces, not returns to chase: ${signNote(costRows)}, and the intervals in the key chart show how wide the uncertainty is.`)));
       },
     },
     {
@@ -249,7 +272,7 @@ function render(section, ctx) {
             rows: settlements,
             note: "Complete: every London publication day in the study's own daily series. Published: the month's average as Himalaya Shipping published it (SEC 6-K). Estimated: the average of the days observed, labelled with that coverage, never used as a settlement in the headline.",
           }));
-          body.append(h("p", {}, "Download: ", csvLink("forecast_errors.csv"), ", ", csvLink("roll_cost_by_year.csv"), ", ", csvLink("monthly_settlements_5tc.csv"), "."));
+          body.append(downloadLine([{ file: "forecast_errors.csv" }, { file: "roll_cost_by_year.csv" }, { file: "monthly_settlements_5tc.csv" }]));
         },
       },
     ],

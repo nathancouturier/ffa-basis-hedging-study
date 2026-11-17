@@ -49,6 +49,17 @@ POLICY = [
 ]
 
 
+def rounded(value):
+    """Floats to four decimals, as the overview stores its shares, so every view shows the same digits."""
+    if isinstance(value, float):
+        return round(value, 4)
+    if isinstance(value, dict):
+        return {k: rounded(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [rounded(v) for v in value]
+    return value
+
+
 def audit_block(method: dict, panel: dict) -> str:
     """The coverage and quality tables of data/AUDIT.md, rewritten on every build."""
     c = method["coverage"]
@@ -72,8 +83,11 @@ def audit_block(method: dict, panel: dict) -> str:
         f"| FFA curves by year | {years} |",
         f"| Banchero Costa issues read | {c['issues_read']} ({c['ocr_issues']} with at least one table read by OCR) |",
         f"| Monthly settlements by year | {status} |",
-        f"| Exact settlement months (complete or published), 180,000 t | {c['complete_months_180']} |",
-        f"| Of which on both baskets (2026) | {c['complete_months_182']} |",
+        f"| Complete settlement months (the study's own average of every publication day) | "
+        f"{c['complete_months_180']} on the 180,000 t basket ({c['complete_months']}); {c['complete_months_182']} "
+        "of them also on the 182,000 t basket |",
+        f"| Published settlement months (Himalaya Shipping, SEC) | {c['published_months']} |",
+        f"| Exact settlement months (complete or published), 180,000 t | {c['exact_months_180']} |",
         f"| Days in the pooled daily 5TC | {c['daily_days']} |",
         f"| Hedge observations (voyage, horizon, fixtures) | {hedge} |",
         f"| TD3C weekly prints | {c['td3c_weekly']} ({c['td3c_weekly_first']} to {c['td3c_weekly_last']}) |",
@@ -87,6 +101,20 @@ def audit_block(method: dict, panel: dict) -> str:
         f"- SEC comparisons within three days of a quarter end: {len(sec)}, of which {sum(r['flag'] for r in sec)} "
         "differ by more than 10 percent (listed in data/method.json, qc).",
         f"- One-week moves flagged: {sum(1 for cv in panel['curves'].values() for f in cv.get('flags', []) if f['rule'] == 'one_week_move')}.",
+        "- Repeated pages (an issue reprinting the previous assessment under new dates), not used: "
+        + (
+            ", ".join(
+                f"{f['issue']} (dated {d}, same figures as {f['same_as']})"
+                for d, cv in sorted(panel["curves"].items())
+                for f in cv.get("flags", [])
+                if f["rule"] == "repeated_page"
+            )
+            or "none"
+        )
+        + ".",
+        "- Breakwave reports whose side panel repeats the previous report's figures, not used: "
+        + (", ".join(u.rsplit("/", 1)[-1] for u in panel.get("breakwave_repeats", [])) or "none")
+        + ".",
         "<!-- coverage:end -->",
     ]
     return "\n".join(lines)
@@ -111,11 +139,12 @@ def main() -> int:
         "conventions": content.conventions(),
         "formulas": content.formulas(),
         "validation": content.validation(panel, res),
-        "coverage": content.coverage(panel, res),
+        "coverage": (cov := content.coverage(panel, res)),
+        "limitations": content.limitations(cov, res),
         "policy": POLICY,
-        "robustness": res["robustness"],
-        "hedge_by_year": res["hedge_by_year"],
-        "ederington": res["ederington"],
+        "robustness": rounded(res["robustness"]),
+        "hedge_by_year": rounded(res["hedge_by_year"]),
+        "ederington": rounded(res["ederington"]),
         "qc": {
             "sec_check": panel["sec_check"],
             "flags": [

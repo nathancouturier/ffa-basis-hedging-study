@@ -3,6 +3,7 @@
 
 import { basket_of } from "./engine.js";
 import { h, disclosures, panelSwitch } from "./dom.js";
+import { exists } from "./data.js";
 import { num, dateLong, dateShort, addDays, plural, tenorLabel } from "./format.js";
 
 /** The 5TC basket rule from data/engine.json, with the basket sizes produced by engine.js. */
@@ -32,6 +33,12 @@ export function sourceLine(artifact, fallback) {
 export function retrievedTo(manifest) {
   const last = (manifest?.sources || []).map((s) => s.last_retrieved).filter(Boolean).sort().pop();
   return last ? `Retrieved to ${last.slice(0, 10)}.` : "";
+}
+
+/** "retrieved 17 November 2026" for the manifest source whose name contains `needle`. */
+export function retrievedOf(manifest, needle) {
+  const src = (manifest?.sources || []).find((x) => x.source.includes(needle));
+  return src?.last_retrieved ? `retrieved ${dateLong(src.last_retrieved.slice(0, 10))}` : retrievedTo(manifest).replace(/\.$/, "").toLowerCase();
 }
 
 export function openIds(params) {
@@ -64,6 +71,25 @@ export function sectionHead(text) {
 
 export function csvLink(file, text) {
   return h("a", { href: `data/downloads/${file}` }, text || file);
+}
+
+/**
+ * "Download: a.csv, b.csv." listing only the files that exist in this build (a HEAD request each), so a
+ * file the pipeline has not written never shows as a dead link. items: [{ file, what? }]
+ */
+export function downloadLine(items) {
+  const el = h("p", { hidden: true }, "Download: ");
+  Promise.all(items.map((it) => exists(`data/downloads/${it.file}`))).then((found) => {
+    const present = items.filter((_, i) => found[i]);
+    present.forEach((it, i) => {
+      if (i) el.append(", ");
+      el.append(csvLink(it.file));
+      if (it.what) el.append(` (${it.what})`);
+    });
+    el.append(".");
+    el.hidden = present.length === 0;
+  });
+  return el;
 }
 
 /** A short text summary of the quarter-end strips and the spot prints; the full list is in the Data table. */

@@ -118,7 +118,7 @@ text 4.5:1. Data colours never colour text; legends and labels stay in the ink t
 | Spot (Baltic 5TC, TD3C assessment) | `--c-spot` | `#3d4147` | 9.49:1 | `#c3c6cb` | 10.68:1 | 3:1 | Graphite: the physical index is the reference every paper price is measured against, so it reads like ink, neutral and steady. TD3C, a spot assessment, wears it too. |
 | FFA (curve, SEC marks, paper leg) | `--c-ffa` | `#2466c3` | 5.16:1 | `#5992e7` | 5.83:1 | 3:1 | Blue, the one saturated cool hue beside graphite: forward prices, quarter-end marks and the paper leg of a hedge are the same instrument everywhere. |
 | Contango | `--c-contango` | `#03856a` | 4.25:1 | `#23aa8a` | 6.26:1 | 3:1 | Cool teal pole of the curve-shape pair: forward above spot, a market paying to wait. |
-| Backwardation | `--c-backwardation` | `#c14802` | 4.63:1 | `#df6938` | 5.41:1 | 3:1 | Warm vermilion pole: forward below spot, prompt tightness. Opposite temperature to contango so the polarity reads without a legend; neutral grey for weeks with no curve. |
+| Backwardation | `--c-backwardation` | `#c14802` | 4.63:1 | `#df6938` | 5.41:1 | 3:1 | Warm vermilion pole: forward below spot, prompt tightness. Opposite temperature to contango so the polarity reads without a legend. |
 | Owner (short FFA) | `--c-owner` | `#9575bc` | 3.50:1 | `#854ebd` | 3.33:1 | 3:1 | Violet, lightness-stepped away from the FFA blue it shares the lab chart with (deuteranopia Delta E above 8). |
 | Charterer (long FFA) | `--c-charterer` | `#ae7c02` | 3.42:1 | `#bc7d19` | 5.30:1 | 3:1 | Ochre, the far side of the wheel from violet: the two sides of one trade, never good or bad. Also marks the years when the rolling long paid the roll. |
 | Timing basis | `--c-timing` | `#ac3273` | 5.62:1 | `#d5679c` | 5.44:1 | 3:1 | Rose: the largest residual part, given the strongest of the three basis hues. |
@@ -141,18 +141,47 @@ Styles that are not colours:
   it and says the study uses the first print.
 - Quarter tenors: a horizontal bar across the quarter's three months, so a quarter never looks like a month.
 - Quarter proxy in the lab: a hollow blue marker and the tag "quarter proxy".
-- Assumed inputs ("Your figure", the visitor's settlement): ink, dashed, hollow square markers.
+- Assumed inputs ("Your figure", the visitor's settlement): ink, dashed, hollow square markers. Dashes
+  mean "input" and nothing else on the site; computed reference lines (F0, the locked level) are solid.
 - Thin-market TD3C weeks: hollow markers on the TD3C line and a hatched band behind the week.
+- A week with a curve but no measurable shape, and an estimated settlement month: an outline in `--axis`
+  (3.19:1 light, 3.67:1 dark), so the mark clears 3:1 and reads as "not exact". A week with no curve is
+  an empty hairline cell, recessive on purpose: it is the absence of data.
+- Settlement status in the Method view is ordinal: complete in `--c-spot` (strongest), published in
+  `--axis`, estimated as the outline above.
+- Bars carry a 4px rounded data end and a square base; stacked segments are separated by a 2px gap in
+  the page colour; markers carry a 2px ring in the page colour.
 
 ## Judgement calls
 
 - **Views and panels.** The brief lists more charts per view than fit above the fold. Each view shows the
-  key chart; the others sit behind panel buttons in the same view (Curve: weekly shape, by year and
+  key chart; the others sit behind panel buttons in the same view (Curve: contango by week, by year and
   month, slope against spot, TD3C strips; Bias and roll: roll cost by year, error statistics; TD3C:
-  forward marks, case studies). This keeps one chart in view at a time without hiding anything.
+  forward marks, case studies). One secondary chart shows at a time, chosen in the hash (`panel=`).
 - **Curve view default date.** The key chart opens on the latest cited curve that carries a same-day
-  spot, because "tenors against the same day's spot" is the chart's point; the latest curve (no spot in
-  the artifact) is one click away.
+  spot, because "tenors against the same day's spot" is the chart's point; any other cited date is one
+  click away and kept in the hash (`date=`).
+- **Long tables.** Data tables over about 16 rows show their first rows and a "Show all" button (a
+  second level of disclosure inside the Data section). Numeric tables keep each cell on one line and
+  scroll sideways inside their own box on phones; text tables (conventions, policy, validation) wrap.
+- **Narrow charts.** Below 640px the calendar strip turns its years into columns, the waterfall puts each
+  label above its bar, and value axes keep every gridline but label only what fits (zero always).
+  Labels are measured in a hidden SVG with the page's own CSS, tabular figures included.
+- **Takeaways and titles are composed, never typed.** Each sentence is built from artifact values with
+  simple comparisons (the largest and smallest cell, the share above or below, the sign of a mean, an
+  interval that spans zero). When a value is missing the sentence says the data is not in this build.
+- **Shares of n.** The artifacts round shares to four decimals; where n is given the site prints
+  count / n (47 of 91 is 51.6%, while 0.5165 would print 51.7%).
+- **Lab state in the hash.** Role, voyage and start date are kept in the hash (`role=`, `voyage=`,
+  `start=`), with the open steps, so a sized hedge can be shared as a link. Typed prices, days, k and
+  settlements are not stored anywhere.
+- **Downloads and the research note** are listed only when a HEAD request finds the file in the build,
+  so a file the pipeline has not written never shows as a dead link (a missing file still logs the 404
+  in the browser console, which is the honest signal for a broken build).
+- **Theme toggle label.** The button names the theme it switches to ("Dark theme" in light mode),
+  rather than a pressed state, because most readers expect a theme button to say what it will do.
+- **Focus on navigation.** Changing view moves focus to the view's takeaway (for screen readers); the
+  heading shows no focus ring because it is not interactive and not in the tab order.
 - **Quarter tenors** are drawn as spans over their months, months as points on the curve line, so a
   quarter never pretends to be a month.
 - **Basket of pooled statistics.** The hedge sample runs from 2024 to 2026 across both baskets. Where the
@@ -173,22 +202,25 @@ Styles that are not colours:
 The site renders without each of these and says what is missing; it uses each field as soon as it appears.
 
 1. `overview.json`: a basket field for the headline and each effectiveness row (the sample spans
-   180,000 t and 182,000 t). Today the site states the rule from `engine.json`.
-2. `overview.json`: the C3 three-month interval (`-0.3102` to `0.3369`) excludes its point estimate
-   (`0.373`). A percentile bootstrap can do that on a skewed statistic; please confirm, or publish a
-   bias-corrected interval. The site prints it as given with a note.
-3. `overview.json`: the minimum window of the out-of-sample minimum variance ratio (for example
-   `k_window_min_weeks`), so the site can state it from data.
+   180,000 t and 182,000 t). Today the site states the rule from `engine.json` and `engine.js`.
+2. `overview.json`: the minimum window of the out-of-sample minimum variance ratio (for example
+   `k_window_min_weeks`), so the site can state it from data instead of "an expanding window of past
+   fixtures".
+3. `overview.json`: an earlier build had the C3 three-month interval outside its point estimate; the
+   current build does not. The site still prints a note for any cell whose percentile interval excludes
+   its estimate; if that recurs, consider a bias-corrected interval.
 4. `lab.json`: TD3C has no basis bands or historical setups. Add them when a settled TD3C series in USD a
-   tonne exists; the lab shows a note meanwhile.
+   tonne exists; the lab says so meanwhile.
 5. `lab.json`, `td3c.json`, `method.json`: a `sources_line` like the overview, curve and roll artifacts.
-   The site composes one from each artifact's own source fields and the manifest's retrieval dates.
+   The site composes one from each artifact's own fields and the manifest's retrieval dates.
 6. `manifest.json`: a `downloads` list (`file`, `description`, `rows`). The site lists the seven CSVs in
-   `data/downloads/` from its own list until then.
-7. `td3c.json`: the `cases` list (schema in the brief). The step-through renders from that schema and
-   shows a short "no case data" state while it is absent.
-8. `method.json`: a `limitations` list. The Method view renders it when present.
-9. `curve.json`: the 8 November 2026 cited curve has no same-day spot; if the policy allows, add the
-   preceding Friday's spot as for the other cited curves.
-10. Repository root: the research note `FFA-Basis-Hedging-Study-Research-Note.pdf`. The Method view links
-    to it and checks that it exists before showing the link.
+   `data/downloads/` from its own descriptions until then, each shown only if the file exists.
+7. `method.json`: a `limitations` list. The Method view adds a Limitations section when it is present.
+8. `roll.json`: `quarter_bias.mean_ci` is null (six quarters). The site prints "no interval"; if a block
+   bootstrap on so few quarters is not meaningful, say so in a field (for example `ci_note`).
+9. `td3c.json` `cases`: the step-through renders the four cases from the schema in the brief. Each case
+   settles on a single Breakwave print, which the site labels approximate from `prints`; a case field
+   naming the settlement source would let the label quote it.
+10. Delivered while the site was built and now used: `td3c.json` `cases`, `breakwave_statement` and
+    `statistics`; `method.json` `hedge_by_year` (robustness by calendar year); the same-day spot on the
+    8 November 2026 cited curve; the research note PDF at the repository root.

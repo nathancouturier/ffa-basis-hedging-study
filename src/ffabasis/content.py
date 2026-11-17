@@ -410,6 +410,36 @@ def validation(panel: dict[str, Any], results: dict[str, Any]) -> list[dict[str,
     return rows
 
 
+MONTH_NAMES = (
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+)  # fmt: skip
+
+
+def month_ranges(months: list[str]) -> str:
+    """Months as runs of consecutive months: 2023-07, 2026-01 ... 2026-10 read "July 2023; January to October 2026"."""
+    runs: list[list[str]] = []
+    for m in months:
+        if runs and engine.add_months(runs[-1][-1], 1) == m:
+            runs[-1].append(m)
+        else:
+            runs.append([m])
+
+    def name(m: str, year: bool = True) -> str:
+        return MONTH_NAMES[int(m[5:7]) - 1] + (f" {m[:4]}" if year else "")
+
+    parts = []
+    for run in runs:
+        first, last = run[0], run[-1]
+        if first == last:
+            parts.append(name(first))
+        elif first[:4] == last[:4]:
+            parts.append(f"{name(first, False)} to {name(last)}")
+        else:
+            parts.append(f"{name(first)} to {name(last)}")
+    return "; ".join(parts)
+
+
 def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
     curves = results["curves"]
     years = Counter(c["date"][:4] for c in curves)
@@ -426,10 +456,16 @@ def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
         "issues_read": len(panel["issues"]),
         "ocr_issues": sum(1 for i in panel["issues"] if i.get("ocr")),
         "settlements_by_year": {y: dict(c) for y, c in sorted(status_by_year.items())},
-        "complete_months_180": sum(1 for r in settle.values() if r["status"] in ("complete", "published")),
-        "complete_months_182": sum(
+        "exact_months_180": sum(1 for r in settle.values() if r["status"] in ("complete", "published")),
+        "exact_months_182": sum(
             1 for m, r in settle.items() if r["status"] in ("complete", "published") and m >= engine.BASKET_182_FROM[:7]
         ),
+        "complete_months_180": sum(1 for r in settle.values() if r["status"] == "complete"),
+        "complete_months_182": sum(
+            1 for m, r in settle.items() if r["status"] == "complete" and m >= engine.BASKET_182_FROM[:7]
+        ),
+        "complete_months": month_ranges(sorted(m for m, r in settle.items() if r["status"] == "complete")),
+        "published_months": month_ranges(sorted(m for m, r in settle.items() if r["status"] == "published")),
         "daily_days": len(panel["daily"]),
         "hedge_observations": [{"voyage": v, "horizon_months": h, "n": n} for (v, h), n in sorted(hedge_n.items())],
         "td3c_weekly": len(panel["td3c_weekly"]),
@@ -440,6 +476,63 @@ def coverage(panel: dict[str, Any], results: dict[str, Any]) -> dict[str, Any]:
         "sec_quarter_ends_bdry": len({m["as_of"] for m in panel["sec_marks"] if m["fund"] == "BDRY"}),
         "sec_quarter_ends_bwet": len({m["as_of"] for m in panel["sec_marks"] if m["fund"] == "BWET"}),
     }
+
+
+def limitations(cov: dict[str, Any], results: dict[str, Any]) -> list[dict[str, str]]:
+    """What the study cannot do, with the coverage figures that bound it (the README states the same)."""
+    hedge = [r for r in results["hedge_rows"] if r["voyage"] == "C5" and r["horizon_months"] == 1]
+    first = min((r["fixture"] for r in hedge), default=None)
+    return [
+        {
+            "title": "A hedging study, not a forecast or a strategy",
+            "text": "There is no signal, no position sizing and no profit and loss presented as a strategy. Forward "
+            "bias and roll cost are costs and premiums a hedger faces, reported as such.",
+        },
+        {
+            "title": "The daily 5TC is public in full only from January 2026",
+            "text": "A month's settlement is the study's own average only when every London publication day is in a "
+            f"public print ({cov['complete_months']}); otherwise it is the average Himalaya Shipping published in "
+            "its SEC filings (May 2023 onwards), which agrees with every complete month to within a dollar. Earlier "
+            "months have only partial averages and enter the robustness checks alone.",
+        },
+        {
+            "title": "The forward curve is one broker's weekly assessment",
+            "text": f"Banchero Costa's Monday Capesize FFA assessments as Hellenic Shipping News republishes them, "
+            f"{cov['first_ffa_week']} to {cov['last_ffa_week']}, with gaps where issues were not reachable. The "
+            "next issue's previous-week column is a re-assessment; the study uses first prints and shows the latest "
+            "as a sensitivity.",
+        },
+        {
+            "title": "Some tables were read by OCR",
+            "text": f"{cov['ocr_issues']} of {cov['issues_read']} issues had at least one table set in fonts that "
+            "do not extract as text. A row read by OCR is kept only if it reproduces its own printed week-on-week "
+            "change (bunkers: the printed spread between grades).",
+        },
+        {
+            "title": "Voyage earnings are estimates, not fixtures",
+            "text": "C3 and C5 TCEs come from the voyage engine with the Baltic's standard ship of the date and that "
+            "week's Singapore bunkers. Port charges and loading time at the port's scale have no public figure and "
+            "are left out, so the level of the route basis is overstated; its variability, which drives the results, "
+            "is not. No route FFA is used: a voyage hedged with 5TC paper carries route basis by construction.",
+        },
+        {
+            "title": "The hedge sample is short",
+            "text": f"Hedged fixtures with exact settlements start on {first}; the out-of-sample hedge ratio needs 52 "
+            "settled fixtures first, so it covers the later part of the sample only. Intervals are wide and a "
+            "percentile interval can sit off its estimate in small samples.",
+        },
+        {
+            "title": "TD3C in dollars a tonne is approximate",
+            "text": "The Baltic's weekly reports give TD3C in Worldscale. Flat rates are licensed and never stated; "
+            "dated public pairs do not imply a consistent one in 2026, so 2026 stays in Worldscale and the dollar "
+            "case studies use Breakwave's bi-weekly prints, settled at the average of one or two prints a month.",
+        },
+        {
+            "title": "The literature could not be opened",
+            "text": "Publishers' and repositories' hosts are refused by the build environment, so no published result "
+            "is compared; Ederington's measure is reported for the reader to set beside them.",
+        },
+    ]
 
 
 def manifest(root: Path, panel: dict[str, Any]) -> dict[str, Any]:
@@ -601,9 +694,21 @@ def td3c_artifact(panel: dict[str, Any], results: dict[str, Any], as_of: str) ->
             m: {k: (round(v, 3) if isinstance(v, float) else v) for k, v in d.items()}
             for m, d in t["dollar_months"].items()
         },
-        "cases": t["cases"],
+        "cases": [
+            c
+            | {
+                "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
+                "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an "
+                "approximation of the ICE TDL settlement, which averages every Baltic publication day",
+                "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / "
+                "(contracts x 1,000 t)",
+            }
+            for c in t["cases"]
+        ],
         "statistics": {
             "by_horizon": t["statistics"]["by_horizon"],
+            "counts": t["statistics"]["counts"],
+            "threshold_months": t["statistics"]["threshold_months"],
             "rows": t["statistics"]["rows"],
             "without_thin_weeks": t["statistics_without_thin_weeks"]["by_horizon"],
         },
@@ -671,4 +776,11 @@ def sources_line(m: dict[str, Any]) -> dict[str, str]:
         "Retrieved to %s." % retrieved,
         "roll": "Banchero Costa weekly FFA assessments; 5TC monthly settlements from daily prints and Himalaya "
         "Shipping's published averages (SEC). Retrieved to %s." % retrieved,
+        "lab": "Banchero Costa weekly FFA assessments (the latest cited curve and the historical fixtures); 5TC "
+        "settlements from daily prints and Himalaya Shipping's averages (SEC); voyage-tce-model engine; Amplify "
+        "Commodity Trust filings (SEC) for TD3C. Retrieved to %s." % retrieved,
+        "td3c": "Baltic Exchange weekly tanker reports; Breakwave Advisors tanker reports (via Hellenic Shipping "
+        "News); Amplify Commodity Trust filings (SEC); EIA. Retrieved to %s." % retrieved,
+        "method": "Baltic Exchange Guide to Market Benchmarks v8.8 and v7.09; EEX and ICE contract specifications; "
+        "every source in the manifest. Retrieved to %s." % retrieved,
     }

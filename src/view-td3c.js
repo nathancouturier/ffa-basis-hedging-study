@@ -5,7 +5,7 @@
 import { h, clear, takeaway, table, note, defs, segmented } from "./dom.js";
 import { lineChart, waterfallChart, monthMid, dayMs, empty } from "./charts.js";
 import { num, signed, usdDay, usdT, ws, usdBig, signedUsdBig, compactMoney, dateLong, dateShort, monthLong, tenorLabel, plural, listJoin, isNum, tonnes, addDays } from "./format.js";
-import { wire, retrievedTo, csvLink, stripSummary } from "./view-kit.js";
+import { wire, retrievedTo, retrievedOf, downloadLine, stripSummary } from "./view-kit.js";
 
 const SHAPE = Object.freeze({
   weekDays: 6, // a week's shade runs back six days from the report's date
@@ -157,7 +157,7 @@ function render(section, ctx) {
           series,
           vlines,
           summary: stripSummary(strips, bw),
-          source: "Source: Amplify Commodity Trust 10-Q and 10-K filings (SEC EDGAR); Breakwave Advisors tanker reports (via Hellenic Shipping News).",
+          source: `Source: Amplify Commodity Trust 10-Q and 10-K filings (SEC EDGAR, ${retrievedOf(manifest, "SEC")}); Breakwave Advisors tanker reports (via Hellenic Shipping News, ${retrievedOf(manifest, "Breakwave")}).`,
         });
         if (statement) {
           body.append(h("blockquote", { class: "note" }, `"${statement.text}" `, h("a", { href: statement.url }, `Breakwave Advisors, ${dateLong(statement.date)}`), "."));
@@ -221,7 +221,7 @@ function render(section, ctx) {
     box.append(h("div", { class: "prose" },
       h("p", {}, `${role === "owner" ? "An owner" : "A charterer"} with ${tonnes(c.cargo_t)} to carry ${role === "owner" ? "sells" : "buys"} the month's TD3C futures at the mark and fixes the cargo in the loading month. It locks ${amount(tot.locked_usd)}; the cargo came in ${money(tot.physical_vs_locked_usd)} against that and the paper ${money(tot.paper_usd)}, so the total was ${amount(tot.total_usd)}.`),
       ...lines.map((t) => h("p", { class: "small" }, t)),
-      approx ? h("p", { class: "small muted" }, "Approximate: the month's settlement is estimated from the TD3C prints in USD a tonne available for it, here a single Breakwave report, because Worldscale prints cannot be turned into USD a tonne without a consistent flat rate.") : null));
+      approx ? h("p", { class: "small muted" }, `Approximate: the month's settlement is estimated from the TD3C prints in USD a tonne available for it (${listJoin(months.map((m) => `${plural(m.prints, "print", "prints")} for ${monthLong(m.month)}`))}), because Worldscale prints cannot be turned into USD a tonne without a consistent flat rate.`) : null));
     const steps = [
       { label: "Locked at the mark", value: tot.locked_usd, cls: "ink", kind: "start", outline: true },
       { label: "Cargo against the mark", value: tot.physical_vs_locked_usd, cls: "spot", kind: "delta" },
@@ -245,7 +245,7 @@ function render(section, ctx) {
       steps,
       x: { title: usdUnit ? "USD" : unitLabel, format: (v) => compactMoney(v) },
       summary: `Locked ${amount(tot.locked_usd)}; cargo against the mark ${money(tot.physical_vs_locked_usd)}; paper ${money(tot.paper_usd)}; total ${amount(tot.total_usd)}.`,
-      source: h("span", {}, "Source: ", c.mark_url ? h("a", { href: c.mark_url }, `BWET filing of ${dateLong(c.as_of)}`) : "BWET filing", months[0]?.fixture_url ? h("span", {}, "; ", h("a", { href: months[0].fixture_url }, `Breakwave report of ${dateLong(months[0].fixture_on)}`)) : null, "; the study's td3c_outcome."),
+      source: h("span", {}, "Source: ", c.mark_url ? h("a", { href: c.mark_url }, `BWET filing of ${dateLong(c.as_of)}`) : "BWET filing", months[0]?.fixture_url ? h("span", {}, "; ", h("a", { href: months[0].fixture_url }, `Breakwave report of ${dateLong(months[0].fixture_on)}`)) : null, `; the study's td3c_outcome. Documents ${retrievedOf(manifest, "SEC")} and ${retrievedOf(manifest, "Breakwave")}.`),
     });
     box.append(table({
       caption: "Case by month",
@@ -343,7 +343,7 @@ function render(section, ctx) {
               note: (td3c.statistics?.by_horizon || []).length ? null : "Too few contract months with a mark and a settlement estimate for statistics by horizon.",
             }));
           }
-          body.append(h("p", {}, "Download: ", csvLink("td3c_weekly_prints.csv"), ", ", csvLink("sec_freight_futures_marks.csv"), "."));
+          body.append(downloadLine([{ file: "td3c_weekly_prints.csv" }, { file: "sec_freight_futures_marks.csv" }]));
         },
       },
     ],

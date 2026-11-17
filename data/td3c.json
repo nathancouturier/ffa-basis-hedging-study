@@ -3,10 +3,370 @@
  "as_of": "2026-11-08",
  "breakwave": [
   {
+   "btfi_points": 1179.0,
+   "date": "2023-07-11",
+   "td3c_usd_t": 12.7,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/07/BreakwaveTankersJuly112023Report.pdf"
+  },
+  {
+   "btfi_points": 1280.0,
+   "date": "2023-07-25",
+   "td3c_usd_t": 12.7,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/07/BreakwaveTankersJuly252023Report.pdf"
+  },
+  {
+   "btfi_points": 1343.0,
+   "date": "2023-08-08",
+   "td3c_usd_t": 11.83,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/08/BreakwaveTankersAugust82023Report.pdf"
+  },
+  {
+   "btfi_points": 1178.0,
+   "date": "2023-09-19",
+   "td3c_usd_t": 9.13,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/09/BreakwaveTankersSeptember192023Report.pdf"
+  },
+  {
+   "btfi_points": 1308.0,
+   "date": "2023-10-03",
+   "td3c_usd_t": 12.12,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/10/BreakwaveTankersOctober32023Report.pdf"
+  },
+  {
+   "btfi_points": 1351.0,
+   "date": "2023-10-17",
+   "td3c_usd_t": 14.2,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/10/BreakwaveTankersOctober172023Report.pdf"
+  },
+  {
+   "btfi_points": 1537.0,
+   "date": "2023-10-31",
+   "td3c_usd_t": 14.57,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/10/BreakwaveTankersOctober312023Report.pdf"
+  },
+  {
+   "btfi_points": 1381.0,
+   "date": "2023-11-14",
+   "td3c_usd_t": 16.39,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/11/BreakwaveTankersNovember142023Report.pdf"
+  },
+  {
+   "btfi_points": 1393.0,
+   "date": "2023-11-28",
+   "td3c_usd_t": 16.22,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/11/BreakwaveTankersNovember282023Report.pdf"
+  },
+  {
+   "btfi_points": 1243.0,
+   "date": "2023-12-12",
+   "td3c_usd_t": 16.0,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/12/BreakwaveTankersDecember122023Report.pdf"
+  },
+  {
+   "btfi_points": 1372.0,
+   "date": "2024-01-16",
+   "td3c_usd_t": 17.18,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/01/BreakwaveTankersJanuary162024Report.pdf"
+  },
+  {
+   "btfi_points": 1396.0,
+   "date": "2024-02-13",
+   "td3c_usd_t": 16.73,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/02/BreakwaveTankersFebruary132024Report.pdf"
+  },
+  {
+   "btfi_points": 1315.0,
+   "date": "2024-02-27",
+   "td3c_usd_t": 15.6,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/02/BreakwaveTankersFebruary272024Report.pdf"
+  },
+  {
+   "btfi_points": 1321.0,
+   "date": "2024-03-12",
+   "td3c_usd_t": 16.88,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/03/BreakwaveTankersMarch122024Report.pdf"
+  },
+  {
+   "btfi_points": 1293.0,
+   "date": "2024-03-26",
+   "td3c_usd_t": 16.3,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/03/BreakwaveTankersMarch262024Report.pdf"
+  },
+  {
+   "btfi_points": 1337.0,
+   "date": "2024-04-09",
+   "td3c_usd_t": 15.87,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/04/BreakwaveTankersApril92024Report.pdf"
+  },
+  {
+   "btfi_points": 1260.0,
+   "date": "2024-04-23",
+   "td3c_usd_t": 14.49,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/04/BreakwaveTankersApril232024Report.pdf"
+  },
+  {
+   "btfi_points": 1303.0,
+   "date": "2024-05-07",
+   "td3c_usd_t": 16.24,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/05/BreakwaveTankersMay72024Report.pdf"
+  },
+  {
+   "btfi_points": 1209.0,
+   "date": "2024-06-04",
+   "td3c_usd_t": 14.05,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/06/BreakwaveTankersJune42024Report.pdf"
+  },
+  {
+   "btfi_points": 1142.0,
+   "date": "2024-07-02",
+   "td3c_usd_t": 12.1,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/07/BreakwaveTankersJuly22024Report.pdf"
+  },
+  {
+   "btfi_points": 1162.0,
+   "date": "2024-07-16",
+   "td3c_usd_t": 11.31,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/07/BreakwaveTankersJuly162024Report.pdf"
+  },
+  {
+   "btfi_points": 1197.0,
+   "date": "2024-07-30",
+   "td3c_usd_t": 13.47,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/07/BreakwaveTankersJuly302024Report.pdf"
+  },
+  {
+   "btfi_points": 1167.0,
+   "date": "2024-08-13",
+   "td3c_usd_t": 11.24,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/08/BreakwaveTankersAugust132024Report-1.pdf"
+  },
+  {
+   "btfi_points": 1248.0,
+   "date": "2024-08-27",
+   "td3c_usd_t": 12.78,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/08/BreakwaveTankersAugust272024Report.pdf"
+  },
+  {
+   "btfi_points": 1268.0,
+   "date": "2024-09-10",
+   "td3c_usd_t": 12.08,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/09/BreakwaveTankersSeptember102024Report.pdf"
+  },
+  {
+   "btfi_points": 1277.0,
+   "date": "2024-09-24",
+   "td3c_usd_t": 14.76,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/09/BreakwaveTankersSeptember242024Report.pdf"
+  },
+  {
+   "btfi_points": 1447.0,
+   "date": "2024-10-08",
+   "td3c_usd_t": 14.56,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/10/BreakwaveTankersOctober82024Report-1.pdf"
+  },
+  {
+   "btfi_points": 1411.0,
+   "date": "2024-10-22",
+   "td3c_usd_t": 13.99,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/10/BreakwaveTankersOctober222024Report.pdf"
+  },
+  {
+   "btfi_points": 1204.0,
+   "date": "2024-11-05",
+   "td3c_usd_t": 12.35,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/11/BreakwaveTankersNovember52024Report.pdf"
+  },
+  {
+   "btfi_points": 1073.0,
+   "date": "2024-12-17",
+   "td3c_usd_t": 8.63,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/12/BreakwaveTankersDecember172024Report.pdf"
+  },
+  {
+   "btfi_points": 1244.0,
+   "date": "2025-01-14",
+   "td3c_usd_t": 12.88,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/01/BreakwaveTankersJanuary142025Report.pdf"
+  },
+  {
+   "btfi_points": 1214.0,
+   "date": "2025-01-28",
+   "td3c_usd_t": 10.97,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/01/BreakwaveTankersJanuary282025Report.pdf"
+  },
+  {
+   "btfi_points": 1297.0,
+   "date": "2025-02-11",
+   "td3c_usd_t": 13.69,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/02/BreakwaveTankersFebruary112025Report.pdf"
+  },
+  {
+   "btfi_points": 1199.0,
+   "date": "2025-02-25",
+   "td3c_usd_t": 12.69,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/02/BreakwaveTankersFebruary252025Report.pdf"
+  },
+  {
+   "btfi_points": 1171.0,
+   "date": "2025-03-11",
+   "td3c_usd_t": 12.26,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/03/BreakwaveTankersMarch112025Report.pdf"
+  },
+  {
+   "btfi_points": 1174.0,
+   "date": "2025-03-25",
+   "td3c_usd_t": 12.55,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/03/BreakwaveTankersMarch252025Report.pdf"
+  },
+  {
+   "btfi_points": 1154.0,
+   "date": "2025-04-08",
+   "td3c_usd_t": 12.13,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/04/BreakwaveTankersApril82025Report2.pdf"
+  },
+  {
+   "btfi_points": 1208.0,
+   "date": "2025-04-22",
+   "td3c_usd_t": 14.11,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/04/BreakwaveTankersApril222025Report.pdf"
+  },
+  {
+   "btfi_points": 1234.0,
+   "date": "2025-05-06",
+   "td3c_usd_t": 14.24,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/05/BreakwaveTankersMay62025Report.pdf"
+  },
+  {
+   "btfi_points": 1054.0,
+   "date": "2025-06-03",
+   "td3c_usd_t": 10.5,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/06/BreakwaveTankersJune32025Report.pdf"
+  },
+  {
+   "btfi_points": 1128.0,
+   "date": "2025-06-17",
+   "td3c_usd_t": 14.09,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/06/BreakwaveTankersJune172025Report.pdf"
+  },
+  {
+   "btfi_points": 1158.0,
+   "date": "2025-07-29",
+   "td3c_usd_t": 9.82,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/07/BreakwaveTankersJuly292025Report.pdf"
+  },
+  {
+   "btfi_points": 1296.0,
+   "date": "2025-08-12",
+   "td3c_usd_t": 12.28,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/08/BreakwaveTankersAugust122025Report.pdf"
+  },
+  {
+   "btfi_points": 1591.0,
+   "date": "2025-09-09",
+   "td3c_usd_t": 16.51,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/09/BreakwaveTankersSeptember92025Report.pdf"
+  },
+  {
+   "btfi_points": 1599.0,
+   "date": "2025-09-23",
+   "td3c_usd_t": 22.51,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/09/BreakwaveTankersSeptember232025Report.pdf"
+  },
+  {
+   "btfi_points": 1539.0,
+   "date": "2025-10-07",
+   "td3c_usd_t": 16.69,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober72025Report.pdf"
+  },
+  {
    "btfi_points": 1658.0,
    "date": "2025-10-21",
    "td3c_usd_t": 20.73,
    "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf"
+  },
+  {
+   "btfi_points": 1785.0,
+   "date": "2025-11-04",
+   "td3c_usd_t": 27.25,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/11/BreakwaveTankersNovember42025Report.pdf"
+  },
+  {
+   "btfi_points": 1972.0,
+   "date": "2025-11-18",
+   "td3c_usd_t": 27.86,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/11/BreakwaveTankersNovember182025Report.pdf"
+  },
+  {
+   "btfi_points": 1825.0,
+   "date": "2025-12-02",
+   "td3c_usd_t": 28.03,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/BreakwaveTankersDecember22025Report.pdf"
+  },
+  {
+   "btfi_points": 1867.0,
+   "date": "2025-12-16",
+   "td3c_usd_t": 27.07,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/BreakwaveTankersDecember162025Report.pdf"
+  },
+  {
+   "btfi_points": 1766.0,
+   "date": "2026-01-13",
+   "td3c_usd_t": 15.71,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary132026Report.pdf"
+  },
+  {
+   "btfi_points": 1888.0,
+   "date": "2026-01-27",
+   "td3c_usd_t": 20.91,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary272026Report.pdf"
+  },
+  {
+   "btfi_points": 2332.0,
+   "date": "2026-02-10",
+   "td3c_usd_t": 28.1,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/BreakwaveTankersFebruary102026Report.pdf"
+  },
+  {
+   "btfi_points": 2903.0,
+   "date": "2026-02-24",
+   "td3c_usd_t": 34.24,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/BreakwaveTankersFebruary242026Report.pdf"
+  },
+  {
+   "btfi_points": 3712.0,
+   "date": "2026-03-10",
+   "td3c_usd_t": 94.31,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/BreakwaveTankersMarch102026Report.pdf"
+  },
+  {
+   "btfi_points": 4323.0,
+   "date": "2026-03-24",
+   "td3c_usd_t": 80.95,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/BreakwaveTankersMarch242026Report.pdf"
+  },
+  {
+   "btfi_points": 6032.0,
+   "date": "2026-04-07",
+   "td3c_usd_t": 72.88,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf"
+  },
+  {
+   "btfi_points": 5723.0,
+   "date": "2026-04-21",
+   "td3c_usd_t": 86.45,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril212026Report.pdf"
+  },
+  {
+   "btfi_points": 5951.0,
+   "date": "2026-05-05",
+   "td3c_usd_t": 81.85,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/05/BreakwaveTankersMay52026Report.pdf"
+  },
+  {
+   "btfi_points": 6009.0,
+   "date": "2026-05-19",
+   "td3c_usd_t": 90.44,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/05/BreakwaveTankersMay192026Report.pdf"
   },
   {
    "btfi_points": 3711.0,
@@ -15,10 +375,40 @@
    "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/06/BreakwaveTankersJune302026Report.pdf"
   },
   {
+   "btfi_points": 6414.0,
+   "date": "2026-08-11",
+   "td3c_usd_t": 99.03,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/08/BreakwaveTankersAugust112026Report.pdf"
+  },
+  {
    "btfi_points": 11230.0,
    "date": "2026-09-08",
    "td3c_usd_t": 136.98,
    "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf"
+  },
+  {
+   "btfi_points": 18873.0,
+   "date": "2026-09-22",
+   "td3c_usd_t": 235.45,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember222026Report.pdf"
+  },
+  {
+   "btfi_points": 18453.0,
+   "date": "2026-10-06",
+   "td3c_usd_t": 243.15,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/BreakwaveTankersOctober62026Report.pdf"
+  },
+  {
+   "btfi_points": 18495.0,
+   "date": "2026-10-20",
+   "td3c_usd_t": 262.1,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/BreakwaveTankersOctober202026Report.pdf"
+  },
+  {
+   "btfi_points": 18392.0,
+   "date": "2026-11-03",
+   "td3c_usd_t": 256.16,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember32026Report.pdf"
   }
  ],
  "breakwave_statement": {
@@ -30,36 +420,150 @@
   {
    "as_of": "2025-09-30",
    "cargo_t": 270000.0,
+   "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
+   "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / (contracts x 1,000 t)",
    "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
    "months": [
     {
      "f0": 17.412,
-     "fixture_on": "2025-10-21",
-     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf",
+     "fixture_on": "2025-10-07",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober72025Report.pdf",
      "locked_usd": 4701240.0,
      "month": "2025-10",
-     "paper_usd": -895860.0000000003,
-     "physical": 20.73,
-     "physical_vs_locked_usd": 895860.0000000003,
-     "prints": 1,
-     "settlement": 20.73,
-     "total_usd": 4701240.0
+     "paper_usd": -350460.00000000047,
+     "physical": 16.69,
+     "physical_vs_locked_usd": -194939.9999999994,
+     "prints": 2,
+     "settlement": 18.71,
+     "total_usd": 4155839.9999999995
+    },
+    {
+     "f0": 16.285,
+     "fixture_on": "2025-11-04",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/11/BreakwaveTankersNovember42025Report.pdf",
+     "locked_usd": 4396950.0,
+     "month": "2025-11",
+     "paper_usd": -3042900.0,
+     "physical": 27.25,
+     "physical_vs_locked_usd": 2960550.0,
+     "prints": 2,
+     "settlement": 27.555,
+     "total_usd": 4314600.0
+    },
+    {
+     "f0": 16.047,
+     "fixture_on": "2025-12-02",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/BreakwaveTankersDecember22025Report.pdf",
+     "locked_usd": 4332690.0,
+     "month": "2025-12",
+     "paper_usd": -3105810.0,
+     "physical": 28.03,
+     "physical_vs_locked_usd": 3235410.0,
+     "prints": 2,
+     "settlement": 27.55,
+     "total_usd": 4462290.0
     }
    ],
    "role": "owner",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
    "total": {
-    "locked_usd": 4701240.0,
-    "paper_usd": -895860.0000000003,
-    "physical_vs_locked_usd": 895860.0000000003,
-    "total_usd": 4701240.0
+    "locked_usd": 13430880.0,
+    "paper_usd": -6499170.0,
+    "physical_vs_locked_usd": 6001020.000000001,
+    "total_usd": 12932730.0
+   },
+   "unit": "usd_t"
+  },
+  {
+   "as_of": "2025-12-31",
+   "cargo_t": 270000.0,
+   "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
+   "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / (contracts x 1,000 t)",
+   "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026015020/ea0276065-10q_amplify.htm",
+   "months": [
+    {
+     "f0": 14.256,
+     "fixture_on": "2026-01-13",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary132026Report.pdf",
+     "locked_usd": 3849120.0,
+     "month": "2026-01",
+     "paper_usd": -1094580.0000000005,
+     "physical": 15.71,
+     "physical_vs_locked_usd": 392580.0000000002,
+     "prints": 2,
+     "settlement": 18.310000000000002,
+     "total_usd": 3147119.9999999995
+    },
+    {
+     "f0": 15.0,
+     "fixture_on": "2026-02-10",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/BreakwaveTankersFebruary102026Report.pdf",
+     "locked_usd": 4050000.0,
+     "month": "2026-02",
+     "paper_usd": -4365900.0,
+     "physical": 28.1,
+     "physical_vs_locked_usd": 3537000.0000000005,
+     "prints": 2,
+     "settlement": 31.17,
+     "total_usd": 3221100.0
+    },
+    {
+     "f0": 15.044,
+     "fixture_on": "2026-03-10",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/BreakwaveTankersMarch102026Report.pdf",
+     "locked_usd": 4061880.0,
+     "month": "2026-03",
+     "paper_usd": -19598220.0,
+     "physical": 94.31,
+     "physical_vs_locked_usd": 21401820.0,
+     "prints": 2,
+     "settlement": 87.63,
+     "total_usd": 5865480.0
+    }
+   ],
+   "role": "owner",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
+   "total": {
+    "locked_usd": 11961000.0,
+    "paper_usd": -25058700.0,
+    "physical_vs_locked_usd": 25331400.0,
+    "total_usd": 12233700.0
    },
    "unit": "usd_t"
   },
   {
    "as_of": "2026-03-31",
    "cargo_t": 270000.0,
+   "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
+   "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / (contracts x 1,000 t)",
    "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
    "months": [
+    {
+     "f0": 78.069,
+     "fixture_on": "2026-04-07",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf",
+     "locked_usd": 21078630.0,
+     "month": "2026-04",
+     "paper_usd": -430919.99999999715,
+     "physical": 72.88,
+     "physical_vs_locked_usd": -1401030.0000000019,
+     "prints": 2,
+     "settlement": 79.66499999999999,
+     "total_usd": 19246680.000000004
+    },
+    {
+     "f0": 67.636,
+     "fixture_on": "2026-05-05",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/05/BreakwaveTankersMay52026Report.pdf",
+     "locked_usd": 18261720.0,
+     "month": "2026-05",
+     "paper_usd": -4997430.0,
+     "physical": 81.85,
+     "physical_vs_locked_usd": 3837779.9999999995,
+     "prints": 2,
+     "settlement": 86.145,
+     "total_usd": 17102070.0
+    },
     {
      "f0": 42.903,
      "fixture_on": "2026-06-30",
@@ -75,50 +579,305 @@
     }
    ],
    "role": "owner",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
    "total": {
-    "locked_usd": 11583810.0,
-    "paper_usd": -4513590.0,
-    "physical_vs_locked_usd": 4513590.0,
-    "total_usd": 11583810.0
+    "locked_usd": 50924160.0,
+    "paper_usd": -9941939.999999996,
+    "physical_vs_locked_usd": 6950339.999999998,
+    "total_usd": 47932560.0
    },
    "unit": "usd_t"
   },
   {
    "as_of": "2026-06-30",
    "cargo_t": 270000.0,
+   "fixture_source": "The month's first Breakwave TD3C print in USD a tonne (the cargo's freight)",
+   "mark_source": "Amplify Commodity Trust (BWET) futures schedule at the quarter end: notional / (contracts x 1,000 t)",
    "mark_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
    "months": [
+    {
+     "f0": 43.876,
+     "fixture_on": "2026-08-11",
+     "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/08/BreakwaveTankersAugust112026Report.pdf",
+     "locked_usd": 11846520.0,
+     "month": "2026-08",
+     "paper_usd": -14891580.000000002,
+     "physical": 99.03,
+     "physical_vs_locked_usd": 14891580.000000002,
+     "prints": 1,
+     "settlement": 99.03,
+     "total_usd": 11846519.999999998
+    },
     {
      "f0": 41.392,
      "fixture_on": "2026-09-08",
      "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
      "locked_usd": 11175840.0,
      "month": "2026-09",
-     "paper_usd": -25808760.0,
+     "paper_usd": -39102209.99999999,
      "physical": 136.98,
      "physical_vs_locked_usd": 25808760.0,
-     "prints": 1,
-     "settlement": 136.98,
-     "total_usd": 11175840.0
+     "prints": 2,
+     "settlement": 186.21499999999997,
+     "total_usd": -2117609.9999999925
     }
    ],
    "role": "owner",
+   "settlement_source": "The average of the month's Breakwave TD3C prints, one or two a month: an approximation of the ICE TDL settlement, which averages every Baltic publication day",
    "total": {
-    "locked_usd": 11175840.0,
-    "paper_usd": -25808760.0,
-    "physical_vs_locked_usd": 25808760.0,
-    "total_usd": 11175840.0
+    "locked_usd": 23022360.0,
+    "paper_usd": -53993789.99999999,
+    "physical_vs_locked_usd": 40700340.0,
+    "total_usd": 9728910.000000006
    },
    "unit": "usd_t"
   }
  ],
  "dollar_months": {
-  "2025-10": {
-   "fixture_on": "2025-10-21",
-   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober212025Report.pdf",
-   "fixture_usd_t": 20.73,
+  "2023-07": {
+   "fixture_on": "2023-07-11",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/07/BreakwaveTankersJuly112023Report.pdf",
+   "fixture_usd_t": 12.7,
+   "prints": 2,
+   "settlement_estimate_usd_t": 12.7
+  },
+  "2023-08": {
+   "fixture_on": "2023-08-08",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/08/BreakwaveTankersAugust82023Report.pdf",
+   "fixture_usd_t": 11.83,
    "prints": 1,
-   "settlement_estimate_usd_t": 20.73
+   "settlement_estimate_usd_t": 11.83
+  },
+  "2023-09": {
+   "fixture_on": "2023-09-19",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/09/BreakwaveTankersSeptember192023Report.pdf",
+   "fixture_usd_t": 9.13,
+   "prints": 1,
+   "settlement_estimate_usd_t": 9.13
+  },
+  "2023-10": {
+   "fixture_on": "2023-10-03",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/10/BreakwaveTankersOctober32023Report.pdf",
+   "fixture_usd_t": 12.12,
+   "prints": 3,
+   "settlement_estimate_usd_t": 13.63
+  },
+  "2023-11": {
+   "fixture_on": "2023-11-14",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/11/BreakwaveTankersNovember142023Report.pdf",
+   "fixture_usd_t": 16.39,
+   "prints": 2,
+   "settlement_estimate_usd_t": 16.305
+  },
+  "2023-12": {
+   "fixture_on": "2023-12-12",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2023/12/BreakwaveTankersDecember122023Report.pdf",
+   "fixture_usd_t": 16.0,
+   "prints": 1,
+   "settlement_estimate_usd_t": 16.0
+  },
+  "2024-01": {
+   "fixture_on": "2024-01-16",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/01/BreakwaveTankersJanuary162024Report.pdf",
+   "fixture_usd_t": 17.18,
+   "prints": 1,
+   "settlement_estimate_usd_t": 17.18
+  },
+  "2024-02": {
+   "fixture_on": "2024-02-13",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/02/BreakwaveTankersFebruary132024Report.pdf",
+   "fixture_usd_t": 16.73,
+   "prints": 2,
+   "settlement_estimate_usd_t": 16.165
+  },
+  "2024-03": {
+   "fixture_on": "2024-03-12",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/03/BreakwaveTankersMarch122024Report.pdf",
+   "fixture_usd_t": 16.88,
+   "prints": 2,
+   "settlement_estimate_usd_t": 16.59
+  },
+  "2024-04": {
+   "fixture_on": "2024-04-09",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/04/BreakwaveTankersApril92024Report.pdf",
+   "fixture_usd_t": 15.87,
+   "prints": 2,
+   "settlement_estimate_usd_t": 15.18
+  },
+  "2024-05": {
+   "fixture_on": "2024-05-07",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/05/BreakwaveTankersMay72024Report.pdf",
+   "fixture_usd_t": 16.24,
+   "prints": 1,
+   "settlement_estimate_usd_t": 16.24
+  },
+  "2024-06": {
+   "fixture_on": "2024-06-04",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/06/BreakwaveTankersJune42024Report.pdf",
+   "fixture_usd_t": 14.05,
+   "prints": 1,
+   "settlement_estimate_usd_t": 14.05
+  },
+  "2024-07": {
+   "fixture_on": "2024-07-02",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/07/BreakwaveTankersJuly22024Report.pdf",
+   "fixture_usd_t": 12.1,
+   "prints": 3,
+   "settlement_estimate_usd_t": 12.293
+  },
+  "2024-08": {
+   "fixture_on": "2024-08-13",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/08/BreakwaveTankersAugust132024Report-1.pdf",
+   "fixture_usd_t": 11.24,
+   "prints": 2,
+   "settlement_estimate_usd_t": 12.01
+  },
+  "2024-09": {
+   "fixture_on": "2024-09-10",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/09/BreakwaveTankersSeptember102024Report.pdf",
+   "fixture_usd_t": 12.08,
+   "prints": 2,
+   "settlement_estimate_usd_t": 13.42
+  },
+  "2024-10": {
+   "fixture_on": "2024-10-08",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/10/BreakwaveTankersOctober82024Report-1.pdf",
+   "fixture_usd_t": 14.56,
+   "prints": 2,
+   "settlement_estimate_usd_t": 14.275
+  },
+  "2024-11": {
+   "fixture_on": "2024-11-05",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/11/BreakwaveTankersNovember52024Report.pdf",
+   "fixture_usd_t": 12.35,
+   "prints": 1,
+   "settlement_estimate_usd_t": 12.35
+  },
+  "2024-12": {
+   "fixture_on": "2024-12-17",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2024/12/BreakwaveTankersDecember172024Report.pdf",
+   "fixture_usd_t": 8.63,
+   "prints": 1,
+   "settlement_estimate_usd_t": 8.63
+  },
+  "2025-01": {
+   "fixture_on": "2025-01-14",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/01/BreakwaveTankersJanuary142025Report.pdf",
+   "fixture_usd_t": 12.88,
+   "prints": 2,
+   "settlement_estimate_usd_t": 11.925
+  },
+  "2025-02": {
+   "fixture_on": "2025-02-11",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/02/BreakwaveTankersFebruary112025Report.pdf",
+   "fixture_usd_t": 13.69,
+   "prints": 2,
+   "settlement_estimate_usd_t": 13.19
+  },
+  "2025-03": {
+   "fixture_on": "2025-03-11",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/03/BreakwaveTankersMarch112025Report.pdf",
+   "fixture_usd_t": 12.26,
+   "prints": 2,
+   "settlement_estimate_usd_t": 12.405
+  },
+  "2025-04": {
+   "fixture_on": "2025-04-08",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/04/BreakwaveTankersApril82025Report2.pdf",
+   "fixture_usd_t": 12.13,
+   "prints": 2,
+   "settlement_estimate_usd_t": 13.12
+  },
+  "2025-05": {
+   "fixture_on": "2025-05-06",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/05/BreakwaveTankersMay62025Report.pdf",
+   "fixture_usd_t": 14.24,
+   "prints": 1,
+   "settlement_estimate_usd_t": 14.24
+  },
+  "2025-06": {
+   "fixture_on": "2025-06-03",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/06/BreakwaveTankersJune32025Report.pdf",
+   "fixture_usd_t": 10.5,
+   "prints": 2,
+   "settlement_estimate_usd_t": 12.295
+  },
+  "2025-07": {
+   "fixture_on": "2025-07-29",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/07/BreakwaveTankersJuly292025Report.pdf",
+   "fixture_usd_t": 9.82,
+   "prints": 1,
+   "settlement_estimate_usd_t": 9.82
+  },
+  "2025-08": {
+   "fixture_on": "2025-08-12",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/08/BreakwaveTankersAugust122025Report.pdf",
+   "fixture_usd_t": 12.28,
+   "prints": 1,
+   "settlement_estimate_usd_t": 12.28
+  },
+  "2025-09": {
+   "fixture_on": "2025-09-09",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/09/BreakwaveTankersSeptember92025Report.pdf",
+   "fixture_usd_t": 16.51,
+   "prints": 2,
+   "settlement_estimate_usd_t": 19.51
+  },
+  "2025-10": {
+   "fixture_on": "2025-10-07",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/10/BreakwaveTankersOctober72025Report.pdf",
+   "fixture_usd_t": 16.69,
+   "prints": 2,
+   "settlement_estimate_usd_t": 18.71
+  },
+  "2025-11": {
+   "fixture_on": "2025-11-04",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/11/BreakwaveTankersNovember42025Report.pdf",
+   "fixture_usd_t": 27.25,
+   "prints": 2,
+   "settlement_estimate_usd_t": 27.555
+  },
+  "2025-12": {
+   "fixture_on": "2025-12-02",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2025/12/BreakwaveTankersDecember22025Report.pdf",
+   "fixture_usd_t": 28.03,
+   "prints": 2,
+   "settlement_estimate_usd_t": 27.55
+  },
+  "2026-01": {
+   "fixture_on": "2026-01-13",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/01/BreakwaveTankersJanuary132026Report.pdf",
+   "fixture_usd_t": 15.71,
+   "prints": 2,
+   "settlement_estimate_usd_t": 18.31
+  },
+  "2026-02": {
+   "fixture_on": "2026-02-10",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/02/BreakwaveTankersFebruary102026Report.pdf",
+   "fixture_usd_t": 28.1,
+   "prints": 2,
+   "settlement_estimate_usd_t": 31.17
+  },
+  "2026-03": {
+   "fixture_on": "2026-03-10",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/03/BreakwaveTankersMarch102026Report.pdf",
+   "fixture_usd_t": 94.31,
+   "prints": 2,
+   "settlement_estimate_usd_t": 87.63
+  },
+  "2026-04": {
+   "fixture_on": "2026-04-07",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/04/BreakwaveTankersApril72026Report.pdf",
+   "fixture_usd_t": 72.88,
+   "prints": 2,
+   "settlement_estimate_usd_t": 79.665
+  },
+  "2026-05": {
+   "fixture_on": "2026-05-05",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/05/BreakwaveTankersMay52026Report.pdf",
+   "fixture_usd_t": 81.85,
+   "prints": 2,
+   "settlement_estimate_usd_t": 86.145
   },
   "2026-06": {
    "fixture_on": "2026-06-30",
@@ -127,12 +886,33 @@
    "prints": 1,
    "settlement_estimate_usd_t": 59.62
   },
+  "2026-08": {
+   "fixture_on": "2026-08-11",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/08/BreakwaveTankersAugust112026Report.pdf",
+   "fixture_usd_t": 99.03,
+   "prints": 1,
+   "settlement_estimate_usd_t": 99.03
+  },
   "2026-09": {
    "fixture_on": "2026-09-08",
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/BreakwaveTankersSeptember82026Report.pdf",
    "fixture_usd_t": 136.98,
+   "prints": 2,
+   "settlement_estimate_usd_t": 186.215
+  },
+  "2026-10": {
+   "fixture_on": "2026-10-06",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/10/BreakwaveTankersOctober62026Report.pdf",
+   "fixture_usd_t": 243.15,
+   "prints": 2,
+   "settlement_estimate_usd_t": 252.625
+  },
+  "2026-11": {
+   "fixture_on": "2026-11-03",
+   "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember32026Report.pdf",
+   "fixture_usd_t": 256.16,
    "prints": 1,
-   "settlement_estimate_usd_t": 136.98
+   "settlement_estimate_usd_t": 256.16
   }
  },
  "events": [
@@ -150,15 +930,30 @@
   }
  ],
  "flat_rate_test": {
-  "2025-H2": {
+  "2023": {
    "consistent": false,
-   "dispersion": 0.0,
-   "n": 1
+   "dispersion": 0.0243,
+   "n": 10
+  },
+  "2024": {
+   "consistent": false,
+   "dispersion": 0.0483,
+   "n": 20
+  },
+  "2025-H1": {
+   "consistent": false,
+   "dispersion": 0.0524,
+   "n": 9
+  },
+  "2025-H2": {
+   "consistent": true,
+   "dispersion": 0.0127,
+   "n": 9
   },
   "2026": {
    "consistent": false,
-   "dispersion": 0.0,
-   "n": 1
+   "dispersion": 0.0538,
+   "n": 14
   }
  },
  "monthly": {
@@ -344,37 +1139,37 @@
   },
   "2025-07": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 10.48,
    "weeks": 4,
    "ws_points": 49.04
   },
   "2025-08": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 12.374,
    "weeks": 5,
    "ws_points": 57.9
   },
   "2025-09": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 19.37,
    "weeks": 4,
    "ws_points": 90.64
   },
   "2025-10": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 19.699,
    "weeks": 5,
    "ws_points": 92.18
   },
   "2025-11": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 27.049,
    "weeks": 4,
    "ws_points": 126.57
   },
   "2025-12": {
    "flagged_weeks": 0,
-   "usd_t": null,
+   "usd_t": 25.917,
    "weeks": 3,
    "ws_points": 121.27
   },
@@ -445,19 +1240,439 @@
    "ws_points": 1117.51
   }
  },
+ "sources_line": "Baltic Exchange weekly tanker reports; Breakwave Advisors tanker reports (via Hellenic Shipping News); Amplify Commodity Trust filings (SEC); EIA. Retrieved to 2026-11-17.",
  "statistics": {
-  "by_horizon": [],
+  "by_horizon": [
+   {
+    "effectiveness_k1": -0.19497732595544348,
+    "first": "2023-07",
+    "horizon_months": 1,
+    "last": "2026-10",
+    "mean_error_usd_t": 2.253256410256409,
+    "n": 13,
+    "rmse_usd_t": 4.70816533578206,
+    "share_positive": 0.7692307692307693
+   },
+   {
+    "effectiveness_k1": 0.9942479309664981,
+    "first": "2023-08",
+    "horizon_months": 2,
+    "last": "2026-11",
+    "mean_error_usd_t": 11.40064285714286,
+    "n": 14,
+    "rmse_usd_t": 21.200731963442077,
+    "share_positive": 0.8571428571428571
+   },
+   {
+    "effectiveness_k1": 0.8205355213106346,
+    "first": "2023-09",
+    "horizon_months": 3,
+    "last": "2026-09",
+    "mean_error_usd_t": 19.145461538461536,
+    "n": 13,
+    "rmse_usd_t": 45.395797078414816,
+    "share_positive": 0.7692307692307693
+   }
+  ],
+  "counts": [
+   {
+    "horizon_months": 1,
+    "n": 13
+   },
+   {
+    "horizon_months": 2,
+    "n": 14
+   },
+   {
+    "horizon_months": 3,
+    "n": 13
+   }
+  ],
   "rows": [
+   {
+    "as_of": "2023-06-30",
+    "contract": "2023-07",
+    "error": -1.700000000000001,
+    "f0": 14.4,
+    "horizon_months": 1,
+    "paper_move": -1.700000000000001,
+    "physical": 12.7,
+    "settlement": 12.7,
+    "unhedged": -1.700000000000001
+   },
+   {
+    "as_of": "2023-06-30",
+    "contract": "2023-08",
+    "error": -1.83,
+    "f0": 13.66,
+    "horizon_months": 2,
+    "paper_move": -1.83,
+    "physical": 11.83,
+    "settlement": 11.83,
+    "unhedged": -1.83
+   },
+   {
+    "as_of": "2023-06-30",
+    "contract": "2023-09",
+    "error": -4.59,
+    "f0": 13.72,
+    "horizon_months": 3,
+    "paper_move": -4.59,
+    "physical": 9.13,
+    "settlement": 9.13,
+    "unhedged": -4.59
+   },
+   {
+    "as_of": "2023-09-30",
+    "contract": "2023-10",
+    "error": 0.9400000000000013,
+    "f0": 12.69,
+    "horizon_months": 1,
+    "paper_move": 0.9400000000000013,
+    "physical": 12.12,
+    "settlement": 13.63,
+    "unhedged": -0.5700000000000003
+   },
+   {
+    "as_of": "2023-09-30",
+    "contract": "2023-11",
+    "error": 2.205,
+    "f0": 14.1,
+    "horizon_months": 2,
+    "paper_move": 2.205,
+    "physical": 16.39,
+    "settlement": 16.305,
+    "unhedged": 2.290000000000001
+   },
+   {
+    "as_of": "2023-09-30",
+    "contract": "2023-12",
+    "error": 0.9499999999999993,
+    "f0": 15.05,
+    "horizon_months": 3,
+    "paper_move": 0.9499999999999993,
+    "physical": 16.0,
+    "settlement": 16.0,
+    "unhedged": 0.9499999999999993
+   },
+   {
+    "as_of": "2023-12-31",
+    "contract": "2024-01",
+    "error": 4.48,
+    "f0": 12.7,
+    "horizon_months": 1,
+    "paper_move": 4.48,
+    "physical": 17.18,
+    "settlement": 17.18,
+    "unhedged": 4.48
+   },
+   {
+    "as_of": "2023-12-31",
+    "contract": "2024-02",
+    "error": 3.5379999999999985,
+    "f0": 12.627,
+    "horizon_months": 2,
+    "paper_move": 3.5379999999999985,
+    "physical": 16.73,
+    "settlement": 16.165,
+    "unhedged": 4.103
+   },
+   {
+    "as_of": "2023-12-31",
+    "contract": "2024-03",
+    "error": 4.007,
+    "f0": 12.583,
+    "horizon_months": 3,
+    "paper_move": 4.007,
+    "physical": 16.88,
+    "settlement": 16.59,
+    "unhedged": 4.296999999999999
+   },
+   {
+    "as_of": "2024-03-31",
+    "contract": "2024-04",
+    "error": 0.8300000000000001,
+    "f0": 14.35,
+    "horizon_months": 1,
+    "paper_move": 0.8300000000000001,
+    "physical": 15.87,
+    "settlement": 15.18,
+    "unhedged": 1.5199999999999996
+   },
+   {
+    "as_of": "2024-03-31",
+    "contract": "2024-05",
+    "error": 2.244999999999999,
+    "f0": 13.995,
+    "horizon_months": 2,
+    "paper_move": 2.244999999999999,
+    "physical": 16.24,
+    "settlement": 16.24,
+    "unhedged": 2.244999999999999
+   },
+   {
+    "as_of": "2024-03-31",
+    "contract": "2024-06",
+    "error": 0.5800000000000001,
+    "f0": 13.47,
+    "horizon_months": 3,
+    "paper_move": 0.5800000000000001,
+    "physical": 14.05,
+    "settlement": 14.05,
+    "unhedged": 0.5800000000000001
+   },
+   {
+    "as_of": "2024-06-30",
+    "contract": "2024-07",
+    "error": 0.6013333333333346,
+    "f0": 11.692,
+    "horizon_months": 1,
+    "paper_move": 0.6013333333333346,
+    "physical": 12.1,
+    "settlement": 12.293333333333335,
+    "unhedged": 0.4079999999999995
+   },
+   {
+    "as_of": "2024-06-30",
+    "contract": "2024-08",
+    "error": 0.16000000000000014,
+    "f0": 11.85,
+    "horizon_months": 2,
+    "paper_move": 0.16000000000000014,
+    "physical": 11.24,
+    "settlement": 12.01,
+    "unhedged": -0.6099999999999994
+   },
+   {
+    "as_of": "2024-06-30",
+    "contract": "2024-09",
+    "error": 0.9700000000000006,
+    "f0": 12.45,
+    "horizon_months": 3,
+    "paper_move": 0.9700000000000006,
+    "physical": 12.08,
+    "settlement": 13.42,
+    "unhedged": -0.3699999999999992
+   },
+   {
+    "as_of": "2024-09-30",
+    "contract": "2024-10",
+    "error": 1.6170000000000009,
+    "f0": 12.658,
+    "horizon_months": 1,
+    "paper_move": 1.6170000000000009,
+    "physical": 14.56,
+    "settlement": 14.275,
+    "unhedged": 1.902000000000001
+   },
+   {
+    "as_of": "2024-09-30",
+    "contract": "2024-11",
+    "error": -1.8949999999999996,
+    "f0": 14.245,
+    "horizon_months": 2,
+    "paper_move": -1.8949999999999996,
+    "physical": 12.35,
+    "settlement": 12.35,
+    "unhedged": -1.8949999999999996
+   },
+   {
+    "as_of": "2024-09-30",
+    "contract": "2024-12",
+    "error": -6.2879999999999985,
+    "f0": 14.918,
+    "horizon_months": 3,
+    "paper_move": -6.2879999999999985,
+    "physical": 8.63,
+    "settlement": 8.63,
+    "unhedged": -6.2879999999999985
+   },
+   {
+    "as_of": "2024-12-31",
+    "contract": "2025-01",
+    "error": 1.2360000000000007,
+    "f0": 10.689,
+    "horizon_months": 1,
+    "paper_move": 1.2360000000000007,
+    "physical": 12.88,
+    "settlement": 11.925,
+    "unhedged": 2.1910000000000007
+   },
+   {
+    "as_of": "2024-12-31",
+    "contract": "2025-02",
+    "error": 1.5899999999999999,
+    "f0": 11.6,
+    "horizon_months": 2,
+    "paper_move": 1.5899999999999999,
+    "physical": 13.69,
+    "settlement": 13.19,
+    "unhedged": 2.09
+   },
+   {
+    "as_of": "2024-12-31",
+    "contract": "2025-03",
+    "error": 0.22100000000000186,
+    "f0": 12.184,
+    "horizon_months": 3,
+    "paper_move": 0.22100000000000186,
+    "physical": 12.26,
+    "settlement": 12.405000000000001,
+    "unhedged": 0.07600000000000051
+   },
+   {
+    "as_of": "2025-03-31",
+    "contract": "2025-04",
+    "error": -0.03999999999999915,
+    "f0": 13.16,
+    "horizon_months": 1,
+    "paper_move": -0.03999999999999915,
+    "physical": 12.13,
+    "settlement": 13.120000000000001,
+    "unhedged": -1.0299999999999994
+   },
+   {
+    "as_of": "2025-03-31",
+    "contract": "2025-05",
+    "error": 1.4000000000000004,
+    "f0": 12.84,
+    "horizon_months": 2,
+    "paper_move": 1.4000000000000004,
+    "physical": 14.24,
+    "settlement": 14.24,
+    "unhedged": 1.4000000000000004
+   },
+   {
+    "as_of": "2025-03-31",
+    "contract": "2025-06",
+    "error": -0.1379999999999999,
+    "f0": 12.433,
+    "horizon_months": 3,
+    "paper_move": -0.1379999999999999,
+    "physical": 10.5,
+    "settlement": 12.295,
+    "unhedged": -1.9329999999999998
+   },
+   {
+    "as_of": "2025-06-30",
+    "contract": "2025-07",
+    "error": -1.0280000000000005,
+    "f0": 10.848,
+    "horizon_months": 1,
+    "paper_move": -1.0280000000000005,
+    "physical": 9.82,
+    "settlement": 9.82,
+    "unhedged": -1.0280000000000005
+   },
+   {
+    "as_of": "2025-06-30",
+    "contract": "2025-08",
+    "error": 1.251999999999999,
+    "f0": 11.028,
+    "horizon_months": 2,
+    "paper_move": 1.251999999999999,
+    "physical": 12.28,
+    "settlement": 12.28,
+    "unhedged": 1.251999999999999
+   },
+   {
+    "as_of": "2025-06-30",
+    "contract": "2025-09",
+    "error": 7.550000000000001,
+    "f0": 11.96,
+    "horizon_months": 3,
+    "paper_move": 7.550000000000001,
+    "physical": 16.51,
+    "settlement": 19.51,
+    "unhedged": 4.550000000000001
+   },
    {
     "as_of": "2025-09-30",
     "contract": "2025-10",
-    "error": 3.3180000000000014,
+    "error": 1.2980000000000018,
     "f0": 17.412,
     "horizon_months": 1,
-    "paper_move": 3.3180000000000014,
-    "physical": 20.73,
-    "settlement": 20.73,
-    "unhedged": 3.3180000000000014
+    "paper_move": 1.2980000000000018,
+    "physical": 16.69,
+    "settlement": 18.71,
+    "unhedged": -0.7219999999999978
+   },
+   {
+    "as_of": "2025-09-30",
+    "contract": "2025-11",
+    "error": 11.27,
+    "f0": 16.285,
+    "horizon_months": 2,
+    "paper_move": 11.27,
+    "physical": 27.25,
+    "settlement": 27.555,
+    "unhedged": 10.965
+   },
+   {
+    "as_of": "2025-09-30",
+    "contract": "2025-12",
+    "error": 11.503,
+    "f0": 16.047,
+    "horizon_months": 3,
+    "paper_move": 11.503,
+    "physical": 28.03,
+    "settlement": 27.55,
+    "unhedged": 11.983
+   },
+   {
+    "as_of": "2025-12-31",
+    "contract": "2026-01",
+    "error": 4.054000000000002,
+    "f0": 14.256,
+    "horizon_months": 1,
+    "paper_move": 4.054000000000002,
+    "physical": 15.71,
+    "settlement": 18.310000000000002,
+    "unhedged": 1.4540000000000006
+   },
+   {
+    "as_of": "2025-12-31",
+    "contract": "2026-02",
+    "error": 16.17,
+    "f0": 15.0,
+    "horizon_months": 2,
+    "paper_move": 16.17,
+    "physical": 28.1,
+    "settlement": 31.17,
+    "unhedged": 13.100000000000001
+   },
+   {
+    "as_of": "2025-12-31",
+    "contract": "2026-03",
+    "error": 72.586,
+    "f0": 15.044,
+    "horizon_months": 3,
+    "paper_move": 72.586,
+    "physical": 94.31,
+    "settlement": 87.63,
+    "unhedged": 79.266
+   },
+   {
+    "as_of": "2026-03-31",
+    "contract": "2026-04",
+    "error": 1.5959999999999894,
+    "f0": 78.069,
+    "horizon_months": 1,
+    "paper_move": 1.5959999999999894,
+    "physical": 72.88,
+    "settlement": 79.66499999999999,
+    "unhedged": -5.189000000000007
+   },
+   {
+    "as_of": "2026-03-31",
+    "contract": "2026-05",
+    "error": 18.509,
+    "f0": 67.636,
+    "horizon_months": 2,
+    "paper_move": 18.509,
+    "physical": 81.85,
+    "settlement": 86.145,
+    "unhedged": 14.213999999999999
    },
    {
     "as_of": "2026-03-31",
@@ -472,17 +1687,82 @@
    },
    {
     "as_of": "2026-06-30",
+    "contract": "2026-08",
+    "error": 55.154,
+    "f0": 43.876,
+    "horizon_months": 2,
+    "paper_move": 55.154,
+    "physical": 99.03,
+    "settlement": 99.03,
+    "unhedged": 55.154
+   },
+   {
+    "as_of": "2026-06-30",
     "contract": "2026-09",
-    "error": 95.588,
+    "error": 144.82299999999998,
     "f0": 41.392,
     "horizon_months": 3,
-    "paper_move": 95.588,
+    "paper_move": 144.82299999999998,
     "physical": 136.98,
-    "settlement": 136.98,
+    "settlement": 186.21499999999997,
     "unhedged": 95.588
+   },
+   {
+    "as_of": "2026-09-30",
+    "contract": "2026-10",
+    "error": 15.407999999999987,
+    "f0": 237.217,
+    "horizon_months": 1,
+    "paper_move": 15.407999999999987,
+    "physical": 243.15,
+    "settlement": 252.625,
+    "unhedged": 5.932999999999993
+   },
+   {
+    "as_of": "2026-09-30",
+    "contract": "2026-11",
+    "error": 49.84100000000004,
+    "f0": 206.319,
+    "horizon_months": 2,
+    "paper_move": 49.84100000000004,
+    "physical": 256.16,
+    "settlement": 256.16,
+    "unhedged": 49.84100000000004
    }
   ],
-  "without_thin_weeks": []
+  "threshold_months": 12,
+  "without_thin_weeks": [
+   {
+    "effectiveness_k1": -0.44017305813895713,
+    "first": "2023-07",
+    "horizon_months": 1,
+    "last": "2026-10",
+    "mean_error_usd_t": 2.3080277777777773,
+    "n": 12,
+    "rmse_usd_t": 4.878707605313944,
+    "share_positive": 0.75
+   },
+   {
+    "effectiveness_k1": 0.9942479309664981,
+    "first": "2023-08",
+    "horizon_months": 2,
+    "last": "2026-11",
+    "mean_error_usd_t": 11.40064285714286,
+    "n": 14,
+    "rmse_usd_t": 21.200731963442077,
+    "share_positive": 0.8571428571428571
+   },
+   {
+    "effectiveness_k1": 0.74048024699,
+    "first": "2023-09",
+    "horizon_months": 3,
+    "last": "2026-09",
+    "mean_error_usd_t": 14.692083333333331,
+    "n": 12,
+    "rmse_usd_t": 42.34913586780726,
+    "share_positive": 0.75
+   }
+  ]
  },
  "strips": [
   {
@@ -506,6 +1786,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390023079811/f10k2023_etfmanag1.htm",
      "usd_t": 13.72
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "contango"
    ]
   },
   {
@@ -529,6 +1813,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390023086962/f10q0923_etfmanagers1.htm",
      "usd_t": 15.05
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -552,6 +1840,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024015372/f10q1223_amplifycommod.htm",
      "usd_t": 12.583
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -575,6 +1867,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024045347/ea0205741-10q_amplify.htm",
      "usd_t": 13.47
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -598,6 +1894,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024082617/ea0214601-10k_amplify.htm",
      "usd_t": 12.45
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -621,6 +1921,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390024098370/ea0220480-10q_amplify.htm",
      "usd_t": 14.918
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -644,6 +1948,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025014137/ea0231107-10q_amplify.htm",
      "usd_t": 12.184
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -667,6 +1975,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025043979/ea0241273-10q_amplify.htm",
      "usd_t": 12.433
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -690,6 +2002,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025092470/ea0256815-10k_amplify.htm",
      "usd_t": 11.96
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -713,6 +2029,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390025110548/ea0263477-10q_amplify.htm",
      "usd_t": 16.047
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -736,6 +2056,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026015020/ea0276065-10q_amplify.htm",
      "usd_t": 15.044
     }
+   ],
+   "shapes": [
+    "contango",
+    "contango"
    ]
   },
   {
@@ -777,6 +2101,13 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026057535/ea0289571-10q_amplify.htm",
      "usd_t": 26.816
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation",
+    "backwardation",
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -800,6 +2131,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026103611/ea0305412-10k_amplify.htm",
      "usd_t": 41.392
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   },
   {
@@ -823,6 +2158,10 @@
      "url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390026119638/ea0310670-10q_amplify.htm",
      "usd_t": 179.132
     }
+   ],
+   "shapes": [
+    "backwardation",
+    "backwardation"
    ]
   }
  ],

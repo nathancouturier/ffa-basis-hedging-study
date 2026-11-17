@@ -6,7 +6,7 @@ import { h, takeaway, table, note, defs, segmented, clear } from "./dom.js";
 import { lineChart, calendarChart, barChart, monthMid, monthStart, monthEnd, dayMs, empty } from "./charts.js";
 import { pct, shareOf, usdDay, num, signed, signedPct, signedPoints, dateLong, dateShort, tenorLabel, monthName, monthAbbr, monthLong, plural, listJoin, isNum, capitalise, usdT, monthShort } from "./format.js";
 import { quarter_months } from "./engine.js";
-import { wire, sourceLine, basketForWindow, csvLink, stripSummary } from "./view-kit.js";
+import { wire, sourceLine, basketForWindow, downloadLine, stripSummary, retrievedOf } from "./view-kit.js";
 
 const RULES = Object.freeze({
   minYearN: 10, // a year needs this many curves to be named in a title
@@ -98,7 +98,8 @@ function curveChart(box, curve, opts) {
     series.push({ cls: "ffa", thin: true, dots: true, hollow: true, points: pts });
   }
   const refs = [];
-  const xs = [...curve.tenors.map((t) => (t.kind === "quarter" ? monthEnd(quarter_months(t.period)[2]) : monthEnd(t.period))), ...curve.tenors.map((t) => (t.kind === "quarter" ? monthStart(quarter_months(t.period)[0]) : monthStart(t.period)))];
+  const periods = [...curve.tenors.map((t) => t.period), ...(reprint ? Object.keys(reprint.tenors) : [])];
+  const xs = periods.flatMap((pd) => (pd.includes("-Q") ? [monthStart(quarter_months(pd)[0]), monthEnd(quarter_months(pd)[2])] : [monthStart(pd), monthEnd(pd)]));
   if (isNum(spot) && curve.spot_on) {
     refs.push({ y: spot, label: `Spot ${num(spot)}, ${dateShort(curve.spot_on)}`, cls: "spot" });
     xs.push(dayMs(curve.spot_on));
@@ -123,7 +124,7 @@ function curveChart(box, curve, opts) {
   if (isNum(spot)) legend.push({ label: "Baltic 5TC spot on the cited day", cls: "spot", kind: "thin" });
   const parts = curve.tenors.map((t) => `${t.label} ${num(t.usd_day)}${isNum(spot) ? ` (${signed(t.usd_day - spot)})` : ""}`);
   const summary = `FFA tenors on ${dateLong(curve.date)}, USD a day${isNum(spot) ? `, with their distance from the spot of ${num(spot)} on ${dateLong(curve.spot_on)}` : ""}: ${parts.join(", ")}.`;
-  const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `. Levels shown only on cited dates, as the data policy allows.`);
+  const src = h("span", {}, `Source: ${curve.source}, page ${curve.page}. `, h("a", { href: curve.url }, "Report (PDF)"), reprint ? h("span", {}, " and ", h("a", { href: reprint.url }, `${reprint.issue} (PDF)`)) : null, `, ${opts.retrieved}. Levels shown only on cited dates, as the data policy allows.`);
   return lineChart(box, {
     title,
     subtitle: `USD a day, ${num(curve.basket_t)} t basket (${curve.basket_how}). Banchero Costa's Monday assessment, cited with issue and page.`,
@@ -193,7 +194,7 @@ function render(section, ctx) {
       notes.push(`Quality flag: ${tenorLabel(f.period)} moved ${signedPoints(f.move_pct)} in a week while the other tenors moved ${signedPoints(f.median_other_pct)} (median).`);
     }
     const footer = notes.length ? h("div", {}, notes.map((t) => h("p", { class: "chart-summary" }, t))) : null;
-    curveChart(chartBox, selected, { footer });
+    curveChart(chartBox, selected, { footer, retrieved: retrievedOf(ctx.data.manifest, "Banchero") });
   }
   if (curves.length) drawCurve();
 
@@ -382,7 +383,7 @@ function render(section, ctx) {
             points: st.months.map((mm) => ({ x: monthMid(mm.month), y: mm.usd_t, tip: { title: `${monthLong(mm.month)} contract, marked ${dateLong(st.as_of)}`, rows: [{ key: "ffa", value: usdT(mm.usd_t, 3), label: "" }, { key: null, value: num(mm.contracts), label: "contracts held" }] } })),
           })),
           summary: stripSummary(strips),
-          source: "Source: Amplify Commodity Trust 10-Q and 10-K filings, SEC EDGAR (links in the Data section).",
+          source: `Source: Amplify Commodity Trust 10-Q and 10-K filings, SEC EDGAR (links in the Data section), ${retrievedOf(ctx.data.manifest, "SEC")}.`,
         });
       },
     },
@@ -484,7 +485,7 @@ function render(section, ctx) {
             ],
             rows: (curve.td3c_strips || []).flatMap((st) => st.months.map((mm) => ({ ...mm, as_of: st.as_of }))),
           }));
-          body.append(h("p", {}, "Download: ", csvLink("sec_freight_futures_marks.csv"), " (every BDRY and BWET quarter-end mark with its filing)."));
+          body.append(downloadLine([{ file: "sec_freight_futures_marks.csv", what: "every BDRY and BWET quarter-end mark with its filing" }]));
         },
       },
     ],

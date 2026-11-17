@@ -15,6 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 KEYS = (
+    "exact_months_180",
     "complete_months_180",
     "complete_months_182",
     "td3c_weekly",

@@ -1,7 +1,7 @@
 {
  "artifact": "manifest",
  "as_of": {
-  "breakwave": "2026-09-08",
+  "breakwave": "2026-11-03",
   "daily_5tc": "2026-11-06",
   "ffa_curve": "2026-11-08",
   "published_5tc": "2026-10",
@@ -9,7 +9,44 @@
   "td3c_weekly": "2026-11-13"
  },
  "built_on": "2026-11-17",
- "documents": 1455,
+ "documents": 1536,
+ "downloads": [
+  {
+   "description": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
+   "file": "data/downloads/forecast_errors.csv",
+   "rows": 92
+  },
+  {
+   "description": "Effectiveness by voyage and horizon: k = 1 with its interval, k* out of sample, CVaR, residual shares",
+   "file": "data/downloads/hedge_effectiveness.csv",
+   "rows": 9
+  },
+  {
+   "description": "Every fixture's surprise, paper move and basis components, USD a day (no price levels)",
+   "file": "data/downloads/hedge_outcomes.csv",
+   "rows": 776
+  },
+  {
+   "description": "Monthly 5TC settlement averages with their status and both baskets in 2026",
+   "file": "data/downloads/monthly_settlements_5tc.csv",
+   "rows": 74
+  },
+  {
+   "description": "Roll cost of a rolling one-month and front-quarter long by year",
+   "file": "data/downloads/roll_cost_by_year.csv",
+   "rows": 8
+  },
+  {
+   "description": "Every BDRY and BWET freight future at each quarter end, from the SEC filings",
+   "file": "data/downloads/sec_freight_futures_marks.csv",
+   "rows": 150
+  },
+  {
+   "description": "The Baltic's weekly TD3C and TD34 prints, each with its report's link",
+   "file": "data/downloads/td3c_weekly_prints.csv",
+   "rows": 188
+  }
+ ],
  "sources": [
   {
    "documents": 4,
@@ -86,18 +123,18 @@
    "source": "The Edge Malaysia (Baltic weekly report)"
   },
   {
-   "documents": 116,
+   "documents": 155,
    "first_retrieved": "2026-11-17T16:11:56Z",
-   "last_retrieved": "2026-11-17T17:22:35Z",
+   "last_retrieved": "2026-11-17T18:19:26Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
    "source": "Banchero Costa weekly reports (via Hellenic Shipping News)"
   },
   {
-   "documents": 29,
+   "documents": 71,
    "first_retrieved": "2026-11-17T16:44:39Z",
-   "last_retrieved": "2026-11-17T17:36:14Z",
+   "last_retrieved": "2026-11-17T17:58:10Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],

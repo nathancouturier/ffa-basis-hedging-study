@@ -93,6 +93,8 @@ def hedge_cells(table: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "residual_variance_share": {k: _share(v) for k, v in row["residual_variance_share"].items()},
                 "residual_mean_usd_day": {k: _usd(v) for k, v in row["residual_mean_usd_day"].items()},
                 "residual_sd_usd_day": {k: _usd(v) for k, v in row["residual_sd_usd_day"].items()},
+                "curve_baskets": row["curve_baskets"],
+                "k_window_min_fixtures": row["k_window_min_fixtures"],
             }
         )
     return out
@@ -221,7 +223,12 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
                 "block": s["mean_ci"]["block"],
             },
             "rmse_ci": {"low": _usd(s["rmse_ci"]["low"]), "high": _usd(s["rmse_ci"]["high"])},
+            "ci_note": None
+            if s["mean_ci"].get("low") is not None
+            else f"No interval: {s['n']} contracts, fewer than two bootstrap blocks of {s['mean_ci']['block']}",
+            "n_naive": s.get("n_naive"),
             "rmse_naive_usd_day": _usd(s.get("rmse_naive_usd_day")),
+            "rmse_ffa_paired_usd_day": _usd(s.get("rmse_ffa_paired_usd_day")),
             "rmse_ratio_ffa_to_naive": _r(s.get("rmse_ratio_ffa_to_naive"), 3),
             "first": s["first"],
             "last": s["last"],
@@ -299,15 +306,14 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
         }
         for r in results["hedge_rows"]
     ]
+    lab["sources_line"] = extra["sources_line"]["lab"]
     dump(data / "lab.json", lab)
     written.append(data / "lab.json")
 
-    dump(data / "td3c.json", extra["td3c"])
+    dump(data / "td3c.json", extra["td3c"] | {"sources_line": extra["sources_line"]["td3c"]})
     written.append(data / "td3c.json")
-    dump(data / "method.json", extra["method"])
+    dump(data / "method.json", extra["method"] | {"sources_line": extra["sources_line"]["method"]})
     written.append(data / "method.json")
-    dump(data / "manifest.json", extra["manifest"])
-    written.append(data / "manifest.json")
     dump(data / "engine.json", {"artifact": "engine", "constants": engine.constants()})
     written.append(data / "engine.json")
 
@@ -481,7 +487,31 @@ def write_all(root: Path, results: dict[str, Any], panel: dict[str, Any], extra:
         ],
     )
     written += sorted(downloads.glob("*.csv"))
+    manifest = dict(extra["manifest"])
+    manifest["downloads"] = [
+        {
+            "file": f"data/downloads/{path.name}",
+            "description": DOWNLOADS.get(path.stem, ""),
+            "rows": max(0, len(path.read_text(encoding="utf-8").splitlines()) - 1),
+        }
+        for path in sorted(downloads.glob("*.csv"))
+    ]
+    dump(data / "manifest.json", manifest)
+    written.append(data / "manifest.json")
     return written
+
+
+#: What each CSV download holds (the manifest lists them with their row counts).
+DOWNLOADS = {
+    "hedge_effectiveness": "Effectiveness by voyage and horizon: k = 1 with its interval, k* out of sample, CVaR, "
+    "residual shares",
+    "hedge_outcomes": "Every fixture's surprise, paper move and basis components, USD a day (no price levels)",
+    "forecast_errors": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
+    "roll_cost_by_year": "Roll cost of a rolling one-month and front-quarter long by year",
+    "monthly_settlements_5tc": "Monthly 5TC settlement averages with their status and both baskets in 2026",
+    "sec_freight_futures_marks": "Every BDRY and BWET freight future at each quarter end, from the SEC filings",
+    "td3c_weekly_prints": "The Baltic's weekly TD3C and TD34 prints, each with its report's link",
+}
 
 
 def _bands(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:

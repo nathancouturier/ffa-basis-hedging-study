@@ -10,6 +10,7 @@ the deployed subpath also breaks here. Hidden files and folders (.git, .work, .v
 from __future__ import annotations
 
 import argparse
+import contextlib
 import http.server
 import mimetypes
 import posixpath
@@ -42,7 +43,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
-    def guess_type(self, path):  # noqa: D401 - the stdlib signature
+    def guess_type(self, path):
         suffix = Path(str(path)).suffix.lower()
         return TYPES.get(suffix) or mimetypes.guess_type(str(path))[0] or "application/octet-stream"
 
@@ -56,7 +57,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         path = urllib.parse.unquote(raw)
         if not path.startswith(PREFIX):
             return None
-        rel = posixpath.normpath(path[len(PREFIX):] or ".")
+        rel = posixpath.normpath(path[len(PREFIX) :] or ".")
         parts = [p for p in rel.split("/") if p not in ("", ".")]
         if any(p.startswith(".") for p in parts) or ".." in parts:
             return None
@@ -77,15 +78,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.path = "/" + rel + (("?" + query) if query else "")
         return True
 
-    def do_GET(self):  # noqa: N802 - the stdlib name
+    def do_GET(self):
         if self._route():
             super().do_GET()
 
-    def do_HEAD(self):  # noqa: N802 - the stdlib name
+    def do_HEAD(self):
         if self._route():
             super().do_HEAD()
 
-    def log_message(self, format, *args):  # noqa: A002 - the stdlib signature
+    def log_message(self, format, *args):
         sys.stderr.write("%s %s\n" % (self.log_date_time_string(), format % args))
 
 
@@ -101,10 +102,8 @@ def main() -> int:
     args = parser.parse_args()
     with Server((args.bind, args.port), Handler) as httpd:
         print("Serving %s at http://%s:%d%s" % (ROOT.name, args.bind, args.port, PREFIX), flush=True)
-        try:
+        with contextlib.suppress(KeyboardInterrupt):
             httpd.serve_forever()
-        except KeyboardInterrupt:
-            pass
     return 0
 
 
