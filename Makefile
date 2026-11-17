@@ -5,9 +5,10 @@
 PYTHON ?= python
 PORT ?= 8150
 BASE ?= http://localhost:$(PORT)/ffa-basis-hedging-study/
+SHOTS ?= screenshots
 
 .DEFAULT_GOAL := help
-.PHONY: help all setup data data-offline build fixtures note test lint validate gate serve browser site
+.PHONY: help all setup data data-offline build fixtures note test lint validate gate serve browser site shots
 
 help:
 	@echo "make all          fetch what is missing (cache first, network when empty), rebuild every artifact, the"
@@ -25,7 +26,8 @@ help:
 	@echo "make gate         everything that must pass before a change lands (offline)"
 	@echo "make serve        python scripts/serve.py --port $(PORT)   then open $(BASE)"
 	@echo "make browser      node tools/check-site.mjs --base $(BASE)   (server running)"
-	@echo "make site         node scripts/screenshots.mjs --base $(BASE) --out assets   (server running)"
+	@echo "make site         node scripts/readme_shots.mjs --base $(BASE)   (the README's screenshots in assets/)"
+	@echo "make shots        node scripts/screenshots.mjs --base $(BASE) --out $(SHOTS)   (every view, width, theme)"
 
 all: data fixtures note gate
 
@@ -82,4 +84,7 @@ browser:
 	node tools/check-site.mjs --base $(BASE)
 
 site:
-	node scripts/screenshots.mjs --base $(BASE) --out assets
+	node scripts/readme_shots.mjs --base $(BASE)
+
+shots:
+	node scripts/screenshots.mjs --base $(BASE) --out $(SHOTS)

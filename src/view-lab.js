@@ -617,6 +617,9 @@ function render(section, ctx) {
     }
     const sign = state.role === "owner" ? 1 : -1;
     bandsEl.append(h("p", { class: "lede" }, `The residual is what a 1:1 hedge did not remove: the voyage's gross TCE minus the settlement it was hedged on, in USD a day (timing, route and size basis). Applied to this ${state.role === "owner" ? "voyage" : "charter"}, each percentile moves the total by the residual times the days kept. ${state.role === "charterer" ? "For a charterer a positive residual is extra hire, so the signs reverse." : ""}`));
+    if (isNum(b.route_mean_removed_usd_day) && b.route_mean_removed_usd_day !== 0) {
+      bandsEl.append(h("p", { class: "small muted" }, `Route basis enters with its mean (${signed(b.route_mean_removed_usd_day)} USD a day for ${state.voyage} at ${horizonLabel(b.horizon_months)}) removed: the study's voyage TCEs leave out port charges and the loading time at the port's scale, which have no public figure, so the level of the route basis is overstated while its spread, which these bands show, is not.`));
+    }
     bandsEl.append(table({
       caption: `Residual after the hedge, ${state.voyage}, USD a day (k = 1)`,
       columns: [
@@ -742,7 +745,7 @@ function render(section, ctx) {
             { term: "Paper size", desc: `FFA days in a month = the voyage's days in it times (1 minus the commission) times k; a TD3C hedge is the cargo's tonnes times k, in lots of ${num(C.TONNES_PER_LOT_TD3C)} t.` },
             { term: "Locked", desc: "F0 times the voyage's days times the share kept (owner); minus that for a charterer, whose hire is a cost." },
             { term: "Scenarios", desc: "Every month settles at the same share of F0; the physical leg earns (or pays) the settlement, so at k = 1 the total equals what was locked." },
-            { term: "Basis bands", desc: "The 5th, 25th, 50th, 75th and 95th percentiles of the residual (gross TCE minus settlement at k = 1) of the study's fixtures for the same voyage and horizon, added to the physical leg." },
+            { term: "Basis bands", desc: "The 5th, 25th, 50th, 75th and 95th percentiles of the residual (gross TCE minus settlement at k = 1) of the study's fixtures for the same voyage and horizon, added to the physical leg; the route basis enters with its mean removed, because its level is overstated (port charges and loading time are left out of the voyage TCEs) while its spread is not." },
             { term: "Closest setups", desc: "The study's fixtures of the same voyage and horizon, ranked by distance from the start date, or restricted to the start's calendar month." },
           ]));
         },

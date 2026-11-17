@@ -21,8 +21,15 @@ function errorTip(e) {
   };
 }
 
-function ciText(ci) {
-  return ci && isNum(ci.low) && isNum(ci.high) ? `${signed(ci.low)} to ${signed(ci.high)}` : "no interval (too few observations)";
+function ciText(ci, note) {
+  return ci && isNum(ci.low) && isNum(ci.high) ? `${signed(ci.low)} to ${signed(ci.high)}` : note || "no interval (too few observations)";
+}
+
+/** The FFA's RMSE against spot's, both on the contracts that have a spot print on the pricing date. */
+function naiveText(b) {
+  if (!isNum(b.rmse_naive_usd_day)) return "";
+  const ffa = isNum(b.rmse_ffa_paired_usd_day) ? b.rmse_ffa_paired_usd_day : b.rmse_usd_day;
+  return `on the ${plural(b.n_naive ?? b.n, "contract", "contracts")} with a spot print, RMSE ${num(ffa)} against ${num(b.rmse_naive_usd_day)} for spot`;
 }
 
 function biasTip(b) {
@@ -30,7 +37,7 @@ function biasTip(b) {
     title: `${horizonName(b.horizon_months)} before expiry, ${plural(b.n, "contract", "contracts")}`,
     rows: [
       { key: "ink", value: `${signed(b.mean_usd_day)} USD a day`, label: "mean error" },
-      { key: null, value: ciText(b.mean_ci), label: "90 percent interval" },
+      { key: null, value: ciText(b.mean_ci, b.ci_note), label: "90 percent interval" },
       { key: null, value: signed(b.median_usd_day), label: "median" },
       { key: null, value: num(b.rmse_usd_day), label: `RMSE${isNum(b.rmse_ratio_ffa_to_naive) ? `, ${num(b.rmse_ratio_ffa_to_naive, 2)} of spot's as a forecast` : ""}` },
     ],
@@ -101,7 +108,7 @@ function render(section, ctx) {
       ],
       cats,
       y: { title: "Settlement minus price, USD a day", format: (v) => signed(v) },
-      summary: `${bias.map((b) => `${horizonName(b.horizon_months)}: mean ${signed(b.mean_usd_day)} USD a day (90 percent interval ${ciText(b.mean_ci)}), median ${signed(b.median_usd_day)}, ${shareOf(b.share_positive, b.n)} positive of ${b.n}, RMSE ${num(b.rmse_usd_day)} against ${num(b.rmse_naive_usd_day)} for spot`).join("; ")}.${qb ? ` Front quarter: mean ${signed(qb.mean_usd_day)} (${ciText(qb.mean_ci)}), ${plural(qb.n, "quarter", "quarters")}, ${monthShort(qb.first)} to ${monthShort(qb.last)}.` : ""} Contracts ${monthShort(one.first)} to ${monthShort(one.last)}.`,
+      summary: `${bias.map((b) => `${horizonName(b.horizon_months)}: mean ${signed(b.mean_usd_day)} USD a day (90 percent interval ${ciText(b.mean_ci)}), median ${signed(b.median_usd_day)}, ${shareOf(b.share_positive, b.n)} positive of ${b.n}, RMSE ${num(b.rmse_usd_day)}${naiveText(b) ? `; ${naiveText(b)}` : ""}`).join("; ")}.${qb ? ` Front quarter: mean ${signed(qb.mean_usd_day)} (${ciText(qb.mean_ci, qb.ci_note)}), ${plural(qb.n, "quarter", "quarters")}, ${monthShort(qb.first)} to ${monthShort(qb.last)}.` : ""} Contracts ${monthShort(one.first)} to ${monthShort(one.last)}.`,
       source: sourceLine(roll, "Banchero Costa weekly FFA assessments; monthly 5TC settlements."),
     });
   } else empty(key, { title: "Forecast errors", text: "roll.json carries no bias rows in this build." });
@@ -191,11 +198,13 @@ function render(section, ctx) {
             { label: "From", format: (b) => monthShort(b.first) },
             { label: "To", format: (b) => monthShort(b.last) },
             { label: "Mean", num: true, format: (b) => signed(b.mean_usd_day) },
-            { label: "90% interval", num: true, format: (b) => ciText(b.mean_ci) },
+            { label: "90% interval", num: true, format: (b) => ciText(b.mean_ci, b.ci_note) },
             { label: "Mean, % of settlement", num: true, format: (b) => signedPct(b.mean_pct) },
             { label: "Median", num: true, format: (b) => signed(b.median_usd_day) },
             { label: "RMSE", num: true, format: (b) => num(b.rmse_usd_day) },
             { label: "RMSE interval", num: true, format: (b) => (b.rmse_ci && isNum(b.rmse_ci.low) ? `${num(b.rmse_ci.low)} to ${num(b.rmse_ci.high)}` : "none") },
+            { label: "Contracts with spot", num: true, format: (b) => (isNum(b.n_naive) ? num(b.n_naive) : "") },
+            { label: "FFA's RMSE on them", num: true, format: (b) => (isNum(b.rmse_ffa_paired_usd_day) ? num(b.rmse_ffa_paired_usd_day) : "") },
             { label: "Spot's RMSE", num: true, format: (b) => (isNum(b.rmse_naive_usd_day) ? num(b.rmse_naive_usd_day) : "") },
             { label: "FFA / spot", num: true, format: (b) => (isNum(b.rmse_ratio_ffa_to_naive) ? num(b.rmse_ratio_ffa_to_naive, 3) : "") },
             { label: "Positive", num: true, format: (b) => shareOf(b.share_positive, b.n) },

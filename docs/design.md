@@ -197,30 +197,20 @@ Styles that are not colours:
 - **Minus sign.** Negative figures use U+2212 (a minus sign, not a dash) for alignment in tabular figures.
 - **No mono face.** Figtree's tabular figures do the job; a third face would add weight for nothing.
 
-## Requests to the data owner
+## Data fields the site reads beyond the first schema
 
-The site renders without each of these and says what is missing; it uses each field as soon as it appears.
+Requested while the site was built, now delivered by the pipeline and used by the views:
 
-1. `overview.json`: a basket field for the headline and each effectiveness row (the sample spans
-   180,000 t and 182,000 t). Today the site states the rule from `engine.json` and `engine.js`.
-2. `overview.json`: the minimum window of the out-of-sample minimum variance ratio (for example
-   `k_window_min_weeks`), so the site can state it from data instead of "an expanding window of past
-   fixtures".
-3. `overview.json`: an earlier build had the C3 three-month interval outside its point estimate; the
-   current build does not. The site still prints a note for any cell whose percentile interval excludes
-   its estimate; if that recurs, consider a bias-corrected interval.
-4. `lab.json`: TD3C has no basis bands or historical setups. Add them when a settled TD3C series in USD a
-   tonne exists; the lab says so meanwhile.
-5. `lab.json`, `td3c.json`, `method.json`: a `sources_line` like the overview, curve and roll artifacts.
-   The site composes one from each artifact's own fields and the manifest's retrieval dates.
-6. `manifest.json`: a `downloads` list (`file`, `description`, `rows`). The site lists the seven CSVs in
-   `data/downloads/` from its own descriptions until then, each shown only if the file exists.
-7. `method.json`: a `limitations` list. The Method view adds a Limitations section when it is present.
-8. `roll.json`: `quarter_bias.mean_ci` is null (six quarters). The site prints "no interval"; if a block
-   bootstrap on so few quarters is not meaningful, say so in a field (for example `ci_note`).
-9. `td3c.json` `cases`: the step-through renders the four cases from the schema in the brief. Each case
-   settles on a single Breakwave print, which the site labels approximate from `prints`; a case field
-   naming the settlement source would let the label quote it.
-10. Delivered while the site was built and now used: `td3c.json` `cases`, `breakwave_statement` and
-    `statistics`; `method.json` `hedge_by_year` (robustness by calendar year); the same-day spot on the
-    8 November 2026 cited curve; the research note PDF at the repository root.
+1. `overview.json`: `curve_baskets` on the headline and each effectiveness row (fixtures hedged on 180,000 t and
+   182,000 t curves) and `k_window_min_fixtures`, the out-of-sample ratio's minimum window; the Overview states
+   both.
+2. `lab.json`, `td3c.json`, `method.json`: a `sources_line` each.
+3. `manifest.json`: `downloads` (`file`, `description`, `rows`), listed in the Method view.
+4. `method.json`: `limitations`, shown as the Method view's Limitations section.
+5. `roll.json`: `ci_note` on a bias row whose sample is too short for two bootstrap blocks.
+6. `td3c.json`: each case's `mark_source`, `fixture_source` and `settlement_source`, quoted under the case;
+   `statement_check`, Breakwave's 7 April 2026 statement against the third quarter's settlement, under the quote;
+   `statistics.counts` and `threshold_months` (the TD3C statistics appear only from 12 contract months a horizon).
+
+Still open: the lab has no TD3C basis bands or historical setups (no settled TD3C series in USD a tonne long
+enough); the lab says so.

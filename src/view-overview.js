@@ -46,7 +46,11 @@ function render(section, ctx) {
   if (hl.effectiveness_k1_ci) facts.push({ term: "90 percent interval", desc: `${pct(hl.effectiveness_k1_ci.low)} to ${pct(hl.effectiveness_k1_ci.high)} (moving block bootstrap, blocks of ${hl.effectiveness_k1_ci.block} weeks, ${num(hl.effectiveness_k1_ci.resamples)} resamples)` });
   if (isNum(hl.n)) facts.push({ term: "Fixtures", desc: `${num(hl.n)} Fridays, ${dateLong(hl.first_fixture)} to ${dateLong(hl.last_fixture)}` });
   if (overview.as_of) facts.push({ term: "Data as of", desc: dateLong(overview.as_of) });
-  if (window) facts.push({ term: "Basket", desc: capitalise(window) });
+  if (window) {
+    const cb = hl.curve_baskets || {};
+    const counts = Object.entries(cb).filter(([, n]) => n > 0).map(([b, n]) => `${num(n)} on ${num(Number(b))} t curves`);
+    facts.push({ term: "Basket", desc: `${capitalise(window)}${counts.length > 1 ? ` (hedges: ${listJoin(counts)})` : ""}` });
+  }
   const meta = h("dl", { class: "headline-meta" });
   for (const f of facts) meta.append(h("div", {}, h("dt", {}, f.term), h("dd", {}, f.desc)));
   section.append(meta);
@@ -193,7 +197,7 @@ function render(section, ctx) {
             { term: "Strip price", desc: formulas.Strip || "F0 = the day-weighted FFA over the voyage's months." },
             { term: "Residual", desc: formulas["Residual at k = 1"] || "TCE minus S, split into route, timing and size basis." },
             { term: "Intervals", desc: hl.effectiveness_k1_ci ? `Moving block bootstrap, ${num(hl.effectiveness_k1_ci.resamples)} resamples, fixed seed ${hl.effectiveness_k1_ci.seed}; the block is the horizon in weeks plus four (${listJoin(cells.filter((r) => r.voyage === hl.voyage).map((r) => `${r.effectiveness_k1_ci?.block} weeks at ${horizonShort(r.horizon_months)}`))}).` : "Moving block bootstrap." },
-            { term: "Minimum variance ratio", desc: "k* = Cov(U, S minus F0) / Var(S minus F0), estimated on an expanding window of past fixtures only and applied to the next fixture; reported where the window is long enough, on the fixtures where it exists." },
+            { term: "Minimum variance ratio", desc: `k* = Cov(U, S minus F0) / Var(S minus F0), estimated on an expanding window of past fixtures only (fixtures whose last month settled before the hedge date, at least ${isNum(hl.k_window_min_fixtures) ? num(hl.k_window_min_fixtures) : "a year of"} of them) and applied to the next fixture; reported where the window is long enough, on the fixtures where it exists.` },
             { term: "Tail risk", desc: "The reduction in the conditional value at risk of the surprise (the average of the worst 5 percent of outcomes), shown in the Data section." },
           ];
           body.append(defs(items));

@@ -25,3 +25,6 @@ build/
 dist/
 _site/
 .lighthouse/
+
+# full screenshot sets (make shots)
+screenshots/

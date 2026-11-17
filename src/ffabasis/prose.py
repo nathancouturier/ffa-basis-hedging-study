@@ -71,7 +71,8 @@ def five_findings(ov: dict, curve: dict, roll: dict, td3c: dict) -> list[str]:
         out.append(
             f"The 5TC settled on average USD {usd(abs(b1['mean_usd_day']))} a day "
             f"{'above' if above else 'below'} the FFA price one month before expiry "
-            f"({b1['n']} contracts, {month_name(b1['first'])} to {month_name(b1['last'])}; 90 percent interval "
+            f"({b1['n']} contracts, {month_name(b1['first'])} to {month_name(b1['last'])}, each on the basket its "
+            f"curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval "
             f"{signed(lo)} to {signed(hi)}): a rolling {'charterer earned' if above else 'owner earned'} "
             f"that gap and a rolling {'owner gave it up' if above else 'charterer paid it'}"
             f"{', though the interval includes zero' if zero else ''}."

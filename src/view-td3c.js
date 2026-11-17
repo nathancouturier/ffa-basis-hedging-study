@@ -243,6 +243,9 @@ function render(section, ctx) {
     box.append(h("div", { class: "prose" },
       h("p", {}, `${role === "owner" ? "An owner" : "A charterer"} with ${tonnes(c.cargo_t)} to carry ${role === "owner" ? "sells" : "buys"} the month's TD3C futures at the mark and fixes the cargo in the loading month. It locks ${amount(tot.locked_usd)}; the cargo came in ${money(tot.physical_vs_locked_usd)} against that and the paper ${money(tot.paper_usd)}, so the total was ${amount(tot.total_usd)}.`),
       ...lines.map((t) => h("p", { class: "small" }, t)),
+      c.mark_source || c.fixture_source || c.settlement_source
+        ? h("p", { class: "small muted" }, [c.mark_source && `Marks: ${c.mark_source}.`, c.fixture_source && `Cargo: ${c.fixture_source}.`, c.settlement_source && `Settlement: ${c.settlement_source}.`].filter(Boolean).join(" "))
+        : null,
       approx ? h("p", { class: "small muted" }, `Approximate: the month's settlement is estimated from the TD3C prints in USD a tonne available for it (${listJoin(months.map((m) => `${plural(m.prints, "print", "prints")} for ${monthLong(m.month)}`))}), because Worldscale prints cannot be turned into USD a tonne without a consistent flat rate.`) : null));
     const steps = [
       { label: "Locked at the mark", value: tot.locked_usd, cls: "ink", kind: "start", outline: true },

@@ -79,6 +79,8 @@ the year to 30 June 2026).
   estimated only from fixtures settled before the hedge date (at least 52); intervals by moving block bootstrap
   (block of the horizon in weeks plus four, in weeks); 5 percent CVaR of U and U - X; the residual's variance
   split into route, timing and size basis by Cov(part, residual) / Var(residual).
+- **Basis bands in the lab.** The 5th to 95th percentiles of the residual at k = 1 by voyage and horizon, with the
+  route basis's mean removed: its level is overstated by the costs the voyage TCEs leave out, its spread is not.
 - **Ederington.** Monday to Monday changes of the spot and of the next month's FFA on the same basket, regressed;
   R squared is the variance a hedge at the regression ratio removes (Ederington 1979).
 - **TD3C.** The weekly record is the Baltic's own weekly tanker report (republished copies are checked against it).

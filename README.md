@@ -66,7 +66,7 @@ Read this part first.
 
 1. A 5TC hedge placed one month ahead removed 41.6% of the variance of a C5 voyage's earnings against the forward (90 percent interval 34.1% to 52.4%; 130 weekly fixtures, 20 October 2023 to 2 October 2026), 63.2% for a trip at the day's 5TC and 16.5% for a C3 voyage. A ratio estimated only from past fixtures removed 35.3% against 36.2% at one for one on the same 72 fixtures.
 2. What the hedge leaves is route and timing basis: route basis carries 55% of the variance of the hedged C5 result and timing basis 46%. Size basis carries 0%: from 2 January 2026 the Baltic derives the 180,000 t basket from the 182,000 t one at a fixed USD 3,503 a day, so a 182,000 t ship hedged with 180,000 t paper carries a constant, not a risk.
-3. The 5TC settled on average USD 1,902 a day above the FFA price one month before expiry (35 contracts, October 2023 to October 2026; 90 percent interval +425 to +3,645): a rolling charterer earned that gap and a rolling owner gave it up.
+3. The 5TC settled on average USD 1,902 a day above the FFA price one month before expiry (35 contracts, October 2023 to October 2026, each on the basket its curve was printed on, 180,000 t before 2026 and 182,000 t in 2026; 90 percent interval +425 to +3,645): a rolling charterer earned that gap and a rolling owner gave it up.
 4. The front month stood above the same day's spot in 50.7% of 142 weekly curves, and the next year's first quarter priced below the fourth quarter before it in 100% of the 66 curves that printed both, 38.6% lower on average.
 5. TD3C went from WS216.89 in the week to 27 February 2026, the last before the Strait of Hormuz closed, to WS1,318.75 and a round-trip TCE of USD 1,412,594 a day in the week to 9 October 2026. An owner who sold one cargo a month at Amplify's quarter-end marks gave the windfall up on paper and realised 96%, 102%, 94% and 42% of what the marks of 30 September 2025 to 30 June 2026 locked (approximate, from Breakwave's dollar prints); the 30 June 2026 hedge fell short because September 2026's cargo was fixed at the month's first print, USD 136.98 a tonne, while the paper settled near USD 186.21: timing basis inside the month.
 <!-- finding:end -->
@@ -103,8 +103,20 @@ Read this part first.
 
 Six views, each opening on its key chart and a one-sentence takeaway, with method, assumptions and data behind
 buttons: **Overview**, **Curve**, **Bias and roll**, **Hedge lab** (size and stress a hedge), **TD3C 2026** and
-**Method and data**. Screenshots of every view at 1440, 768, 390 and 320 pixels in both themes are in
-[`assets/`](assets/).
+**Method and data**. Each view has its own address (`#/overview`, `#/curve`, `#/roll`, `#/lab`, `#/td3c`,
+`#/method`), works from 320 px wide and in a light and a dark theme.
+
+![Overview: how much of a C5 voyage's earnings uncertainty a one-month 5TC hedge removes](assets/overview-1440-light.png)
+
+| | |
+|---|---|
+| ![Curve view](assets/curve-1440-light.png) | ![Bias and roll view, dark theme](assets/roll-1440-dark.png) |
+| ![Hedge lab](assets/lab-1440-light.png) | ![TD3C 2026 view, dark theme](assets/td3c-1440-dark.png) |
+| ![Method and data view](assets/method-1440-light.png) | ![Overview at 390 px, dark theme](assets/overview-390-dark.png) |
+
+The first screen of each view is in [`assets/`](assets/) (`node scripts/readme_shots.mjs`); every view at 1440, 768,
+390 and 320 px in both themes, with its sections open and each secondary chart, is written by
+`node scripts/screenshots.mjs --out <folder>`.
 
 ## Running it
 
@@ -195,7 +207,9 @@ data/fixtures/               the engine's parity cases
 data/raw/manifest.json       every document read: URL, time, sha256 (the documents stay out of git)
 data/AUDIT.md                every source probed, the data policy, coverage and quality control
 docs/                        design notes and methodology
-scripts/                     refresh, build, fixtures, note, serve, screenshots, finding, coverage guard
+assets/                      the README's screenshots
+scripts/                     refresh, build, fixtures, note, serve, screenshots (README set and full set),
+                             finding, coverage guard
 tools/                       the gate's validators and the browser check
 tests/                       the pytest suite
 .github/workflows/           build (gate, browser check, Pages) and the weekly refresh

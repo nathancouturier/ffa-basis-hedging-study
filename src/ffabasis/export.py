@@ -515,23 +515,30 @@ DOWNLOADS = {
 
 
 def _bands(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Quantiles of the residual (TCE - settlement, at k = 1) by voyage and horizon, for the lab's basis bands."""
+    """Quantiles of the residual (TCE - settlement, at k = 1) by voyage and horizon, for the lab's basis bands.
+
+    The route basis enters with its mean removed: its level is overstated (the voyage TCEs leave out port charges
+    and the loading time at the port's scale, which have no public figure) while its spread is not, so the bands
+    show the spread the hedge leaves around the locked level, not a level the data cannot support. The mean
+    removed is kept in the band (route_mean_removed_usd_day).
+    """
     import numpy as np
 
     out = []
     for voyage in hedge.VOYAGES:
         for h in analysis.HORIZONS:
-            values = [
-                r["unhedged"] - r["paper_move"] for r in rows if r["voyage"] == voyage and r["horizon_months"] == h
-            ]
-            if len(values) < 10:
+            sel = [r for r in rows if r["voyage"] == voyage and r["horizon_months"] == h]
+            if len(sel) < 10:
                 continue
+            route_mean = float(np.mean([r["route_basis"] for r in sel]))
+            values = [r["unhedged"] - r["paper_move"] - route_mean for r in sel]
             q = np.percentile(values, [5, 25, 50, 75, 95])
             out.append(
                 {
                     "voyage": voyage,
                     "horizon_months": h,
                     "n": len(values),
+                    "route_mean_removed_usd_day": _usd(route_mean),
                     "p05": _usd(q[0]),
                     "p25": _usd(q[1]),
                     "p50": _usd(q[2]),
