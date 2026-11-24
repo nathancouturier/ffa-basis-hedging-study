@@ -104,47 +104,47 @@
  "commission_pct": 5.0,
  "curve": {
   "basket_t": 182000,
-  "date": "2026-11-08",
-  "source": "Banchero Costa weekly market report 2026-W45, Dry bulk FFA assessments",
+  "date": "2026-11-15",
+  "source": "Banchero Costa weekly market report 2026-W46, Dry bulk FFA assessments",
   "tenors": [
    {
     "period": "2026-11",
-    "usd_day": 42117.0
+    "usd_day": 40117.0
    },
    {
     "period": "2026-12",
-    "usd_day": 42853.0
+    "usd_day": 40103.0
    },
    {
     "period": "2027-01",
-    "usd_day": 34796.0
+    "usd_day": 34132.0
    },
    {
     "period": "2027-02",
-    "usd_day": 29274.0
+    "usd_day": 28639.0
    },
    {
     "period": "2027-03",
-    "usd_day": 34357.0
+    "usd_day": 34010.0
    },
    {
     "period": "2027-04",
-    "usd_day": 35846.0
+    "usd_day": 35624.0
    },
    {
     "period": "2027-Q2",
-    "usd_day": 36928.0
+    "usd_day": 36182.0
    },
    {
     "period": "2027-Q3",
-    "usd_day": 36107.0
+    "usd_day": 35467.0
    },
    {
     "period": "2027-Q4",
-    "usd_day": 36092.0
+    "usd_day": 35474.0
    }
   ],
-  "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/Bancosta-Weekly-2026-45.pdf"
+  "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/Bancosta-Weekly-2026-46.pdf"
  },
  "history": [
   {
@@ -1897,19 +1897,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-07-14",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 1,
    "months": [
     "2023-07",
     "2023-08"
    ],
-   "paper_move_usd_day": -3231.0,
+   "paper_move_usd_day": -4239.0,
    "residual_usd_day": 622.0,
    "route_usd_day": 0.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": 622.0,
-   "unhedged_usd_day": -2608.0,
+   "unhedged_usd_day": -3616.0,
    "voyage": "5TC trip"
   },
   {
@@ -1954,20 +1954,20 @@
    "curve_basket_t": 180000,
    "days": 74.202,
    "fixture": "2023-07-14",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 1,
    "months": [
     "2023-07",
     "2023-08",
     "2023-09"
    ],
-   "paper_move_usd_day": -4142.0,
+   "paper_move_usd_day": -4504.0,
    "residual_usd_day": -1653.0,
    "route_usd_day": -1975.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": 323.0,
-   "unhedged_usd_day": -5795.0,
+   "unhedged_usd_day": -6157.0,
    "voyage": "C3"
   },
   {
@@ -2014,19 +2014,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-07-14",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 1,
    "months": [
     "2023-07",
     "2023-08"
    ],
-   "paper_move_usd_day": -3231.0,
+   "paper_move_usd_day": -4239.0,
    "residual_usd_day": 5112.0,
    "route_usd_day": 4489.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": 622.0,
-   "unhedged_usd_day": 1881.0,
+   "unhedged_usd_day": 873.0,
    "voyage": "C5"
   },
   {
@@ -2792,19 +2792,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-08-18",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 2,
    "months": [
     "2023-08",
     "2023-09"
    ],
-   "paper_move_usd_day": -4713.0,
+   "paper_move_usd_day": -4684.0,
    "residual_usd_day": -281.0,
    "route_usd_day": 0.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -281.0,
-   "unhedged_usd_day": -4994.0,
+   "unhedged_usd_day": -4965.0,
    "voyage": "5TC trip"
   },
   {
@@ -2850,20 +2850,20 @@
    "curve_basket_t": 180000,
    "days": 74.202,
    "fixture": "2023-08-18",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 2,
    "months": [
     "2023-08",
     "2023-09",
     "2023-10"
    ],
-   "paper_move_usd_day": 463.0,
+   "paper_move_usd_day": 442.0,
    "residual_usd_day": -7608.0,
    "route_usd_day": -2314.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -5294.0,
-   "unhedged_usd_day": -7144.0,
+   "unhedged_usd_day": -7166.0,
    "voyage": "C3"
   },
   {
@@ -2909,19 +2909,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-08-18",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 2,
    "months": [
     "2023-08",
     "2023-09"
    ],
-   "paper_move_usd_day": -4713.0,
+   "paper_move_usd_day": -4684.0,
    "residual_usd_day": 1730.0,
    "route_usd_day": 2011.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -281.0,
-   "unhedged_usd_day": -2983.0,
+   "unhedged_usd_day": -2954.0,
    "voyage": "C5"
   },
   {
@@ -3504,19 +3504,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-15",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 3,
    "months": [
     "2023-09",
     "2023-10"
    ],
-   "paper_move_usd_day": 875.0,
+   "paper_move_usd_day": 894.0,
    "residual_usd_day": -5848.0,
    "route_usd_day": 0.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -5848.0,
-   "unhedged_usd_day": -4974.0,
+   "unhedged_usd_day": -4954.0,
    "voyage": "5TC trip"
   },
   {
@@ -3563,20 +3563,20 @@
    "curve_basket_t": 180000,
    "days": 74.202,
    "fixture": "2023-09-15",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 3,
    "months": [
     "2023-09",
     "2023-10",
     "2023-11"
    ],
-   "paper_move_usd_day": 4534.0,
+   "paper_move_usd_day": 4380.0,
    "residual_usd_day": -15449.0,
    "route_usd_day": -6214.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -9235.0,
-   "unhedged_usd_day": -10916.0,
+   "unhedged_usd_day": -11069.0,
    "voyage": "C3"
   },
   {
@@ -3621,19 +3621,19 @@
    "curve_basket_t": 180000,
    "days": 28.508,
    "fixture": "2023-09-15",
-   "hedged_on": "2023-06-05",
+   "hedged_on": "2023-06-12",
    "horizon_months": 3,
    "months": [
     "2023-09",
     "2023-10"
    ],
-   "paper_move_usd_day": 875.0,
+   "paper_move_usd_day": 894.0,
    "residual_usd_day": 377.0,
    "route_usd_day": 6226.0,
    "ship_basket_t": 180000,
    "size_usd_day": 0.0,
    "timing_usd_day": -5848.0,
-   "unhedged_usd_day": 1252.0,
+   "unhedged_usd_day": 1271.0,
    "voyage": "C5"
   },
   {
@@ -24454,7 +24454,7 @@
    "voyage": "C5"
   }
  ],
- "sources_line": "Banchero Costa weekly FFA assessments (the latest cited curve and the historical fixtures); 5TC settlements from daily prints and Himalaya Shipping's averages (SEC); voyage-tce-model engine; Amplify Commodity Trust filings (SEC) for TD3C. Retrieved to 17 November 2026.",
+ "sources_line": "Banchero Costa weekly FFA assessments (the latest cited curve and the historical fixtures); 5TC settlements from daily prints and Himalaya Shipping's averages (SEC); voyage-tce-model engine; Amplify Commodity Trust filings (SEC) for TD3C. Retrieved to 24 November 2026.",
  "td3c_cargo_t": 270000.0,
  "td3c_strip": {
   "as_of": "2026-09-30",
@@ -24488,5 +24488,5 @@
   "C3": 76.522,
   "C5": 29.252
  },
- "voyage_days_on": "2026-11-06"
+ "voyage_days_on": "2026-11-13"
 }

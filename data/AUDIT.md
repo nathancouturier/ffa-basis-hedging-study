@@ -77,25 +77,25 @@ no level columns in the downloads except the SEC marks.
 
 | Item | Value |
 |---|---|
-| First and last FFA curve | 2021-01-08 and 2026-11-08 |
-| FFA curves by year | 2021: 2, 2022: 9, 2023: 46, 2024: 46, 2025: 40, 2026: 40 |
-| Banchero Costa issues read | 193 (105 with at least one table read by OCR) |
-| FFA tenors read by OCR that reproduce their printed week-on-week change (the rest are left out) | 377 of 393 |
-| Monthly settlements by year | 2020: 7 estimated; 2021: 10 estimated; 2022: 11 estimated; 2023: 1 complete, 4 estimated, 7 published; 2024: 12 published; 2025: 12 published; 2026: 10 complete |
+| First and last FFA curve | 2021-01-08 and 2026-11-15 |
+| FFA curves by year | 2021: 49, 2022: 45, 2023: 47, 2024: 46, 2025: 40, 2026: 41 |
+| Banchero Costa issues read | 332 (135 with at least one table read by OCR) |
+| FFA tenors read by OCR that reproduce their printed week-on-week change (the rest are left out) | 423 of 440 |
+| Monthly settlements by year | 2020: 7 estimated; 2021: 12 estimated; 2022: 12 estimated; 2023: 1 complete, 4 estimated, 7 published; 2024: 12 published; 2025: 12 published; 2026: 10 complete |
 | Complete settlement months (the study's own average of every publication day) | 11 on the 180,000 t basket (July 2023; January to October 2026); 10 of them also on the 182,000 t basket |
 | Published settlement months (Himalaya Shipping, SEC) | May to June 2023; August 2023 to December 2025 |
 | Exact settlement months (complete or published), 180,000 t | 42 |
-| Days in the pooled daily 5TC | 1051 |
+| Days in the pooled daily 5TC | 1087 |
 | Hedge observations (voyage, horizon, fixtures) | 5TC trip 1m 154, 5TC trip 2m 157, 5TC trip 3m 128, C3 1m 132, C3 2m 123, C3 3m 123, C5 1m 154, C5 2m 157, C5 3m 128 |
-| TD3C weekly prints | 191 (2023-01-06 to 2026-11-13) |
-| Breakwave tanker reports | 68 |
+| TD3C weekly prints | 192 (2023-01-06 to 2026-11-20) |
+| Breakwave tanker reports | 69 |
 | SEC quarter ends | BDRY 35, BWET 14 |
 
 ## Quality control (written by scripts/build.py)
 
-- Reprints compared: 1141 tenor pairs; 171 differ by more than 10 percent. The previous-week column is a later re-assessment, not a copy; the first print is used and the latest is a sensitivity.
-- SEC comparisons within three days of a quarter end: 37, of which 4 differ by more than 10 percent (listed in data/method.json, qc).
-- One-week moves flagged: 20.
+- Reprints compared: 1677 tenor pairs; 362 differ by more than 10 percent. The previous-week column is a later re-assessment, not a copy; the first print is used and the latest is a sensitivity.
+- SEC comparisons within three days of a quarter end: 50, of which 5 differ by more than 10 percent (listed in data/method.json, qc).
+- One-week moves flagged: 85.
 - Repeated pages (an issue reprinting the previous assessment under new dates), not used: 2022-W50 (dated 2022-12-19, same figures as 2022-12-12), 2023-W20 (dated 2023-05-22, same figures as 2023-05-15), 2024-W11 (dated 2024-03-18, same figures as 2024-03-11), 2025-W12 (dated 2025-03-24, same figures as 2025-03-17), 2025-W28 (dated 2025-07-14, same figures as 2025-06-30), 2025-W29 (dated 2025-07-21, same figures as 2025-07-14), 2025-W32 (dated 2025-08-11, same figures as 2025-08-04).
 - Breakwave reports whose side panel repeats the previous report's figures, not used: BreakwaveTankersMay202025Report.pdf.
 <!-- coverage:end -->

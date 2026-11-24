@@ -1,4 +1,412 @@
 {
  "about": "BDRY and BWET holdings as amplifyetfs.com shows them, one snapshot per fund and as-of date, captured by scripts/amplify_holdings.mjs in the scheduled refresh. Freight futures rows carry the fund's quantity and market value; price = market value / quantity (/ 1,000 t for TD3C, whose lot is 1,000 t).",
- "snapshots": []
+ "snapshots": [
+  {
+   "fund": "BDRY",
+   "as_of": "2026-11-24",
+   "captured_at": "2026-11-24T20:41:49.689Z",
+   "url": "https://amplifyetfs.com/BDRY-holdings/",
+   "header": [
+    "Name",
+    "Ticker",
+    "Market Value (%)",
+    "CUSIP",
+    "Lots",
+    "Market Value ($)"
+   ],
+   "rows": [
+    {
+     "name": "Capesize 5TC FFA 180kt Timecharter Average M Nov 26",
+     "cells": [
+      "Capesize 5TC FFA 180kt Timecharter Average M Nov 26",
+      "C5TCM X26 INDEX",
+      "18.76%",
+      "C5TCM X26",
+      "135",
+      "$5,031,180"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Capesize 5TC FFA 180kt Timecharter Average M Dec 26",
+     "cells": [
+      "Capesize 5TC FFA 180kt Timecharter Average M Dec 26",
+      "C5TCM Z26 INDEX",
+      "18.53%",
+      "C5TCM Z26",
+      "135",
+      "$4,969,485"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Panamax 5TC FFA 82kt Timecharter Average M Dec 26",
+     "cells": [
+      "Panamax 5TC FFA 82kt Timecharter Average M Dec 26",
+      "P5TCM Z26 INDEX",
+      "14.40%",
+      "P5TCM Z26",
+      "200",
+      "$3,860,800"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Panamax 5TC FFA 82kt Timecharter Average M Nov 26",
+     "cells": [
+      "Panamax 5TC FFA 82kt Timecharter Average M Nov 26",
+      "P5TCM X26 INDEX",
+      "13.90%",
+      "P5TCM X26",
+      "200",
+      "$3,727,200"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Capesize 5TC 180kt Timecharter Average M Mar 27",
+     "cells": [
+      "Capesize 5TC 180kt Timecharter Average M Mar 27",
+      "C5TCM H27 GFII INDEX",
+      "9.70%",
+      "C5TCM H27",
+      "90",
+      "$2,601,360"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Capesize 5TC 180kt Timecharter Average M Jan 27",
+     "cells": [
+      "Capesize 5TC 180kt Timecharter Average M Jan 27",
+      "C5TCM F27 FISF INDEX",
+      "9.59%",
+      "C5TCM F27",
+      "90",
+      "$2,572,110"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Capesize 5TC 180kt Timecharter Average M Feb 27",
+     "cells": [
+      "Capesize 5TC 180kt Timecharter Average M Feb 27",
+      "C5TCM G27 GFII INDEX",
+      "7.89%",
+      "C5TCM G27",
+      "90",
+      "$2,115,630"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Panamax 5TC FFA 82kt Timecharter Average M Mar 27",
+     "cells": [
+      "Panamax 5TC FFA 82kt Timecharter Average M Mar 27",
+      "P5TCM H27 GFII INDEX",
+      "7.23%",
+      "P5TCM H27",
+      "110",
+      "$1,938,750"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Panamax 5TC FFA 82kt Timecharter Average M Jan 27",
+     "cells": [
+      "Panamax 5TC FFA 82kt Timecharter Average M Jan 27",
+      "P5TCM F27 FISF INDEX",
+      "6.89%",
+      "P5TCM F27",
+      "110",
+      "$1,847,230"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Panamax 5TC FFA 82kt Timecharter Average M Feb 27",
+     "cells": [
+      "Panamax 5TC FFA 82kt Timecharter Average M Feb 27",
+      "P5TCM G27 COMT INDEX",
+      "6.57%",
+      "P5TCM G27",
+      "110",
+      "$1,761,210"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Supramax 58 TC FFA 58kt Timecharter Average M Nov 26",
+     "cells": [
+      "Supramax 58 TC FFA 58kt Timecharter Average M Nov 26",
+      "S58FM X26 INDEX",
+      "4.30%",
+      "S58FM X26",
+      "55",
+      "$1,153,240"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Supramax 58 TC FFA 58kt Timecharter Average M Dec 26",
+     "cells": [
+      "Supramax 58 TC FFA 58kt Timecharter Average M Dec 26",
+      "S58FM Z26 INDEX",
+      "4.11%",
+      "S58FM Z26",
+      "55",
+      "$1,102,145"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Supramax 58 TC FFA 58kt Timecharter Average M Jan 27",
+     "cells": [
+      "Supramax 58 TC FFA 58kt Timecharter Average M Jan 27",
+      "S58FM F27 FISF INDEX",
+      "1.57%",
+      "S58FM F27",
+      "25",
+      "$421,975"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Supramax 58 TC FFA 58kt Timecharter Average M Mar 27",
+     "cells": [
+      "Supramax 58 TC FFA 58kt Timecharter Average M Mar 27",
+      "S58FM H27 GFII INDEX",
+      "1.54%",
+      "S58FM H27",
+      "25",
+      "$413,400"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "Supramax 58 TC FFA 58kt Timecharter Average M Feb 27",
+     "cells": [
+      "Supramax 58 TC FFA 58kt Timecharter Average M Feb 27",
+      "S58FM G27 GFII INDEX",
+      "1.38%",
+      "S58FM G27",
+      "25",
+      "$371,250"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    }
+   ]
+  },
+  {
+   "fund": "BWET",
+   "as_of": "2026-11-24",
+   "captured_at": "2026-11-24T20:42:51.396Z",
+   "url": "https://amplifyetfs.com/BWET-holdings/",
+   "header": [
+    "Name",
+    "Ticker",
+    "Market Value (%)",
+    "CUSIP",
+    "Lots",
+    "Market Value ($)"
+   ],
+   "rows": [
+    {
+     "name": "TD3C FFA 270kt Middle East Gulf to China USD/MT M Nov 26",
+     "cells": [
+      "TD3C FFA 270kt Middle East Gulf to China USD/MT M Nov 26",
+      "DD3CM X26 INDEX",
+      "28.01%",
+      "DD3CM X26",
+      "127",
+      "$27,776,805"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_t"
+    },
+    {
+     "name": "TD3C FFA 270kt Middle East Gulf to China USD/MT M Dec 26",
+     "cells": [
+      "TD3C FFA 270kt Middle East Gulf to China USD/MT M Dec 26",
+      "DD3CM Z26 INDEX",
+      "26.63%",
+      "DD3CM Z26",
+      "137",
+      "$26,412,641"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_t"
+    },
+    {
+     "name": "TD3C FFA 270kt Middle East Gulf to China USD/MT M Jan 27",
+     "cells": [
+      "TD3C FFA 270kt Middle East Gulf to China USD/MT M Jan 27",
+      "DD3CM F27 INDEX",
+      "19.25%",
+      "DD3CM F27",
+      "130",
+      "$19,087,510"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_t"
+    },
+    {
+     "name": "TD3C FFA 270kt Middle East Gulf to China USD/MT M Feb 27",
+     "cells": [
+      "TD3C FFA 270kt Middle East Gulf to China USD/MT M Feb 27",
+      "DD3CM G27 INDEX",
+      "17.21%",
+      "DD3CM G27",
+      "135",
+      "$17,070,210"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_t"
+    },
+    {
+     "name": "TD3C FFA 270kt Middle East Gulf to China USD/MT Mar 27",
+     "cells": [
+      "TD3C FFA 270kt Middle East Gulf to China USD/MT Mar 27",
+      "DD3CM H27 INDEX",
+      "15.15%",
+      "DD3CM H27",
+      "135",
+      "$15,024,825"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_t"
+    },
+    {
+     "name": "TD20 FFA 130kt West Africa to Continent USD/MT M Nov 26",
+     "cells": [
+      "TD20 FFA 130kt West Africa to Continent USD/MT M Nov 26",
+      "DD20M X26 INDEX",
+      "3.07%",
+      "DD20M X26",
+      "45",
+      "$3,047,625"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "TD20 FFA 130kt West Africa to Continent USD/MT M Jan 27",
+     "cells": [
+      "TD20 FFA 130kt West Africa to Continent USD/MT M Jan 27",
+      "DD20M F27 INDEX",
+      "2.98%",
+      "DD20M F27",
+      "55",
+      "$2,954,655"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "TD20 FFA 130kt West Africa to Continent USD/MT M Feb 27",
+     "cells": [
+      "TD20 FFA 130kt West Africa to Continent USD/MT M Feb 27",
+      "DD20M G27 INDEX",
+      "2.21%",
+      "DD20M G27",
+      "55",
+      "$2,196,535"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "TD20 FFA 130kt West Africa to Continent USD/MT M Mar 27",
+     "cells": [
+      "TD20 FFA 130kt West Africa to Continent USD/MT M Mar 27",
+      "DD20M H27 INDEX",
+      "1.84%",
+      "DD20M H27",
+      "55",
+      "$1,822,755"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    },
+    {
+     "name": "TD20 FFA 130kt West Africa to Continent USD/MT M Dec 26",
+     "cells": [
+      "TD20 FFA 130kt West Africa to Continent USD/MT M Dec 26",
+      "DD20M Z26 INDEX",
+      "1.67%",
+      "DD20M Z26",
+      "25",
+      "$1,658,625"
+     ],
+     "quantity": null,
+     "market_value": null,
+     "price": null,
+     "unit": "usd_day"
+    }
+   ]
+  }
+ ]
 }

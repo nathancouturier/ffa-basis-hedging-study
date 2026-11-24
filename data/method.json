@@ -1,6 +1,6 @@
 {
  "artifact": "method",
- "as_of": "2026-11-08",
+ "as_of": "2026-11-15",
  "conventions": [
   {
    "name": "5TC basket, 180,000 t (to 24 December 2025)",
@@ -60,22 +60,22 @@
   }
  ],
  "coverage": {
-  "breakwave_reports": 68,
+  "breakwave_reports": 69,
   "complete_months": "July 2023; January to October 2026",
   "complete_months_180": 11,
   "complete_months_182": 10,
-  "daily_days": 1051,
-  "daily_implied_days": 251,
-  "daily_printed_days": 800,
+  "daily_days": 1087,
+  "daily_implied_days": 230,
+  "daily_printed_days": 857,
   "exact_months_180": 42,
   "exact_months_182": 10,
   "ffa_weeks_by_year": {
-   "2021": 2,
-   "2022": 9,
-   "2023": 46,
+   "2021": 49,
+   "2022": 45,
+   "2023": 47,
    "2024": 46,
    "2025": 40,
-   "2026": 40
+   "2026": 41
   },
   "first_ffa_week": "2021-01-08",
   "hedge_observations": [
@@ -125,13 +125,13 @@
     "voyage": "C5"
    }
   ],
-  "issues_read": 193,
-  "last_ffa_week": "2026-11-08",
+  "issues_read": 332,
+  "last_ffa_week": "2026-11-15",
   "ocr_ffa_tenors": {
-   "kept": 377,
-   "read": 393
+   "kept": 423,
+   "read": 440
   },
-  "ocr_issues": 105,
+  "ocr_issues": 135,
   "published_months": "May to June 2023; August 2023 to December 2025",
   "sec_quarter_ends_bdry": 35,
   "sec_quarter_ends_bwet": 14,
@@ -140,10 +140,10 @@
     "estimated": 7
    },
    "2021": {
-    "estimated": 10
+    "estimated": 12
    },
    "2022": {
-    "estimated": 11
+    "estimated": 12
    },
    "2023": {
     "complete": 1,
@@ -161,27 +161,27 @@
    }
   },
   "td3c_sources": {
-   "Baltic Exchange weekly tanker report": 191
+   "Baltic Exchange weekly tanker report": 192
   },
-  "td3c_weekly": 191,
+  "td3c_weekly": 192,
   "td3c_weekly_first": "2023-01-06",
-  "td3c_weekly_last": "2026-11-13"
+  "td3c_weekly_last": "2026-11-20"
  },
  "ederington": {
-  "first": "2022-11-14",
-  "hedge_ratio": 1.210558,
+  "first": "2021-01-15",
+  "hedge_ratio": 0.962212,
   "last": "2026-10-12",
-  "n": 57.0,
-  "pairs_considered": 182,
+  "n": 106.0,
+  "pairs_considered": 267,
   "pairs_dropped": {
    "basket_changed": 0,
-   "no_next_month_tenor": 6,
-   "no_same_day_spot": 92,
-   "not_7_days_apart": 27
+   "no_next_month_tenor": 11,
+   "no_same_day_spot": 119,
+   "not_7_days_apart": 31
   },
-  "pairs_implied_spot": 17,
+  "pairs_implied_spot": 21,
   "pairs_in_2026": 26,
-  "r_squared": 0.450248
+  "r_squared": 0.476799
  },
  "formulas": [
   {
@@ -224,10 +224,10 @@
  "hedge_by_year": {
   "5TC trip": [
    {
-    "effectiveness_k1": 0.789784,
+    "effectiveness_k1": 0.790443,
     "n": 33,
     "sd_hedged_usd_day": 4582.901652,
-    "sd_unhedged_usd_day": 9995.563976,
+    "sd_unhedged_usd_day": 10011.271481,
     "year": 2023
    },
    {
@@ -254,10 +254,10 @@
   ],
   "C3": [
    {
-    "effectiveness_k1": 0.223723,
+    "effectiveness_k1": 0.224345,
     "n": 33,
     "sd_hedged_usd_day": 7899.68399,
-    "sd_unhedged_usd_day": 8966.052578,
+    "sd_unhedged_usd_day": 8969.647336,
     "year": 2023
    },
    {
@@ -284,10 +284,10 @@
   ],
   "C5": [
    {
-    "effectiveness_k1": 0.61851,
+    "effectiveness_k1": 0.619716,
     "n": 33,
     "sd_hedged_usd_day": 6481.519682,
-    "sd_unhedged_usd_day": 10493.863774,
+    "sd_unhedged_usd_day": 10510.480596,
     "year": 2023
    },
    {
@@ -323,11 +323,11 @@
    "title": "The daily 5TC is public in full only from January 2026"
   },
   {
-   "text": "Banchero Costa's weekly (mostly Monday) Capesize FFA assessments as Hellenic Shipping News republishes them, 8 January 2021 to 8 November 2026, with gaps where issues were not reachable. The next issue's previous-week column is a re-assessment; the study uses first prints and shows the latest as a sensitivity.",
+   "text": "Banchero Costa's weekly (mostly Monday) Capesize FFA assessments as Hellenic Shipping News republishes them, 8 January 2021 to 15 November 2026, with gaps where issues were not reachable. The next issue's previous-week column is a re-assessment; the study uses first prints and shows the latest as a sensitivity.",
    "title": "The forward curve is one broker's weekly assessment"
   },
   {
-   "text": "105 of 193 issues had at least one table set in fonts that do not extract as text. A row read by OCR is kept only if it reproduces its own printed week-on-week change (bunkers: the printed spread between grades).",
+   "text": "135 of 332 issues had at least one table set in fonts that do not extract as text. A row read by OCR is kept only if it reproduces its own printed week-on-week change (bunkers: the printed spread between grades).",
    "title": "Some tables were read by OCR"
   },
   {
@@ -381,15 +381,1807 @@
   "flags": [
    {
     "curve": "2021-01-08",
+    "gap": 0.10245436733010216,
+    "issue": "2021-W02",
+    "period": "2021-01",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-08",
+    "gap": -0.42579773763295625,
+    "issue": "2021-W02",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-08",
     "median_other_pct": 9.910418283134659,
     "move_pct": 78.65473557208928,
     "period": "2021-Q4",
     "rule": "one_week_move"
    },
    {
+    "curve": "2021-01-15",
+    "gap": -0.41414141414141414,
+    "issue": "2021-W03",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-15",
+    "median_other_pct": 2.038245734570032,
+    "move_pct": 69.80299911790651,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-01-22",
+    "gap": -0.1466666666666666,
+    "issue": "2021-W04",
+    "period": "2021-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-22",
+    "gap": -0.3915997164461248,
+    "issue": "2021-W04",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-22",
+    "median_other_pct": -0.9718692880388735,
+    "move_pct": 66.77832512315271,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-01-29",
+    "gap": -0.13992079954742598,
+    "issue": "2021-W05",
+    "period": "2021-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-29",
+    "gap": -0.3928112965340179,
+    "issue": "2021-W05",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-01-29",
+    "median_other_pct": -3.940756413647184,
+    "move_pct": 66.4045052917759,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": 0.15543455927676186,
+    "issue": "2021-W06",
+    "period": "2021-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": 0.35179073462901855,
+    "issue": "2021-W06",
+    "period": "2021-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": 0.11085012880739509,
+    "issue": "2021-W06",
+    "period": "2021-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": 0.24799279043093558,
+    "issue": "2021-W06",
+    "period": "2021-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": 0.13210392020412898,
+    "issue": "2021-W06",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "gap": -0.3536769839422853,
+    "issue": "2021-W06",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-05",
+    "median_other_pct": -4.334589736155403,
+    "move_pct": 65.17393811262733,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-02-12",
+    "gap": 0.1348026652998462,
+    "issue": "2021-W07",
+    "period": "2021-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-12",
+    "gap": 0.10011651131824229,
+    "issue": "2021-W07",
+    "period": "2021-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-12",
+    "gap": -0.40874475470134175,
+    "issue": "2021-W07",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-12",
+    "median_other_pct": 4.0810882902107215,
+    "move_pct": 73.76001440273652,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-02-19",
+    "gap": -0.39490240361348605,
+    "issue": "2021-W08",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-19",
+    "median_other_pct": -4.412060301507537,
+    "move_pct": 62.945763602908954,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-02-26",
+    "gap": 0.3544891640866874,
+    "issue": "2021-W09",
+    "period": "2021-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-26",
+    "gap": 0.2864137931034483,
+    "issue": "2021-W09",
+    "period": "2021-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-26",
+    "gap": 0.20719772051536167,
+    "issue": "2021-W09",
+    "period": "2021-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-26",
+    "gap": 0.10418491484184922,
+    "issue": "2021-W09",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-26",
+    "gap": -0.4074204414056608,
+    "issue": "2021-W09",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-02-26",
+    "median_other_pct": 1.2289942312515567,
+    "move_pct": 76.76175242157647,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-03-05",
+    "gap": -0.43659928878906984,
+    "issue": "2021-W10",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-05",
+    "median_other_pct": 0.8317460317460279,
+    "move_pct": 81.31840162891322,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-03-12",
+    "gap": 0.20986169573060742,
+    "issue": "2021-W11",
+    "period": "2021-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-12",
+    "gap": 0.21486092584358474,
+    "issue": "2021-W11",
+    "period": "2021-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-12",
+    "gap": 0.10276925812330528,
+    "issue": "2021-W11",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-12",
+    "gap": -0.3762918512168405,
+    "issue": "2021-W11",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-12",
+    "median_other_pct": 0.05781889343532409,
+    "move_pct": 74.37920438501786,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-03-19",
+    "gap": -0.4409641775084655,
+    "issue": "2021-W12",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-03-19",
+    "median_other_pct": -1.0898739324928797,
+    "move_pct": 71.38057422113621,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-03-26",
+    "median_other_pct": -0.05919261276192689,
+    "move_pct": 71.82593448633139,
+    "period": "2021-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-04-02",
+    "gap": 0.12501085917817734,
+    "issue": "2021-W14",
+    "period": "2021-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-02",
+    "gap": 0.10319165870741798,
+    "issue": "2021-W14",
+    "period": "2021-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-02",
+    "gap": 0.2741035856573706,
+    "issue": "2021-W14",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-02",
+    "median_other_pct": 4.520137103684663,
+    "move_pct": -16.036662875493413,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-04-09",
+    "gap": 0.28818979622192464,
+    "issue": "2021-W15",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-09",
+    "median_other_pct": 6.437125748502992,
+    "move_pct": -15.909943714821761,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-04-16",
+    "gap": 0.2705355237892042,
+    "issue": "2021-W16",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-16",
+    "median_other_pct": -1.2253968253968295,
+    "move_pct": -18.821084233011952,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-04-23",
+    "gap": 0.1249292426129287,
+    "issue": "2021-W17",
+    "period": "2021-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-23",
+    "gap": 0.3422720624085811,
+    "issue": "2021-W17",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-23",
+    "median_other_pct": 1.7154167583021795,
+    "move_pct": -19.636160089560594,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-04-30",
+    "gap": 0.29611773661507224,
+    "issue": "2021-W18",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-04-30",
+    "median_other_pct": 4.823583420776489,
+    "move_pct": -18.198329095532152,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-05-07",
+    "gap": -0.1470120325348988,
+    "issue": "2021-W19",
+    "period": "2021-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-07",
+    "gap": -0.19126013528647579,
+    "issue": "2021-W19",
+    "period": "2021-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-07",
+    "gap": -0.12680456526668515,
+    "issue": "2021-W19",
+    "period": "2021-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-07",
+    "gap": 0.17216440289292634,
+    "issue": "2021-W19",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-07",
+    "median_other_pct": 7.2632009036941,
+    "move_pct": -16.76292090837901,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-05-14",
+    "gap": 0.133508394063671,
+    "issue": "2021-W20",
+    "period": "2021-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-14",
+    "gap": 0.20500327930291395,
+    "issue": "2021-W20",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-14",
+    "gap": 0.13720964860035734,
+    "issue": "2021-W20",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-14",
+    "gap": 0.3885273864426053,
+    "issue": "2021-W20",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-14",
+    "median_other_pct": -3.961567314905645,
+    "move_pct": -20.596940055179335,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-05-21",
+    "gap": -0.1418413597733711,
+    "issue": "2021-W21",
+    "period": "2021-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-21",
+    "gap": 0.271764136093958,
+    "issue": "2021-W21",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-21",
+    "median_other_pct": -4.022913256955807,
+    "move_pct": -24.84644433322717,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-05-28",
+    "gap": -0.12240332374560559,
+    "issue": "2021-W22",
+    "period": "2021-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-28",
+    "gap": 0.4146249528835282,
+    "issue": "2021-W22",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-05-28",
+    "median_other_pct": -3.0958476795856504,
+    "move_pct": -24.225258247250913,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-06-04",
+    "gap": 0.32211815881752415,
+    "issue": "2021-W23",
+    "period": "2021-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-04",
+    "gap": 0.3595200440074262,
+    "issue": "2021-W23",
+    "period": "2021-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-04",
+    "gap": 0.2418470599292002,
+    "issue": "2021-W23",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-04",
+    "gap": 0.18380945872061227,
+    "issue": "2021-W23",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-04",
+    "gap": 0.48368024132730025,
+    "issue": "2021-W23",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-04",
+    "median_other_pct": -4.696363527796022,
+    "move_pct": -26.39221955768718,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-06-11",
+    "gap": 0.26298272491943586,
+    "issue": "2021-W24",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-11",
+    "median_other_pct": -2.5010747793541177,
+    "move_pct": -23.027813923227068,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-06-18",
+    "gap": 0.10724151004712135,
+    "issue": "2021-W25",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-18",
+    "gap": 0.37638944308271105,
+    "issue": "2021-W25",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-18",
+    "median_other_pct": -2.2728058947659724,
+    "move_pct": -26.619818463211608,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-06-25",
+    "gap": -0.1683973509933775,
+    "issue": "2021-W26",
+    "period": "2021-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-25",
+    "gap": -0.13068722158266177,
+    "issue": "2021-W26",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-06-25",
+    "median_other_pct": -0.4721513080238271,
+    "move_pct": -19.92048372401226,
+    "period": "2022-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-07-02",
+    "gap": 0.19147317709276623,
+    "issue": "2021-W27",
+    "period": "2021-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-02",
+    "gap": 0.17267642132541172,
+    "issue": "2021-W27",
+    "period": "2021-08",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-02",
+    "gap": 0.15110219143495285,
+    "issue": "2021-W27",
+    "period": "2021-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-02",
+    "gap": 0.2744903033316757,
+    "issue": "2021-W27",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-09",
+    "gap": 0.21580039704024534,
+    "issue": "2021-W28",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-09",
+    "median_other_pct": -4.856443857034387,
+    "move_pct": -21.384740893129507,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-07-16",
+    "gap": 0.281205297402058,
+    "issue": "2021-W29",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-16",
+    "median_other_pct": 1.5264370887471124,
+    "move_pct": -19.579173934018634,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-07-23",
+    "gap": 0.2384117858426158,
+    "issue": "2021-W30",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-23",
+    "median_other_pct": -2.685871056241429,
+    "move_pct": -19.812713848370255,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-07-30",
+    "gap": 0.20724010458930664,
+    "issue": "2021-W31",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-07-30",
+    "median_other_pct": 0.8420343550016751,
+    "move_pct": -19.548817641085158,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-08-06",
+    "median_other_pct": 0.6687285797876807,
+    "move_pct": -18.312857089510437,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-08-20",
+    "gap": 0.22956499422558707,
+    "issue": "2021-W34",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-08-20",
+    "median_other_pct": 1.1639650557996317,
+    "move_pct": -17.280543466723273,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-08-27",
+    "gap": -0.1218271933400562,
+    "issue": "2021-W35",
+    "period": "2021-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-08-27",
+    "gap": 0.16085802182982856,
+    "issue": "2021-W35",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-08-27",
+    "median_other_pct": -1.6584727702403268,
+    "move_pct": -17.452863007027062,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-09-03",
+    "gap": 0.17519865525672373,
+    "issue": "2021-W36",
+    "period": "2021-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-03",
+    "gap": 0.20556652511427886,
+    "issue": "2021-W36",
+    "period": "2021-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-03",
+    "gap": 0.163745859680819,
+    "issue": "2021-W36",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-03",
+    "gap": 0.1260860002199493,
+    "issue": "2021-W36",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-03",
+    "gap": 0.28170151664722254,
+    "issue": "2021-W36",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-03",
+    "median_other_pct": -4.068020230154657,
+    "move_pct": -19.09533144558193,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-09-10",
+    "gap": 0.1806531956774997,
+    "issue": "2021-W37",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-10",
+    "median_other_pct": 3.5548610772010436,
+    "move_pct": -12.851841478784486,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-09-17",
+    "gap": 0.18175027428277968,
+    "issue": "2021-W38",
+    "period": "2021-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-17",
+    "gap": 0.152842196095351,
+    "issue": "2021-W38",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-17",
+    "gap": 0.18717299578059077,
+    "issue": "2021-W38",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-24",
+    "gap": 0.16921385574739567,
+    "issue": "2021-W39",
+    "period": "2021-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-24",
+    "gap": 0.13284227656203162,
+    "issue": "2021-W39",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-09-24",
+    "median_other_pct": 7.852463429956025,
+    "move_pct": -9.03824282058573,
+    "period": "2022-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2021-10-08",
+    "gap": -0.13544936179116973,
+    "issue": "2021-W41",
+    "period": "2021-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-08",
+    "gap": -0.24612785601980391,
+    "issue": "2021-W41",
+    "period": "2021-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-08",
+    "gap": -0.19145549057829758,
+    "issue": "2021-W41",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-08",
+    "gap": -0.11149152542372887,
+    "issue": "2021-W41",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-15",
+    "gap": -0.19273830047982055,
+    "issue": "2021-W42",
+    "period": "2021-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-15",
+    "gap": -0.11189570885388378,
+    "issue": "2021-W42",
+    "period": "2021-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-15",
+    "gap": -0.1771445466977123,
+    "issue": "2021-W42",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-15",
+    "gap": -0.10134506689561418,
+    "issue": "2021-W42",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-15",
+    "gap": -0.12906902678601362,
+    "issue": "2021-W42",
+    "period": "2022-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-29",
+    "gap": -0.13394772943121458,
+    "issue": "2021-W44",
+    "period": "2021-12",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-10-29",
+    "gap": -0.12762666666666667,
+    "issue": "2021-W44",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-05",
+    "gap": -0.13873486477311303,
+    "issue": "2021-W45",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-05",
+    "gap": -0.12508583199816892,
+    "issue": "2021-W45",
+    "period": "2022-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-12",
+    "gap": 0.2780765027322405,
+    "issue": "2021-W46",
+    "period": "2021-12",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-12",
+    "gap": 0.26923076923076916,
+    "issue": "2021-W46",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-12",
+    "gap": 0.1455769433049332,
+    "issue": "2021-W46",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-11-19",
+    "gap": -0.11105874960728868,
+    "issue": "2021-W47",
+    "period": "2022-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-12-10",
+    "gap": -0.14793297291481755,
+    "issue": "2021-W50",
+    "period": "2021-12",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-12-10",
+    "gap": -0.2003068530514831,
+    "issue": "2021-W50",
+    "period": "2022-01",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2021-12-10",
+    "gap": -0.13843995219040695,
+    "issue": "2021-W50",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "gap": -0.21078768027893713,
+    "issue": "2022-W02",
+    "period": "2022-01",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "gap": -0.1924019607843137,
+    "issue": "2022-W02",
+    "period": "2022-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "gap": -0.11764705882352944,
+    "issue": "2022-W02",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "gap": -0.17234868917898372,
+    "issue": "2022-W02",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "gap": -0.4032640841213626,
+    "issue": "2022-W02",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-07",
+    "median_other_pct": 0.903225806451613,
+    "move_pct": 68.39225330464187,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-01-14",
+    "gap": -0.1337501699062118,
+    "issue": "2022-W03",
+    "period": "2022-01",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-14",
+    "gap": -0.23933632414726203,
+    "issue": "2022-W03",
+    "period": "2022-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-14",
+    "gap": -0.1299302649930265,
+    "issue": "2022-W03",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-14",
+    "gap": -0.1640640061692693,
+    "issue": "2022-W03",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-14",
+    "gap": -0.41372172669451657,
+    "issue": "2022-W03",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-01-14",
+    "median_other_pct": 1.4113699170943628,
+    "move_pct": 62.5734214390602,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-01-21",
+    "median_other_pct": 4.175858000307797,
+    "move_pct": 71.28001027089485,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.2997864636523999,
+    "issue": "2022-W06",
+    "period": "2022-02",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.23054704079226607,
+    "issue": "2022-W06",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.15593280439696833,
+    "issue": "2022-W06",
+    "period": "2022-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.11605008306657472,
+    "issue": "2022-W06",
+    "period": "2022-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.17595741534821818,
+    "issue": "2022-W06",
+    "period": "2022-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": 0.11529278458985881,
+    "issue": "2022-W06",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "gap": -0.35231342473682303,
+    "issue": "2022-W06",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-04",
+    "median_other_pct": 0.726828108548716,
+    "move_pct": 72.23052959501557,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-02-11",
+    "median_other_pct": -4.754783542313734,
+    "move_pct": 60.36081322609472,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-02-21",
+    "gap": -0.16437134647775686,
+    "issue": "2022-W08",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-21",
+    "gap": -0.12492335990190062,
+    "issue": "2022-W08",
+    "period": "2022-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-21",
+    "gap": -0.4563507798043881,
+    "issue": "2022-W08",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-21",
+    "median_other_pct": 3.3504950495049535,
+    "move_pct": 74.71423623138205,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.17356687898089174,
+    "issue": "2022-W09",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.22155439456285553,
+    "issue": "2022-W09",
+    "period": "2022-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.1668796932417318,
+    "issue": "2022-W09",
+    "period": "2022-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.13519779742066373,
+    "issue": "2022-W09",
+    "period": "2022-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.17106963968330913,
+    "issue": "2022-W09",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": 0.11582253631723605,
+    "issue": "2022-W09",
+    "period": "2022-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "gap": -0.3882113821138211,
+    "issue": "2022-W09",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-02-28",
+    "median_other_pct": -3.30977484262156,
+    "move_pct": 73.4394943171458,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-03-07",
+    "gap": 0.11174475955610363,
+    "issue": "2022-W10",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-07",
+    "gap": -0.4167799879826698,
+    "issue": "2022-W10",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-07",
+    "median_other_pct": 4.221999931013065,
+    "move_pct": 81.1261312865162,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-03-14",
+    "gap": -0.4393870967741935,
+    "issue": "2022-W11",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-14",
+    "median_other_pct": -4.917366173865057,
+    "move_pct": 68.09456674981023,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-03-21",
+    "gap": -0.10239618990921273,
+    "issue": "2022-W12",
+    "period": "2022-03",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-21",
+    "gap": -0.15460759777371036,
+    "issue": "2022-W12",
+    "period": "2022-04",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-21",
+    "gap": -0.4676171838598453,
+    "issue": "2022-W12",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-03-21",
+    "median_other_pct": -1.8324844027848952,
+    "move_pct": 85.24080787156913,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-03-28",
+    "median_other_pct": -2.517130075315699,
+    "move_pct": 77.33239978995275,
+    "period": "2022-Q4",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-04-04",
+    "gap": 0.22038149682085972,
+    "issue": "2022-W14",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-04-25",
+    "gap": 0.26830673503485625,
+    "issue": "2022-W17",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-04-25",
+    "median_other_pct": -5.431683006979715,
+    "move_pct": -21.688323407327193,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-05-02",
+    "gap": 0.1924437756720485,
+    "issue": "2022-W18",
+    "period": "2022-05",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-02",
+    "gap": 0.1850263642716472,
+    "issue": "2022-W18",
+    "period": "2022-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-02",
+    "gap": 0.10756819054936617,
+    "issue": "2022-W18",
+    "period": "2022-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-02",
+    "gap": 0.15061633281972275,
+    "issue": "2022-W18",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-02",
+    "gap": 0.326834536463366,
+    "issue": "2022-W18",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-02",
+    "median_other_pct": 1.770538243626052,
+    "move_pct": -20.08267466157899,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-05-09",
+    "gap": 0.23187123181591907,
+    "issue": "2022-W19",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-09",
+    "median_other_pct": 0.8795811518324648,
+    "move_pct": -22.550657584714905,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-05-16",
+    "gap": 0.1419420186700977,
+    "issue": "2022-W20",
+    "period": "2022-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-16",
+    "gap": 0.3243418340302726,
+    "issue": "2022-W20",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-16",
+    "median_other_pct": 1.4376368843713072,
+    "move_pct": -23.76184275515244,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-05-23",
+    "gap": -0.2639064635319127,
+    "issue": "2022-W21",
+    "period": "2022-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-23",
+    "gap": -0.1366542711147971,
+    "issue": "2022-W21",
+    "period": "2022-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-23",
+    "gap": -0.1517207438394207,
+    "issue": "2022-W21",
+    "period": "2022-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-23",
+    "gap": 0.30884548766648745,
+    "issue": "2022-W21",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-23",
+    "median_other_pct": -2.9841074960780256,
+    "move_pct": -25.540336209196834,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-05-30",
+    "gap": 0.3589554077358956,
+    "issue": "2022-W22",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-05-30",
+    "median_other_pct": -0.737150068838921,
+    "move_pct": -25.91037692799124,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-06-06",
+    "gap": -0.1781472684085511,
+    "issue": "2022-W23",
+    "period": "2022-06",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-06",
+    "gap": -0.13817586018569084,
+    "issue": "2022-W23",
+    "period": "2022-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-06",
+    "gap": 0.2618713450292398,
+    "issue": "2022-W23",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-06",
+    "median_other_pct": -0.8038057742782101,
+    "move_pct": -22.498187092095723,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-06-13",
+    "gap": 0.11331722519872534,
+    "issue": "2022-W24",
+    "period": "2022-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-13",
+    "gap": 0.252484246243335,
+    "issue": "2022-W24",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-13",
+    "median_other_pct": -0.7384166825125216,
+    "move_pct": -23.514690888868294,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-06-20",
+    "gap": -0.1429485356838215,
+    "issue": "2022-W25",
+    "period": "2022-07",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-20",
+    "gap": -0.10750794199981129,
+    "issue": "2022-W25",
+    "period": "2022-08",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-20",
+    "gap": 0.24827397634834925,
+    "issue": "2022-W25",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-06-20",
+    "median_other_pct": -7.931773427545464,
+    "move_pct": -29.229355135213588,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-06-27",
+    "median_other_pct": -2.157549560292149,
+    "move_pct": -26.915283938448052,
+    "period": "2023-Q1",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-07-04",
+    "gap": 0.3082639045260076,
+    "issue": "2022-W27",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-04",
+    "median_other_pct": -3.505617977528086,
+    "move_pct": -25.751306165099265,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-07-11",
+    "gap": 0.3685368536853686,
+    "issue": "2022-W28",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
     "curve": "2022-07-11",
     "median_other_pct": -1.7409333245573588,
     "move_pct": -25.684165232358,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-07-18",
+    "gap": -0.13594982078853046,
+    "issue": "2022-W29",
+    "period": "2022-08",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-18",
+    "gap": -0.10834938509408798,
+    "issue": "2022-W29",
+    "period": "2022-Q3",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-18",
+    "gap": 0.31206798866855534,
+    "issue": "2022-W29",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-18",
+    "median_other_pct": -3.4872220272469168,
+    "move_pct": -25.325774242680655,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-07-25",
+    "gap": -0.12702742919498045,
+    "issue": "2022-W30",
+    "period": "2022-08",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-25",
+    "gap": -0.11484766362815146,
+    "issue": "2022-W30",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-25",
+    "gap": 0.2994594594594595,
+    "issue": "2022-W30",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-07-25",
+    "median_other_pct": -7.506994093876285,
+    "move_pct": -28.102599533638482,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-08-01",
+    "median_other_pct": 1.096590909090911,
+    "move_pct": -27.03826955074875,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": -0.20907041276448146,
+    "issue": "2022-W34",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": -0.18638603321369918,
+    "issue": "2022-W34",
+    "period": "2022-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": -0.13420757280406403,
+    "issue": "2022-W34",
+    "period": "2022-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": -0.1408981407128297,
+    "issue": "2022-W34",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": -0.1609294320137694,
+    "issue": "2022-W34",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "gap": 0.3658367911479945,
+    "issue": "2022-W34",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-22",
+    "median_other_pct": 0.39625360230548523,
+    "move_pct": -30.566078002454244,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.13533997401472497,
+    "issue": "2022-W35",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.14492647058823538,
+    "issue": "2022-W35",
+    "period": "2022-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.1220244185253394,
+    "issue": "2022-W35",
+    "period": "2022-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.12127279227744014,
+    "issue": "2022-W35",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.11429282868525892,
+    "issue": "2022-W35",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "gap": 0.5654965396481282,
+    "issue": "2022-W35",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-08-29",
+    "median_other_pct": 0.5536381938452628,
+    "move_pct": -32.52883263009845,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-09-05",
+    "gap": -0.1448031135531136,
+    "issue": "2022-W36",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-05",
+    "gap": 0.4200813008130082,
+    "issue": "2022-W36",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-05",
+    "median_other_pct": -10.659217877094973,
+    "move_pct": -34.48735019973369,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-09-12",
+    "gap": 0.15439353099730457,
+    "issue": "2022-W37",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-12",
+    "gap": -0.13050183888954803,
+    "issue": "2022-W37",
+    "period": "2023-Q1",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-12",
+    "gap": 0.39353055916775026,
+    "issue": "2022-W37",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-12",
+    "median_other_pct": 10.96250000000001,
+    "move_pct": -29.55859620999599,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.15107913669064743,
+    "issue": "2022-W38",
+    "period": "2022-09",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.2642048986696506,
+    "issue": "2022-W38",
+    "period": "2022-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.13905089324083741,
+    "issue": "2022-W38",
+    "period": "2022-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.11234187586026079,
+    "issue": "2022-W38",
+    "period": "2022-12",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.17269177478271813,
+    "issue": "2022-W38",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "gap": 0.5696104566170781,
+    "issue": "2022-W38",
+    "period": "2023-Q2",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-19",
+    "median_other_pct": 1.2179208351457138,
+    "move_pct": -32.176600956491306,
+    "period": "2023-Q2",
+    "rule": "one_week_move"
+   },
+   {
+    "curve": "2022-09-26",
+    "gap": -0.23017283950617284,
+    "issue": "2022-W39",
+    "period": "2022-10",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-26",
+    "gap": -0.18742869560493292,
+    "issue": "2022-W39",
+    "period": "2022-11",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-26",
+    "gap": -0.13557801566891936,
+    "issue": "2022-W39",
+    "period": "2022-12",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-26",
+    "gap": -0.18738826588655944,
+    "issue": "2022-W39",
+    "period": "2022-Q4",
+    "rule": "reprint"
+   },
+   {
+    "curve": "2022-09-26",
+    "median_other_pct": -0.7922819877115406,
+    "move_pct": -33.84649098778283,
     "period": "2023-Q2",
     "rule": "one_week_move"
    },
@@ -1785,6 +3577,30 @@
   ],
   "sec_check": [
    {
+    "band": "within 5 percent",
+    "contract_month": "2021-04",
+    "curve": "2021-04-02",
+    "curve_basket_t": 180000,
+    "days_apart": 2,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2021-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021026432/f10q0321_etfmanagers1.htm",
+    "sec_usd_day_180": 21953.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2021-05",
+    "curve": "2021-04-02",
+    "curve_basket_t": 180000,
+    "days_apart": 2,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2021-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021026432/f10q0321_etfmanagers1.htm",
+    "sec_usd_day_180": 24025.0
+   },
+   {
     "band": "over 10 percent",
     "contract_month": "2021-07",
     "curve": "2021-07-02",
@@ -1807,6 +3623,138 @@
     "sec_as_of": "2021-06-30",
     "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021047450/f10k2021_etfmanagers1.htm",
     "sec_usd_day_180": 39875.0
+   },
+   {
+    "band": "over 10 percent",
+    "contract_month": "2021-10",
+    "curve": "2021-10-01",
+    "curve_basket_t": 180000,
+    "days_apart": 1,
+    "direction": "above",
+    "flag": true,
+    "sec_as_of": "2021-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021058482/f10q0921_etfmanagers1.htm",
+    "sec_usd_day_180": 61750.0
+   },
+   {
+    "band": "5 to 10 percent",
+    "contract_month": "2021-11",
+    "curve": "2021-10-01",
+    "curve_basket_t": 180000,
+    "days_apart": 1,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2021-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390021058482/f10q0921_etfmanagers1.htm",
+    "sec_usd_day_180": 50000.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2022-04",
+    "curve": "2022-03-28",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022026180/f10q0322_etfmanagers1.htm",
+    "sec_usd_day_180": 21714.0
+   },
+   {
+    "band": "5 to 10 percent",
+    "contract_month": "2022-05",
+    "curve": "2022-03-28",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022026180/f10q0322_etfmanagers1.htm",
+    "sec_usd_day_180": 30036.0
+   },
+   {
+    "band": "5 to 10 percent",
+    "contract_month": "2022-06",
+    "curve": "2022-03-28",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-03-31",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022026180/f10q0322_etfmanagers1.htm",
+    "sec_usd_day_180": 34264.0
+   },
+   {
+    "band": "5 to 10 percent",
+    "contract_month": "2022-07",
+    "curve": "2022-06-27",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022058879/f10k2022_etfmanagers1.htm",
+    "sec_usd_day_180": 24854.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2022-08",
+    "curve": "2022-06-27",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022058879/f10k2022_etfmanagers1.htm",
+    "sec_usd_day_180": 28696.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2022-09",
+    "curve": "2022-06-27",
+    "curve_basket_t": 180000,
+    "days_apart": -3,
+    "direction": "below",
+    "flag": false,
+    "sec_as_of": "2022-06-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022058879/f10k2022_etfmanagers1.htm",
+    "sec_usd_day_180": 31829.0
+   },
+   {
+    "band": "5 to 10 percent",
+    "contract_month": "2022-10",
+    "curve": "2022-10-03",
+    "curve_basket_t": 180000,
+    "days_apart": 3,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2022-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022072034/f10q0922_etfmanagers1.htm",
+    "sec_usd_day_180": 15589.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2022-11",
+    "curve": "2022-10-03",
+    "curve_basket_t": 180000,
+    "days_apart": 3,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2022-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022072034/f10q0922_etfmanagers1.htm",
+    "sec_usd_day_180": 14957.0
+   },
+   {
+    "band": "within 5 percent",
+    "contract_month": "2022-12",
+    "curve": "2022-10-03",
+    "curve_basket_t": 180000,
+    "days_apart": 3,
+    "direction": "above",
+    "flag": false,
+    "sec_as_of": "2022-09-30",
+    "sec_url": "https://www.sec.gov/Archives/edgar/data/1610940/000121390022072034/f10q0922_etfmanagers1.htm",
+    "sec_usd_day_180": 14454.0
    },
    {
     "band": "within 5 percent",
@@ -2230,9 +4178,9 @@
    }
   ],
   "sec_summary": {
-   "flagged": 4,
-   "median_abs_gap": 0.0258,
-   "n": 37
+   "flagged": 5,
+   "median_abs_gap": 0.0433,
+   "n": 50
   }
  },
  "robustness": [
@@ -2337,75 +4285,75 @@
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.64925,
+     "effectiveness_k1": 0.649614,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 4557.885588,
-     "sd_unhedged_usd_day": 7695.989845,
+     "sd_unhedged_usd_day": 7699.990628,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.717091,
+     "effectiveness_k1": 0.717081,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 4586.892588,
-     "sd_unhedged_usd_day": 8623.732357,
+     "sd_unhedged_usd_day": 8623.570817,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.762601,
+     "effectiveness_k1": 0.762594,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 4493.089042,
-     "sd_unhedged_usd_day": 9221.577779,
+     "sd_unhedged_usd_day": 9221.454698,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.158848,
+     "effectiveness_k1": 0.159271,
      "horizon_months": 1,
      "n": 132,
      "sd_hedged_usd_day": 7016.813024,
-     "sd_unhedged_usd_day": 7650.724742,
+     "sd_unhedged_usd_day": 7652.650219,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.365445,
+     "effectiveness_k1": 0.365464,
      "horizon_months": 2,
      "n": 123,
      "sd_hedged_usd_day": 7029.96521,
-     "sd_unhedged_usd_day": 8825.075503,
+     "sd_unhedged_usd_day": 8825.211717,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.325489,
+     "effectiveness_k1": 0.325714,
      "horizon_months": 3,
      "n": 123,
      "sd_hedged_usd_day": 7336.40021,
-     "sd_unhedged_usd_day": 8932.819428,
+     "sd_unhedged_usd_day": 8934.311075,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.440777,
+     "effectiveness_k1": 0.441378,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 7250.519043,
-     "sd_unhedged_usd_day": 9695.641035,
+     "sd_unhedged_usd_day": 9700.860744,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.544553,
+     "effectiveness_k1": 0.544533,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 7108.299684,
-     "sd_unhedged_usd_day": 10532.874857,
+     "sd_unhedged_usd_day": 10532.6448,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.575868,
+     "effectiveness_k1": 0.575859,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 7401.687902,
-     "sd_unhedged_usd_day": 11365.276423,
+     "sd_unhedged_usd_day": 11365.166704,
      "voyage": "C5"
     }
    ],
@@ -2513,75 +4461,75 @@
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.646814,
+     "effectiveness_k1": 0.647391,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 4557.885588,
-     "sd_unhedged_usd_day": 7669.399824,
+     "sd_unhedged_usd_day": 7675.682715,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.723926,
+     "effectiveness_k1": 0.723828,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 4586.892588,
-     "sd_unhedged_usd_day": 8729.836996,
+     "sd_unhedged_usd_day": 8728.283694,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.765919,
+     "effectiveness_k1": 0.765842,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 4493.089042,
-     "sd_unhedged_usd_day": 9286.715832,
+     "sd_unhedged_usd_day": 9285.17578,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.163701,
+     "effectiveness_k1": 0.164075,
      "horizon_months": 1,
      "n": 132,
      "sd_hedged_usd_day": 7016.813024,
-     "sd_unhedged_usd_day": 7672.893914,
+     "sd_unhedged_usd_day": 7674.60854,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.374328,
+     "effectiveness_k1": 0.374201,
      "horizon_months": 2,
      "n": 123,
      "sd_hedged_usd_day": 7029.96521,
-     "sd_unhedged_usd_day": 8887.503306,
+     "sd_unhedged_usd_day": 8886.602018,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.327364,
+     "effectiveness_k1": 0.327388,
      "horizon_months": 3,
      "n": 123,
      "sd_hedged_usd_day": 7336.40021,
-     "sd_unhedged_usd_day": 8945.257334,
+     "sd_unhedged_usd_day": 8945.421112,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.429803,
+     "effectiveness_k1": 0.430485,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 7250.519043,
-     "sd_unhedged_usd_day": 9601.889552,
+     "sd_unhedged_usd_day": 9607.638364,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.551103,
+     "effectiveness_k1": 0.550918,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 7108.299684,
-     "sd_unhedged_usd_day": 10609.436155,
+     "sd_unhedged_usd_day": 10607.250361,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.570009,
+     "effectiveness_k1": 0.569898,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 7401.687902,
-     "sd_unhedged_usd_day": 11287.583011,
+     "sd_unhedged_usd_day": 11286.127235,
      "voyage": "C5"
     }
    ],
@@ -2598,167 +4546,167 @@
      "last": "2026-10",
      "mean_ci": {
       "block": 2,
-      "estimate": 864.78508,
-      "high": 2370.478617,
-      "low": -451.545673,
+      "estimate": 694.58039,
+      "high": 1934.557296,
+      "low": -383.229002,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.037212,
-     "mean_usd_day": 864.78508,
-     "median_usd_day": 839.444444,
-     "n": 51,
-     "n_naive": 50,
+     "mean_pct": 0.028853,
+     "mean_usd_day": 694.58039,
+     "median_usd_day": 1064.0,
+     "n": 69,
+     "n_naive": 68,
      "rmse_ci": {
       "block": 2,
-      "estimate": 6399.350845,
-      "high": 7715.425475,
-      "low": 5028.455287,
+      "estimate": 5701.227979,
+      "high": 6400.348236,
+      "low": 4908.793644,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 6460.705268,
-     "rmse_naive_usd_day": 6568.895911,
-     "rmse_ratio_ffa_to_naive": 0.98353,
-     "rmse_usd_day": 6399.350845,
-     "share_positive": 0.588235
+     "rmse_ffa_paired_usd_day": 5741.074156,
+     "rmse_naive_usd_day": 6315.438871,
+     "rmse_ratio_ffa_to_naive": 0.909054,
+     "rmse_usd_day": 5701.227979,
+     "share_positive": 0.594203
     },
     "2": {
      "block": 3,
      "block_unit": "months",
-     "first": "2022-09",
+     "first": "2021-03",
      "last": "2026-10",
      "mean_ci": {
       "block": 3,
-      "estimate": 1392.080725,
-      "high": 3895.094913,
-      "low": -161.106613,
+      "estimate": 805.7138,
+      "high": 2832.250049,
+      "low": -1265.258013,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.059702,
-     "mean_usd_day": 1392.080725,
-     "median_usd_day": 973.414079,
-     "n": 48,
-     "n_naive": 47,
+     "mean_pct": 0.034449,
+     "mean_usd_day": 805.7138,
+     "median_usd_day": 244.55,
+     "n": 62,
+     "n_naive": 61,
      "rmse_ci": {
       "block": 3,
-      "estimate": 7945.377718,
-      "high": 8975.340994,
-      "low": 5967.131822,
+      "estimate": 8356.002322,
+      "high": 9463.677532,
+      "low": 6778.728364,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 7921.244329,
-     "rmse_naive_usd_day": 8725.764171,
-     "rmse_ratio_ffa_to_naive": 0.907799,
-     "rmse_usd_day": 7945.377718,
-     "share_positive": 0.520833
+     "rmse_ffa_paired_usd_day": 8344.907143,
+     "rmse_naive_usd_day": 9346.94018,
+     "rmse_ratio_ffa_to_naive": 0.892796,
+     "rmse_usd_day": 8356.002322,
+     "share_positive": 0.5
     },
     "3": {
      "block": 4,
      "block_unit": "months",
-     "first": "2022-10",
+     "first": "2022-04",
      "last": "2026-10",
      "mean_ci": {
       "block": 4,
-      "estimate": 2458.564611,
-      "high": 5366.62755,
-      "low": 90.074479,
+      "estimate": 768.587744,
+      "high": 3958.37763,
+      "low": -2650.251636,
       "resamples": 2000,
       "seed": 20261117
      },
-     "mean_pct": 0.104554,
-     "mean_usd_day": 2458.564611,
-     "median_usd_day": 2301.0,
-     "n": 47,
-     "n_naive": 46,
+     "mean_pct": 0.034193,
+     "mean_usd_day": 768.587744,
+     "median_usd_day": 1825.0,
+     "n": 55,
+     "n_naive": 54,
      "rmse_ci": {
       "block": 4,
-      "estimate": 7901.866553,
-      "high": 9440.502691,
-      "low": 6142.730501,
+      "estimate": 8860.819812,
+      "high": 11058.181626,
+      "low": 6652.529504,
       "resamples": 2000,
       "seed": 20261117
      },
-     "rmse_ffa_paired_usd_day": 7974.654086,
-     "rmse_naive_usd_day": 8708.255964,
-     "rmse_ratio_ffa_to_naive": 0.915758,
-     "rmse_usd_day": 7901.866553,
-     "share_positive": 0.617021
+     "rmse_ffa_paired_usd_day": 8932.872831,
+     "rmse_naive_usd_day": 8779.447864,
+     "rmse_ratio_ffa_to_naive": 1.017475,
+     "rmse_usd_day": 8860.819812,
+     "share_positive": 0.545455
     }
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.64358,
+     "effectiveness_k1": 0.683939,
      "horizon_months": 1,
-     "n": 172,
-     "sd_hedged_usd_day": 4440.175212,
-     "sd_unhedged_usd_day": 7437.367452,
+     "n": 212,
+     "sd_hedged_usd_day": 4612.155324,
+     "sd_unhedged_usd_day": 8203.870021,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.709907,
+     "effectiveness_k1": 0.756628,
      "horizon_months": 2,
-     "n": 172,
-     "sd_hedged_usd_day": 4473.011087,
-     "sd_unhedged_usd_day": 8304.83517,
+     "n": 216,
+     "sd_hedged_usd_day": 4609.449309,
+     "sd_unhedged_usd_day": 9343.587415,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.758935,
+     "effectiveness_k1": 0.802425,
      "horizon_months": 3,
-     "n": 142,
-     "sd_hedged_usd_day": 4386.190811,
-     "sd_unhedged_usd_day": 8933.480206,
+     "n": 187,
+     "sd_hedged_usd_day": 4565.924116,
+     "sd_unhedged_usd_day": 10272.172557,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.154818,
+     "effectiveness_k1": 0.485043,
      "horizon_months": 1,
-     "n": 150,
-     "sd_hedged_usd_day": 6816.994917,
-     "sd_unhedged_usd_day": 7415.113902,
+     "n": 190,
+     "sd_hedged_usd_day": 7050.11464,
+     "sd_unhedged_usd_day": 9824.508785,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.332284,
+     "effectiveness_k1": 0.563141,
      "horizon_months": 2,
-     "n": 138,
-     "sd_hedged_usd_day": 6956.755933,
-     "sd_unhedged_usd_day": 8513.552346,
+     "n": 182,
+     "sd_hedged_usd_day": 7076.724645,
+     "sd_unhedged_usd_day": 10706.850575,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.338226,
+     "effectiveness_k1": 0.588417,
      "horizon_months": 3,
-     "n": 137,
-     "sd_hedged_usd_day": 7219.669805,
-     "sd_unhedged_usd_day": 8874.879017,
+     "n": 182,
+     "sd_hedged_usd_day": 7263.226715,
+     "sd_unhedged_usd_day": 11321.418437,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.439817,
+     "effectiveness_k1": 0.551388,
      "horizon_months": 1,
-     "n": 172,
-     "sd_hedged_usd_day": 7068.115311,
-     "sd_unhedged_usd_day": 9443.624809,
+     "n": 212,
+     "sd_hedged_usd_day": 7203.7036,
+     "sd_unhedged_usd_day": 10755.252697,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.532656,
+     "effectiveness_k1": 0.637428,
      "horizon_months": 2,
-     "n": 172,
-     "sd_hedged_usd_day": 7023.292131,
-     "sd_unhedged_usd_day": 10273.591206,
+     "n": 216,
+     "sd_hedged_usd_day": 7153.990137,
+     "sd_unhedged_usd_day": 11880.953564,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.57635,
+     "effectiveness_k1": 0.678289,
      "horizon_months": 3,
-     "n": 142,
-     "sd_hedged_usd_day": 7258.445141,
-     "sd_unhedged_usd_day": 11151.677773,
+     "n": 187,
+     "sd_hedged_usd_day": 7332.106039,
+     "sd_unhedged_usd_day": 12926.944185,
      "voyage": "C5"
     }
    ],
@@ -3044,43 +4992,43 @@
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.64925,
+     "effectiveness_k1": 0.649614,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 4557.885588,
-     "sd_unhedged_usd_day": 7695.989845,
+     "sd_unhedged_usd_day": 7699.990628,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.718353,
+     "effectiveness_k1": 0.718341,
      "horizon_months": 2,
      "n": 144,
      "sd_hedged_usd_day": 4495.287038,
-     "sd_unhedged_usd_day": 8470.412785,
+     "sd_unhedged_usd_day": 8470.243994,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.144549,
+     "effectiveness_k1": 0.14517,
      "horizon_months": 1,
      "n": 80,
      "sd_hedged_usd_day": 7270.422951,
-     "sd_unhedged_usd_day": 7860.717272,
+     "sd_unhedged_usd_day": 7863.56856,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.440777,
+     "effectiveness_k1": 0.441378,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 7250.519043,
-     "sd_unhedged_usd_day": 9695.641035,
+     "sd_unhedged_usd_day": 9700.860744,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.553128,
+     "effectiveness_k1": 0.553107,
      "horizon_months": 2,
      "n": 144,
      "sd_hedged_usd_day": 6950.339115,
-     "sd_unhedged_usd_day": 10397.156502,
+     "sd_unhedged_usd_day": 10396.908532,
      "voyage": "C5"
     }
    ],
@@ -3189,75 +5137,75 @@
    },
    "hedge": [
     {
-     "effectiveness_k1": 0.650967,
+     "effectiveness_k1": 0.651345,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 4769.410125,
-     "sd_unhedged_usd_day": 8072.93867,
+     "sd_unhedged_usd_day": 8077.309278,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.723674,
+     "effectiveness_k1": 0.723664,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 4751.753479,
-     "sd_unhedged_usd_day": 9039.477998,
+     "sd_unhedged_usd_day": 9039.31131,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.745991,
+     "effectiveness_k1": 0.745984,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 4825.213713,
-     "sd_unhedged_usd_day": 9573.967633,
+     "sd_unhedged_usd_day": 9573.844217,
      "voyage": "5TC trip"
     },
     {
-     "effectiveness_k1": 0.224286,
+     "effectiveness_k1": 0.22467,
      "horizon_months": 1,
      "n": 132,
      "sd_hedged_usd_day": 7049.113531,
-     "sd_unhedged_usd_day": 8003.570723,
+     "sd_unhedged_usd_day": 8005.548697,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.375664,
+     "effectiveness_k1": 0.375683,
      "horizon_months": 2,
      "n": 123,
      "sd_hedged_usd_day": 7214.516739,
-     "sd_unhedged_usd_day": 9130.575149,
+     "sd_unhedged_usd_day": 9130.710673,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.345287,
+     "effectiveness_k1": 0.345499,
      "horizon_months": 3,
      "n": 123,
      "sd_hedged_usd_day": 7401.698074,
-     "sd_unhedged_usd_day": 9147.571339,
+     "sd_unhedged_usd_day": 9149.05152,
      "voyage": "C3"
     },
     {
-     "effectiveness_k1": 0.445588,
+     "effectiveness_k1": 0.446187,
      "horizon_months": 1,
      "n": 154,
      "sd_hedged_usd_day": 7516.38297,
-     "sd_unhedged_usd_day": 10094.680223,
+     "sd_unhedged_usd_day": 10100.138777,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.551411,
+     "effectiveness_k1": 0.551392,
      "horizon_months": 2,
      "n": 157,
      "sd_hedged_usd_day": 7339.596059,
-     "sd_unhedged_usd_day": 10958.422508,
+     "sd_unhedged_usd_day": 10958.191009,
      "voyage": "C5"
     },
     {
-     "effectiveness_k1": 0.571331,
+     "effectiveness_k1": 0.571323,
      "horizon_months": 3,
      "n": 128,
      "sd_hedged_usd_day": 7645.791907,
-     "sd_unhedged_usd_day": 11677.807137,
+     "sd_unhedged_usd_day": 11677.696366,
      "voyage": "C5"
     }
    ],
@@ -3266,7 +5214,7 @@
    "note": "a 2026 price and its settlement move by the same fixed USD 3,503, so forecast errors cannot change"
   }
  ],
- "sources_line": "Baltic Exchange Guide to Market Benchmarks v8.8 and v7.09; EEX and ICE contract specifications; every source in the manifest. Retrieved to 17 November 2026.",
+ "sources_line": "Baltic Exchange Guide to Market Benchmarks v8.8 and v7.09; EEX and ICE contract specifications; every source in the manifest. Retrieved to 24 November 2026.",
  "validation": [
   {
    "error": 0.0,

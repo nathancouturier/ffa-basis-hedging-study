@@ -1,15 +1,15 @@
 {
  "artifact": "manifest",
  "as_of": {
-  "breakwave": "2026-11-03",
-  "daily_5tc": "2026-11-06",
-  "ffa_curve": "2026-11-08",
+  "breakwave": "2026-11-17",
+  "daily_5tc": "2026-11-13",
+  "ffa_curve": "2026-11-15",
   "published_5tc": "2026-10",
   "sec_marks": "2026-09-30",
-  "td3c_weekly": "2026-11-13"
+  "td3c_weekly": "2026-11-20"
  },
- "built_on": "2026-11-17",
- "documents": 1581,
+ "built_on": "2026-11-24",
+ "documents": 1727,
  "downloads": [
   {
    "description": "Settlement less the FFA price 1, 2 and 3 months before, by contract month, USD a day",
@@ -29,7 +29,7 @@
   {
    "description": "Monthly 5TC settlement averages with their status and both baskets in 2026",
    "file": "monthly_settlements_5tc.csv",
-   "rows": 74
+   "rows": 77
   },
   {
    "description": "Roll cost of a rolling one-month and front-quarter long by year",
@@ -44,14 +44,14 @@
   {
    "description": "The Baltic's weekly TD3C and TD34 prints, each with its report's link",
    "file": "td3c_weekly_prints.csv",
-   "rows": 191
+   "rows": 192
   }
  ],
  "sources": [
   {
    "documents": 4,
-   "first_retrieved": "2026-11-17T16:11:29Z",
-   "last_retrieved": "2026-11-17T16:11:35Z",
+   "first_retrieved": "2026-11-17T19:18:18Z",
+   "last_retrieved": "2026-11-17T19:18:28Z",
    "licence": [
     "Baltic copyright; figures cited with page, not redistributed",
     "Baltic copyright; figures cited, not redistributed"
@@ -65,9 +65,9 @@
    "source": "Baltic Exchange guides and notes"
   },
   {
-   "documents": 481,
-   "first_retrieved": "2026-11-17T16:43:41Z",
-   "last_retrieved": "2026-11-17T17:06:16Z",
+   "documents": 483,
+   "first_retrieved": "2026-11-17T19:18:42Z",
+   "last_retrieved": "2026-11-24T18:00:09Z",
    "licence": [
     "Baltic copyright; cached, not redistributed; figures cited with links"
    ],
@@ -81,8 +81,8 @@
   },
   {
    "documents": 603,
-   "first_retrieved": "2026-11-17T16:19:05Z",
-   "last_retrieved": "2026-11-17T17:17:00Z",
+   "first_retrieved": "2026-11-17T16:25:21Z",
+   "last_retrieved": "2026-11-24T18:04:52Z",
    "licence": [
     "Copyright of the publisher (Reuters text as republished); cached, not redistributed",
     "Copyright of the publisher; cached, not redistributed"
@@ -105,8 +105,8 @@
   },
   {
    "documents": 2,
-   "first_retrieved": "2026-11-17T16:11:40Z",
-   "last_retrieved": "2026-11-17T16:11:42Z",
+   "first_retrieved": "2026-11-17T19:18:34Z",
+   "last_retrieved": "2026-11-17T19:18:36Z",
    "licence": [
     "Copyright of the publisher; cited, not redistributed"
    ],
@@ -124,8 +124,8 @@
   },
   {
    "documents": 107,
-   "first_retrieved": "2026-11-17T16:31:25Z",
-   "last_retrieved": "2026-11-17T17:09:42Z",
+   "first_retrieved": "2026-11-24T17:54:57Z",
+   "last_retrieved": "2026-11-24T17:58:48Z",
    "licence": [
     "US public record (SEC EDGAR)"
    ],
@@ -143,8 +143,8 @@
   },
   {
    "documents": 1,
-   "first_retrieved": "2026-11-17T16:11:45Z",
-   "last_retrieved": "2026-11-17T16:11:45Z",
+   "first_retrieved": "2026-11-17T19:18:41Z",
+   "last_retrieved": "2026-11-17T19:18:41Z",
    "licence": [
     "US Government work, public domain"
    ],
@@ -158,10 +158,11 @@
   },
   {
    "documents": 63,
-   "first_retrieved": "2026-11-17T16:19:05Z",
-   "last_retrieved": "2026-11-17T16:22:20Z",
+   "first_retrieved": "2026-11-17T19:42:47Z",
+   "last_retrieved": "2026-11-24T18:00:17Z",
    "licence": [
-    "Copyright of the publisher; its robots.txt allows reference use; cached, not redistributed"
+    "Copyright of the publisher; its robots.txt allows reference use; cached, not redistributed",
+    "Copyright of the publisher; robots content signal use=reference, ai-train=no; cached, not redistributed"
    ],
    "links": [
     {
@@ -173,8 +174,8 @@
   },
   {
    "documents": 36,
-   "first_retrieved": "2026-11-17T16:39:41Z",
-   "last_retrieved": "2026-11-17T16:41:12Z",
+   "first_retrieved": "2026-11-17T19:41:18Z",
+   "last_retrieved": "2026-11-17T19:42:42Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
@@ -187,9 +188,9 @@
    "source": "The Edge Malaysia (Baltic weekly report)"
   },
   {
-   "documents": 200,
-   "first_retrieved": "2026-11-17T16:11:56Z",
-   "last_retrieved": "2026-11-17T21:15:24Z",
+   "documents": 289,
+   "first_retrieved": "2026-11-17T20:18:38Z",
+   "last_retrieved": "2026-11-24T20:13:09Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],
@@ -202,9 +203,9 @@
    "source": "Banchero Costa weekly reports (via Hellenic Shipping News)"
   },
   {
-   "documents": 71,
-   "first_retrieved": "2026-11-17T16:44:39Z",
-   "last_retrieved": "2026-11-17T17:58:10Z",
+   "documents": 72,
+   "first_retrieved": "2026-11-17T20:18:08Z",
+   "last_retrieved": "2026-11-24T19:08:14Z",
    "licence": [
     "Copyright of the publisher; cached, not redistributed"
    ],

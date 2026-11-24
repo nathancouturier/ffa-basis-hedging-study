@@ -1,6 +1,6 @@
 {
  "artifact": "td3c",
- "as_of": "2026-11-13",
+ "as_of": "2026-11-20",
  "breakwave": [
   {
    "btfi_points": 1179.0,
@@ -409,6 +409,12 @@
    "date": "2026-11-03",
    "td3c_usd_t": 256.16,
    "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember32026Report.pdf"
+  },
+  {
+   "btfi_points": 11759.0,
+   "date": "2026-11-17",
+   "td3c_usd_t": 200.96,
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember172026Report.pdf"
   }
  ],
  "breakwave_statement": {
@@ -1204,9 +1210,10 @@
    "fixture_url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/BreakwaveTankersNovember32026Report.pdf",
    "fixture_usd_t": 256.16,
    "print_dates": [
-    "2026-11-03"
+    "2026-11-03",
+    "2026-11-17"
    ],
-   "prints": 1,
+   "prints": 2,
    "settlement_estimate_usd_t": null
   }
  },
@@ -1255,9 +1262,9 @@
   },
   "2026": {
    "consistent": false,
-   "dispersion": 0.0538,
+   "dispersion": 0.048,
    "min_pairs": 4,
-   "n": 14,
+   "n": 15,
    "tolerance": 0.02
   }
  },
@@ -1541,11 +1548,11 @@
   "2026-11": {
    "flagged_weeks": 0,
    "month_to_date": true,
-   "weeks": 2,
-   "ws_points": 1117.51
+   "weeks": 3,
+   "ws_points": 1083.55
   }
  },
- "sources_line": "Baltic Exchange weekly tanker reports; Breakwave Advisors tanker reports (via Hellenic Shipping News); Amplify Commodity Trust filings (SEC); EIA. Retrieved to 17 November 2026.",
+ "sources_line": "Baltic Exchange weekly tanker reports; Breakwave Advisors tanker reports (via Hellenic Shipping News); Amplify Commodity Trust filings (SEC); EIA. Retrieved to 24 November 2026.",
  "statement_check": {
   "date": "2026-04-07",
   "discount": 0.5,
@@ -5216,6 +5223,20 @@
    "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-46.html",
    "week": "2026-11-13",
    "ws_points": 1014.38
+  },
+  {
+   "assessed_day": null,
+   "note": null,
+   "source": "Baltic Exchange weekly tanker report",
+   "tce_usd_day": 1079794.0,
+   "td34_assessed_day": null,
+   "td34_tce_usd_day": 305337.0,
+   "td34_ws_points": 309.38,
+   "thin_market": false,
+   "thin_reason": null,
+   "url": "https://www.balticexchange.com/en/data-services/WeeklyRoundup/tanker/news/2026/tanker-report-week-47.html",
+   "week": "2026-11-20",
+   "ws_points": 1015.63
   }
  ]
 }

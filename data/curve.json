@@ -1,12 +1,20 @@
 {
  "artifact": "curve",
- "as_of": "2026-11-08",
+ "as_of": "2026-11-15",
  "cited_curves": [
   {
    "basket_how": "before 2 January 2026 only the 180,000 t basket settled",
    "basket_t": 180000,
    "date": "2022-07-11",
    "flags": [
+    {
+     "first": 17271.0,
+     "gap": 0.3685368536853686,
+     "issue": "2022-W28",
+     "period": "2023-Q2",
+     "reprint": 23636.0,
+     "rule": "reprint"
+    },
     {
      "median_other_pct": -1.7409333245573588,
      "move_pct": -25.684165232358,
@@ -16,7 +24,22 @@
    ],
    "issue": "2022-W27",
    "page": 12,
-   "reprints": [],
+   "reprints": [
+    {
+     "issue": "2022-W28",
+     "tenors": {
+      "2022-07": 23471.0,
+      "2022-08": 29786.0,
+      "2022-09": 31343.0,
+      "2022-10": 29979.0,
+      "2022-Q3": 28200.0,
+      "2022-Q4": 27500.0,
+      "2023-Q1": 13029.0,
+      "2023-Q2": 23636.0
+     },
+     "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2022/07/Bancosta-Weekly-2022-28.pdf"
+    }
+   ],
    "source": "Banchero Costa weekly market report 2022-W27, Dry bulk FFA assessments (Capesize)",
    "spot_kind": "printed",
    "spot_on": "2022-07-08",
@@ -270,167 +293,167 @@
   {
    "basket_how": "labelled on the page",
    "basket_t": 182000,
-   "date": "2026-11-08",
+   "date": "2026-11-15",
    "flags": [],
-   "issue": "2026-W45",
+   "issue": "2026-W46",
    "page": 16,
    "reprints": [],
-   "source": "Banchero Costa weekly market report 2026-W45, Dry bulk FFA assessments (Capesize)",
+   "source": "Banchero Costa weekly market report 2026-W46, Dry bulk FFA assessments (Capesize)",
    "spot_kind": "printed",
-   "spot_on": "2026-11-06",
+   "spot_on": "2026-11-13",
    "spot_sources": [
     "Banchero Costa weekly report"
    ],
-   "spot_usd_day": 39395.0,
+   "spot_usd_day": 42798.0,
    "tenors": [
     {
      "kind": "month",
      "label": "Nov-26",
      "period": "2026-11",
-     "usd_day": 42117.0
+     "usd_day": 40117.0
     },
     {
      "kind": "month",
      "label": "Dec-26",
      "period": "2026-12",
-     "usd_day": 42853.0
+     "usd_day": 40103.0
     },
     {
      "kind": "month",
      "label": "Jan-27",
      "period": "2027-01",
-     "usd_day": 34796.0
+     "usd_day": 34132.0
     },
     {
      "kind": "month",
      "label": "Feb-27",
      "period": "2027-02",
-     "usd_day": 29274.0
+     "usd_day": 28639.0
     },
     {
      "kind": "month",
      "label": "Mar-27",
      "period": "2027-03",
-     "usd_day": 34357.0
+     "usd_day": 34010.0
     },
     {
      "kind": "month",
      "label": "Apr-27",
      "period": "2027-04",
-     "usd_day": 35846.0
+     "usd_day": 35624.0
     },
     {
      "kind": "quarter",
      "label": "Q2 27",
      "period": "2027-Q2",
-     "usd_day": 36928.0
+     "usd_day": 36182.0
     },
     {
      "kind": "quarter",
      "label": "Q3 27",
      "period": "2027-Q3",
-     "usd_day": 36107.0
+     "usd_day": 35467.0
     },
     {
      "kind": "quarter",
      "label": "Q4 27",
      "period": "2027-Q4",
-     "usd_day": 36092.0
+     "usd_day": 35474.0
     }
    ],
-   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/Bancosta-Weekly-2026-45.pdf"
+   "url": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/11/Bancosta-Weekly-2026-46.pdf"
   }
  ],
  "q1_discount": {
-  "mean_pct": -0.395771,
-  "n": 93,
+  "mean_pct": -0.429855,
+  "n": 153,
   "share_below": 1.0
  },
  "shares": {
   "front_spread": {
    "all": {
-    "backwardation": 0.42777777777777776,
-    "contango": 0.5722222222222222,
-    "n": 180
+    "backwardation": 0.4053030303030303,
+    "contango": 0.5946969696969697,
+    "n": 264
    }
   },
   "front_spread_by_month": {
    "1": {
     "backwardation": 1.0,
     "contango": 0.0,
-    "n": 15
+    "n": 21
    },
    "10": {
-    "backwardation": 0.5555555555555556,
-    "contango": 0.4444444444444444,
-    "n": 18
+    "backwardation": 0.64,
+    "contango": 0.36,
+    "n": 25
    },
    "11": {
-    "backwardation": 0.5882352941176471,
-    "contango": 0.4117647058823529,
-    "n": 17
+    "backwardation": 0.6363636363636364,
+    "contango": 0.36363636363636365,
+    "n": 22
    },
    "12": {
     "backwardation": 1.0,
     "contango": 0.0,
-    "n": 11
-   },
-   "2": {
-    "backwardation": 0.0,
-    "contango": 1.0,
-    "n": 15
-   },
-   "3": {
-    "backwardation": 0.2,
-    "contango": 0.8,
-    "n": 15
-   },
-   "4": {
-    "backwardation": 0.0,
-    "contango": 1.0,
-    "n": 13
-   },
-   "5": {
-    "backwardation": 0.2857142857142857,
-    "contango": 0.7142857142857143,
     "n": 14
    },
+   "2": {
+    "backwardation": 0.08695652173913043,
+    "contango": 0.9130434782608695,
+    "n": 23
+   },
+   "3": {
+    "backwardation": 0.13043478260869565,
+    "contango": 0.8695652173913043,
+    "n": 23
+   },
+   "4": {
+    "backwardation": 0.047619047619047616,
+    "contango": 0.9523809523809523,
+    "n": 21
+   },
+   "5": {
+    "backwardation": 0.30434782608695654,
+    "contango": 0.6956521739130435,
+    "n": 23
+   },
    "6": {
-    "backwardation": 0.6,
-    "contango": 0.4,
-    "n": 15
+    "backwardation": 0.375,
+    "contango": 0.625,
+    "n": 24
    },
    "7": {
-    "backwardation": 0.5,
-    "contango": 0.5,
-    "n": 16
+    "backwardation": 0.391304347826087,
+    "contango": 0.6086956521739131,
+    "n": 23
    },
    "8": {
-    "backwardation": 0.15384615384615385,
-    "contango": 0.8461538461538461,
-    "n": 13
+    "backwardation": 0.15789473684210525,
+    "contango": 0.8421052631578947,
+    "n": 19
    },
    "9": {
-    "backwardation": 0.2777777777777778,
-    "contango": 0.7222222222222222,
-    "n": 18
+    "backwardation": 0.3076923076923077,
+    "contango": 0.6923076923076923,
+    "n": 26
    }
   },
   "front_spread_by_year": {
    "2021": {
-    "backwardation": 0.5,
-    "contango": 0.5,
-    "n": 2
+    "backwardation": 0.4489795918367347,
+    "contango": 0.5510204081632653,
+    "n": 49
    },
    "2022": {
-    "backwardation": 0.8888888888888888,
-    "contango": 0.1111111111111111,
-    "n": 9
+    "backwardation": 0.36363636363636365,
+    "contango": 0.6363636363636364,
+    "n": 44
    },
    "2023": {
-    "backwardation": 0.391304347826087,
-    "contango": 0.6086956521739131,
-    "n": 46
+    "backwardation": 0.3829787234042553,
+    "contango": 0.6170212765957447,
+    "n": 47
    },
    "2024": {
     "backwardation": 0.4222222222222222,
@@ -443,95 +466,95 @@
     "n": 40
    },
    "2026": {
-    "backwardation": 0.4473684210526316,
-    "contango": 0.5526315789473685,
-    "n": 38
+    "backwardation": 0.46153846153846156,
+    "contango": 0.5384615384615384,
+    "n": 39
    }
   },
   "front_vs_spot": {
    "all": {
-    "backwardation": 0.4725274725274725,
-    "contango": 0.5274725274725275,
-    "n": 182
+    "backwardation": 0.4830188679245283,
+    "contango": 0.5169811320754717,
+    "n": 265
    }
   },
   "front_vs_spot_by_month": {
    "1": {
-    "backwardation": 0.4666666666666667,
-    "contango": 0.5333333333333333,
-    "n": 15
+    "backwardation": 0.5238095238095238,
+    "contango": 0.47619047619047616,
+    "n": 21
    },
    "10": {
-    "backwardation": 0.35294117647058826,
-    "contango": 0.6470588235294118,
-    "n": 17
+    "backwardation": 0.4583333333333333,
+    "contango": 0.5416666666666666,
+    "n": 24
    },
    "11": {
-    "backwardation": 0.7222222222222222,
-    "contango": 0.2777777777777778,
-    "n": 18
+    "backwardation": 0.6956521739130435,
+    "contango": 0.30434782608695654,
+    "n": 23
    },
    "12": {
-    "backwardation": 0.7272727272727273,
-    "contango": 0.2727272727272727,
-    "n": 11
+    "backwardation": 0.7142857142857143,
+    "contango": 0.2857142857142857,
+    "n": 14
    },
    "2": {
-    "backwardation": 0.4666666666666667,
-    "contango": 0.5333333333333333,
-    "n": 15
+    "backwardation": 0.5217391304347826,
+    "contango": 0.4782608695652174,
+    "n": 23
    },
    "3": {
-    "backwardation": 0.4666666666666667,
-    "contango": 0.5333333333333333,
-    "n": 15
+    "backwardation": 0.5217391304347826,
+    "contango": 0.4782608695652174,
+    "n": 23
    },
    "4": {
-    "backwardation": 0.46153846153846156,
-    "contango": 0.5384615384615384,
-    "n": 13
+    "backwardation": 0.42857142857142855,
+    "contango": 0.5714285714285714,
+    "n": 21
    },
    "5": {
-    "backwardation": 0.3333333333333333,
-    "contango": 0.6666666666666666,
-    "n": 15
+    "backwardation": 0.2916666666666667,
+    "contango": 0.7083333333333334,
+    "n": 24
    },
    "6": {
-    "backwardation": 0.5,
-    "contango": 0.5,
-    "n": 16
+    "backwardation": 0.4583333333333333,
+    "contango": 0.5416666666666666,
+    "n": 24
    },
    "7": {
-    "backwardation": 0.5625,
-    "contango": 0.4375,
-    "n": 16
+    "backwardation": 0.5217391304347826,
+    "contango": 0.4782608695652174,
+    "n": 23
    },
    "8": {
-    "backwardation": 0.23076923076923078,
-    "contango": 0.7692307692307693,
-    "n": 13
+    "backwardation": 0.2631578947368421,
+    "contango": 0.7368421052631579,
+    "n": 19
    },
    "9": {
-    "backwardation": 0.3888888888888889,
-    "contango": 0.6111111111111112,
-    "n": 18
+    "backwardation": 0.46153846153846156,
+    "contango": 0.5384615384615384,
+    "n": 26
    }
   },
   "front_vs_spot_by_year": {
    "2021": {
-    "backwardation": 1.0,
-    "contango": 0.0,
-    "n": 2
+    "backwardation": 0.5833333333333334,
+    "contango": 0.4166666666666667,
+    "n": 48
    },
    "2022": {
-    "backwardation": 0.6666666666666666,
-    "contango": 0.3333333333333333,
-    "n": 9
+    "backwardation": 0.4772727272727273,
+    "contango": 0.5227272727272727,
+    "n": 44
    },
    "2023": {
-    "backwardation": 0.43478260869565216,
-    "contango": 0.5652173913043478,
-    "n": 46
+    "backwardation": 0.425531914893617,
+    "contango": 0.574468085106383,
+    "n": 47
    },
    "2024": {
     "backwardation": 0.41304347826086957,
@@ -544,106 +567,127 @@
     "n": 39
    },
    "2026": {
-    "backwardation": 0.425,
-    "contango": 0.575,
-    "n": 40
+    "backwardation": 0.43902439024390244,
+    "contango": 0.5609756097560976,
+    "n": 41
    }
   },
   "month_spreads": {
    "all": {
-    "backwardation": 0.4578096947935368,
-    "contango": 0.5421903052064632,
-    "n": 557
+    "backwardation": 0.4220055710306407,
+    "contango": 0.5779944289693594,
+    "n": 718
    }
   },
   "quarter_spreads": {
    "all": {
-    "backwardation": 0.37721518987341773,
-    "contango": 0.6227848101265823,
-    "n": 395
+    "backwardation": 0.43364197530864196,
+    "contango": 0.566358024691358,
+    "n": 648
    }
   }
  },
  "slope_by_spot": [
   {
    "contango_share": 1.0,
-   "mean_slope_pct": 2.371085,
-   "n": 4,
+   "mean_slope_pct": 2.160917,
+   "n": 5,
    "spot_from": 0.0,
    "spot_to": 5000.0
   },
   {
-   "contango_share": 0.909091,
-   "mean_slope_pct": 0.93249,
-   "n": 11,
+   "contango_share": 0.933333,
+   "mean_slope_pct": 0.974507,
+   "n": 15,
    "spot_from": 5000.0,
    "spot_to": 10000.0
   },
   {
-   "contango_share": 0.625,
-   "mean_slope_pct": 0.112447,
-   "n": 24,
+   "contango_share": 0.763158,
+   "mean_slope_pct": 0.336145,
+   "n": 38,
    "spot_from": 10000.0,
    "spot_to": 15000.0
   },
   {
-   "contango_share": 0.566667,
-   "mean_slope_pct": 0.003316,
-   "n": 30,
+   "contango_share": 0.673913,
+   "mean_slope_pct": 0.134124,
+   "n": 46,
    "spot_from": 15000.0,
    "spot_to": 20000.0
   },
   {
-   "contango_share": 0.655172,
-   "mean_slope_pct": 0.006729,
-   "n": 29,
+   "contango_share": 0.65,
+   "mean_slope_pct": 0.023478,
+   "n": 40,
    "spot_from": 20000.0,
    "spot_to": 25000.0
   },
   {
-   "contango_share": 0.409091,
-   "mean_slope_pct": -0.112632,
-   "n": 22,
+   "contango_share": 0.466667,
+   "mean_slope_pct": -0.066997,
+   "n": 30,
    "spot_from": 25000.0,
    "spot_to": 30000.0
   },
   {
-   "contango_share": 0.0,
-   "mean_slope_pct": -0.251369,
-   "n": 12,
+   "contango_share": 0.227273,
+   "mean_slope_pct": -0.137063,
+   "n": 22,
    "spot_from": 30000.0,
    "spot_to": 35000.0
   },
   {
-   "contango_share": 0.0,
-   "mean_slope_pct": -0.252371,
-   "n": 5,
+   "contango_share": 0.090909,
+   "mean_slope_pct": -0.189771,
+   "n": 11,
    "spot_from": 35000.0,
    "spot_to": 40000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.197256,
-   "n": 3,
+   "mean_slope_pct": -0.245208,
+   "n": 6,
    "spot_from": 40000.0,
    "spot_to": 45000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.10789,
-   "n": 2,
+   "mean_slope_pct": -0.129432,
+   "n": 5,
    "spot_from": 45000.0,
    "spot_to": 50000.0
   },
   {
    "contango_share": 0.0,
-   "mean_slope_pct": -0.216389,
-   "n": 3,
+   "mean_slope_pct": -0.303747,
+   "n": 6,
    "spot_from": 50000.0,
    "spot_to": 55000.0
+  },
+  {
+   "contango_share": 0.0,
+   "mean_slope_pct": -0.361521,
+   "n": 2,
+   "spot_from": 60000.0,
+   "spot_to": 65000.0
+  },
+  {
+   "contango_share": 0.0,
+   "mean_slope_pct": -0.575396,
+   "n": 1,
+   "spot_from": 75000.0,
+   "spot_to": 80000.0
+  },
+  {
+   "contango_share": 0.0,
+   "mean_slope_pct": -0.559995,
+   "n": 1,
+   "spot_from": 80000.0,
+   "spot_to": 85000.0
   }
  ],
- "sources_line": "Banchero Costa weekly FFA assessments; Baltic 5TC prints; Amplify Commodity Trust filings (SEC). Retrieved to 17 November 2026.",
+ "sources_line": "Banchero Costa weekly FFA assessments; Baltic 5TC prints; Amplify Commodity Trust filings (SEC). Retrieved to 24 November 2026.",
  "td3c_strips": [
   {
    "as_of": "2023-06-30",
@@ -1054,15 +1098,513 @@
   },
   {
    "basket_t": 180000,
+   "date": "2021-01-15",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-01-22",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-01-29",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-02-05",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-02-12",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-02-19",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-02-26",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-03-05",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-03-12",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-03-19",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-03-26",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-04-02",
+   "front_spread": "contango",
+   "front_vs_spot": null
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-04-09",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-04-16",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-04-23",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-04-30",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-05-07",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-05-14",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-05-21",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-05-28",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-06-04",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-06-11",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-06-18",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-06-25",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
    "date": "2021-07-02",
    "front_spread": "contango",
    "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,
+   "date": "2021-07-09",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-07-16",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-07-23",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-07-30",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-08-06",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-08-20",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-08-27",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-09-03",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-09-10",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-09-17",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-09-24",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-10-01",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-10-08",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-10-15",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-10-22",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-10-29",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-11-05",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-11-12",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-11-19",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-11-26",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-12-03",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-12-10",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2021-12-17",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-01-07",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-01-14",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-01-21",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-02-04",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-02-11",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-02-21",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-02-28",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-03-07",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-03-14",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-03-21",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-03-28",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-04-04",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-04-11",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-04-20",
+   "front_spread": null,
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-04-25",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-05-02",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-05-09",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-05-16",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-05-23",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-05-30",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-06-06",
+   "front_spread": "contango",
+   "front_vs_spot": null
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-06-13",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-06-20",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-06-27",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-07-04",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
    "date": "2022-07-11",
    "front_spread": "contango",
    "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-07-18",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-07-25",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-08-01",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-08-22",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-08-29",
+   "front_spread": "backwardation",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-09-05",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-09-12",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-09-19",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-09-26",
+   "front_spread": "contango",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-10-03",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2022-10-17",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
   },
   {
    "basket_t": 180000,
@@ -1229,6 +1771,12 @@
   {
    "basket_t": 180000,
    "date": "2023-06-05",
+   "front_spread": "contango",
+   "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 180000,
+   "date": "2023-06-12",
    "front_spread": "contango",
    "front_vs_spot": "contango"
   },
@@ -2143,6 +2691,12 @@
    "date": "2026-11-08",
    "front_spread": "contango",
    "front_vs_spot": "contango"
+  },
+  {
+   "basket_t": 182000,
+   "date": "2026-11-15",
+   "front_spread": "backwardation",
+   "front_vs_spot": "backwardation"
   }
  ]
 }
